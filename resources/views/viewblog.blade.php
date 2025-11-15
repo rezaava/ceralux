@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.master')
 
 @section('title', __('messages.blog'))
 
@@ -152,7 +152,7 @@
 </style>
 @endsection
 
-@section('content')
+@section('main')
 @php
 $articles = [
 [

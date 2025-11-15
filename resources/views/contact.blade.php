@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.master')
 
 @section("title", __("messages.contact"))
 
@@ -223,7 +223,7 @@
 </style>
 @endsection
 
-@section('content')
+@section('main')
 <section dir="ltr" class="splide video-slider" aria-label="Video Slider">
     <div class="splide__track">
         <ul class="splide__list">

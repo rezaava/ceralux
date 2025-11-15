@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.master')
 
 @section('title', __('messages.catalogs'))
 
@@ -55,7 +55,7 @@
 </style>
 @endsection
 
-@section('content')
+@section('main')
 <section class="py-5 container text-center" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <p class="h1 mb-1">{{ __('messages.catalogs') }}</p>
     <div class="row">

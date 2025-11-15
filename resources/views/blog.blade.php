@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.master')
 
 @section('title', __('messages.blog'))
 
@@ -59,7 +59,7 @@
 </style>
 @endsection
 
-@section('content')
+@section('main')
 <section class="py-5 container" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <h1 class="text-center mb-5" style="color: #d0bc7e;">{{ __('messages.blog') }}</h1>
     <div class="row">

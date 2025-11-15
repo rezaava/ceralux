@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.master')
 
 @section('title', __('messages.sellagents') )
 
@@ -127,7 +127,7 @@
 </style>
 @endsection
 
-@section('content')
+@section('main')
 <section class="py-5 container text-center" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <p class="h1 mb-1" data-aos="fade-down">{{ __('messages.sellagents') }}</p>
     <div class="search-container" data-aos="fade-up" data-aos-delay="200">
