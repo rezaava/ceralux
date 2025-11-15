@@ -1,0 +1,146 @@
+body {
+  font-family: Vazirmatn;
+}
+
+.navbar {
+  transition: all 0.3s ease;
+  background: transparent;
+  font-size: 16px;
+}
+
+.navbar-brand img {
+  width: 100px;
+}
+
+.headroom--pinned {
+  transform: translateY(0);
+}
+
+.headroom--unpinned {
+  transform: translateY(-100%);
+}
+
+.navbar.colored {
+  background: #262f40 !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .nav-link {
+  color: #fff !important;
+}
+
+.nav-link:hover {
+  animation: pulse;
+  animation-duration: 1s;
+  color: #d0bc7e !important;
+}
+
+.navbar .nav-link.active {
+  color: #d0bc7e !important;
+}
+
+.video-slider {
+  height: max-content;
+  min-height: 70vh;
+}
+
+.splide__slide video {
+  width: 100%;
+  height: 100%;
+  min-height: 70vh;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.btn.search {
+  background-color: transparent !important;
+  color: #d0bc7e !important;
+  border: 2px solid #d0bc7e !important;
+  width: 100px !important;
+  transition: all 0.3s ease;
+}
+
+.btn.search:hover {
+  background-color: #d0bc7e !important;
+  color: #262f40 !important;
+}
+
+.btn.dropdown-toggle {
+  background-color: transparent !important;
+  color: #d0bc7e !important;
+  border: 2px solid #d0bc7e !important;
+  width: 100px !important;
+  transition: all 0.3s ease;
+}
+
+.btn.dropdown-toggle:hover {
+  background-color: #d0bc7e !important;
+  color: #262f40 !important;
+}
+
+.btn.about {
+  background-color: transparent !important;
+  color: #d0bc7e !important;
+  border: 2px solid #d0bc7e !important;
+  transition: all 0.3s ease;
+}
+
+.btn.about:hover {
+  background-color: #d0bc7e !important;
+  color: #262f40 !important;
+}
+
+footer {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-top {
+  background-color: #262f40;
+  color: #d0bc7e;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer-logo img {
+  max-width: 25%;
+  margin-bottom: 10px;
+}
+
+.footer-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.footer-slogan {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.footer-icons a {
+  color: #d0bc7e;
+  font-size: 24px;
+  margin: 0 10px;
+  transition: color 0.3s;
+}
+
+.footer-icons a:hover {
+  color: #3b4a5c;
+}
+
+.footer-bottom {
+  background-color: #1a1a1a;
+  color: #d0bc7e;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.language-switch a {
+  color: #d0bc7e;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.language-switch a:hover {
+  color: #e0d0a0;
+}
