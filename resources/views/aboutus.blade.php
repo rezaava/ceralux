@@ -18,7 +18,8 @@
 <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 @endif
 <style>
-    .about-card, .form-container {
+    .about-card,
+    .form-container {
         background: linear-gradient(145deg, #fff8e4, #f5e9c6);
         padding: 20px;
         border-radius: 10px;
@@ -29,11 +30,15 @@
         overflow: hidden;
         transition: all 0.3s ease;
     }
-    .about-card:hover, .form-container:hover {
+
+    .about-card:hover,
+    .form-container:hover {
         transform: scale(1.02);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     }
-    .about-card::before, .form-container::before {
+
+    .about-card::before,
+    .form-container::before {
         content: '';
         position: absolute;
         top: 0;
@@ -43,18 +48,25 @@
         background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
         transition: left 0.5s ease;
     }
-    .about-card:hover::before, .form-container:hover::before {
+
+    .about-card:hover::before,
+    .form-container:hover::before {
         left: 100%;
     }
-    .about-card h2, .form-container h2 {
+
+    .about-card h2,
+    .form-container h2 {
         color: #d0bc7e;
         font-size: 2rem;
         margin-bottom: 15px;
     }
-    .about-card p, .form-container p {
+
+    .about-card p,
+    .form-container p {
         color: #262f40;
         font-size: 1rem;
     }
+
     .slider-global-caption {
         position: absolute;
         top: 50%;
@@ -69,20 +81,24 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         font-family: 'Vazirmatn', sans-serif;
     }
+
     .slider-global-caption h2 {
         font-size: 1.8rem;
         color: #d0bc7e;
         margin-bottom: 10px;
     }
+
     .slider-global-caption p {
         font-size: 1rem;
         color: #262f40;
     }
+
     .video-slider video {
         width: 100%;
         height: 400px;
         object-fit: cover;
     }
+
     .about-btn {
         background-color: transparent !important;
         color: #d0bc7e !important;
@@ -94,11 +110,13 @@
         position: relative;
         overflow: hidden;
     }
+
     .about-btn:hover {
         background-color: #d0bc7e !important;
         color: #262f40 !important;
         transform: scale(1.05);
     }
+
     .about-btn::before {
         content: '';
         position: absolute;
@@ -109,10 +127,13 @@
         background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
         transition: left 0.5s ease;
     }
+
     .about-btn:hover::before {
         left: 100%;
     }
-    .form-container .form-control, .form-container .form-select {
+
+    .form-container .form-control,
+    .form-container .form-select {
         border: 2px solid #d0bc7e;
         border-radius: 8px;
         font-family: 'Vazirmatn', sans-serif;
@@ -121,63 +142,80 @@
         background: rgba(255, 255, 255, 0.9);
         transition: all 0.3s ease;
     }
-    .form-container .form-control:focus, .form-container .form-select:focus {
+
+    .form-container .form-control:focus,
+    .form-container .form-select:focus {
         border-color: #b89f5e;
         box-shadow: 0 0 10px rgba(208, 188, 126, 0.5);
         outline: none;
     }
+
     .form-container .form-label {
         color: #d0bc7e;
         font-weight: bold;
     }
+
     .form-container ol {
         color: #262f40;
         font-size: 1rem;
         padding-right: 20px;
     }
+
     /* انیمیشن AOS */
-    .about-card, .form-container, .form-container .form-group {
+    .about-card,
+    .form-container,
+    .form-container .form-group {
         opacity: 0;
         transform: translateY(20px);
         animation: fadeUp 0.5s ease forwards;
         animation-delay: calc(0.1s * var(--aos-index));
     }
+
     @keyframes fadeUp {
         from {
             opacity: 0;
             transform: translateY(20px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
         }
     }
+
     @media (max-width: 1185px) {
         .slider-global-caption {
             width: 80%;
             padding: 15px;
         }
+
         .slider-global-caption h2 {
             font-size: 1.5rem;
         }
+
         .slider-global-caption p {
             font-size: 0.9rem;
         }
+
         .video-slider video {
             height: 300px;
         }
+
         .form-container .row {
             flex-direction: column;
         }
+
         .form-container .col-md-6 {
             margin-bottom: 15px;
         }
     }
+
     [dir="rtl"] .slider-global-caption {
         right: auto;
         left: 10%;
         text-align: right;
     }
+
     [dir="ltr"] .slider-global-caption {
         right: 10%;
         left: auto;
@@ -192,12 +230,14 @@
         <ul class="splide__list">
             <li class="splide__slide">
                 <video autoplay muted loop>
-                    <source src="https://abadistile.com/wp-content/uploads/2023/11/slider-abadis-tile-4-3.mp4" type="video/mp4">
+                    <source src="https://abadistile.com/wp-content/uploads/2023/11/slider-abadis-tile-4-3.mp4"
+                        type="video/mp4">
                 </video>
             </li>
             <li class="splide__slide">
                 <video autoplay muted loop>
-                    <source src="https://abadistile.com/wp-content/uploads/2023/11/slider-abadis-tile-2-3-1.m4v" type="video/mp4">
+                    <source src="https://abadistile.com/wp-content/uploads/2023/11/slider-abadis-tile-2-3-1.m4v"
+                        type="video/mp4">
                 </video>
             </li>
         </ul>
@@ -208,7 +248,8 @@
     </div>
 </section>
 
-<section class="py-5 container text-center" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}" id="aboutus-section">
+<section class="py-5 container text-center" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}"
+    id="aboutus-section">
     <div class="about-card" data-aos="fade-up" style="--aos-index: 2;">
         <h2>{{ __('messages.about_us') }}</h2>
         <p class="w-75 mx-auto">
@@ -249,7 +290,8 @@
             <div class="row mb-3 form-group" style="--aos-index: 5;">
                 <div class="col-md-6">
                     <label class="form-label">{{ __('messages.birth_date') }}</label>
-                    <input type="text" id="birth_date" class="form-control" name="birth_date" placeholder="{{ __('messages.date_placeholder') }}" required>
+                    <input type="text" id="birth_date" class="form-control" name="birth_date"
+                        placeholder="{{ __('messages.date_placeholder') }}" required>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">{{ __('messages.marital_status') }}</label>
@@ -332,7 +374,8 @@
 
             <div class="mb-3 form-group" style="--aos-index: 13;">
                 <label class="form-label">{{ __('messages.work_experience') }}</label>
-                <textarea class="form-control" name="work_experience" rows="4" placeholder="{{ __('messages.work_experience_placeholder') }}"></textarea>
+                <textarea class="form-control" name="work_experience" rows="4"
+                    placeholder="{{ __('messages.work_experience_placeholder') }}"></textarea>
             </div>
 
             <div class="text-center">
