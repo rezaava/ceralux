@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text("image");
             $table->text("features");
             $table->string("price");
+            $table->bigInteger("size_id");
             $table->timestamps();
         });
     }

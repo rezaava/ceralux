@@ -83,76 +83,17 @@
 <section class="py-5 container text-center">
     <p class="h1 mb-5">{{ __("messages.products") }}</p>
     <div class="row">
-        <div class="col-md-3" data-aos="zoom-in">
-            <div class="category-card"
-                style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
-                <div class="category-overlay"></div>
-                <div class="category-content">
-                    <div class="h1" style="color: #d0bc7e">30×30</div>
-                    <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
+        @foreach($sizes as $size)
+            <div class="col-md-3" data-aos="zoom-in">
+                <div class="category-card mb-3" style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
+                    <div class="category-overlay"></div>
+                    <div class="category-content">
+                        <div class="h1" style="color: #d0bc7e">{{ $size->name }}</div>
+                        <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in">
-            <div class="category-card"
-                style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
-                <div class="category-overlay"></div>
-                <div class="category-content">
-                    <div class="h1" style="color: #d0bc7e">60×60</div>
-                    <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in">
-            <div class="category-card"
-                style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
-                <div class="category-overlay"></div>
-                <div class="category-content">
-                    <div class="h1" style="color: #d0bc7e">240×120</div>
-                    <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in">
-            <div class="category-card"
-                style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
-                <div class="category-overlay"></div>
-                <div class="category-content">
-                    <div class="h1" style="color: #d0bc7e">120×270</div>
-                    <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in">
-            <div class="category-card"
-                style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
-                <div class="category-overlay"></div>
-                <div class="category-content">
-                    <div class="h1" style="color: #d0bc7e">240×120</div>
-                    <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in">
-            <div class="category-card"
-                style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
-                <div class="category-overlay"></div>
-                <div class="category-content">
-                    <div class="h1" style="color: #d0bc7e">80×60</div>
-                    <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in">
-            <div class="category-card"
-                style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
-                <div class="category-overlay"></div>
-                <div class="category-content">
-                    <div class="h1" style="color: #d0bc7e">75×150</div>
-                    <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </section>
 

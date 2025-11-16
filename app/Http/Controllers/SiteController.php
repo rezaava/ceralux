@@ -2,40 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $sizes = Size::get();
+        return view('home' , compact('sizes'));
     }
 
     public function aboutus()
     {
-        return view('aboutus');
+        $sizes = Size::get();
+        return view('aboutus' , compact('sizes'));
     }
     
     public function contact()
     {
-        return view('contact');
+        $sizes = Size::get();
+        return view('contact' , compact('sizes'));
     }
 
 
     public function search() {
-        return view('search');
+        $sizes = Size::get();
+        return view('search' , compact('sizes'));
     }
 
 
 
     public function sellagents() {
-        return view('sellagents');
+        $sizes = Size::get();
+        return view('sellagents' , compact('sizes'));
     }
 
     public function blog() {
-        return view('blog');
+        $sizes = Size::get();
+        return view('blog' , compact('sizes'));
     }
     public function viewblog() {
-        return view('viewblog');
+        $sizes = Size::get();
+        return view('viewblog' , compact('sizes'));
     }
 }

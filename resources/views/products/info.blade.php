@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.master')
 
 @section('title', __('messages.product_info'))
 
@@ -256,7 +256,7 @@
 </style>
 @endsection
 
-@section('content')
+@section('main')
 @php
 $features = explode(',', $product->features);
 
@@ -289,18 +289,18 @@ $gallery = [
 در دفتر کار','alt'=>'تصویر کاشی در دفتر کار']
 ];
 
-$sizes = [
-'120×240' => ['width'=>'120px','height'=>'240px'],
-'60×120' => ['width'=>'60px','height'=>'120px'],
-'30×60' => ['width'=>'30px','height'=>'60px']
-];
+// $sizes = [
+// '120×240' => ['width'=>'120px','height'=>'240px'],
+// '60×120' => ['width'=>'60px','height'=>'120px'],
+// '30×60' => ['width'=>'30px','height'=>'60px']
+// ];
 @endphp
 
 <section class="py-5 container" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <div id="contentContainer">
         <div class="article article-item" data-aos="fade-up" style="--aos-index:1;">
-            <div class="overlay-container clickable-img" data-src="{{ $product['image'] }}">
-                <img src="{{ $product['image'] }}" class="article-img" alt="{{ $product['image_alt'] }}">
+            <div class="overlay-container clickable-img" >
+                <img src="{{ asset('img/test.jpg') }}" class="article-img" alt="{{ $product['image_alt'] }}">
                 <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
             </div>
             <h2 class="article-title" lang="{{ app()->getLocale() }}">{{ $product['title'] }}</h2>
@@ -308,9 +308,9 @@ $sizes = [
             <p class="article-description" lang="{{ app()->getLocale() }}">{{ $product['description'] }}</p>
             <p class="features-title" lang="{{ app()->getLocale() }}">ویژگی‌ها:</p>
             <ul lang="{{ app()->getLocale() }}">
-                @foreach($product['features'] as $feature)
+                {{-- @foreach($product['features'] as $feature)
                 <li>{{ $feature }}</li>
-                @endforeach
+                @endforeach --}}
             </ul>
             <h5 lang="{{ app()->getLocale() }}">قیمت: {{ $product['price'] }}</h5>
             <div class="d-flex justify-content-start">
@@ -337,7 +337,7 @@ $sizes = [
         <div class="sizes mt-5" data-aos="fade-up" style="--aos-index:3;">
             @foreach(__('messages.size_options') as $size => $label)
             <div class="tile size-item" style="--aos-index: {{ $loop->index + 4 }};">
-                <a href="{{ route('products', ['size'=>$size]) }}">
+                <a href="/">
                     <div class="box {{ $size=='120×240'?'selected-box':'' }}"
                         style="width:{{ $label['width'] }}; height:{{ $label['height'] }};"></div>
                     <div class="label" data-title="{{ $size }}">{{ $size }}</div>

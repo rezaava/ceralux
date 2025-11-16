@@ -9,14 +9,17 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function products($size)
+    public function products($size_id)
     {
-        $sizeObj = Size::where('name', $size)->firstOrFail(); // اگر سایز پیدا نشد 404 می‌دهد
+        $sizes = Size::get();
+        $nameSize = Size::where('id' , $size_id)->first();
 
-        $productIds = size_product::where('size_id', $sizeObj->id)->pluck('product_id');
-        $filtered_products = Product::whereIn('id', $productIds)->get();
+        $size_prods = size_product::where('size_id' , $nameSize->id)->pluck('product_id');
 
-        return view('products.index', compact('size', 'filtered_products'));
+        $prods =  Product::whereIn('id' , $size_prods)->get();
+        
+        //return $prods;
+        return view('products.index', compact('sizes' , 'nameSize' , 'prods'));
     }
 
     public function productsindex()
@@ -26,12 +29,14 @@ class ProductController extends Controller
 
     public function catalogs()
     {
-        return view('catalogs');
+        $sizes = Size::get();
+        return view('catalogs' , compact('sizes'));
     }
 
     public function productinfo($id)
     {
+        $sizes = Size::get();
         $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
-        return view('products.info', compact('product'));
+        return view('products.info', compact('product' , 'sizes'));
     }
 }

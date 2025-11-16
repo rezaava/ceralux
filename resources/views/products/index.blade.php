@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.master')
 
 @section('title', __('messages.products'))
 
@@ -36,7 +36,7 @@
     }
 
     .product-card:hover .product-overlay {
-        opacity: 0.7;
+        opacity: 0.5;
     }
 
     .product-content {
@@ -92,7 +92,11 @@
     .size-title {
         color: #d0bc7e;
         font-family: 'Vazirmatn', sans-serif;
-        margin-bottom: 30px;
+        width: 15%;
+        background: radial-gradient(circle, rgba(124, 58, 237, 1) 0%, rgba(30, 41, 59, 1) 100%); 
+        box-shadow: rgba(0,0,0,0.2) 0px 3px 5px -1px,rgba(0,0,0,0.14) 0px 6px 10px 0px; 
+        text-align: center ; 
+        border-radius: 0.6rem;
     }
 
     .product-card {
@@ -116,26 +120,28 @@
 </style>
 @endsection
 
-@section('content')
+@section('main')
 <section class="py-5 container text-center" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <p class="h1 mb-1">{{ __('messages.products') }}</p>
-    <p class="h3 mb-5 size-title">{{ __('messages.size_' . $size) }}</p>
+    <p class="h2 mb-5 py-2  m-0 mx-auto size-title" style="">{{$nameSize->name}}</p>
     <div class="row">
-        <?php $i=0?>
-        @foreach ($filtered_products as $product)
-        <?php $i++?>
-        <div class="col-md-3 mb-4" data-aos="zoom-in" style="--aos-index: {{ $i % 8 + 1 }};">
-            <div class="product-card"
-                style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
-                <div class="product-overlay"></div>
-                <div class="product-content">
-                    <a id="p{{$i}}" href="/products/info/{{$product->id}}" class="btn product-btn">{{
-                        __('messages.product_info') }}</a>
+        @if($prods->count() > 0)
+            @foreach($prods as $prod)
+                <div class="col-md-3 mb-4" data-aos="zoom-in" style="--aos-index:1;">
+                    <div class="product-card" style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
+                        <div class="product-overlay"></div>
+                        <div class="product-content">
+                            <a href="/products/info/{{ $prod->id }}" class="btn product-btn">{{__('messages.product_info') }}</a>
+                        </div>
+                    </div>
+                    <p class="product-name" id="pname">{{ $prod->name }} </p>
                 </div>
-            </div>
-            <p class="product-name" id="pname{{$i}}">{{$product->name}}</p>
-        </div>
-        @endforeach
+            @endforeach
+        @else
+            <p style="background-color: #262F40 ; color:#ADD8E6 ; border-radius: 0.7rem ; font-size: 1.1rem" class="p-3">محصولی وجود ندارد</p>
+        @endif
+
+
     </div>
 </section>
 @endsection
