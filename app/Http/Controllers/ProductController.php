@@ -33,10 +33,23 @@ class ProductController extends Controller
         return view('catalogs' , compact('sizes'));
     }
 
-    public function productinfo($id)
-    {
-        $sizes = Size::get();
-        $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
-        return view('products.info', compact('product' , 'sizes'));
-    }
+        public function productinfo($id)
+        {
+            $sizes = Size::get();
+            foreach($sizes as $size){
+                [$width, $height] = explode('x', $size->name);
+
+                $size['width'] = $width;
+                $size['height'] = $height;
+                
+            }
+
+            $size_id = size_product::where('product_id' , $id)->first();
+            $size = Size::where('id' , $size_id->size_id)->first();
+            
+            return $size;
+            
+            $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
+            return view('products.info', compact('product' , 'sizes'));
+        }
 }

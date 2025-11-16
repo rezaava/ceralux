@@ -335,17 +335,17 @@ $gallery = [
 
         <!-- Sizes -->
         <div class="sizes mt-5" data-aos="fade-up" style="--aos-index:3;">
-            @foreach(__('messages.size_options') as $size => $label)
-            <div class="tile size-item" style="--aos-index: {{ $loop->index + 4 }};">
-                <a href="/">
-                    <div class="box {{ $size=='120×240'?'selected-box':'' }}"
-                        style="width:{{ $label['width'] }}; height:{{ $label['height'] }};"></div>
-                    <div class="label" data-title="{{ $size }}">{{ $size }}</div>
-                </a>
-            </div>
+            @foreach($sizes as $size)
+                <div class="tile size-item" style="">
+                    <a href="/">
+                        <div class="box " style="width: {{ $size->width }}px ; height: {{ $size->height }}px"></div>
+                        <div class="label" >{{$size->name}}</div>
+                    </a>
+                </div>
             @endforeach
         </div>
     </div>
+{{-- selected-box --}}
 </section>
 
 <!-- Modal for Image Zoom -->
