@@ -13,8 +13,22 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     @yield('head')
     <style>
+        @font-face {
+            font-family: yekan;
+            src: url({{ asset('fonts/YekanBakh-Medium.ttf') }});
+        }
         body {
-            font-family: 'Vazirmatn', sans-serif;
+            /* font-family: 'Vazirmatn', sans-serif; */
+            font-family: yekan , sans-serif!important ;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            
+        }
+        main {
+            flex: 1;
         }
 
         .navbar {

@@ -121,8 +121,8 @@
 @endsection
 
 @section('main')
-<section class="py-5 container text-center" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
-    <p class="h1 mb-1">{{ __('messages.products') }}</p>
+<section class="py-3 container text-center" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
+    <p class="h1 mb-1" style="font-size: 3.5rem">{{ __('messages.products') }}</p>
     <p class="h2 mb-5 py-2  m-0 mx-auto size-title" style="">{{$nameSize->name}}</p>
     <div class="row">
         @if($prods->count() > 0)

@@ -2,11 +2,12 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
 @include('layout.head')
 
-
 <body>
-@include('layout.header')
+    @include('layout.header')
 
-    @yield('main')
+    <main>
+        @yield('main')
+    </main>
 
     <footer>
         <div class="footer-top">
@@ -25,6 +26,7 @@
         </div>
     </footer>
 
+    {{-- همه اسکریپت‌ها سر جای خودشون --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
@@ -40,5 +42,4 @@
     </script>
     @yield('scripts')
 </body>
-
 </html>
