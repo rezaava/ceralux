@@ -121,6 +121,7 @@
     .sidebar .nav-link:hover {
         background: #232b39;
         color: var(--accent-green);
+        transition: all 0.4s ease;
     }
 
     .sidebar .nav-link .menu-label {

@@ -1,4 +1,18 @@
 <!-- Mobile Hamburger Button -->
+<style>
+    .submenu .nav-link {
+        font-size: 0.85rem;
+        /* کوچیک‌تر از متن اصلی */
+        padding-left: 1.5rem;
+        /* کمی فاصله برای زیبایی */
+    }
+    #add-list:hover{
+        width: 90%;
+    }
+    #show-list:hover{
+        width: 90%;
+    }
+</style>
 <button class="mobile-menu-btn" id="mobileMenuBtn" style="display:none;">
     <i class="fas fa-bars"></i>
 </button>
@@ -66,11 +80,27 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('product') ? 'active' : '' }}" href="/admin/product">
-                <i class="fa-solid fa-boxes-stacked"></i>
+            <a class="nav-link d-flex align-items-center {{ request()->routeIs('product') ? 'active' : '' }}" data-bs-toggle="collapse" href="#productMenu" role="button"
+                aria-expanded="false" aria-controls="productMenu">
+                <i class="fa-solid fa-boxes-stacked me-2"></i>
                 <span class="menu-label">محصولات</span>
+                <!-- آیکون فلش -->
+                <i style="font-size:0.9rem" class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
             </a>
+
+            <div class="collapse" id="productMenu" style="border-right: 2px solid #fff;margin-right: 1.6rem">
+                <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/product/list" id="add-list">لیست محصولات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/product/add" id="show-list">افزودن محصول جدید</a>
+                    </li>
+                </ul>
+            </div>
+
         </li>
+
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('catalog') ? 'active' : '' }}" href="/admin/catalog">
                 <i class="fas fa-file-alt"></i>
@@ -97,3 +127,25 @@
         </li>
     </ul>
 </div>
+
+
+<script>
+    document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (el) {
+    el.addEventListener('click', function () {
+        const icon = el.querySelector('.toggle-icon');
+        const target = document.querySelector(el.getAttribute('href'));
+
+        target.addEventListener('shown.bs.collapse', function () {
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        });
+
+        target.addEventListener('hidden.bs.collapse', function () {
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        });
+    });
+});
+
+
+</script>

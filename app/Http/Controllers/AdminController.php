@@ -23,9 +23,13 @@ class AdminController extends Controller
         $size->save();
         return redirect()->back();
     }
-    public function product(){
+    public function productAdd(){
         $sizes = Size::get();
         return view('admin.product' , compact('sizes'));
+    }
+    public function productList(){
+        $sizes = Size::get();
+        return view('admin.list_product' , compact('sizes'));
     }
 
     public function productPost(Request $req){
