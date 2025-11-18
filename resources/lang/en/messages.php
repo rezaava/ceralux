@@ -14,6 +14,7 @@ return [
     'catalogs' => 'Catalogs',
     'blog' => 'Blog',
     'search' => 'Search',
+    'login' => 'login',
     'size_30x30' => '30×30',
     'size_60x60' => '60×60',
      'size_120x240' => '120×240',

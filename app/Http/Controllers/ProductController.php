@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Product;
+use App\Models\Product_Image;
 use App\Models\Size;
 use App\Models\size_product;
 use Illuminate\Http\Request;
@@ -44,12 +46,14 @@ class ProductController extends Controller
                 
             }
 
+
             $size_id = size_product::where('product_id' , $id)->first();
+            $imgs = Product_Image::where('product_id' , $id)->get();
             $size = Size::where('id' , $size_id->size_id)->first();
             
             //return $size;
             
             $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
-            return view('products.info', compact('product' , 'sizes'));
+            return view('products.info', compact('product' , 'sizes' , 'imgs'));
         }
 }

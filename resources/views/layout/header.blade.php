@@ -33,6 +33,7 @@
             <div class="d-flex gap-3 flex-column flex-lg-row align-items-lg-center mx-auto">
                 <a href="/search" class="btn search"><i class="fa-solid fa-magnifying-glass"></i> {{
                     __('messages.search') }}</a>
+                    <a href="/admin/dashborad" class="btn search"><i class="fa-solid fa-right-to-bracket"></i> {{__('messages.login') }}</a>
                 <div class="dropdown lang-dropdown">
                     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">{{
                         strtoupper(app()->getLocale()) }}</button>

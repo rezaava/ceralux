@@ -262,50 +262,12 @@
 @endsection
 
 @section('main')
-@php
-$features = explode(',', $product->features);
-
-$data = [
-'features' => $features
-];
-$product = [
-
-'title' => $product->name,
-'date' => $product->updated_at,
-'description' => $product->desc,
-$data,
-'price' => $product->price,
-'image' => $product->image,
-'image_alt' => $product->name
-];
-
-$gallery = [
-['src'=>'https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg','title'=>'کاشی
-در لابی مدرن','alt'=>'تصویر کاشی در لابی مدرن'],
-['src'=>'https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg','title'=>'کاشی
-در آشپزخانه لوکس','alt'=>'تصویر کاشی در آشپزخانه لوکس'],
-['src'=>'https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg','title'=>'کاشی
-در حمام مدرن','alt'=>'تصویر کاشی در حمام مدرن'],
-['src'=>'https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg','title'=>'کاشی
-در فضای باز','alt'=>'تصویر کاشی در فضای باز'],
-['src'=>'https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg','title'=>'کاشی
-در سالن پذیرایی','alt'=>'تصویر کاشی در سالن پذیرایی'],
-['src'=>'https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg','title'=>'کاشی
-در دفتر کار','alt'=>'تصویر کاشی در دفتر کار']
-];
-
-// $sizes = [
-// '120×240' => ['width'=>'120px','height'=>'240px'],
-// '60×120' => ['width'=>'60px','height'=>'120px'],
-// '30×60' => ['width'=>'30px','height'=>'60px']
-// ];
-@endphp
 
 <section class="py-5 container" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <div id="contentContainer">
         <div class="article article-item" data-aos="fade-up" style="--aos-index:1;">
             <div class="overlay-container clickable-img" >
-                <img src="{{ asset('img/test.jpg') }}" class="article-img" alt="{{ $product['image_alt'] }}">
+                <img src="{{ asset($imgs[0]->img_url) }}" class="article-img" alt="">
                 <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
             </div>
             <h2 class="article-title" lang="{{ app()->getLocale() }}">{{ $product['title'] }}</h2>
@@ -326,13 +288,13 @@ $gallery = [
 
         <!-- Gallery -->
         <div class="row gallery-container" data-aos="fade-up" style="--aos-index:2;">
-            @foreach($gallery as $index => $item)
+            @foreach($imgs as $img)
             <div class="col-lg-4 mb-4 mb-lg-0">
                 <div class="overlay-container clickable-img gallery-item mb-4">
-                    <img src="{{ asset('img/test.jpg') }}" alt="{{ $item['alt'] }}" />
+                    <img src="{{ asset($img->img_url) }}" alt="" />
                     <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
                 </div>
-                <p lang="{{ app()->getLocale() }}">{{ $item['title'] }}</p>
+                <p lang="{{ app()->getLocale() }}">{{ $img->img_name }}</p>
             </div>
             @endforeach
         </div>

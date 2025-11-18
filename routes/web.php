@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ProductController;
@@ -16,6 +17,11 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::get('/',[SiteController::class,'index'])->name('index');
+Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
+Route::get('/admin/size',[AdminController::class,'size'])->name('size');
+Route::get('/admin/product',[AdminController::class,'product'])->name('product');
+Route::get('/admin/setting',[AdminController::class,'setting'])->name('setting');
+Route::get('/admin/catalog',[AdminController::class,'catalog'])->name('catalog');
 
 Route::prefix('/products')->group(function () {
    Route::get('/info/{name}',[ProductController::class,'productinfo'])->name('productinfo'); 
