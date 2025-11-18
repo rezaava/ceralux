@@ -2,6 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     @include('admin.layout.head')
+    @yield('head')
 </head>
 <body>
    @include('admin.layout.header')
@@ -27,7 +28,10 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- cdn sweet alert 2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <!-- Custom JS -->
+    @yield('script')
     <script>
         // Sidebar toggle for desktop
         document.getElementById('sidebarLogo').addEventListener('click', function() {

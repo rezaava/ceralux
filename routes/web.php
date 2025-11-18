@@ -18,8 +18,13 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/',[SiteController::class,'index'])->name('index');
 Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
+
 Route::get('/admin/size',[AdminController::class,'size'])->name('size');
+Route::post('/admin/size/add',[AdminController::class,'sizePost']);
+
 Route::get('/admin/product',[AdminController::class,'product'])->name('product');
+Route::post('/admin/product/add',[AdminController::class,'productPost']);
+
 Route::get('/admin/setting',[AdminController::class,'setting'])->name('setting');
 Route::get('/admin/catalog',[AdminController::class,'catalog'])->name('catalog');
 

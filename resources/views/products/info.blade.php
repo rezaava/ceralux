@@ -270,16 +270,19 @@
                 <img src="{{ asset($imgs[0]->img_url) }}" class="article-img" alt="">
                 <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
             </div>
-            <h2 class="article-title" lang="{{ app()->getLocale() }}">{{ $product['title'] }}</h2>
+            <h2 class="article-title" lang="{{ app()->getLocale() }}">{{ $product->name }}</h2>
             <p class="article-date text-muted" lang="{{ app()->getLocale() }}">{{ $product['date'] }}</p>
-            <p class="article-description" lang="{{ app()->getLocale() }}">{{ $product['description'] }}</p>
+            <p class="article-description" lang="{{ app()->getLocale() }}">توضیحات : {{ $product->desc }}</p>
             <p class="features-title" lang="{{ app()->getLocale() }}">اندازه 60x60</p>
+            <p class="features-title" lang="{{ app()->getLocale() }}">ویژگی های محصول </p>
             <ul lang="{{ app()->getLocale() }}">
-                {{-- @foreach($product['features'] as $feature)
-                <li>{{ $feature }}</li>
-                @endforeach --}}
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
             </ul>
-            <h5 lang="{{ app()->getLocale() }}">قیمت: {{ number_format($product['price']) }}</h5>
+            <h5 lang="{{ app()->getLocale() }}">قیمت: {{ number_format($product->price) }}</h5>
             <div class="d-flex justify-content-start">
                 <a href="{{ route('sellagents') }}" class="btn article-btn" lang="{{ app()->getLocale() }}">{{
                     __('messages.view_agents') }}</a>

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Size;
+use App\Models\size_product;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,11 +14,41 @@ class AdminController extends Controller
         return view('admin.dashborad');
     }
     public function size(){
-        return view('admin.size');
+        $sizes = Size::get();
+        return view('admin.size' , compact('sizes'));
+    }
+    public function sizePost(Request $req){
+        $size = new Size();
+        $size->name = $req->size_name;
+        $size->save();
+        return redirect()->back();
     }
     public function product(){
-        return view('admin.product');
+        $sizes = Size::get();
+        return view('admin.product' , compact('sizes'));
     }
+
+    public function productPost(Request $req){
+
+        $prod = new Product();
+        
+        $prod->name = $req->title;
+        $prod->desc = $req->desc;
+        $prod->price = $req->price;
+        $prod->save();
+
+        foreach ($req->sizes as $sizeId) {
+            $size_pord = new size_product();
+
+            $size_pord->product_id = $prod->id;
+            $size_pord->size_id = $sizeId;
+            $size_pord->save();
+        }
+
+        return redirect()->back()->with('message' , 'محصول با موفقیت اضافه شد!');
+
+    }
+
     public function catalog(){
         return view('admin.catalog');
     }
