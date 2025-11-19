@@ -3,6 +3,9 @@
 <title> @yield('title-site')</title>
 <!-- Bootstrap 5 RTL CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -27,11 +30,22 @@
         --sidebar-icon-size: 1.4rem;
         --transition: 0.3s cubic-bezier(.4, 2, .6, 1);
     }
+    
+    .ss01 {
+        /* font-family: yekan, sans-serif; */
+        -moz-font-feature-settings: "ss01";
+        -webkit-font-feature-settings: "ss01";
+        font-feature-settings: "ss01";
+    }
+
 
     body {
         font-family: yekan, sans-serif;
         background: var(--main-bg);
         color: var(--text-main);
+            -moz-font-feature-settings: "ss01";
+    -webkit-font-feature-settings: "ss01";
+    font-feature-settings: "ss01";
     }
 
     .sidebar {
@@ -122,6 +136,18 @@
         background: #232b39;
         color: var(--accent-green);
         transition: all 0.4s ease;
+    }
+
+    .sidebar .nav-link.active1{
+        color: var(--accent-green);
+        list-style-type: d
+        
+    }
+
+    .activeLi{
+        color: var(--accent-green);
+        
+        
     }
 
     .sidebar .nav-link .menu-label {

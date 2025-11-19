@@ -28,8 +28,8 @@ class AdminController extends Controller
         return view('admin.product' , compact('sizes'));
     }
     public function productList(){
-        $sizes = Size::get();
-        return view('admin.list_product' , compact('sizes'));
+        $prods = Product::get();
+        return view('admin.list_product' , compact('prods'));
     }
 
     public function productPost(Request $req){

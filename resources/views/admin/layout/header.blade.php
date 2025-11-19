@@ -1,7 +1,7 @@
 <!-- Mobile Hamburger Button -->
 <style>
     .submenu .nav-link {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         /* کوچیک‌تر از متن اصلی */
         padding-left: 1.5rem;
         /* کمی فاصله برای زیبایی */
@@ -80,21 +80,21 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-flex align-items-center {{ request()->routeIs('product') ? 'active' : '' }}" data-bs-toggle="collapse" href="#productMenu" role="button"
-                aria-expanded="false" aria-controls="productMenu">
+            <a class="nav-link d-flex align-items-center {{ request()->is('admin/product*') ? 'active' : '' }}" data-bs-toggle="collapse" href="#productMenu" role="button"
+                aria-expanded="{{ request()->is('admin/product*') ? 'true' : 'false' }}" aria-controls="productMenu">
                 <i class="fa-solid fa-boxes-stacked me-2"></i>
                 <span class="menu-label">محصولات</span>
                 <!-- آیکون فلش -->
                 <i style="font-size:0.9rem" class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
             </a>
 
-            <div class="collapse" id="productMenu" style="border-right: 2px solid #fff;margin-right: 1.6rem">
+            <div class="collapse {{ request()->is('admin/product*') ? 'show' : '' }}" id="productMenu" style="border-right: 2px solid #fff;margin-right: 1.6rem">
                 <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/product/list" id="add-list">لیست محصولات</a>
+                    <li class="nav-item {{ request()->routeIs('product-list') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('product-list') ? 'active1' : '' }}" href="/admin/product/list" id="add-list">لیست محصولات</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/product/add" id="show-list">افزودن محصول جدید</a>
+                    <li class="nav-item {{ request()->routeIs('product-add') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('product-add') ? 'active1' : '' }}" href="/admin/product/add" id="show-list">افزودن محصول جدید</a>
                     </li>
                 </ul>
             </div>
