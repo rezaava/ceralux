@@ -125,19 +125,80 @@
         margin-left: auto;
     }
 
-    td {
-        word-wrap: break-word;
-        /* قدیمی اما کار می‌کنه */
-        word-break: break-word;
-        /* برای مرورگرهای مدرن */
+    &::-webkit-scrollbar {
+        width: 14px;
     }
+
+    &::-webkit-scrollbar-track {
+        background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+        border-radius: 7px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, var(--accent-green) 0%, #27ae60 50%, #1f6c3b 100%);
+        border-radius: 7px;
+        border: 3px solid #1a1a1a;
+        box-shadow: 0 0 10px rgba(39, 174, 96, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #27ae60 0%, #219653 50%, #19632d 100%);
+        box-shadow: 0 0 15px rgba(39, 174, 96, 0.5);
+    }
+
+    &::-webkit-scrollbar-button {
+        background: var(--accent-green);
+        border: 2px solid #1a1a1a;
+        border-radius: 3px;
+    }
+
+    .description-cell {
+        max-height: 150px;
+        min-height: 40px;
+        overflow-y: auto;
+        width: 250px;
+        display: block;
+        word-wrap: break-word;
+        text-align: right;
+        padding: 8px;
+        line-height: 1.7rem;
+
+        /* استایل اسکرول‌بار */
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 4px;
+            margin: 2px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--accent-green)!important;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #1f6c3b;
+            transform: scale(1.1);
+        }
+
+        /* برای فایرفاکس */
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent-green) #242D3D;
+    }
+
 
     th {
         white-space: nowrap;
     }
+
     .btn-outline-success {
         color: var(--accent-green);
-      }
+    }
+
     @media (max-width: 768px) {
         .form-row-responsive {
             flex-direction: column;
@@ -183,6 +244,7 @@
                             <tr>
                                 <th>ردیف</th>
                                 <th>نام محصول</th>
+                                <th>تعداد فیس </th>
                                 {{-- <th>سایزها </th> --}}
                                 <th>توضیحات</th>
                                 <th>عملیات</th>
@@ -193,17 +255,20 @@
                             <tr>
                                 <td class="ss01">{{ $key + 1 }}</td>
                                 <td>{{ $prod->name }}</td>
+                                <td>{{ $prod->face }}</td>
                                 {{-- <td>{{ $prod->size_prods }} </td> --}}
-                                <td>{{ $prod->desc }}</td>
+                                <td>
+                                    <div class="description-cell">{{ $prod->desc }}</div>
+                                </td>
                                 <td style="white-space: nowrap">
                                     <a class="btn btn-sm btn-outline-success">
                                         <i class="fas fa-images"></i> مشاهده عکس‌ها
                                     </a>
                                     <a class="btn btn-sm btn-outline-primary ">
-                                      <i class="fas fa-edit"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <a class="btn btn-sm btn-outline-danger">
-                                      <i class="fas fa-trash"></i>
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

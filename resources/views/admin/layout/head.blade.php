@@ -283,8 +283,8 @@
     .card {
         background: var(--card-bg);
         border-radius: var(--card-radius);
-        box-shadow: 0 2px 16px 0 #0003;
-        border: 1px solid var(--card-border);
+        box-shadow: rgba(236, 236, 236, 0.15) 1.95px 1.95px 2.6px;
+        border: 0.5px solid var(--card-border);
         color: var(--text-main);
     }
 

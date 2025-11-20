@@ -44,6 +44,11 @@ class AdminController extends Controller
         $prod->name = $req->title;
         $prod->desc = $req->desc;
         $prod->price = $req->price;
+        $prod->face = $req->face;
+        $prod->name_en = $req->titleEn;
+        $prod->desc_en = $req->descEn;
+        $prod->name_ar = $req->titleAr;
+        $prod->desc_ar = $req->descAr;
         $prod->save();
 
         foreach ($req->sizes as $sizeId) {

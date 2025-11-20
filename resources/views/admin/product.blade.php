@@ -10,17 +10,17 @@
 
 @section('head')
 <style>
-
     .form-control {
         background-color: #232323 !important;
         border: none !important;
         color: #fff !important;
         margin: 1rem 0;
     }
-    .form-select{
+
+    .form-select {
         background-color: #232323 !important;
         border: none !important;
-        color: #fff ;
+        color: #fff;
         margin: 1rem 0;
     }
 
@@ -28,12 +28,13 @@
         color: #8ecae6;
         opacity: 0.5;
     }
+
     .form-select::placeholder {
         color: #8ecae6;
         opacity: 0.5;
     }
-    
-    .textArea{
+
+    .textArea {
         height: 200px;
         resize: none;
     }
@@ -47,7 +48,8 @@
         .form-row-responsive .form-control {
             width: 100% !important;
         }
-        .textArea{
+
+        .textArea {
             width: 100%;
         }
     }
@@ -80,46 +82,69 @@
                     <label for="" class="mb-2">لطفا سایز مورد نظر را انتخاب کنید.</label>
                     <div class="d-flex gap-3  flex-wrap">
                         @foreach ($sizes as $key => $size )
-                            <div class="d-flex justify-content-center align-items-center mb-2">
-                                <input  name="sizes[]" class="form-check-input m-0" type="checkbox" value="{{ $size->id }}">
-                                <span style="margin-right: 0.3rem">{{$size->name}}</span>
-                            </div>
+                        <div class="d-flex justify-content-center align-items-center mb-2">
+                            <input name="sizes[]" class="form-check-input m-0" type="checkbox" value="{{ $size->id }}">
+                            <span style="margin-right: 0.3rem">{{$size->name}}</span>
+                        </div>
                         @endforeach
                     </div>
 
-                    <textarea name="desc" class="form-control textArea" placeholder="توضیحات درباره محصول..."></textarea>
-                    
-                    <div class="card">
+                    <textarea name="desc" class="form-control textArea"
+                        placeholder="توضیحات درباره محصول..."></textarea>
+
+                    <input type="text" name="face" class="form-control" placeholder="تعداد فیس  ">
+
+                    <div class="card mt-3" style="border-radius: 0.4rem ; border-color: #394559">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="p-0 m-0">تعریف به زبان انگلیسی</p>
-                                <a class="btn text-light" data-bs-toggle="collapse" href="#collapseOne"><i class="fa-solid fa-arrow-down"></i></a>
+                                <a class="btn text-light" data-bs-toggle="collapse" href="#collapseOne"><i
+                                        class="fa-solid fa-arrow-down"></i></a>
                             </div>
                         </div>
                         <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
                             <div class="card-body">
-                              Lorem ipsum..
+
+                               
+                                    <div class="d-flex gap-3 form-row-responsive">
+                                        <input type="text" name="titleEn" class="form-control w-50"
+                                            placeholder="نام محصول">
+                                    </div>
+
+                                    <textarea name="descEn" class="form-control textArea"
+                                        placeholder="توضیحات درباره محصول..."></textarea>
+
                             </div>
                         </div>
                     </div>
 
-                    <div class="card mt-3">
+                    <div class="card mt-3" style="border-radius: 0.4rem;border-color: #394559">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="p-0 m-0">تعریف به زبان عربی</p>
-                                <a class="btn text-light" data-bs-toggle="collapse" href="#collapseOne"><i class="fa-solid fa-arrow-down"></i></a>
+                                <a class="btn text-light" data-bs-toggle="collapse" href="#collapseTwo"><i
+                                        class="fa-solid fa-arrow-down"></i></a>
                             </div>
                         </div>
-                        <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
+
+                        <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
                             <div class="card-body">
-                              Lorem ipsum..
+
+                                
+                                    <div class="d-flex gap-3 form-row-responsive">
+                                        <input type="text" name="titleAr" class="form-control w-50"
+                                            placeholder="نام محصول">
+                                    </div>
+
+                                    <textarea name="descAr" class="form-control textArea"
+                                        placeholder="توضیحات درباره محصول..."></textarea>
                             </div>
                         </div>
                     </div>
 
                     <button class="btn btn-success w-100 mt-3">ثبت محصول</button>
                 </form>
-                
+
 
             </div>
         </div>
@@ -129,8 +154,8 @@
 
 @section('script')
 @if (session('message'))
-    <script>
-        Swal.fire({
+<script>
+    Swal.fire({
             toast: true,
             position: 'top-start',
             icon: 'success',
@@ -146,6 +171,6 @@
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         });
-    </script>
+</script>
 @endif
 @endsection
