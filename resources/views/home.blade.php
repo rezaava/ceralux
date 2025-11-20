@@ -89,7 +89,7 @@
                     <div class="category-overlay"></div>
                     <div class="category-content">
                         <div class="h1" style="color: #d0bc7e">{{ $size->name }}</div>
-                        <a href="#" class="btn category-btn">{{ __("messages.more_info") }}</a>
+                        <a href="/products/{{ $size->id }}}fsize" class="btn category-btn">{{ __("messages.more_info") }}</a>
                     </div>
                 </div>
             </div>

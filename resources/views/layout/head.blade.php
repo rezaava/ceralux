@@ -19,7 +19,7 @@
         }
         @font-face {
             font-family: pinar;
-            src: url({{ asset('fonts/Pinar-DS2-Black.ttf') }});
+            src: url({{ asset('fonts/DoranFaNum-ExtraBold.woff2') }});
         }
         body {
             /* font-family: 'Vazirmatn', sans-serif; */
