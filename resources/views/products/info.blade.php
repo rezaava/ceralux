@@ -254,6 +254,8 @@
         background-color: #F9F9F9 ; 
         box-shadow: rgba(0, 0, 0, 0.10) 1.95px 1.95px 3px;
         border-radius: 0.3rem;
+        width: 100%;
+        max-width: 600px;
     }
     .title-header{
         font-family: pinar;
@@ -357,25 +359,25 @@
         <div class="row justify-content-center">
             <div class="w-50 mb-5 mt-3 p-4 title-info">
                 <div class="d-flex justify-content-between align-items-center">
-                    <p class="m-0 p-0" style="font-size: 1.6rem;">{{ $product->name }}</p>
+                    <p class="m-0 p-0" style="font-size: 1.7rem;">{{ $product->name }}</p>
                     <div>
-                        <p class="m-0 p-0" style="font-size: 1rem;">قیمت : </p>
-                        <p class="m-0 p-0" style="font-size: 1.6rem;">{{ number_format($product->price) }}</p>
+                        <p class="m-0 p-0" style="font-size: 0.8rem;"> {{__('messages.name_price')}} </p>
+                        <p class="m-0 p-0" style="font-size: 1.4rem;">{{ number_format($product->price) }}</p>
                     </div>
                     <div>
-                        <p class="m-0 p-0" style="font-size: 1rem;"> اندازه : </p>
-                        <p class="m-0 p-0" style="font-size: 1.6rem;">{{$size->name}}</p>
+                        <p class="m-0 p-0" style="font-size: 0.8rem;"> {{__('messages.name_size_text')}} </p>
+                        <p class="m-0 p-0" style="font-size: 1.4rem;">{{$size->name}}</p>
                     </div>
                     <div class="text-center">
-                        <p class="m-0 p-0" style="font-size: 1rem;">تعدا فیس:</p>
-                        <p class="m-0 p-0" style="font-size: 1.6rem;">{{$product->face}}</p>
+                        <p class="m-0 p-0" style="font-size: 0.8rem;"> {{__('messages.name_face')}}</p>
+                        <p class="m-0 p-0" style="font-size: 1.4rem;">{{$product->face}}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Sizes -->
-        <h3 class="mt-4">این کاشی در اندازه های دیگر :</h3>
+        <h3 class="mt-4">{{__('messages.name_size')}}</h3>
         <div class="sizes mt-5" data-aos="fade-up" style="--aos-index:3;">
             @foreach($sizes as $size)
             <div class="tile size-item" style="">

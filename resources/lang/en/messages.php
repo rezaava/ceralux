@@ -1,5 +1,9 @@
 <?php
 return [
+    'name_price' => 'price : ',
+    'name_size_text' => 'size : ',
+    'name_face' => 'face : ',
+    'name_size' => 'This tile is available in other sizes:',
     'home' => 'Home',
     'about_us' => 'About Us',
     'about_us_text' => 'We provide the best ceramic and tile products.',
