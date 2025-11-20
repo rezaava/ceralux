@@ -29,6 +29,11 @@ class AdminController extends Controller
     }
     public function productList(){
         $prods = Product::get();
+        foreach($prods as $prod){
+            $prod['size_prods'] = size_product::where('product_id' , $prod->id)->pluck('size_id');
+        }
+
+        
         return view('admin.list_product' , compact('prods'));
     }
 

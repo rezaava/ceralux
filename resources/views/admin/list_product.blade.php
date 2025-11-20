@@ -135,6 +135,9 @@
     th {
         white-space: nowrap;
     }
+    .btn-outline-success {
+        color: var(--accent-green);
+      }
     @media (max-width: 768px) {
         .form-row-responsive {
             flex-direction: column;
@@ -180,8 +183,8 @@
                             <tr>
                                 <th>ردیف</th>
                                 <th>نام محصول</th>
-                                <th>سایز</th>
-                                <th>عکس</th>
+                                {{-- <th>سایزها </th> --}}
+                                <th>توضیحات</th>
                                 <th>عملیات</th>
                             </tr>
                         </thead>
@@ -190,12 +193,18 @@
                             <tr>
                                 <td class="ss01">{{ $key + 1 }}</td>
                                 <td>{{ $prod->name }}</td>
+                                {{-- <td>{{ $prod->size_prods }} </td> --}}
                                 <td>{{ $prod->desc }}</td>
                                 <td style="white-space: nowrap">
-                                    <button class="btn btn-primary btn-sm">مشاهده</button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-success btn-sm">ویرایش</button>
+                                    <a class="btn btn-sm btn-outline-success">
+                                        <i class="fas fa-images"></i> مشاهده عکس‌ها
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-primary ">
+                                      <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-danger">
+                                      <i class="fas fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach

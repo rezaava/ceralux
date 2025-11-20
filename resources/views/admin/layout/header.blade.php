@@ -61,8 +61,8 @@
 <div class="sidebar offcanvas-mobile" id="offcanvasSidebar">
     <div class="sidebar-header">
         <div class="sidebar-logo">
-            <i class="fas fa-store"></i>
-            <span class="sidebar-title">پنل فروشگاه</span>
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span class="sidebar-title">فاکتور پلاس </span>
         </div>
         <button class="close-offcanvas d-md-none" id="closeOffcanvasBtn"><i class="fas fa-times"></i></button>
     </div>

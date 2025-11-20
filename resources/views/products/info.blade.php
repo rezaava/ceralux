@@ -265,7 +265,13 @@
 
 <section class="py-5 container" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <div id="contentContainer">
-        <div class="article article-item" data-aos="fade-up" style="--aos-index:1;">
+        <div>
+            <h1 class="text-center mb-5">{{ $product->name }}</h1>
+            <div>
+                <img src="{{ asset('') }}" alt="">
+            </div>
+        </div>
+        {{-- <div class="article article-item" data-aos="fade-up" style="--aos-index:1;">
             <div class="overlay-container clickable-img" >
                 <img src="{{ asset($imgs[0]->img_url) }}" class="article-img" alt="">
                 <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
@@ -287,7 +293,7 @@
                 <a href="{{ route('sellagents') }}" class="btn article-btn" lang="{{ app()->getLocale() }}">{{
                     __('messages.view_agents') }}</a>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Gallery -->
         <div class="row gallery-container" data-aos="fade-up" style="--aos-index:2;">

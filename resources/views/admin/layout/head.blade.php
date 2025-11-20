@@ -23,7 +23,7 @@
         --card-border: #232b39;
         --accent-green: #43e97b;
         --text-main: #e6eaf1;
-        --text-secondary: #8fa2b7;
+        --text-secondary: #89a5c5;
         --card-radius: 18px;
         --sidebar-width: 220px;
         --sidebar-width-collapsed: 80px;
@@ -38,15 +38,30 @@
         font-feature-settings: "ss01";
     }
 
-
     body {
         font-family: yekan, sans-serif;
         background: var(--main-bg);
         color: var(--text-main);
-            -moz-font-feature-settings: "ss01";
-    -webkit-font-feature-settings: "ss01";
-    font-feature-settings: "ss01";
     }
+
+    .header {
+        background: var(--card-bg);
+        padding: 10px 30px;
+        border-radius: var(--card-radius);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        /* margin-bottom: 25px; */
+    }
+
+    .page-title {
+      color: var(--accent-green);
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    /* .user-info {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    } */
 
     .sidebar {
         background: var(--sidebar-bg);
@@ -76,13 +91,12 @@
     }
 
     .sidebar .sidebar-logo {
-        color: var(--accent-green);
         font-size: 2rem;
-        font-weight: bold;
         display: flex;
         align-items: center;
         gap: 10px;
         cursor: pointer;
+        font-weight: 600;
         user-select: none;
     }
 
@@ -131,11 +145,17 @@
         white-space: nowrap;
     }
 
-    .sidebar .nav-link.active,
     .sidebar .nav-link:hover {
-        background: #232b39;
-        color: var(--accent-green);
-        transition: all 0.4s ease;
+        background: var(--card-bg);
+        color: var(--text-main);
+        transform: translateX(-3px);
+    }
+
+    .sidebar .nav-link.active {
+      background: linear-gradient(135deg, var(--accent-green), #38d976);
+      color: var(--sidebar-bg);
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(67, 233, 123, 0.3);
     }
 
     .sidebar .nav-link.active1{
@@ -165,6 +185,35 @@
     .sidebar .nav-link .fa {
         margin-left: 0;
     }
+    .notification-card {
+        background: var(--card-bg);
+        border-radius: var(--card-radius);
+        padding: 30px 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .notification-card h6 {
+      color: var(--accent-green);
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    .notification-card ul {
+      margin: 0;
+      padding: 0;
+    }
+    .notification-card li {
+      color: var(--text-secondary);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.9rem;
+    }
+    .notification-card li:last-child {
+      border-bottom: none;
+    }
+    .notification-card li i {
+      margin-left: 10px;
+    }
 
     .main-content {
         margin-right: var(--sidebar-width);
@@ -178,20 +227,13 @@
         margin-right: var(--sidebar-width-collapsed);
     }
 
-    .dashboard-header {
-        margin-bottom: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .dashboard-header .user-info {
+    .header .user-info {
         display: flex;
         align-items: center;
         gap: 16px;
     }
 
-    .dashboard-header .user-avatar {
+    .header .user-avatar {
         width: 48px;
         height: 48px;
         border-radius: 50%;
@@ -199,15 +241,16 @@
         border: 2px solid var(--accent-green);
     }
 
-    .dashboard-header .user-name {
-        color: var(--text-main);
+    .header .user-name {
+        color: var(--text-secondary);
         font-weight: 600;
         font-size: 1.1rem;
     }
 
-    .dashboard-header .dashboard-desc {
+    .header .dashboard-desc {
         color: var(--text-secondary);
         font-size: 1rem;
+        margin-top: 0.4rem;
     }
 
     .stat-card {
@@ -251,38 +294,6 @@
         color: var(--text-main);
         font-weight: 600;
         font-size: 1.1rem;
-    }
-
-    .notification-area {
-        background: var(--card-bg);
-        border-radius: var(--card-radius);
-        box-shadow: 0 2px 16px 0 #0003;
-        border: 1px solid var(--card-border);
-        padding: 20px 24px;
-        margin-bottom: 24px;
-    }
-
-    .notification-area .notif-title {
-        color: var(--accent-green);
-        font-weight: 700;
-        margin-bottom: 12px;
-    }
-
-    .notification-area .notif-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 10px;
-    }
-
-    .notification-area .notif-icon {
-        font-size: 1.3rem;
-        color: var(--accent-green);
-    }
-
-    .notification-area .notif-text {
-        color: var(--text-main);
-        font-size: 1rem;
     }
 
     .chart-card {
@@ -396,20 +407,12 @@
             width: auto;
         }
 
-        .dashboard-header {
-            flex-direction: row;
-            align-items: center;
-            text-align: right;
-            gap: 8px;
-            justify-content: space-between;
-        }
-
-        .dashboard-header .user-info {
+        .header .user-info {
             flex-direction: row;
             gap: 8px;
         }
 
-        .dashboard-header .user-avatar {
+        .header .user-avatar {
             width: 36px;
             height: 36px;
         }

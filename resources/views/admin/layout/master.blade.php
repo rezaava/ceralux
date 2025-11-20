@@ -10,9 +10,9 @@
     <!-- Main Content -->
     
         <div class="main-content" id="mainContent">
-            <div class="dashboard-header mb-4">
+            <div class="header d-flex justify-content-between align-items-center mb-5">
                 <div>
-                    <h2>@yield('onvan') </h2>
+                    <h2 class="page-title">@yield('onvan') </h2>
                     @yield('title-onvan')
                 </div>
                 <div class="user-info">

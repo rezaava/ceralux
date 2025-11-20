@@ -17,28 +17,28 @@
     <div class="col-lg-3 col-md-6 mb-3">
         <div class="stat-card">
             <div class="stat-title">مجموع فروش امروز</div>
-            <div class="stat-value">۲,۳۵۰,۰۰۰ تومان</div>
+            <div class="stat-value text-primary">۲,۳۵۰,۰۰۰ تومان</div>
             <div class="stat-desc">+۹% نسبت به دیروز</div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 mb-3">
         <div class="stat-card">
             <div class="stat-title">تعداد سفارشات</div>
-            <div class="stat-value">۸۷</div>
+            <div class="stat-value text-primary">۸۷</div>
             <div class="stat-desc">+۵ سفارش جدید</div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 mb-3">
         <div class="stat-card">
             <div class="stat-title">کاربران جدید</div>
-            <div class="stat-value">۲۳</div>
+            <div class="stat-value text-primary">۲۳</div>
             <div class="stat-desc">+۳ کاربر امروز</div>
         </div>
     </div>
     <div class="col-lg-3 col-md-6 mb-3">
         <div class="stat-card">
             <div class="stat-title">بازدید امروز</div>
-            <div class="stat-value">۱۲,۴۰۰</div>
+            <div class="stat-value text-primary">۱۲,۴۰۰</div>
             <div class="stat-desc">+۲% نسبت به دیروز</div>
         </div>
     </div>
@@ -55,30 +55,24 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 mb-3">
-        <div class="notification-area">
-            <div class="notif-title">اعلانات اخیر</div>
-            <div class="notif-item">
-                <span class="notif-icon"><i class="fas fa-user-plus"></i></span>
-                <span class="notif-text">کاربر جدید ثبت نام کرد</span>
-            </div>
-            <div class="notif-item">
-                <span class="notif-icon"><i class="fas fa-shopping-cart"></i></span>
-                <span class="notif-text">سفارش جدید ثبت شد</span>
-            </div>
-            <div class="notif-item">
-                <span class="notif-icon"><i class="fas fa-box"></i></span>
-                <span class="notif-text">محصول جدید به فروشگاه اضافه شد</span>
-            </div>
-            <div class="notif-item">
-                <span class="notif-icon"><i class="fas fa-credit-card"></i></span>
-                <span class="notif-text">پرداخت موفق انجام شد</span>
-            </div>
-            <div class="notif-item">
-                <span class="notif-icon"><i class="fas fa-comment"></i></span>
-                <span class="notif-text">نظر جدید ثبت شد</span>
-            </div>
-        </div>
+    <div class="col-md-4">
+      <div class="notification-card">
+        <h6><i class="fas fa-bell text-warning"></i> اعلانات محصول</h6>
+        <ul class="list-unstyled mt-3">
+          <li class="mb-2">
+            <i class="fas fa-exclamation-circle text-danger"></i> موجودی
+            محصول "لپ‌تاپ" در حال اتمام است
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-info-circle text-info"></i> محصول جدید "ماوس
+            بی‌سیم" اضافه شد
+          </li>
+          <li>
+            <i class="fas fa-check-circle text-success"></i> موجودی محصول
+            "کیبورد" تکمیل شد
+          </li>
+        </ul>
+      </div>
     </div>
 </div>
 <div class="row g-3">

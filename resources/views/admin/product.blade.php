@@ -75,13 +75,6 @@
                     <div class="d-flex gap-3 form-row-responsive">
                         <input type="text" name="title" class="form-control w-50" placeholder="نام محصول">
                         <input type="text" name="price" class="form-control w-50" placeholder="قیمت محصول ">
-                        
-                        {{-- <select name="size" class="form-select w-50 name="" id="">
-                            <option value="" selected>لطفا سایز محصول را انتخاب کنید.</option>
-                            @foreach ($sizes as $key => $size )
-                                <option value="{{ $size->id }}">{{$key+1}} - {{$size->name}}</option>
-                            @endforeach
-                        </select> --}}
                     </div>
 
                     <label for="" class="mb-2">لطفا سایز مورد نظر را انتخاب کنید.</label>
@@ -96,9 +89,37 @@
 
                     <textarea name="desc" class="form-control textArea" placeholder="توضیحات درباره محصول..."></textarea>
                     
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="p-0 m-0">تعریف به زبان انگلیسی</p>
+                                <a class="btn text-light" data-bs-toggle="collapse" href="#collapseOne"><i class="fa-solid fa-arrow-down"></i></a>
+                            </div>
+                        </div>
+                        <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
+                            <div class="card-body">
+                              Lorem ipsum..
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="p-0 m-0">تعریف به زبان عربی</p>
+                                <a class="btn text-light" data-bs-toggle="collapse" href="#collapseOne"><i class="fa-solid fa-arrow-down"></i></a>
+                            </div>
+                        </div>
+                        <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
+                            <div class="card-body">
+                              Lorem ipsum..
+                            </div>
+                        </div>
+                    </div>
+
                     <button class="btn btn-success w-100 mt-3">ثبت محصول</button>
                 </form>
-
+                
 
             </div>
         </div>
