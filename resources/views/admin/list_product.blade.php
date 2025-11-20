@@ -34,11 +34,12 @@
     }
 
     table.dataTable thead th {
-        background-color: #258745;
-        color: #fff;
+        background-color: #151A23;
+        color: #43E97B;
         font-size: 1rem;
         text-align: center;
         border: none !important;
+        border-bottom: 3px solid #23583D !important;
     }
 
     table.dataTable tbody td {
@@ -125,32 +126,15 @@
         margin-left: auto;
     }
 
-    &::-webkit-scrollbar {
-        width: 14px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
-        border-radius: 7px;
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, var(--accent-green) 0%, #27ae60 50%, #1f6c3b 100%);
-        border-radius: 7px;
-        border: 3px solid #1a1a1a;
-        box-shadow: 0 0 10px rgba(39, 174, 96, 0.3);
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #27ae60 0%, #219653 50%, #19632d 100%);
-        box-shadow: 0 0 15px rgba(39, 174, 96, 0.5);
-    }
-
-    &::-webkit-scrollbar-button {
-        background: var(--accent-green);
-        border: 2px solid #1a1a1a;
-        border-radius: 3px;
+    .description-cell2 {
+        max-height: 150px;
+        min-height: 40px;
+        overflow-y: auto;
+        display: block;
+        text-align: right;
+        padding: 8px;
+        line-height: 1.7rem;
+        white-space: nowrap;
     }
 
     .description-cell {
@@ -253,10 +237,15 @@
                         <tbody>
                             @foreach($prods as $key => $prod)
                             <tr>
-                                <td class="ss01">{{ $key + 1 }}</td>
-                                <td>{{ $prod->name }}</td>
-                                <td>{{ $prod->face }}</td>
-                                {{-- <td>{{ $prod->size_prods }} </td> --}}
+                                <td>
+                                    <div class="description-cell2">{{ $key+1 }}</div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2">{{ $prod->name }}</div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2">{{ $prod->face }}</div>
+                                </td>
                                 <td>
                                     <div class="description-cell">{{ $prod->desc }}</div>
                                 </td>

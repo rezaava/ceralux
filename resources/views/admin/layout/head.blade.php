@@ -317,6 +317,33 @@
         font-size: 1.2rem;
         font-weight: 500;
     }
+        &::-webkit-scrollbar {
+        width: 14px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+        border-radius: 7px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, var(--accent-green) 0%, #27ae60 50%, #1f6c3b 100%);
+        border-radius: 7px;
+        border: 3px solid #1a1a1a;
+        box-shadow: 0 0 10px rgba(39, 174, 96, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #27ae60 0%, #219653 50%, #19632d 100%);
+        box-shadow: 0 0 15px rgba(39, 174, 96, 0.5);
+    }
+
+    &::-webkit-scrollbar-button {
+        background: var(--accent-green);
+        border: 2px solid #1a1a1a;
+        border-radius: 3px;
+    }
 
     @media (max-width: 991px) {
         .main-content {
