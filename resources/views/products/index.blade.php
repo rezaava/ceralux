@@ -117,6 +117,13 @@
             transform: translateY(0);
         }
     }
+
+    @media (max-width: 768px) {
+        .size-title {
+            width: 35%;
+        }
+    }
+
 </style>
 @endsection
 

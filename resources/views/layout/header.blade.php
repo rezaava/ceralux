@@ -2,8 +2,8 @@
     <div class="container">
         <a class="navbar-brand" href="{{ route('index') }}"><img src="{{ asset('images/logo.png') }}" alt=""></a>
         <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+            data-bs-target="#navbarNav" style="color: #fff!important">
+            <span ><i class="fa-solid fa-bars"></i></span>
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav mx-auto">

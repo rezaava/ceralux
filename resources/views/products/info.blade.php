@@ -299,6 +299,7 @@
         padding-left: 20px;
         padding-right: 0;
     }
+
 </style>
 @endsection
 
@@ -357,7 +358,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="w-50 mb-5 mt-3 p-4 title-info">
+            <div class="mb-5 mt-3 p-4 title-info">
                 <div class="d-flex justify-content-between align-items-center">
                     <p class="m-0 p-0" style="font-size: 1.7rem;">{{ $product->name }}</p>
                     <div>
