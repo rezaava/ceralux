@@ -131,7 +131,7 @@
                     <div class="product-card" style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
                         <div class="product-overlay"></div>
                         <div class="product-content">
-                            <a href="/products/info/{{ $prod->id }}" class="btn product-btn">{{__('messages.product_info') }}</a>
+                            <a href="/products/info/{{$nameSize->id}}/{{ $prod->id }}" class="btn product-btn">{{__('messages.product_info') }}</a>
                         </div>
                     </div>
                     <p class="product-name" id="pname">{{ $prod->name }} </p>

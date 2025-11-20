@@ -30,7 +30,7 @@ Route::get('/admin/setting',[AdminController::class,'setting'])->name('setting')
 Route::get('/admin/catalog',[AdminController::class,'catalog'])->name('catalog');
 
 Route::prefix('/products')->group(function () {
-   Route::get('/info/{name}',[ProductController::class,'productinfo'])->name('productinfo'); 
+   Route::get('/info/{size_id}/{name}',[ProductController::class,'productinfo'])->name('productinfo'); 
    Route::get('/{size}',[ProductController::class,'products'])->name('products'); 
    Route::get('/',[ProductController::class,'productsindex'])->name('productsindex'); 
 

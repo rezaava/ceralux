@@ -11,12 +11,14 @@
     /* --- استایل‌ها (مثل قبل) --- */
     @font-face {
         font-family: yekan;
-        src: url({{ asset('fonts/YekanBakh-Medium.ttf') }});
+        src: url({{ asset('fonts/YekanBakh-Medium.ttf')}});
     }
+
     body {
         /* font-family: 'Vazirmatn', sans-serif; */
-        font-family: yekan , sans-serif!important ;      
+        font-family: yekan, sans-serif !important;
     }
+
     .article {
         border: 10px solid #fff;
         background: linear-gradient(145deg, #fff8e4, #f5e9c6);
@@ -192,7 +194,7 @@
         color: #d0bc7e;
         font-weight: bold;
         font-size: 1.1rem;
-        font-family: yekan , sans-serif ;
+        font-family: yekan, sans-serif;
     }
 
     .article-btn {
@@ -237,10 +239,46 @@
         animation-delay: calc(0.1s*var(--aos-index));
     }
 
+    .slide-in-left {
+        animation: slideInLeft 2s ease-out forwards;
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    .slide-in-right {
+        animation: slideInRight 2s ease-out forwards;
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    .title-info{
+        background-color: #F9F9F9 ; 
+        box-shadow: rgba(0, 0, 0, 0.10) 1.95px 1.95px 3px;
+        border-radius: 0.3rem;
+    }
+    .title-header{
+        font-family: pinar;
+        color: #E1BB87;
+        text-shadow: rgba(0, 0, 0, 0.418) 1.95px 1.95px 2.6px;
+    }
+
+    @keyframes slideInLeft {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInRight {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
     @keyframes fadeUp {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(40px);
         }
 
         to {
@@ -265,14 +303,21 @@
 
 <section class="py-5 container" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <div id="contentContainer">
-        <div>
-            <h1 class="text-center mb-5">{{ $product->name }}</h1>
-            <div>
-                <img src="{{ asset('') }}" alt="">
+        <div class="row" data-aos="fade-up" style="--aos-index:1;">
+            <h1 class="text-center mb-5 title-header">{{$product->name }}</h1>
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="overlay-container clickable-img gallery-item mb-4 slide-in-right">
+                    <img src="{{ asset('img/test1.jpg') }}" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="overlay-container clickable-img gallery-item mb-4 slide-in-left">
+                    <img src="{{ asset('img/test2.jpg') }}" alt="">
+                </div>
             </div>
         </div>
         {{-- <div class="article article-item" data-aos="fade-up" style="--aos-index:1;">
-            <div class="overlay-container clickable-img" >
+            <div class="overlay-container clickable-img">
                 <img src="{{ asset($imgs[0]->img_url) }}" class="article-img" alt="">
                 <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
             </div>
@@ -299,7 +344,7 @@
         <div class="row gallery-container" data-aos="fade-up" style="--aos-index:2;">
             @foreach($imgs as $img)
             <div class="col-lg-4 mb-4 mb-lg-0">
-                <div class="overlay-container clickable-img gallery-item mb-4">
+                <div class="overlay-container clickable-img gallery-item mb-4 shadow-sm">
                     <img src="{{ asset($img->img_url) }}" alt="" />
                     <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
                 </div>
@@ -308,19 +353,40 @@
             @endforeach
         </div>
 
+        <div class="row justify-content-center">
+            <div class="w-50 mb-5 mt-3 p-4 title-info">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="m-0 p-0" style="font-size: 1.6rem;">{{ $product->name }}</p>
+                    <div>
+                        <p class="m-0 p-0" style="font-size: 1rem;">قیمت : </p>
+                        <p class="m-0 p-0" style="font-size: 1.6rem;">{{ number_format($product->price) }}</p>
+                    </div>
+                    <div>
+                        <p class="m-0 p-0" style="font-size: 1rem;"> اندازه : </p>
+                        <p class="m-0 p-0" style="font-size: 1.6rem;">{{$size->name}}</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="m-0 p-0" style="font-size: 1rem;">تعدا فیس:</p>
+                        <p class="m-0 p-0" style="font-size: 1.6rem;">{{$product->face}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Sizes -->
+        <h3 class="mt-4">این کاشی در اندازه های دیگر :</h3>
         <div class="sizes mt-5" data-aos="fade-up" style="--aos-index:3;">
             @foreach($sizes as $size)
-                <div class="tile size-item" style="">
-                    <a href="/">
-                        <div class="box " style="width: {{ $size->width }}px ; height: {{ $size->height }}px"></div>
-                        <div class="label" >{{$size->name}}</div>
-                    </a>
-                </div>
+            <div class="tile size-item" style="">
+                <a href="/">
+                    <div class="box " style="width: {{ $size->width }}px ; height: {{ $size->height }}px"></div>
+                    <div class="label">{{$size->name}}</div>
+                </a>
+            </div>
             @endforeach
         </div>
     </div>
-{{-- selected-box --}}
+    {{-- selected-box --}}
 </section>
 
 <!-- Modal for Image Zoom -->

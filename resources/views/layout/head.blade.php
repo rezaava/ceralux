@@ -17,6 +17,10 @@
             font-family: yekan;
             src: url({{ asset('fonts/YekanBakh-Medium.ttf') }});
         }
+        @font-face {
+            font-family: pinar;
+            src: url({{ asset('fonts/Pinar-DS2-Black.ttf') }});
+        }
         body {
             /* font-family: 'Vazirmatn', sans-serif; */
             font-family: yekan , sans-serif!important ;

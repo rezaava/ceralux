@@ -35,7 +35,7 @@ class ProductController extends Controller
         return view('catalogs' , compact('sizes'));
     }
 
-        public function productinfo($id)
+        public function productinfo($size_id,$id)
         {
             $sizes = Size::get();
             foreach($sizes as $size){
@@ -47,13 +47,11 @@ class ProductController extends Controller
             }
 
 
-            $size_id = size_product::where('product_id' , $id)->first();
-            $imgs = Product_Image::where('product_id' , $id)->get();
-            $size = Size::where('id' , $size_id->size_id)->first();
             
-            //return $size;
+            $imgs = Product_Image::where('product_id' , $id)->get();
+            $size = Size::where('id' , $size_id)->first();
             
             $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
-            return view('products.info', compact('product' , 'sizes' , 'imgs'));
+            return view('products.info', compact('product' , 'sizes' , 'imgs' , 'size'));
         }
 }
