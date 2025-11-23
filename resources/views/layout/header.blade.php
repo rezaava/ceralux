@@ -1,6 +1,6 @@
 <nav class="navbar colored navbar-expand-lg sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('index') }}"><img src="{{ asset('images/logo.png') }}" alt=""></a>
+        <a class="navbar-brand" href="{{ route('index') }}"><img style="width: 250px" src="{{ asset('images/logo.png') }}" alt=""></a>
         <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarNav" style="color: #fff!important">
             <span ><i class="fa-solid fa-bars"></i></span>

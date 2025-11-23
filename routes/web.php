@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CRMController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ProductController;
@@ -31,6 +32,7 @@ Route::get('/admin/catalog',[AdminController::class,'catalog'])->name('catalog')
 
 Route::prefix('/products')->group(function () {
    Route::get('/info/{size_id}/{name}',[ProductController::class,'productinfo'])->name('productinfo'); 
+   Route::get('/img/{pro_id}',[ProductController::class,'showImg'])->name('productinfo'); 
    Route::get('/{size}',[ProductController::class,'products'])->name('products'); 
    Route::get('/',[ProductController::class,'productsindex'])->name('productsindex'); 
 
@@ -54,3 +56,7 @@ Route::get('/blog',[SiteController::class,'blog'])->name('blog');
 Route::get('/aboutus',[SiteController::class,'aboutus'])->name('aboutus');
 
 Route::get('/contact',[SiteController::class,'contact'])->name('contact');
+
+Route::get('/admin/crm/addProd',[CRMController::class,'addProd'])->name('addProd');
+Route::get('/admin/crm/reqProd',[CRMController::class,'reqProd'])->name('reqProd');
+Route::get('/admin/crm/reqSale',[CRMController::class,'reqSale'])->name('reqSale');

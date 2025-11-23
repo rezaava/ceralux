@@ -76,7 +76,20 @@
 
                     <div class="d-flex gap-3 form-row-responsive">
                         <input type="text" name="title" class="form-control w-50" placeholder="نام محصول">
+                        <input type="text" name="code_prod" class="form-control w-50" placeholder="کد محصول  ">
                         <input type="text" name="price" class="form-control w-50" placeholder="قیمت محصول ">
+                    </div>
+
+                    <div class="d-flex gap-3 form-row-responsive">
+                        <input type="text" name="name_company" class="form-control w-50" placeholder="نام کارخانه">
+                        <input type="text" name="count_box" class="form-control w-50" placeholder="تعداد کارتن   ">
+                        <input type="text" name="count_meter" class="form-control w-50" placeholder="متراژ هر کارتن  ">
+                    </div>
+
+                    <div class="d-flex gap-3 form-row-responsive">
+                        <input type="text" name="count_palet" class="form-control w-50" placeholder="تعداد پالت ">
+                        <input type="text" name="count_all" class="form-control w-50" placeholder="متراژکل    ">
+                        <input type="text" name="face" class="form-control w-50" placeholder="تعداد فیس  ">
                     </div>
 
                     <label for="" class="mb-2">لطفا سایز مورد نظر را انتخاب کنید.</label>
@@ -91,8 +104,6 @@
 
                     <textarea name="desc" class="form-control textArea"
                         placeholder="توضیحات درباره محصول..."></textarea>
-
-                    <input type="text" name="face" class="form-control" placeholder="تعداد فیس  ">
 
                     <div class="card mt-3" style="border-radius: 0.4rem ; border-color: #394559">
                         <div class="card-header">

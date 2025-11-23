@@ -6,10 +6,12 @@
         padding-left: 1.5rem;
         /* کمی فاصله برای زیبایی */
     }
-    #add-list:hover{
+
+    #add-list:hover {
         width: 90%;
     }
-    #show-list:hover{
+
+    #show-list:hover {
         width: 90%;
     }
 </style>
@@ -80,7 +82,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-flex align-items-center {{ request()->is('admin/product*') ? 'active' : '' }}" data-bs-toggle="collapse" href="#productMenu" role="button"
+            <a class="nav-link d-flex align-items-center {{ request()->is('admin/product*') ? 'active' : '' }}"
+                data-bs-toggle="collapse" href="#productMenu" role="button"
                 aria-expanded="{{ request()->is('admin/product*') ? 'true' : 'false' }}" aria-controls="productMenu">
                 <i class="fa-solid fa-boxes-stacked me-2"></i>
                 <span class="menu-label">محصولات</span>
@@ -88,13 +91,16 @@
                 <i style="font-size:0.9rem" class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
             </a>
 
-            <div class="collapse {{ request()->is('admin/product*') ? 'show' : '' }}" id="productMenu" style="border-right: 2px solid #fff;margin-right: 1.6rem">
+            <div class="collapse {{ request()->is('admin/product*') ? 'show' : '' }}" id="productMenu"
+                style="border-right: 2px solid #fff;margin-right: 1.6rem">
                 <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
                     <li class="nav-item {{ request()->routeIs('product-list') ? 'activeLi' : '' }}">
-                        <a class="nav-link {{ request()->routeIs('product-list') ? 'active1' : '' }}" href="/admin/product/list" id="add-list">لیست محصولات</a>
+                        <a class="nav-link {{ request()->routeIs('product-list') ? 'active1' : '' }}"
+                            href="/admin/product/list" id="add-list">لیست محصولات</a>
                     </li>
                     <li class="nav-item {{ request()->routeIs('product-add') ? 'activeLi' : '' }}">
-                        <a class="nav-link {{ request()->routeIs('product-add') ? 'active1' : '' }}" href="/admin/product/add" id="show-list">افزودن محصول جدید</a>
+                        <a class="nav-link {{ request()->routeIs('product-add') ? 'active1' : '' }}"
+                            href="/admin/product/add" id="show-list">افزودن محصول جدید</a>
                     </li>
                 </ul>
             </div>
@@ -107,6 +113,36 @@
                 <span class="menu-label">کاتالوگ ها</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center {{ request()->is('admin/crm*') ? 'active' : '' }}"
+                data-bs-toggle="collapse" href="#productMenu1" role="button"
+                aria-expanded="{{ request()->is('admin/crm*') ? 'true' : 'false' }}" aria-controls="productMenu">
+                <i class="fa-solid fa-boxes-stacked me-2"></i>
+                <span class="menu-label">CRM</span>
+                <!-- آیکون فلش -->
+                <i style="font-size:0.9rem" class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
+            </a>
+
+            <div class="collapse {{ request()->is('admin/crm*') ? 'show' : '' }}" id="productMenu1"
+                style="border-right: 2px solid #fff;margin-right: 1.6rem">
+                <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
+                    <li class="nav-item {{ request()->routeIs('reqSale') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('reqSale') ? 'active1' : '' }}"
+                            href="/admin/crm/reqSale" id="add-list">درخواست فروش </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('reqProd') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('reqProd') ? 'active1' : '' }}"
+                            href="/admin/crm/reqProd" id="show-list">درخواست تولید</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('addProd') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('addProd') ? 'active1' : '' }}"
+                            href="/admin/crm/addProd" id="show-list">افزودن موجودی </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('setting') ? 'active' : '' }}" href="/admin/setting">
                 <i class="fa-solid fa-sliders"></i>

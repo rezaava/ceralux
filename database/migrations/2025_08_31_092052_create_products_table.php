@@ -16,9 +16,18 @@ return new class extends Migration
             $table->string("name");
             $table->text("desc");
             $table->text("image");
-            $table->text("features");
+            $table->text("face");
             $table->string("price");
-            $table->bigInteger("size_id");
+            $table->string("code_prod");
+            $table->string("name_company");
+            $table->string("count_box");
+            $table->string("count_meter");
+            $table->string("count_palet");
+            $table->string("count_all");
+            $table->string("name_en");
+            $table->text("desc_en");
+            $table->string("name_ar");
+            $table->text("desc_ar");
             $table->timestamps();
         });
     }

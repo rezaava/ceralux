@@ -54,4 +54,10 @@ class ProductController extends Controller
             $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
             return view('products.info', compact('product' , 'sizes' , 'imgs' , 'size'));
         }
+
+        public function showImg($id){
+            $prod = Product::where('id' , $id)->first();
+            $imgs = Product_Image::where('product_id' , $id)->get();
+            return view('admin.add_image' , compact('prod' , 'imgs'));
+        }
 }

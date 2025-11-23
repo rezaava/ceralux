@@ -250,7 +250,7 @@
                                     <div class="description-cell">{{ $prod->desc }}</div>
                                 </td>
                                 <td style="white-space: nowrap">
-                                    <a class="btn btn-sm btn-outline-success">
+                                    <a href="/products/img/{{ $prod->id }}" class="btn btn-sm btn-outline-success">
                                         <i class="fas fa-images"></i> مشاهده عکس‌ها
                                     </a>
                                     <a class="btn btn-sm btn-outline-primary ">

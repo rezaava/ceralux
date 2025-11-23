@@ -281,11 +281,22 @@
     }
 
     .card {
-        background: var(--card-bg);
+        background-color: #2b3545;
+        margin-top: 1rem;
         border-radius: var(--card-radius);
-        box-shadow: rgba(236, 236, 236, 0.15) 1.95px 1.95px 2.6px;
-        border: 0.5px solid var(--card-border);
+        border: 0.5px solid #b9b9b950;
         color: var(--text-main);
+        padding: 0.5rem 0.5rem;
+    }
+    .card a{
+        font-size: 0.9rem;
+    }
+    .card i{
+        font-size: 1.1rem;
+    }
+    .card-img-top{
+        border: 2px solid #E6C16B;
+        box-shadow: 0 0 10px #E6C16B66;
     }
 
     .card-header {

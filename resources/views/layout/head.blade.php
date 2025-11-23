@@ -44,7 +44,7 @@
             visibility: hidden;
             transform: translateY(10px);
             transition: opacity 0.4s, transform 0.4s, visibility 0.4s;
-            display: block;
+            /* display: block; */
             background: linear-gradient(145deg, #d0bc7e, #e6d3a3);
             border: none;
             border-radius: 12px;
@@ -60,11 +60,12 @@
         }
 
         .dropdown-item {
-            font-family: 'Vazirmatn', sans-serif;
+            font-family: 'yekan', sans-serif;
             color: #2c2c2c;
-            padding: 14px 22px;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            text-align: center;
             transition: all 0.3s ease;
-            position: relative;
             overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
