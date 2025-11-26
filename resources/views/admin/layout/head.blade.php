@@ -25,7 +25,7 @@
         --text-main: #e6eaf1;
         --text-secondary: #89a5c5;
         --card-radius: 18px;
-        --sidebar-width: 220px;
+        --sidebar-width: 240px;
         --sidebar-width-collapsed: 80px;
         --sidebar-icon-size: 1.4rem;
         --transition: 0.3s cubic-bezier(.4, 2, .6, 1);
@@ -77,7 +77,29 @@
         align-items: stretch;
         padding-top: 0;
         box-shadow: 0 0 24px 0 #000a;
+        overflow-y: auto;
+        overflow-x:hidden ;
     }
+
+    .sidebar::-webkit-scrollbar {
+        width: 4px; /* عرض اسکرول‌بار */
+    }
+        
+    .sidebar::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1); /* زمینه مسیر اسکرول */
+      border-radius: 10px;
+    }
+    
+    .sidebar::-webkit-scrollbar-thumb {
+      background: #151A23; 
+      border-radius: 10px;
+      border: 1px solid rgba(0, 238, 255, 0.2);  */
+    }
+    
+    .sidebar::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #27ae60 0%, #219653 50%, #19632d 100%);
+    }
+        
 
     .sidebar.collapsed {
         width: var(--sidebar-width-collapsed);
