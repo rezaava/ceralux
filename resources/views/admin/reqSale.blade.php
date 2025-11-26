@@ -256,9 +256,12 @@
                     <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">3</span><span style="padding-right: 0.2rem">تعداد</span></p>
                     <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">0</span><span style="padding-right: 0.2rem">تعداد</span></p>
                 </div>
+
                 <div class="d-flex justify-content mt-3" style="padding: 0 4rem;">
                     <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">10,000,000</span><span style="padding-right: 0.2rem">تومان</span></p>
                 </div>
+
+                <div class="d-flex justify-content-end mt-4"><a class="btn btn-success mt-3" style="width: 20%">ثبت نهایی فاکتور </a></div>
 
             </div>
         </div>
