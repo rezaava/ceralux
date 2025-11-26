@@ -148,6 +148,10 @@
             width: 100% !important;
         }
 
+        .form-row-responsive .form-select {
+            width: 100% !important;
+        }
+
         .textArea {
             width: 100%;
         }
@@ -161,21 +165,53 @@
         <div class="col-lg-8 col-md-10 col-12">
             <div class="stat-card mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="stat-title" style="font-size: 1.6rem">افزودن  موجودی محصول</div>
+                    <div class="stat-title" style="font-size: 1.6rem">ثبت فاکتور جدید</div>
                     {{-- <a href="" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2">تعریف محصول جدید</span></a> --}}
                 </div>
+
+                <form action="" method="POST">
+                    
+                    <div class="d-flex gap-3 form-row-responsive mt-3">
+                        <select class="form-select select2-farsi w-50" dir="rtl" name="" id="">
+                            <option value="" selected>مشتری را انتخاب کنید</option>
+                            @foreach($prods as $prod)
+                            <option value="{{ $prod->id }}">{{ $prod->name }}</option>
+                            @endforeach
+                        </select>
+                        
+                        
+                    </div>
+                    <div class="d-flex gap-3 form-row-responsive mt-3">
+                        <input type="text" name="" class="form-control w-50 mb-3" placeholder="شماره تراکنش ">
+                        <input type="text" name="" class="form-control w-50 mb-3" placeholder="شماره موبایل ">
+                        <input type="text" name="" class="form-control w-50 mb-3" placeholder="تاریخ">
+                    </div>
+
+                    <div class="d-flex gap-3 form-row-responsive">
+                        <input type="text" name="" class="form-control w-100 mb-3" placeholder="آدرس">
+                        <select class="form-select" name="" id="">
+                            <option value="" selected>اسم فروشنده</option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                     <div class="text-center"><button class="btn btn-success w-50 mt-3">ثبت </button></div>
+                </form>
 
 
                 <form action="/admin/product/add" method="POST">
                     @csrf
 
 
-                    <div class="d-flex gap-3 form-row-responsive justify-content-center">
+                    <div class="d-flex gap-3 form-row-responsive justify-content-start">
+
                         <select class="form-select select2-farsi w-50" dir="rtl" name="" id="">
+                            <option value="" selected>محصول را انتخاب کنید</option>
                             @foreach($prods as $prod)
                             <option value="{{ $prod->id }}">{{ $prod->name }}</option>
                             @endforeach
                         </select>
+
                     </div>
 
                     <div class="d-flex gap-3 form-row-responsive mt-3">
@@ -185,10 +221,44 @@
                         <input type="text" name="count_all  " class="form-control w-50" placeholder="  متراژ کل ">
                     </div>
 
-
-                    <button class="btn btn-success w-100 mt-3">ثبت درخواست</button>
+                    <div class="text-center"><button class="btn btn-success w-50 mt-3">افزودن کالا</button></div>
                 </form>
 
+                <table class="table table-dark table-hover mt-3 table-borderless" style="table-layout: fixed">
+                    <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
+                      <tr>
+                        <th>ردیف</th>
+                        <th>کد کالا</th>
+                        <th>نام محصول</th>
+                        <th>تعداد کارتن</th>
+                        <th>تعداد پالت</th>
+                        <th> متراژ کل</th>
+                        <th>  قیمت</th>
+                        <th>  قیمت کل</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center">
+                      <tr>
+                        <td>1</td>
+                        <td>324fg</td>
+                        <td>کاشی</td>
+                        <td>3</td>
+                        <td>0</td>
+                        <td>60M</td>
+                        <td>200,000</td>
+                        <td>12,000,000</td>
+                      </tr>
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-between" style="padding: 0 4rem;">
+                    <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">60</span><span style="padding-right: 0.2rem">متر</span></p>
+                    <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">3</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                    <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">0</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                </div>
+                <div class="d-flex justify-content mt-3" style="padding: 0 4rem;">
+                    <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">10,000,000</span><span style="padding-right: 0.2rem">تومان</span></p>
+                </div>
 
             </div>
         </div>
@@ -204,7 +274,7 @@ $(document).ready(function() {
     // تنظیمات Select2 برای فارسی
     $('.select2-farsi').select2({
         dir: "rtl", // راست به چپ
-        placeholder: "جستجو کنید...",
+        
         language: {
             noResults: function() {
                 return "نتیجه‌ای یافت نشد";
