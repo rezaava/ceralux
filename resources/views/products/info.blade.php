@@ -360,19 +360,30 @@
         <div class="row justify-content-center">
             <div class="mb-5 mt-3 p-4 title-info">
                 <div class="d-flex justify-content-between align-items-center">
-                    <p class="m-0 p-0" style="font-size: 1.7rem;">{{ $product->name }}</p>
+                    <p class="m-0 p-0" style="font-size: 1.6rem;">{{ $product->name }}</p>
                     <div>
-                        <p class="m-0 p-0" style="font-size: 0.8rem;"> {{__('messages.name_price')}} </p>
-                        <p class="m-0 p-0" style="font-size: 1.4rem;">{{ number_format($product->price) }}</p>
+                        <p class="m-0 p-0" style="font-size: 0.7rem;"> {{__('messages.name_price')}} </p>
+                        <p class="m-0 p-0" style="font-size: 1.3rem;">{{ number_format($product->price) }}</p>
                     </div>
                     <div>
-                        <p class="m-0 p-0" style="font-size: 0.8rem;"> {{__('messages.name_size_text')}} </p>
-                        <p class="m-0 p-0" style="font-size: 1.4rem;">{{$size->name}}</p>
+                        <p class="m-0 p-0" style="font-size: 0.7rem;"> {{__('messages.name_size_text')}} </p>
+                        <p class="m-0 p-0" style="font-size: 1.3rem;">{{$size->name}}</p>
                     </div>
                     <div class="text-center">
-                        <p class="m-0 p-0" style="font-size: 0.8rem;"> {{__('messages.name_face')}}</p>
-                        <p class="m-0 p-0" style="font-size: 1.4rem;">{{$product->face}}</p>
+                        <p class="m-0 p-0" style="font-size: 0.7rem;"> {{__('messages.name_face')}}</p>
+                        <p class="m-0 p-0" style="font-size: 1.3rem;">{{$product->face}}</p>
                     </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="row justify-content-center">
+            <div class="mb-5 mt-3 p-4 title-info">
+                <div class="d-flex justify-content-start align-items-center">
+                    <p class="m-0 p-0" style="font-size: 1.6rem;">توضیحات :</p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center mt-2">
+                    <p class="m-0 p-0" style="font-size: 1.1rem;">{{$product->desc}}</p>
                 </div>
             </div>
         </div>

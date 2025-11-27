@@ -161,7 +161,7 @@
         <div class="col-lg-8 col-md-10 col-12">
             <div class="stat-card mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="stat-title" style="font-size: 1.6rem">افزودن  موجودی محصول</div>
+                    <div class="stat-title" style="font-size: 1.6rem">  درخواست تولید محصول</div>
                     {{-- <a href="" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2">تعریف محصول جدید</span></a> --}}
                 </div>
 
