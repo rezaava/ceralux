@@ -23,9 +23,16 @@ class AdminController extends Controller
         $size->save();
         return redirect()->back();
     }
-    public function productAdd(){
+    public function productAdd($id = null){
+
+        $editProd = null;
+
+        if($id){
+            $editProd = Product::find($id);
+        }
         $sizes = Size::get();
-        return view('admin.product' , compact('sizes'));
+        $size_prod = size_product::where('product_id' , $id)->pluck('size_id')->toArray();
+        return view('admin.product' , compact('sizes' , 'editProd' , 'size_prod'));
     }
     public function productList(){
         $prods = Product::get();
@@ -39,7 +46,13 @@ class AdminController extends Controller
 
     public function productPost(Request $req){
 
-        $prod = new Product();
+        if($req->prod_id){
+            $prod = Product::where('id' , $req->prod_id)->first();
+        }else{
+            $prod = new Product();
+        }
+
+        
         
         $prod->name = $req->title;
         $prod->desc = $req->desc;
@@ -49,6 +62,12 @@ class AdminController extends Controller
         $prod->desc_en = $req->descEn;
         $prod->name_ar = $req->titleAr;
         $prod->desc_ar = $req->descAr;
+        $prod->count_box = $req->count_box;
+        $prod->count_meter = $req->count_meter;
+        $prod->count_palet = $req->count_palet;
+        $prod->count_all = $req->count_all;
+        $prod->code_prod = $req->code_prod;
+        $prod->name_company = $req->name_company;
         $prod->save();
 
         foreach ($req->sizes as $sizeId) {
@@ -59,7 +78,12 @@ class AdminController extends Controller
             $size_pord->save();
         }
 
-        return redirect()->back()->with('message' , 'محصول با موفقیت اضافه شد!');
+        if($req->prod_id){
+             return redirect('/admin/product/list')->with('message' , 'محصول با موفقیت ویرایش شد!');
+        }else{
+             return redirect('/admin/product/list')->with('message' , 'محصول با موفقیت اضافه شد!');
+        }
+       
 
     }
 

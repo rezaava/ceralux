@@ -332,7 +332,7 @@
                                         <a href="/products/img/{{ $prod->id }}" class="btn btn-sm btn-outline-success m-1">
                                             <i class="fas fa-images"></i>
                                         </a>
-                                        <a class="btn btn-sm btn-outline-primary m-1">
+                                        <a href="/admin/product/add/{{ $prod->id }}" class="btn btn-sm btn-outline-primary m-1">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <a class="btn btn-sm btn-outline-danger m-1">
@@ -387,4 +387,26 @@
         // ]
     });
 </script>
+
+@if (session('message'))
+<script>
+    Swal.fire({
+            toast: true,
+            position: 'top-start',
+            icon: 'success',
+            title: '{{ session('message') }}',
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#ffe6e6',
+            color: '#000',
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+</script>
+@endif
+
 @endsection

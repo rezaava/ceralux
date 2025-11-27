@@ -100,7 +100,7 @@
                     </li>
                     <li class="nav-item {{ request()->routeIs('product-add') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('product-add') ? 'active1' : '' }}"
-                            href="/admin/product/add" id="show-list">افزودن محصول جدید</a>
+                            href="/admin/product/add/{$id}" id="show-list">افزودن محصول جدید</a>
                     </li>
                 </ul>
             </div>

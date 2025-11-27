@@ -308,7 +308,7 @@
 <section class="py-5 container" dir="{{ in_array(app()->getLocale(), ['fa','ar']) ? 'rtl' : 'ltr' }}">
     <div id="contentContainer">
         <div class="row" data-aos="fade-up" style="--aos-index:1;">
-            <h1 class="text-center mb-5 title-header">Pablo Dark</h1>
+            <h1 class="text-center mb-5 title-header"> {{$product->name_en}}</h1>
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="overlay-container clickable-img gallery-item mb-4 slide-in-right">
                     <img src="{{ asset('img/test1.jpg') }}" alt="">
