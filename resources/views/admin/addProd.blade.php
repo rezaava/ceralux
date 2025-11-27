@@ -166,12 +166,12 @@
                 </div>
 
 
-                <form action="/admin/product/add" method="POST">
+                <form action="/admin/crm/addProd/add" method="POST">
                     @csrf
 
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center">
-                        <select class="form-select select2-farsi w-50" dir="rtl" name="" id="">
+                        <select class="form-select select2-farsi w-50" dir="rtl" name="prod_id" id="">
                             @foreach($prods as $prod)
                             <option value="{{ $prod->id }}">{{ $prod->name }}</option>
                             @endforeach
@@ -179,10 +179,10 @@
                     </div>
 
                     <div class="d-flex gap-3 form-row-responsive mt-3">
-                        <input type="text" name="count_box" class="form-control w-50" placeholder="تعداد کارتن">
-                        <input type="text" name="count_meter" class="form-control w-50" placeholder="متراژ هر کارتن   ">
-                        <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
-                        <input type="text" name="count_all  " class="form-control w-50" placeholder="  متراژ کل ">
+                        <input type="text" name="box" class="form-control w-50" placeholder="تعداد کارتن">
+                        {{-- <input type="text" name="meter" class="form-control w-50" placeholder="متراژ هر کارتن   "> --}}
+                        <input type="text" name="palet" class="form-control w-50" placeholder=" تعداد پالت ">
+                        <input type="text" name="all" class="form-control w-50" placeholder="  متراژ کل ">
                     </div>
 
 
@@ -216,4 +216,25 @@ $(document).ready(function() {
     });
 });
 </script>
+
+@if (session('message'))
+<script>
+    Swal.fire({
+            toast: true,
+            position: 'top-start',
+            icon: 'success',
+            title: '{{ session('message') }}',
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#ffe6e6',
+            color: '#000',
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+</script>
+@endif
 @endsection
