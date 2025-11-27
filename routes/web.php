@@ -25,6 +25,7 @@ Route::post('/admin/size/add',[AdminController::class,'sizePost']);
 
 Route::get('/admin/product/add/{id}',[AdminController::class,'productAdd'])->name('product-add');
 Route::get('/admin/product/list',[AdminController::class,'productList'])->name('product-list');
+Route::get('/admin/product/list/delete/{id}',[AdminController::class,'deleteProduct'])->name('product-list');
 Route::post('/admin/product/add',[AdminController::class,'productPost']);
 
 Route::get('/admin/setting',[AdminController::class,'setting'])->name('setting');

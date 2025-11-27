@@ -335,7 +335,7 @@
                                         <a href="/admin/product/add/{{ $prod->id }}" class="btn btn-sm btn-outline-primary m-1">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-sm btn-outline-danger m-1">
+                                        <a href="/admin/product/list/delete/{{ $prod->id }}" class="btn btn-sm btn-outline-danger m-1">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>

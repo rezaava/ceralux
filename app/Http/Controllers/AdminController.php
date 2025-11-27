@@ -87,6 +87,12 @@ class AdminController extends Controller
 
     }
 
+    public function deleteProduct($id){
+        $prod = Product::find($id);
+        $prod->delete();
+        return redirect('/admin/product/list')->with('message' , 'محصول با موفقیت حذف شد!');
+    }
+
     public function catalog(){
         return view('admin.catalog');
     }
