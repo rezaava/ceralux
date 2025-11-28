@@ -129,7 +129,7 @@ class CRMController extends Controller
         $order->count_meters = $meter;
         $order->count_boxs = $box;
         $order->save();
-        return redirect('/admin/crm/reqSale/{id}');
+        return redirect('/admin/crm/reqSale/{id}')->with('message' , 'فاکتور با موفقیت ثبت شد!');
     }
 
     public function listUser(){
@@ -188,8 +188,8 @@ class CRMController extends Controller
     }
 
     public function listInvocie(){
-
-        return view('admin.list_invocie');
+        $carts = Carts::where('status' , 1)->get();
+        return view('admin.list_invocie' , compact('carts'));
     }
 
     public function request(){

@@ -286,13 +286,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            @foreach($carts as $key => $cart)
                             <tr>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">1</div>
+                                    <div class="description-cell2">{{$key+1}}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">KP2324</div>
+                                    <div class="description-cell2">{{$cart->code_cart}}</div>
                                 </td>
                                 <td class="numeric-column">
                                     <div class="description-cell2">علی پارسائیان</div>
@@ -305,8 +305,8 @@
                                 </td>
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">
-                                        <a href="" class="btn btn-sm btn-outline-primary m-1">
-                                            <i class="fas fa-edit"></i>
+                                        <a href="/admin/crm/reqSale/{{ $cart->id }}" class="btn btn-sm btn-outline-success m-1">
+                                            <i class="fa-solid fa-eye"></i>
                                         </a>
                                         <a href="" class="btn btn-sm btn-outline-danger m-1">
                                             <i class="fas fa-trash"></i>
@@ -314,7 +314,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
