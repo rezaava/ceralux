@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -31,5 +32,44 @@ class CRMController extends Controller
     public function reqSale(){
         $prods = Product::get();
         return view('admin.reqSale' , compact('prods'));
+    }
+
+    public function listUser(){
+        $customers = Customer::get();
+        return view('admin.list_user' , compact('customers'));
+    }
+
+    public function addUser($id=null){
+
+        $editCus = null;
+        if($id){
+            $editCus = Customer::find($id);
+        }
+        return view('admin.add_user' , compact('editCus'));
+    }
+
+    public function addUserPost(Request $req){
+        if($req->customer_id){
+            $customer = Customer::where('id' , $req->customer_id)->first();
+        }else{
+            $customer = new Customer();
+        }
+
+        $customer->name = $req->name;
+        $customer->phone = $req->phone;
+        $customer->address = $req->address;
+        $customer->save();
+        
+        if($req->customer_id){
+             return redirect('/admin/user/list')->with('message' , 'مشتری با موفقیت ویرایش شد!');
+        }else{
+             return redirect('/admin/user/add/{id}')->with('message' , 'مشتری با موفقیت اضافه شد!');
+        }
+    }
+
+    public function addUserDelete($id){
+        $customer = Customer::find($id);
+        $customer->delete();
+        return redirect()->back()->with('message' , 'مشتری با موفیقت حذف شد!');
     }
 }

@@ -141,6 +141,34 @@
                     </li>
                 </ul>
             </div>
+
+            
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center {{ request()->is('admin/user*') ? 'active' : '' }}"
+                data-bs-toggle="collapse" href="#productMenu2" role="button"
+                aria-expanded="{{ request()->is('admin/user*') ? 'true' : 'false' }}" aria-controls="productMenu">
+                <i class="fa-solid fa-users-between-lines"></i>
+                <span class="menu-label">مشتریان</span>
+                <!-- آیکون فلش -->
+                <i style="font-size:0.9rem" class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
+            </a>
+
+            <div class="collapse {{ request()->is('admin/user*') ? 'show' : '' }}" id="productMenu2"
+                style="border-right: 2px solid #fff;margin-right: 1.6rem">
+                <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
+                    <li class="nav-item {{ request()->routeIs('listUser') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('listUser') ? 'active1' : '' }}"
+                            href="/admin/user/list" id="add-list">لیست مشتریان</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('addUser') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('addUser') ? 'active1' : '' }}"
+                            href="/admin/user/add/{id}" id="show-list"> افزودن مشتریان</a>
+                    </li>
+                </ul>
+            </div>
+
         </li>
 
         <li class="nav-item">

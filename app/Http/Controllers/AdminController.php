@@ -81,7 +81,7 @@ class AdminController extends Controller
         if($req->prod_id){
              return redirect('/admin/product/list')->with('message' , 'محصول با موفقیت ویرایش شد!');
         }else{
-             return redirect('/admin/product/list')->with('message' , 'محصول با موفقیت اضافه شد!');
+             return redirect('/admin/product/add/{id}')->with('message' , 'محصول با موفقیت اضافه شد!');
         }
        
 

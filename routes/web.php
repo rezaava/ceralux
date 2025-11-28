@@ -62,3 +62,8 @@ Route::get('/admin/crm/addProd',[CRMController::class,'addProd'])->name('addProd
 Route::post('/admin/crm/addProd/add',[CRMController::class,'addProdPost'])->name('addProd');
 Route::get('/admin/crm/reqProd',[CRMController::class,'reqProd'])->name('reqProd');
 Route::get('/admin/crm/reqSale',[CRMController::class,'reqSale'])->name('reqSale');
+
+Route::get('/admin/user/list',[CRMController::class,'listUser'])->name('listUser');
+Route::get('/admin/user/add/{id}',[CRMController::class,'addUser'])->name('addUser');
+Route::get('/admin/user/delete/{id}',[CRMController::class,'addUserDelete'])->name('addUser');
+Route::post('/admin/user/add',[CRMController::class,'addUserPost'])->name('addUser');

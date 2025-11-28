@@ -487,10 +487,10 @@
             border: 1px solid var(--card-border);
             color: var(--accent-green);
             font-size: 1.3rem;
-            padding: 6px 10px;
+            padding: 10px 10px;
             border-radius: 12px;
             position: fixed;
-            top: 36px;
+            top: 14px;
             right: 36px;
             z-index: 2100;
             box-shadow: 0 2px 8px 0 #0002;
