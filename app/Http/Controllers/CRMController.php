@@ -90,4 +90,14 @@ class CRMController extends Controller
     ]);
     }
 
+    public function listInvocie(){
+
+        return view('admin.list_invocie');
+    }
+
+    public function request(){
+
+        return view('admin.request');
+    }
+
 }

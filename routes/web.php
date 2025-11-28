@@ -30,6 +30,7 @@ Route::post('/admin/product/add',[AdminController::class,'productPost']);
 
 Route::get('/admin/setting',[AdminController::class,'setting'])->name('setting');
 Route::get('/admin/catalog',[AdminController::class,'catalog'])->name('catalog');
+Route::get('/admin/request',[CRMController::class,'request'])->name('req');
 
 Route::prefix('/products')->group(function () {
    Route::get('/info/{size_id}/{name}',[ProductController::class,'productinfo'])->name('productinfo'); 
@@ -62,6 +63,8 @@ Route::get('/admin/crm/addProd',[CRMController::class,'addProd'])->name('addProd
 Route::post('/admin/crm/addProd/add',[CRMController::class,'addProdPost'])->name('addProd');
 
 Route::get('/admin/crm/reqProd',[CRMController::class,'reqProd'])->name('reqProd');
+
+Route::get('/admin/crm/listInvocie',[CRMController::class,'listInvocie'])->name('listInvocie');
 
 Route::get('/admin/crm/reqSale',[CRMController::class,'reqSale'])->name('reqSale');
 Route::get('/get-customer-info/{id}', [CRMController::class, 'getCustomerInfo']);

@@ -56,40 +56,6 @@
     </div>
 </div>
 
-<div id="overlay" style="
-    display: none; 
-    position: fixed; 
-    top: 0; left: 0; 
-    width: 100%; height: 100%; 
-    background-color: rgba(0,0,0,0.7); 
-    z-index: 999;
-">
-    <div id="img_show" style="
-    display: flex; 
-    position: fixed; 
-    top: 50%; left: 50%; 
-    transform: translate(-50%, -50%); 
-    background-color: #fff; 
-    border-radius: 10px; 
-    padding: 20px; 
-    z-index: 1000; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    width: 400px; 
-    text-align: center;
-">
-        <h3>نمایش محتوا</h3>
-        <p>این کارت وسط صفحه است.</p>
-        <button id="closeImgShow" style="
-        margin-top: 15px; 
-        padding: 8px 16px; 
-        background-color: #333; 
-        color: #fff; 
-        border: none; 
-        border-radius: 5px;
-        cursor: pointer;">بستن</button>
-    </div>
-</div>
-
 <!-- کارت وسط صفحه -->
 
 @endsection

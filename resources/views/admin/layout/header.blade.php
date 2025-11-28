@@ -115,6 +115,13 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('req') ? 'active' : '' }}" href="/admin/request">
+                <i class="fas fa-file-alt"></i>
+                <span class="menu-label">درخواست ها</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link d-flex align-items-center {{ request()->is('admin/crm*') ? 'active' : '' }}"
                 data-bs-toggle="collapse" href="#productMenu1" role="button"
                 aria-expanded="{{ request()->is('admin/crm*') ? 'true' : 'false' }}" aria-controls="productMenu">
@@ -138,6 +145,10 @@
                     <li class="nav-item {{ request()->routeIs('addProd') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('addProd') ? 'active1' : '' }}"
                             href="/admin/crm/addProd" id="show-list">افزودن موجودی </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('listInvocie') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('listInvocie') ? 'active1' : '' }}"
+                            href="/admin/crm/listInvocie" id="show-list">لیست فاکتور ها</a>
                     </li>
                 </ul>
             </div>
