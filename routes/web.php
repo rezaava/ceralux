@@ -66,7 +66,11 @@ Route::get('/admin/crm/reqProd',[CRMController::class,'reqProd'])->name('reqProd
 
 Route::get('/admin/crm/listInvocie',[CRMController::class,'listInvocie'])->name('listInvocie');
 
-Route::get('/admin/crm/reqSale',[CRMController::class,'reqSale'])->name('reqSale');
+Route::get('/admin/crm/reqSale/{id}',[CRMController::class,'reqSale'])->name('reqSale'); 
+Route::post('/admin/crm/reqSale/add',[CRMController::class,'salePost']); 
+Route::post('/admin/crm/reqSale/product/add',[CRMController::class,'productAddPostCart']); 
+Route::post('/admin/crm/reqSale/pay',[CRMController::class,'salePayPost']); 
+
 Route::get('/get-customer-info/{id}', [CRMController::class, 'getCustomerInfo']);
 
 Route::get('/admin/user/list',[CRMController::class,'listUser'])->name('listUser');
