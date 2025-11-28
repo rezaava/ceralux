@@ -268,7 +268,7 @@
     .header .user-name {
         color: var(--text-secondary);
         font-weight: 600;
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .header .dashboard-desc {

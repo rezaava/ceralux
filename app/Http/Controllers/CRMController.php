@@ -31,7 +31,8 @@ class CRMController extends Controller
 
     public function reqSale(){
         $prods = Product::get();
-        return view('admin.reqSale' , compact('prods'));
+        $cuss = Customer::get();
+        return view('admin.reqSale' , compact('prods' , 'cuss'));
     }
 
     public function listUser(){
@@ -72,4 +73,21 @@ class CRMController extends Controller
         $customer->delete();
         return redirect()->back()->with('message' , 'مشتری با موفیقت حذف شد!');
     }
+
+    public function getCustomerInfo($id){
+    $customer = Customer::find($id);
+
+    if ($customer) {
+        return response()->json([
+            'phone' => $customer->phone ?? '',
+            'address' => $customer->address ?? '',
+        ]);
+    }
+
+    return response()->json([
+        'phone' => '',
+        'address' => '',
+    ]);
+    }
+
 }

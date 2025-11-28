@@ -137,12 +137,27 @@
         background: transparent !important;
         scrollbar-color: #3BDE77 transparent;
     }
+    #btn-final{
+        width: 30%;
+    }
+    table{
+        table-layout: fixed;
+    }
+    table th{
+        white-space: nowrap;
+    }
 
     @media (max-width: 768px) {
+    table{
+        table-layout: auto;
+    }
         .form-row-responsive {
             flex-direction: column;
         }
 
+        #btn-final{
+            width: 100%;
+        }
 
         .form-row-responsive .form-control {
             width: 100% !important;
@@ -172,23 +187,23 @@
                 <form action="" method="POST">
                     
                     <div class="d-flex gap-3 form-row-responsive mt-3">
-                        <select class="form-select select2-farsi w-50" dir="rtl" name="" id="">
+                        <select class="form-select select2-farsi w-50" dir="rtl" name="customer" id="customerSelect">
                             <option value="" selected>مشتری را انتخاب کنید</option>
-                            @foreach($prods as $prod)
-                            <option value="{{ $prod->id }}">{{ $prod->name }}</option>
+                            @foreach($cuss as $cus)
+                            <option value="{{ $cus->id }}">{{ $cus->name }}</option>
                             @endforeach
                         </select>
                         
                         
                     </div>
                     <div class="d-flex gap-3 form-row-responsive mt-3">
-                        <input type="text" name="" class="form-control w-50 mb-3" placeholder="شماره تراکنش ">
-                        <input type="text" name="" class="form-control w-50 mb-3" placeholder="شماره موبایل ">
+                        <input type="text" name=""  class="form-control w-50 mb-3" placeholder="شماره تراکنش ">
+                        <input type="text" name="phone" id="phone" class="form-control w-50 mb-3" placeholder="شماره موبایل ">
                         <input type="text" name="" class="form-control w-50 mb-3" placeholder="تاریخ">
                     </div>
 
                     <div class="d-flex gap-3 form-row-responsive">
-                        <input type="text" name="" class="form-control w-100 mb-3" placeholder="آدرس">
+                        <input type="text" id="address" name="address" class="form-control w-100 mb-3" placeholder="آدرس">
                         <select class="form-select" name="" id="">
                             <option value="" selected>اسم فروشنده</option>
                             <option value=""></option>
@@ -224,44 +239,62 @@
                     <div class="text-center"><button class="btn btn-success w-50 mt-3">افزودن کالا</button></div>
                 </form>
 
-                <table class="table table-dark table-hover mt-3 table-borderless" style="table-layout: fixed">
-                    <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
-                      <tr>
-                        <th>ردیف</th>
-                        <th>کد کالا</th>
-                        <th>نام محصول</th>
-                        <th>تعداد کارتن</th>
-                        <th>تعداد پالت</th>
-                        <th> متراژ کل</th>
-                        <th>  قیمت</th>
-                        <th>  قیمت کل</th>
-                      </tr>
-                    </thead>
-                    <tbody class="text-center">
-                      <tr>
-                        <td>1</td>
-                        <td>324fg</td>
-                        <td>کاشی</td>
-                        <td>3</td>
-                        <td>0</td>
-                        <td>60M</td>
-                        <td>200,000</td>
-                        <td>12,000,000</td>
-                      </tr>
-                    </tbody>
-                </table>
-
-                <div class="d-flex justify-content-between" style="padding: 0 4rem;">
-                    <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">60</span><span style="padding-right: 0.2rem">متر</span></p>
-                    <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">3</span><span style="padding-right: 0.2rem">تعداد</span></p>
-                    <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">0</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                <div class="table-responsive mt-4">
+                    <table class="table table-dark table-hover mt-3 table-borderless">
+                        <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
+                          <tr>
+                            <th>ردیف</th>
+                            <th>کد کالا</th>
+                            <th>نام محصول</th>
+                            <th>تعداد کارتن</th>
+                            <th>تعداد پالت</th>
+                            <th> متراژ کل</th>
+                            <th>  قیمت</th>
+                            <th>  قیمت کل</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-center">
+                          <tr>
+                            <td>1</td>
+                            <td>324fg</td>
+                            <td>کاشی</td>
+                            <td>3</td>
+                            <td>0</td>
+                            <td>60M</td>
+                            <td>200,000</td>
+                            <td>12,000,000</td>
+                          </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="d-flex justify-content mt-3" style="padding: 0 4rem;">
-                    <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">10,000,000</span><span style="padding-right: 0.2rem">تومان</span></p>
+                <div class="stat-card ">
+
+                    <div class="row">
+
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">60</span><span style="padding-right: 0.2rem">متر</span></p>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">3</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">0</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                            </div>
+
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">10,000,000</span><span style="padding-right: 0.2rem">تومان</span></p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="d-flex justify-content-end mt-4"><a class="btn btn-success mt-3" style="width: 20%">ثبت نهایی فاکتور </a></div>
+                <div class="d-flex justify-content-end mt-4"><a class="btn btn-success" id="btn-final">ثبت نهایی فاکتور </a></div>
 
             </div>
         </div>
@@ -288,5 +321,28 @@ $(document).ready(function() {
         }
     });
 });
+</script>
+
+<script>
+    $('#customerSelect').on('change', function() {
+        var customerId = $(this).val();
+        if(customerId) {
+            $.ajax({
+                url: '/get-customer-info/' + customerId,
+                method: 'GET',
+                success: function(data) {
+                    $('#phone').val(data.phone);
+                    $('#address').val(data.address);
+                },
+                error: function() {
+                    $('#phone').val('');
+                    $('#address').val('');
+                }
+            });
+        } else {
+            $('#phone').val('');
+            $('#address').val('');
+        }
+    });
 </script>
 @endsection
