@@ -185,26 +185,33 @@
     }
     
     #overlay{
-        display: none; 
-        position: fixed; 
-        top: 0; left: 0; 
-        width: 100%; height: 100%; 
-        background-color: rgba(0,0,0,0.7); 
-        z-index: 999;
+        position: fixed;
+        margin: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.605);
+        display: none;
+        justify-content: center;
+        align-items: flex-start; 
+        z-index: 9999;
+        overflow-y: auto;         
+        padding: 2rem 1rem; 
     }
     #img_show{
-        display: flex; 
-        position: fixed; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        background-color: #fff; 
-        border-radius: 10px; 
-        padding: 20px; 
-        z-index: 1000; 
-        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        width: 400px; 
-        text-align: center;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        color: #eee;
+        padding: 2rem;
+        border-radius: 1rem;
+        width: 90%;
+        max-width: 1000px;
+        position: relative;
+        transition: all 0.3s ease-in-out;
     }
 
 
@@ -372,11 +379,43 @@
 <div id="overlay">
     <div id="img_show">
         <div class="d-flex flex-column justify-content-center">
-            <div class="d-flex justify-content-between align-items-center gap-5">
-                <h3 class="text-dark">نمایش محتوا</h3>
-                <span class="btn btn-danger btn-sm"><i class="fa-regular fa-circle-xmark"></i></span>
+            <div class="d-flex align-items-center justify-content-between mb-3 position-relative">
+                <a class="btn btn-danger m-0" id="btn2">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+                <h2 class="overlay-title text-center flex-grow-1 m-0">درخواست</h2>
             </div>
-            <p class="text-dark">این کارت وسط صفحه است.</p>
+                
+            <div>
+                <div class="table-responsive mt-4">
+                    <table class="table table-dark table-hover mt-3 table-borderless">
+                        <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
+                          <tr>
+                            <th>ردیف</th>
+                            <th>کد کالا</th>
+                            <th>نام محصول</th>
+                            <th>تعداد کارتن</th>
+                            <th>تعداد پالت</th>
+                            <th> متراژ کل</th>
+                            <th>  قیمت</th>
+                            <th>  قیمت کل</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-center"> 
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <div class="d-flex justify-content-center align-items-center">
                 <a href="" class="btn btn-success w-50">تایید</a>
