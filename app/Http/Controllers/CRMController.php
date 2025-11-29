@@ -6,6 +6,7 @@ use App\Models\Cart_prod;
 use App\Models\Carts;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Request as ModelsRequest;
 use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
@@ -197,8 +198,47 @@ class CRMController extends Controller
     }
 
     public function request(){
+        $meter = 0;
+        $box = 0;
+        $palet = 0;
+        $priceAll = 0;
 
-        return view('admin.request');
+        $carts = Carts::get();
+        foreach($carts as $cart){
+            $date = Verta::instance($cart->created_at)->format('Y/m/d');
+            $user = Customer::where('id' , $cart->user_id)->first();
+            $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
+            foreach($cart_prods as $cart_prod){
+                $prod = Product::where('id' , $cart_prod->prod_id)->first();
+                $cart_prod['prod'] = $prod;
+                
+                $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+                $box = $cart_prod->count_box + $box;
+                $palet = $cart_prod->count_palet + $palet;
+                $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+            }
+        }
+        $reqs = ModelsRequest::get();
+        foreach($reqs as $req){
+            $date2 = Verta::instance($req->created_at)->format('Y/m/d');
+            $user2 = Customer::where('id' , $req->user_id)->first();
+            $prod = Product::where('id' , $req->prod_id)->first();
+            $req['prod'] = $prod;
+        }
+        return view('admin.request' , compact('carts' , 'cart_prods' , 'reqs' , 'user' , 'date' , 'user2' , 'date2' , 'box' , 'priceAll' , 'meter' , 'palet'));
+    }
+
+    public function requestPost(Request $req){
+
+        $request = new ModelsRequest();
+        $request->user_id = '2';
+        $request->prod_id = $req->prod_id;
+        $request->count_box = $req->count_box;
+        $request->count_all = $req->count_all;
+        $request->count_meter = $req->count_meter;
+        $request->count_palet = $req->count_palet;
+        $request->save();
+        return redirect()->back()->with('message' , ' درخواست با موفقیت ارسال  شد!');
     }
 
 }

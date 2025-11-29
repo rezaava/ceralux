@@ -63,6 +63,7 @@ Route::get('/admin/crm/addProd',[CRMController::class,'addProd'])->name('addProd
 Route::post('/admin/crm/addProd/add',[CRMController::class,'addProdPost'])->name('addProd');
 
 Route::get('/admin/crm/reqProd',[CRMController::class,'reqProd'])->name('reqProd');
+Route::post('/admin/crm/reqProd/add',[CRMController::class,'requestPost'])->name('reqProd');
 
 Route::get('/admin/crm/listInvocie',[CRMController::class,'listInvocie'])->name('listInvocie');
 
