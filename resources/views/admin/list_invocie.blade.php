@@ -295,13 +295,13 @@
                                     <div class="description-cell2">{{$cart->code_cart}}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">علی پارسائیان</div>
+                                    <div class="description-cell2">{{$user->name}}</div>
                                 </td>
                                 <td class="numeric-column">
                                     <div class="description-cell2">امین پور</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">1404/08/02</div>
+                                    <div class="description-cell2">{{$date}}</div>
                                 </td>
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">

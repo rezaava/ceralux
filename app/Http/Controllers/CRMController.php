@@ -189,7 +189,11 @@ class CRMController extends Controller
 
     public function listInvocie(){
         $carts = Carts::where('status' , 1)->get();
-        return view('admin.list_invocie' , compact('carts'));
+        foreach($carts as $cart){
+            $date = Verta::instance($cart->created_at)->format('Y/m/d');
+            $user = Customer::where('id' , $cart->user_id)->first();
+        }
+        return view('admin.list_invocie' , compact('carts' , 'user' , 'date'));
     }
 
     public function request(){
