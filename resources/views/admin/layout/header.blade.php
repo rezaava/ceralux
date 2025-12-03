@@ -195,7 +195,7 @@
             </a>
         </li>
         <li class="nav-item text-center mt-3 mb-3">
-            <a class="btn btn-danger" href="/logout">
+            <a class="btn btn-danger" href="/logout/admin">
                 <i class="fa-solid fa-right-to-bracket"></i>
                 <span class="menu-label mx-2">خروج</span>
             </a>

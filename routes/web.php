@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CRMController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
@@ -78,3 +79,8 @@ Route::get('/admin/user/list',[CRMController::class,'listUser'])->name('listUser
 Route::get('/admin/user/add/{id}',[CRMController::class,'addUser'])->name('addUser');
 Route::get('/admin/user/delete/{id}',[CRMController::class,'addUserDelete'])->name('addUser');
 Route::post('/admin/user/add',[CRMController::class,'addUserPost'])->name('addUser');
+
+Route::get('/login/admin',[AuthController::class,'login'])->name('login');
+Route::post('/login/admin',[AuthController::class,'loginPost']);
+
+Route::get('/logout/admin',[AuthController::class,'logout']);
