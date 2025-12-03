@@ -150,3 +150,25 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+@if (session('message'))
+    <script>
+        Swal.fire({
+            toast: true,
+            position: 'top-start',
+            icon: 'success',
+            title: '{{ session('message') }}',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: '#e6ffed',
+            color: '#000',
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+    </script>
+@endif
+@endsection
