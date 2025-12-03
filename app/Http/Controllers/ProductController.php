@@ -60,8 +60,34 @@ class ProductController extends Controller
             $imgs = Product_Image::where('product_id' , $id)->get();
             return view('admin.add_image' , compact('prod','imgs'));
         }
-        public function addImg($prod_id){
+        public function addImg(Request $req,$prod_id){
+         
             $img =new Product_Image();
+            $img->product_id=$prod_id;
+            $img->img_name=$req->img_name;
+            $img->type=$req->type_img;
+            if ($req->hasFile('img_file')) {
+
+                $file = $req->file('img_file');
             
+                $file_name = $img->img_name . time() . '.' . $file->getClientOriginalExtension();
+            
+                $address = 'files/products';
+                $file->move(public_path($address), $file_name);
+            
+                $img->img_url = $address . '/' . $file_name;
+            }
+            
+            $img->save();
+            return back();
         }
+        public function deleteImg($id)
+        {
+            $img = Product_Image::findOrFail($id);
+        
+            $img->delete();
+        
+            return redirect()->back()->with('success', 'عکس با موفقیت حذف شد.');
+        }
+        
 }

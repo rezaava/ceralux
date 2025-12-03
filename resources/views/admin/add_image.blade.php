@@ -10,11 +10,13 @@
 
 @section('head')
 <style>
-select option {
-        background: #1e1e1e !important;    /* پس‌زمینه تیره */
-        color: #fff !important;            /* متن سفید */
+    select option {
+        background: #1e1e1e !important;
+        /* پس‌زمینه تیره */
+        color: #fff !important;
+        /* متن سفید */
     }
-    </style>
+</style>
 @endsection
 @section('main')
 <div class="container py-4">
@@ -45,13 +47,19 @@ select option {
                         <div class="card">
                             <img class="card-img-top" src="{{ asset($img->img_url) }}" alt="">
                             <div class="card-body text-center">
-                                <p class="p-0 m-0"></p>
-                                <a href="" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i><span
-                                        style="padding-right: 0.6rem">حذف</span></a>
+                                <form action="{{ url('/products/delete-img/'.$img->id) }}" method="POST" class="delete-img-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                        <span style="padding-right: 0.6rem">حذف</span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                     @endforeach
+
                 </div>
 
 
@@ -100,7 +108,7 @@ select option {
 
             <div style="font-size:40px; color:#667eea;">📁</div>
             <div style="color:white; margin-top:10px;">برای انتخاب عکس کلیک کنید</div>
-            <input type="file" name="img" id="fileInput" class="file-input" accept="image/*" style="display:none;">
+            <input type="file" name="img" id="fileInput2" class="file-input" accept="image/*" style="display:none;">
         </div>
 
         <!-- پریویو -->
@@ -115,17 +123,18 @@ select option {
             </div>
         </div>
 
-        <form action="" method="POST" enctype="multipart/form-data" class="mt-4">
-    @csrf
+        <form action="/products/add-img/{{ $prod->id }}" method="POST" enctype="multipart/form-data" class="mt-4">
+            @csrf
 
-    <input type="hidden" id="imgHidden" name="img_file">
+            <input type="file" id="fileInput" name="img_file" hidden>
 
-    <!-- ورودی متن -->
-    <input 
-        type="text" 
-        name="img_name" 
-        placeholder="مکان عکس کاشی (اختیاری)"
-        style="
+
+            <!-- ورودی متن -->
+            <input
+                type="text"
+                name="img_name"
+                placeholder="مکان عکس کاشی (اختیاری)"
+                style="
             width: 100%;
             padding: 12px 15px;
             margin-bottom: 15px;
@@ -136,13 +145,12 @@ select option {
             -webkit-backdrop-filter: blur(12px);
             color: #fff;
             font-size: 14px;
-        "
-    >
+        ">
 
-    <!-- انتخاب نوع عکس -->
-    <select 
-        name="type_img"
-        style="
+            <!-- انتخاب نوع عکس -->
+            <select
+                name="type_img"
+                style="
             width: 100%;
             padding: 12px 15px;
             margin-bottom: 15px;
@@ -153,44 +161,41 @@ select option {
             -webkit-backdrop-filter: blur(12px);
             color: #fff;
             font-size: 14px;
-        "
-    >
-        <option value="1">عکس روی کارت محصول</option>
-        <option value="2">عکس بنر سمت راست</option>
-        <option value="3">عکس بنر سمت چپ</option>
-        <option value="4">عکس کاشی در حمام</option>
-        <option value="5">عکس کاشی در آشپزخانه</option>
-        <option value="6">عکس کاشی در پذیرایی</option>
-        <option value="7">عکس کاشی در کف</option>
-    </select>
+        ">
+                <option value="1">عکس روی کارت محصول</option>
+                <option value="2">عکس بنر سمت راست</option>
+                <option value="3">عکس بنر سمت چپ</option>
+                <option value="4">عکس کاشی در حمام</option>
+                <option value="5">عکس کاشی در آشپزخانه</option>
+                <option value="6">عکس کاشی در پذیرایی</option>
+                <option value="7">عکس کاشی در کف</option>
+            </select>
 
-    <!-- دکمه‌ها -->
-    <div class="text-center mt-4">
-        <button 
-            class="btn btn-success"
-            style="
+            <!-- دکمه‌ها -->
+            <div class="text-center mt-4">
+                <button
+                    class="btn btn-success"
+                    style="
                 padding: 10px 25px;
                 border-radius: 10px;
                 font-size: 15px;
-            "
-        >
-            ثبت
-        </button>
+            ">
+                    ثبت
+                </button>
 
-        <button 
-            type="button" 
-            class="btn btn-secondary" 
-            id="closeModal"
-            style="
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="closeModal"
+                    style="
                 padding: 10px 25px;
                 border-radius: 10px;
                 font-size: 15px;
-            "
-        >
-            بستن
-        </button>
-    </div>
-</form>
+            ">
+                    بستن
+                </button>
+            </div>
+        </form>
 
 
     </div>
@@ -249,6 +254,52 @@ select option {
         };
         reader.readAsDataURL(file);
     }
+
+
+    const imgHidden = document.getElementById('fileInput2');
+
+    function handleFile(file) {
+        if (!file.type.startsWith("image/")) {
+            alert("فقط عکس انتخاب کنید");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewImage.src = e.target.result;
+            previewContainer.style.display = "block";
+            fileName.textContent = file.name;
+            fileSize.textContent = (file.size / 1024).toFixed(1) + " KB";
+
+            imgHidden.value = e.target.result; // ⬅ این خط مهم است
+        };
+        reader.readAsDataURL(file);
+    }
+</script>
+<script>
+    // گرفتن همه فرم‌های حذف
+    const deleteForms = document.querySelectorAll('.delete-img-form');
+
+    deleteForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // جلوگیری از ارسال فرم قبل از تأیید
+
+            Swal.fire({
+                title: 'آیا از حذف عکس مطمئن هستید؟',
+                text: "این عملیات قابل بازگشت نیست!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'بله، حذف شود!',
+                cancelButtonText: 'خیر'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // اگر تأیید شد، فرم ارسال می‌شود
+                }
+            })
+        });
+    });
 </script>
 
 
