@@ -35,6 +35,7 @@ Route::get('/admin/request',[CRMController::class,'request'])->name('req');
 Route::prefix('/products')->group(function () {
    Route::get('/info/{size_id}/{name}',[ProductController::class,'productinfo'])->name('productinfo'); 
    Route::get('/img/{pro_id}',[ProductController::class,'showImg'])->name('productinfo'); 
+   Route::post('/add-img/{pro_id}',[ProductController::class,'addImg']); 
    Route::get('/{size}',[ProductController::class,'products'])->name('products'); 
    Route::get('/',[ProductController::class,'productsindex'])->name('productsindex'); 
 

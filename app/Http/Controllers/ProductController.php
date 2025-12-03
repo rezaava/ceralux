@@ -58,6 +58,10 @@ class ProductController extends Controller
         public function showImg($id){
             $prod = Product::where('id' , $id)->first();
             $imgs = Product_Image::where('product_id' , $id)->get();
-            return view('admin.add_image' , compact('prod' , 'imgs'));
+            return view('admin.add_image' , compact('prod','imgs'));
+        }
+        public function addImg($prod_id){
+            $img =new Product_Image();
+            
         }
 }
