@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string("count_meter");
             $table->string("count_palet");
             $table->string("count_all");
+            $table->string("count_darageh");
+            $table->string("no_product");
             $table->string("name_en");
             $table->text("desc_en");
             $table->string("name_ar");

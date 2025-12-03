@@ -67,6 +67,8 @@ class AdminController extends Controller
         $prod->count_palet = $req->count_palet;
         $prod->count_all = $req->count_all;
         $prod->code_prod = $req->code_prod;
+        $prod->count_darageh = $req->count_darageh;
+        $prod->no_product = $req->no_product;
         $prod->name_company = $req->name_company;
         $prod->save();
 
