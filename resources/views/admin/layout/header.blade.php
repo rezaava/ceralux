@@ -136,7 +136,7 @@
                 <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
                     <li class="nav-item {{ request()->routeIs('reqSale') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('reqSale') ? 'active1' : '' }}"
-                            href="/admin/crm/reqSale/{id}" id="add-list">درخواست فروش </a>
+                            href="/admin/crm/reqSale/{id}" id="add-list">فاکتور فروش </a>
                     </li>
                     <li class="nav-item {{ request()->routeIs('reqProd') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('reqProd') ? 'active1' : '' }}"
