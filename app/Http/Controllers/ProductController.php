@@ -37,13 +37,14 @@ class ProductController extends Controller
 
         public function productinfo($size_id,$id)
         {
+            $sizes = Size::get();
             $size_prods=size_product::where('product_id',$id)->get();
             foreach($size_prods as $size_prod){
-                $sizes=Size::where('id',$size_prod->size_id)->first();
-                [$width, $height] = explode('x', $sizes->name);
+                $sizes1=Size::where('id',$size_prod->size_id)->first();
+                [$width, $height] = explode('x', $sizes1->name);
                 $size_prod['width']=$width;
                 $size_prod['height']=$height;
-                $size_prod['name']=$sizes->name;
+                $size_prod['name']=$sizes1->name;
             }
             // foreach($sizes as $size){
             //     [$width, $height] = explode('x', $size->name);
