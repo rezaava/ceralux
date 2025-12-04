@@ -17,7 +17,13 @@
                 </div>
                 <div class="user-info">
                     <img src="https://randomuser.me/api/portraits/men/32.jpg" class="user-avatar" alt="User">
-                    <span class="user-name">حسن خسروجردی</span>
+                    @if(Auth::user())
+                        @if(Auth::user()->dispaly_name)
+                            <span class="user-name">{{Auth::user()->dispaly_name}}</span>
+                        @else
+                        <small style="color: lightblue;">در داخل تنظیمات اسم را وارد کنید</small>
+                        @endif
+                    @endif
                 </div>
             </div>
             <main>

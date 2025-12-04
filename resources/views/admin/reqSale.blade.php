@@ -197,17 +197,18 @@
                         
                     </div>
                     <div class="d-flex gap-3 form-row-responsive mt-3">
-                        <input type="text" name="num_cart"  class="form-control w-50 mb-3" placeholder="شماره تراکنش ">
+                        {{-- <input type="text" name="num_cart"  class="form-control w-50 mb-3" placeholder="شماره تراکنش "> --}}
                         <input type="text" name="phone" id="phone" class="form-control w-50 mb-3" placeholder="شماره موبایل ">
-                        <input type="text" name="" class="form-control w-50 mb-3" placeholder="تاریخ">
+                        {{-- <input type="text" name="" class="form-control w-50 mb-3" placeholder="تاریخ"> --}}
+                        <input type="text" id="address" name="address" class="form-control w-50 mb-3" placeholder="آدرس">
                     </div>
 
                     <div class="d-flex gap-3 form-row-responsive">
-                        <input type="text" id="address" name="address" class="form-control w-100 mb-3" placeholder="آدرس">
-                        <select class="form-select" name="" id="">
+                        {{-- <select class="form-select" name="" id="">
                             <option value="" selected>اسم فروشنده</option>
                             <option value=""></option>
-                        </select>
+                        </select> --}}
+                        <input type="text" id="no_customer" name="no_customer" class="form-control w-100 mb-3" placeholder="نوع مشتری">
                     </div>
 
                      <div class="text-center"><button class="btn btn-success w-50 mt-3">ثبت </button></div>
@@ -283,6 +284,7 @@
                                 <th>کد کالا</th>
                                 <th>نام محصول</th>
                                 <th>تعداد کارتن</th>
+                                <th>متراژ هر کارتن</th>
                                 <th>تعداد پالت</th>
                                 <th> متراژ کل</th>
                                 <th>  قیمت</th>
@@ -296,6 +298,7 @@
                                 <td>{{$cart_prod->prod->code_prod}}</td>
                                 <td>{{$cart_prod->prod->name}}</td>
                                 <td>{{$cart_prod->count_box}}</td>
+                                <td>{{$cart_prod->count_meter}}</td>
                                 <td>{{$cart_prod->count_palet}}</td>
                                 <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
@@ -374,20 +377,40 @@ $(document).ready(function() {
                 url: '/get-customer-info/' + customerId,
                 method: 'GET',
                 success: function(data) {
+                    // تبدیل عدد no_customer به متن
+                    let customerTypeText = '';
+                    switch(data.no_customer) {
+                        case '1':
+                            customerTypeText = 'متفرقه';
+                            break;
+                        case '2':
+                            customerTypeText = 'مغازه‌دار';
+                            break;
+                        case '3':
+                            customerTypeText = 'ویزیتور';
+                            break;
+                        default:
+                            customerTypeText = '';
+                    }
+
                     $('#phone').val(data.phone);
                     $('#address').val(data.address);
+                    $('#no_customer').val(customerTypeText); // نمایش متن به جای عدد
                 },
                 error: function() {
                     $('#phone').val('');
                     $('#address').val('');
+                    $('#no_customer').val('');
                 }
             });
         } else {
             $('#phone').val('');
             $('#address').val('');
+            $('#no_customer').val('');
         }
     });
 </script>
+
 
 @if (session('message'))
 <script>

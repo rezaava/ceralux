@@ -157,6 +157,41 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link d-flex align-items-center {{ request()->is('admin/financial*') ? 'active' : '' }}"
+                data-bs-toggle="collapse" href="#productMenu3" role="button"
+                aria-expanded="{{ request()->is('admin/financial*') ? 'true' : 'false' }}" aria-controls="productMenu3">
+                <i class="fa-solid fa-boxes-stacked me-2"></i>
+                <span class="menu-label">مالی</span>
+                <!-- آیکون فلش -->
+                <i style="font-size:0.9rem" class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
+            </a>
+
+            <div class="collapse {{ request()->is('admin/financial*') ? 'show' : '' }}" id="productMenu3"
+                style="border-right: 2px solid #fff;margin-right: 1.6rem">
+                <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
+                    <li class="nav-item {{ request()->routeIs('submit') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('submit') ? 'active1' : '' }}"
+                            href="/admin/financial/submit" id="add-list"> ثبت چک</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('received') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('received') ? 'active1' : '' }}"
+                            href="/admin/financial/received" id="show-list">دریافتی</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('pay') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('pay') ? 'active1' : '' }}"
+                            href="/admin/financial/pay" id="show-list">پرداختی</a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('listPay') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('listPay') ? 'active1' : '' }}"
+                            href="/admin/financial/list" id="show-list">صورت حساب  ها</a>
+                    </li>
+                </ul>
+            </div>
+
+            
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link d-flex align-items-center {{ request()->is('admin/user*') ? 'active' : '' }}"
                 data-bs-toggle="collapse" href="#productMenu2" role="button"
                 aria-expanded="{{ request()->is('admin/user*') ? 'true' : 'false' }}" aria-controls="productMenu">

@@ -157,6 +157,7 @@ class CRMController extends Controller
         $customer->name = $req->name;
         $customer->phone = $req->phone;
         $customer->address = $req->address;
+        $customer->no_customer = $req->no_customer;
         $customer->save();
         
         if($req->customer_id){
@@ -173,19 +174,21 @@ class CRMController extends Controller
     }
 
     public function getCustomerInfo($id){
-    $customer = Customer::find($id);
+        $customer = Customer::find($id);
 
-    if ($customer) {
+        if ($customer) {
+            return response()->json([
+                'phone' => $customer->phone ?? '',
+                'address' => $customer->address ?? '',
+                'no_customer' => $customer->no_customer ?? '',
+            ]);
+        }
+
         return response()->json([
-            'phone' => $customer->phone ?? '',
-            'address' => $customer->address ?? '',
+            'phone' => '',
+            'address' => '',
+            'no_customer' => '',
         ]);
-    }
-
-    return response()->json([
-        'phone' => '',
-        'address' => '',
-    ]);
     }
 
     public function listInvocie(){
@@ -241,4 +244,26 @@ class CRMController extends Controller
         return redirect()->back()->with('message' , ' درخواست با موفقیت ارسال  شد!');
     }
 
+    public function submit(){
+        return view('admin.submit');
+    }
+
+    public function received(){
+        return view('admin.received');
+    }
+
+    public function pay(){
+        return view('admin.pay');
+    }
+
+    public function list(){
+        return view('admin.list');
+    }
+
+    public function settingPost(Request  $req){
+        $user = User::where('id' , $req->user_id)->first();
+        $user->dispaly_name = $req->name_dispaly;
+        $user->save();
+        return redirect()->back();
+    }
 }
