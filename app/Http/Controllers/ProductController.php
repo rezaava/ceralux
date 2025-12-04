@@ -37,22 +37,27 @@ class ProductController extends Controller
 
         public function productinfo($size_id,$id)
         {
-            $sizes = Size::get();
-            foreach($sizes as $size){
-                [$width, $height] = explode('x', $size->name);
-
-                $size['width'] = $width;
-                $size['height'] = $height;
-                
+            $size_prods=size_product::where('product_id',$id)->get();
+            foreach($size_prods as $size_prod){
+                $sizes=Size::where('id',$size_prod->size_id)->first();
+                [$width, $height] = explode('x', $sizes->name);
+                $size_prod['width']=$width;
+                $size_prod['height']=$height;
+                $size_prod['name']=$sizes->name;
             }
+            // foreach($sizes as $size){
+            //     [$width, $height] = explode('x', $size->name);
 
-
-            
+            //     $size['width'] = $width;
+            //     $size['height'] = $height;
+                
+            // }
+ 
             $imgs = Product_Image::where('product_id' , $id)->get();
             $size = Size::where('id' , $size_id)->first();
             
             $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
-            return view('products.info', compact('product' , 'sizes' , 'imgs' , 'size'));
+            return view('products.info', compact('product' , 'size_prods' , 'imgs' , 'size','sizes'));
         }
 
         public function showImg($id){

@@ -391,11 +391,11 @@
         <!-- Sizes -->
         <h3 class="mt-4">{{__('messages.name_size')}}</h3>
         <div class="sizes mt-5" data-aos="fade-up" style="--aos-index:3;">
-            @foreach($sizes as $size)
+            @foreach($size_prods as $size_prod)
             <div class="tile size-item" style="">
                 <a href="/">
-                    <div class="box " style="width: {{ $size->width }}px ; height: {{ $size->height }}px"></div>
-                    <div class="label">{{$size->name}}</div>
+                    <div class="box " style="width: {{ $size_prod->width }}px ; height: {{ $size_prod->height }}px"></div>
+                    <div class="label">{{$size_prod->name}}</div>
                 </a>
             </div>
             @endforeach

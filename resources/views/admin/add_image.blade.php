@@ -117,10 +117,10 @@
                 max-width:100%; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.15);
             ">
 
-            <div style="background:#f3f4ff; padding:10px; margin-top:15px; border-radius:10px;">
+            <!-- <div style="background:#f3f4ff; padding:10px; margin-top:15px; border-radius:10px;">
                 <div id="fileName" style="font-weight:bold;"></div>
                 <div id="fileSize" style="font-size:14px; color:#555;"></div>
-            </div>
+            </div> -->
         </div>
 
         <form action="/products/add-img/{{ $prod->id }}" method="POST" enctype="multipart/form-data" class="mt-4">
@@ -183,17 +183,26 @@
                     ثبت
                 </button>
 
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    id="closeModal"
-                    style="
-                padding: 10px 25px;
-                border-radius: 10px;
-                font-size: 15px;
-            ">
-                    بستن
-                </button>
+                <button id="closeModal" style="
+                position:absolute;
+                top:10px;
+                left:10px;
+                background: rgba(255,255,255,0.15);
+                border:none;
+                width:32px;
+                height:32px;
+                border-radius:50%;
+                color:white;
+                font-size:20px;
+                cursor:pointer;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                transition:0.2s;
+            ">×</button>
+
             </div>
         </form>
 
