@@ -196,8 +196,9 @@ class CRMController extends Controller
         foreach($carts as $cart){
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
             $user = Customer::where('id' , $cart->user_id)->first();
+            $cart['date'] = $date;
         }
-        return view('admin.list_invocie' , compact('carts' , 'user' , 'date'));
+        return view('admin.list_invocie' , compact('carts' , 'user'));
     }
 
     public function request(){

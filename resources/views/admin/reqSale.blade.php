@@ -218,31 +218,26 @@
                     <div class="stat-card mt-3">
                         <div class="row">
 
-                            <div class="col-lg-3 col-md-6">
+                            <div class="col-lg-4 col-md-6">
                                 <p class="m-0 p-0">شماره فاکتور  : <span>{{$order->code_cart}}</span></p>
                             </div>
-                            <div class="col-lg-3 col-md-6">
-                                
+                            <div class="col-lg-4 col-md-6">
                                 <p class="m-0 p-0">نام مشتری : <span>{{$user->name}}</span></p>
                             </div>
-                            <div class="col-lg-3 col-md-6">
+                            <div class="col-lg-4 col-md-6">
                                 <p class="m-0 p-0">تاریخ  : <span>{{$date}}</span></p>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6">
-                                <p class="m-0 p-0">نام فروشنده   : <span>امین پور</span></p>
                             </div>
 
                         </div>
 
                         <div class="row mt-4">
 
-                            <div class="col-lg-3 col-md-6">
-                                <p class="m-0 p-0">شماره تراکنش  : <span>{{$order->num_cart}}</span></p>
+                            <div class="col-lg-4 col-md-6">
+                                <p class="m-0 p-0">نام فروشنده   : <span> {{Auth::user()->dispaly_name}}</span></p>
                             </div>
+
                             <div class="col-lg-6 col-md-6">
-                                
-                                <p class="m-0 p-0">نام مشتری : <span>{{$user->address}}</span></p>
+                                <p class="m-0 p-0">آدرس مشتری : <span>{{$user->address}}</span></p>
                             </div>
 
                         </div>

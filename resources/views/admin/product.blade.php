@@ -44,8 +44,12 @@
             flex-direction: column;
         }
 
+        .form-row-responsive > div {
+            width: 100% !important;
+        }
 
-        .form-row-responsive .form-control {
+        .form-row-responsive .form-control,
+        .form-row-responsive .form-select {
             width: 100% !important;
         }
 
@@ -53,6 +57,7 @@
             width: 100%;
         }
     }
+
 </style>
 @endsection
 
@@ -127,15 +132,18 @@
                             <label>نوع محصول</label>
                             <select name="no_product" class="form-select">
                                 <option value="" selected disabled>لطفا نوع محصول را انتخاب کنید</option>
-                                <option value="1" @if($editProd->no_product == 1) selected @endif>سرامیک کف بدنه سفید</option>
-                                <option value="2" @if($editProd->no_product == 2) selected @endif>سرامیک کف بدنه قرمز</option>
-                                <option value="3" @if($editProd->no_product == 3) selected @endif>کاشی دیوار بدنه سفید</option>
-                                <option value="4" @if($editProd->no_product == 4) selected @endif>کاشی دیوار بدنه قرمز</option>
-                                <option value="5" @if($editProd->no_product == 5) selected @endif>پرسلان کف</option>
-                                <option value="6" @if($editProd->no_product == 6) selected @endif>پرسلان اسلب</option>
+                                <option value="1" @if($editProd && $editProd->no_product == 1) selected @endif>سرامیک کف بدنه سفید</option>
+                                <option value="2" @if($editProd && $editProd->no_product == 2) selected @endif>سرامیک کف بدنه قرمز</option>
+                                <option value="3" @if($editProd && $editProd->no_product == 3) selected @endif>کاشی دیوار بدنه سفید</option>
+                                <option value="4" @if($editProd && $editProd->no_product == 4) selected @endif>کاشی دیوار بدنه قرمز</option>
+                                <option value="5" @if($editProd && $editProd->no_product == 5) selected @endif>پرسلان کف</option>
+                                <option value="6" @if($editProd && $editProd->no_product == 6) selected @endif>پرسلان اسلب</option>
                             </select>
                         </div>
-                        <div class="w-50"></div>
+                        <div class="w-50">
+                            <label>تعداد برگ کاشی</label>
+                            <input type="text" name="count_paper" value="{{ $editProd->count_paper ?? '' }}" class="form-control" placeholder=" تعداد برگ">
+                        </div>
                     </div>
 
                     <label class="mb-2 mt-2" style="font-size: 1.1rem">لطفا سایز مورد نظر را انتخاب کنید.</label>
