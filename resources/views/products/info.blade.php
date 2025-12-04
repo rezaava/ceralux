@@ -379,10 +379,10 @@
 
                 <div class="row justify-content-center">
             <div class="mb-5 mt-3 p-4 title-info">
-                <div class="d-flex justify-content-start align-items-center">
-                    <p class="m-0 p-0" style="font-size: 1.6rem;">توضیحات :</p>
+                <div class="d-flex justify-content-end align-items-center">
+                    <p class="m-0 p-0" style="font-size: 1.6rem;">: توضیحات</p>
                 </div>
-                <div class="d-flex justify-content-start align-items-center mt-2">
+                <div class="d-flex justify-content-center align-items-center mt-2">
                     <p class="m-0 p-0" style="font-size: 1.1rem;">{{$product->desc}}</p>
                 </div>
             </div>
@@ -393,9 +393,9 @@
         <div class="sizes mt-5" data-aos="fade-up" style="--aos-index:3;">
             @foreach($size_prods as $size_prod)
             <div class="tile size-item" style="">
-                <a href="/">
-                    <div class="box " style="width: {{ $size_prod->width }}px ; height: {{ $size_prod->height }}px"></div>
-                    <div class="label">{{$size_prod->name}}</div>
+                <a href="/products/info/{{$size_prod['size']->id}}/{{ $product->id }}">
+            <div class="box " style="width: {{ $size_prod->width }}px ; height: {{ $size_prod->height }}px"></div>
+                    <div class="label">{{$size_prod['size']->name}}</div>
                 </a>
             </div>
             @endforeach

@@ -39,19 +39,20 @@ class ProductController extends Controller
         {
             $size_prods=size_product::where('product_id',$id)->get();
             foreach($size_prods as $size_prod){
-                $sizes=Size::where('id',$size_prod->size_id)->first();
-                [$width, $height] = explode('x', $sizes->name);
+                $sizes2=Size::where('id',$size_prod->size_id)->first();
+                [$width, $height] = explode('x', $sizes2->name);
                 $size_prod['width']=$width;
                 $size_prod['height']=$height;
-                $size_prod['name']=$sizes->name;
+                $size_prod['size']=$sizes2;
             }
-            // foreach($sizes as $size){
-            //     [$width, $height] = explode('x', $size->name);
+            $sizes = Size::get();
+            foreach($sizes as $size){
+                [$width, $height] = explode('x', $size->name);
 
-            //     $size['width'] = $width;
-            //     $size['height'] = $height;
+                $size['width'] = $width;
+                $size['height'] = $height;
                 
-            // }
+            }
  
             $imgs = Product_Image::where('product_id' , $id)->get();
             $size = Size::where('id' , $size_id)->first();
