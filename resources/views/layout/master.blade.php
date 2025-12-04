@@ -15,13 +15,13 @@
                 <div class="footer-logo"><img src="{{ asset('images/logo.png') }}" alt="Logo"></div>
                 <div class="footer-slogan">{{ __('messages.footer_slogan') }}</div>
                 <div class="footer-icons">
-                    <a href="#"><i class="fas fa-phone"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="/aboutus"><i class="fas fa-phone"></i></a>
+                    <a href="/aboutus"><i class="fas fa-envelope"></i></a>
+                    <a href="/aboutus"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom text-center py-3">
+        <div class="footer-bottom text-center py-3" style="font-family: yekan;">
             <p>{{ __('messages.footer_rights') }}</p>
         </div>
     </footer>

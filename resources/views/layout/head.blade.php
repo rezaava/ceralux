@@ -140,5 +140,8 @@
                 transform: translateY(0);
             }
         }
+        .footer-top{
+            font-family: yekan !important;
+        }
     </style>
 </head>

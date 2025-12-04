@@ -358,7 +358,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="mb-5 mt-3 p-4 title-info">
+            <div class="mb-5 mt-3 p-4 title-info" style="box-shadow: 1px 1px 5px;">
                 <div class="d-flex justify-content-between align-items-center">
                     <p class="m-0 p-0" style="font-size: 1.6rem;">{{ $product->name }}</p>
                     <div>
@@ -378,7 +378,7 @@
         </div>
 
                 <div class="row justify-content-center">
-            <div class="mb-5 mt-3 p-4 title-info">
+            <div class="mb-5 mt-3 p-4 title-info" style="box-shadow: 1px 1px 5px;">
                 <div class="d-flex justify-content-end align-items-center">
                     <p class="m-0 p-0" style="font-size: 1.6rem;">: توضیحات</p>
                 </div>
@@ -390,7 +390,7 @@
 
         <!-- Sizes -->
         <h3 class="mt-4">{{__('messages.name_size')}}</h3>
-        <div class="sizes mt-5" data-aos="fade-up" style="--aos-index:3;">
+         <div class="sizes mt-5" data-aos="fade-up" style="--aos-index:3;">
             @foreach($size_prods as $size_prod)
             <div class="tile size-item" style="">
                 <a href="/products/info/{{$size_prod['size']->id}}/{{ $product->id }}">
@@ -399,7 +399,7 @@
                 </a>
             </div>
             @endforeach
-        </div>
+         </div>
     </div>
     {{-- selected-box --}}
 </section>
