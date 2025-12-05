@@ -67,8 +67,8 @@ class ProductController extends Controller
         $sizes = Size::get();
 
         $imgs = Product_Image::where('product_id', $id)->whereBetween('type', [4, 9])->get();
-        $imgLeft = Product_Image::where('type' , 3)->first();
-        $imgRight = Product_Image::where('type' , 2)->first();
+        $imgLeft = Product_Image::where('product_id', $id)->where('type' , 3)->first();
+        $imgRight = Product_Image::where('product_id', $id)->where('type' , 2)->first();
         $size = Size::where('id', $size_id)->first();
         
         $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
