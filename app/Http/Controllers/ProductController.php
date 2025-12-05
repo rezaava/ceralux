@@ -19,6 +19,10 @@ class ProductController extends Controller
         $size_prods = size_product::where('size_id', $nameSize->id)->pluck('product_id');
 
         $prods =  Product::whereIn('id', $size_prods)->get();
+        foreach($prods as $prod){
+            $img = Product_Image::where('product_id' , $prod->id)->where('type' , 1)->first();
+            $prod['img'] = $img;
+        }
 
         //return $prods;
         return view('products.index', compact('sizes', 'nameSize', 'prods'));
@@ -60,21 +64,15 @@ class ProductController extends Controller
             return $item->width * $item->height;
         })->values();
 
-
-
         $sizes = Size::get();
-        foreach ($sizes as $size) {
-            [$width, $height] = explode('x', $size->name);
 
-            $size['width'] = $width;
-            $size['height'] = $height;
-        }
-
-        $imgs = Product_Image::where('product_id', $id)->get();
+        $imgs = Product_Image::where('product_id', $id)->whereBetween('type', [4, 9])->get();
+        $imgLeft = Product_Image::where('type' , 3)->first();
+        $imgRight = Product_Image::where('type' , 2)->first();
         $size = Size::where('id', $size_id)->first();
-
+        
         $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
-        return view('products.info', compact('product', 'size_prods', 'imgs', 'size', 'sizes'));
+        return view('products.info', compact('product', 'size_prods', 'imgs', 'size', 'sizes' , 'imgLeft' , 'imgRight'));
     }
 
     public function showImg($id)

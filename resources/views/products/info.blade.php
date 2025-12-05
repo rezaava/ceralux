@@ -124,6 +124,7 @@
 
     .gallery-container {
         margin-bottom: 40px;
+        margin-top: 1rem;
     }
 
     .gallery-item {
@@ -311,12 +312,20 @@
             <h1 class="text-center mb-5 title-header"> {{$product->name_en}}</h1>
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="overlay-container clickable-img gallery-item mb-4 slide-in-right">
-                    <img src="{{ asset('img/test1.jpg') }}" alt="">
+                    @if($imgLeft == null)
+                    <img src="{{ asset('images/imgNot.jpg') }}" alt="">
+                    @else
+                    <img src="{{ asset($imgLeft->img_url) }}" alt="">
+                    @endif
                 </div>
             </div>
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="overlay-container clickable-img gallery-item mb-4 slide-in-left">
-                    <img src="{{ asset('img/test2.jpg') }}" alt="">
+                    @if($imgRight == null)
+                        <img src="{{ asset('images/imgNot.jpg') }}" alt="">
+                    @else
+                    <img src="{{ asset($imgRight->img_url) }}" alt="">
+                    @endif
                 </div>
             </div>
         </div>
@@ -345,10 +354,13 @@
         </div> --}}
 
         <!-- Gallery -->
+        <div class="d-flex justify-content-center">
+            <h1 class="p-2 bg-info mt-3">گالری تصاویر</h1>
+        </div>
         <div class="row gallery-container" data-aos="fade-up" style="--aos-index:2;">
             @foreach($imgs as $img)
             <div class="col-lg-4 mb-4 mb-lg-0">
-                <div class="overlay-container clickable-img gallery-item mb-4 shadow-sm">
+                <div class="overlay-container clickable-img gallery-item mb-4" style="box-shadow: rgba(0, 0, 0, 0.45) 1.95px 1.95px 3px;">
                     <img src="{{ asset($img->img_url) }}" alt="" />
                     <div class="overlay"><i class="fa-solid fa-magnifying-glass"></i></div>
                 </div>
