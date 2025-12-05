@@ -144,12 +144,39 @@
                     </li>
                     <li class="nav-item {{ request()->routeIs('addProd') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('addProd') ? 'active1' : '' }}"
-                            href="/admin/crm/addProd" id="show-list">افزودن موجودی </a>
+                            href="/admin/crm/addProd" id="show-list"> موجودی انبار </a>
                     </li>
                     <li class="nav-item {{ request()->routeIs('listInvocie') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('listInvocie') ? 'active1' : '' }}"
                             href="/admin/crm/listInvocie" id="show-list">لیست فاکتور ها</a>
                     </li>
+
+                     <li class="nav-item {{ request()->routeIs('buy') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('buy') ? 'active1' : '' }}"
+                            href="/admin/buy/add" id="show-list">فاکتور خرید</a>
+                    </li>
+
+                     <li class="nav-item {{ request()->routeIs('lpo') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('lpo') ? 'active1' : '' }}"
+                            href="/admin/lpo/add" id="show-list">ثبت LPO</a>
+                    </li>
+
+                    <li class="nav-item {{ request()->routeIs('leave') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('leave') ? 'active1' : '' }}"
+                            href="/admin/req/leave" id="show-list">خروج محصول از انبار</a>
+                    </li>
+
+                    <li class="nav-item {{ request()->routeIs('sample') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('sample') ? 'active1' : '' }}"
+                            href="/admin/req/sample" id="show-list">درخواست نمونه</a>
+                    </li>
+
+                    <li class="nav-item {{ request()->routeIs('break') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('break') ? 'active1' : '' }}"
+                            href="/admin/req/break" id="show-list">ثبت شکستگی</a>
+                    </li>
+
+
                 </ul>
             </div>
 
@@ -171,7 +198,11 @@
                 <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
                     <li class="nav-item {{ request()->routeIs('submit') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('submit') ? 'active1' : '' }}"
-                            href="/admin/financial/submit" id="add-list"> ثبت چک</a>
+                            href="/admin/financial/submit/{$id}" id="add-list"> ثبت چک</a>
+                    </li>
+                     <li class="nav-item {{ request()->routeIs('submitList1') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('submitList1') ? 'active1' : '' }}"
+                            href="/admin/financial/submit/show/list" id="add-list"> لیست چک ها</a>
                     </li>
                     <li class="nav-item {{ request()->routeIs('received') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('received') ? 'active1' : '' }}"

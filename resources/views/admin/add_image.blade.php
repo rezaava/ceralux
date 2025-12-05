@@ -174,7 +174,7 @@
                     ثبت
                 </button>
 
-                <button id="closeModal" style="
+                <button type="button" id="closeModal" style="
                 position:absolute;
                 top:10px;
                 left:10px;

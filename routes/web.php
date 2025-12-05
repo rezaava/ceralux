@@ -87,9 +87,19 @@ Route::post('/login/admin',[AuthController::class,'loginPost']);
 
 Route::get('/logout/admin',[AuthController::class,'logout']);
 
-Route::get('/admin/financial/submit',[CRMController::class,'submit'])->name('submit');
+Route::get('/admin/financial/submit/{id}',[CRMController::class,'submit'])->name('submit');
+Route::get('/admin/financial/submit/show/list',[CRMController::class,'submitList'])->name('submitList1');
+
+Route::post('/admin/financial/submit/add',[CRMController::class,'submitPost']);
+
 Route::get('/admin/financial/received',[CRMController::class,'received'])->name('received');
 Route::get('/admin/financial/pay',[CRMController::class,'pay'])->name('pay');
 Route::get('/admin/financial/list',[CRMController::class,'list'])->name('listPay');
 
 Route::post('/admin/setting/name/add',[CRMController::class,'settingPost']);
+
+Route::get('/admin/buy/add',[CRMController::class,'buy'])->name('buy');
+Route::get('/admin/lpo/add',[CRMController::class,'lpo'])->name('lpo');
+Route::get('/admin/req/leave',[CRMController::class,'reqLeave'])->name('leave');
+Route::get('/admin/req/sample',[CRMController::class,'reqSample'])->name('sample');
+Route::get('/admin/req/break',[CRMController::class,'reqbreak'])->name('break');
