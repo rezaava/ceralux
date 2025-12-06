@@ -121,7 +121,7 @@
 
 
             <!-- ورودی متن -->
-            <input
+            {{-- <input
                 type="text"
                 name="img_name"
                 placeholder="اسم مکان عکس کاشی (اختیاری)"
@@ -136,10 +136,10 @@
             -webkit-backdrop-filter: blur(12px);
             color: #fff;
             font-size: 14px;
-        ">
+        "> --}}
 
             <!-- انتخاب نوع عکس -->
-            <select
+            {{-- <select
                 name="type_img"
                 style="
             width: 100%;
@@ -160,7 +160,7 @@
                 <option value="5">عکس کاشی در آشپزخانه</option>
                 <option value="6">عکس کاشی در پذیرایی</option>
                 <option value="7">عکس کاشی در کف</option>
-            </select>
+            </select> --}}
 
             <!-- دکمه‌ها -->
             <div class="text-center mt-4">

@@ -283,9 +283,10 @@
                                 <th class="hide-on-small">نام کارخانه</th>
                                 <th class="numeric-column hide-on-medium">تعداد کارتن</th>
                                 <th class="numeric-column hide-on-large">متراژ کارتن</th>
-                                <th class="numeric-column hide-on-large">تعداد پالت</th>
                                 <th class="numeric-column hide-on-medium">متراژ کل</th>
-                                <th class="numeric-column hide-on-large">قیمت</th>
+                                <th class="numeric-column hide-on-large">ضخامت </th>
+                                <th class="numeric-column hide-on-large">قیمت خرید</th>
+                                <th class="numeric-column hide-on-large">قیمت فروش</th>
                                 <th class="numeric-column hide-on-large">تعداد فیس</th>
                                 {{-- <th class="hide-on-small">توضیحات</th> --}}
                                 <th class="actions-column">عملیات</th>
@@ -313,13 +314,16 @@
                                     <div class="description-cell2">{{ $prod->count_meter }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-large">
-                                    <div class="description-cell2">{{ $prod->count_palet }}</div>
+                                    <div class="description-cell2">{{ $prod->count_meli }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-medium">
                                     <div class="description-cell2">{{ $prod->count_all }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->price }}</div>
+                                </td>
+                                <td class="numeric-column hide-on-large">
+                                    <div class="description-cell2">{{ $prod->price_buy }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->face }}</div>

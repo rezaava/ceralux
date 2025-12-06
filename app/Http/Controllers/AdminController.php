@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Size;
 use App\Models\size_product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -77,6 +78,7 @@ class AdminController extends Controller
     public function productPost(Request $req)
     {
 
+        Log::info($req);
 
         $data = $req->all();
 
@@ -86,18 +88,19 @@ class AdminController extends Controller
 
 
             'price'         => 'required|numeric',
+            'price_buy'         => 'required|numeric',
 
             'face'          => 'required|string',
 
-            'titleEn'       => 'required|string',
+            // 'titleEn'       => 'required|string',
 
 
-            'titleAr'       => 'required|string|max:255',
+            // 'titleAr'       => 'required|string|max:255',
 
 
             'count_box'     => 'required|numeric',
             'count_meter'   => 'required|numeric',
-            'count_palet'   => 'required|numeric',
+            'count_meli'   => 'required|numeric',
             'count_all'     => 'required|numeric',
 
             'code_prod'     => 'required|string',
@@ -125,22 +128,25 @@ class AdminController extends Controller
 
 
             // price
-            'price.numeric'     => 'قیمت باید عدد باشد.',
-            'price.required'     => 'قیمت الزامی است.',
+            'price.numeric'     => 'قیمت فروش باید عدد باشد.',
+            'price.required'     => 'قیمت فروش الزامی است.',
+
+            'price_buy.numeric'     => 'قیمت خرید باید عدد باشد.',
+            'price_buy.required'     => 'قیمت خرید الزامی است.',
 
             // face
             'face.required'       => 'face الزامی است.',
 
 
-            'titleEn.string'    => 'The design name must be a text.',
-            'titleEn.required'  => 'The design name is required.',
+            // 'titleEn.string'    => 'The design name must be a text.',
+            // 'titleEn.required'  => 'The design name is required.',
 
 
 
 
             // Arabic
-            'titleAr.string'   => 'يجب أن يكون اسم النموذج نصاً.',
-            'titleAr.required' => 'اسم النموذج مطلوب.',
+            // 'titleAr.string'   => 'يجب أن يكون اسم النموذج نصاً.',
+            // 'titleAr.required' => 'اسم النموذج مطلوب.',
 
 
 
@@ -150,8 +156,8 @@ class AdminController extends Controller
             'count_box.required'     => 'تعداد جعبه الزامی است',
             'count_meter.numeric'   => 'متراژ  باید عدد باشد.',
             'count_meter.required'   => 'متراژ الزامی است.',
-            'count_palet.numeric'   => 'تعداد در پالت باید عدد باشد.',
-            'count_palet.required'   => 'تعداد در پالت الزامی است.',
+            'count_meli.numeric'   => 'تعداد در پالت باید عدد باشد.',
+            'count_meli.required'   => 'تعداد در پالت الزامی است.',
             'count_all.numeric'     => 'متراژ کل باید عدد باشد.',
             'count_all.required'     => 'متراژ کل الزامی است.',
 
@@ -195,6 +201,7 @@ class AdminController extends Controller
         $prod->name = $req->title;
         $prod->desc = $req->desc;
         $prod->price = $req->price;
+        $prod->price_buy = $req->price_buy;
         $prod->face = $req->face;
         $prod->name_en = $req->titleEn;
         $prod->desc_en = $req->descEn;
@@ -202,7 +209,7 @@ class AdminController extends Controller
         $prod->desc_ar = $req->descAr;
         $prod->count_box = $req->count_box;
         $prod->count_meter = $req->count_meter;
-        $prod->count_palet = $req->count_palet;
+        $prod->count_meli = $req->count_meli;
         $prod->count_all = $req->count_all;
         $prod->code_prod = $req->code_prod;
         $prod->count_darageh = $req->count_darageh;

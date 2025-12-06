@@ -92,23 +92,46 @@
                         </div>
 
                         <div class="w-50">
-                            <label>قیمت طرح</label>
-                            <input type="text" name="price" value="{{ old('price' , $editProd->price ?? '') }}" class="form-control" placeholder="قیمت طرح">
-                            @error('price') <small class="text-danger d-block">{{ $message }}</small> @enderror
-                        </div>
-                    </div>
-
-                    <!-- row 2 -->
-                    <div class="d-flex gap-3 form-row-responsive mt-2">
-                        <div class="w-50">
                             <label>نام کارخانه</label>
                             <input type="text" name="name_company" value="{{ old('name_company' , $editProd->name_company ?? '') }}" class="form-control" placeholder="نام کارخانه">
                             @error('name_company') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
+                    </div>
+
+                    <!-- row 2 -->
+                    <div class="d-flex gap-3 form-row-responsive mt-2">
+
                         <div class="w-50">
-                            <label>تعداد کارتن</label>
-                            <input type="text" name="count_box" id="count_box" value="{{ old('count_box' , $editProd->count_box ?? '') }}" class="form-control" placeholder="تعداد کارتن">
+                            <label>قیمت خرید طرح</label>
+                            <input type="text" name="price_buy" value="{{ old('price_buy' , $editProd->price_buy ?? '') }}" class="form-control" placeholder="قیمت خرید طرح">
+                            @error('price_buy') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                        </div>
+
+                        <div class="w-50">
+                            <label>قیمت فروش طرح</label>
+                            <input type="text" name="price" value="{{ old('price' , $editProd->price ?? '') }}" class="form-control" placeholder="قیمت فروش طرح">
+                            @error('price') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                        </div>
+
+                        <div class="w-50">
+                            <label>درجه کاشی</label>
+                            <input type="text" name="count_darageh" value="{{ old('count_darageh' , $editProd->count_darageh ?? '') }}" class="form-control" placeholder="درجه کاشی">
+                            @error('count_darageh') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                        </div>
+                    </div>
+
+                    <!-- row 3 -->
+                    <div class="d-flex gap-3 form-row-responsive mt-2">
+                        {{-- <div class="w-50">
+                            <label>تعداد پالت</label>
+                            <input type="text" name="count_palet" value="{{ old('count_palet' , $editProd->count_palet ?? '') }}" class="form-control" placeholder="تعداد پالت">
+                            @error('count_palet') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                        </div> --}}
+
+                        <div class="w-50">
+                            <label>تعداد کارتن در پالت</label>
+                            <input type="text" name="count_box" id="count_box" value="{{ old('count_box' , $editProd->count_box ?? '') }}" class="form-control" placeholder="تعداد کارتن در پالت">
                             @error('count_box') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
@@ -117,37 +140,42 @@
                             <input type="text" name="count_meter" id="count_meter" value="{{ old('count_meter' , $editProd->count_meter ?? '') }}" class="form-control" placeholder="متراژ هر کارتن">
                             @error('count_meter') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
-                    </div>
 
-                    <!-- row 3 -->
-                    <div class="d-flex gap-3 form-row-responsive mt-2">
-                        <div class="w-50">
-                            <label>تعداد پالت</label>
-                            <input type="text" name="count_palet" value="{{ old('count_palet' , $editProd->count_palet ?? '') }}" class="form-control" placeholder="تعداد پالت">
-                            @error('count_palet') <small class="text-danger d-block">{{ $message }}</small> @enderror
-                        </div>
+
 
                         <div class="w-50">
                             <label>متراژ کل</label>
-                            <input type="text" name="count_all" id="count_all" value="{{ old('count_all' , $editProd->count_all ?? '') }}" class="form-control" placeholder="متراژ کل">
+                            <input type="text" name="count_all" id="count_all" value="{{ old('count_all' , $editProd->count_all ?? '') }}" class="form-control" placeholder="متراژ کل" readonly>
                             @error('count_all') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
+
+
+                    </div>
+
+                    <!-- row 4 -->
+                    <div class="d-flex gap-3 form-row-responsive mt-2">
 
                         <div class="w-50">
                             <label>تعداد فیس</label>
                             <input type="text" name="face" value="{{ old('face' , $editProd->face ?? '') }}" class="form-control" placeholder="تعداد فیس">
                             @error('face') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
-                    </div>
 
-                    <!-- row 4 -->
-                    <div class="d-flex gap-3 form-row-responsive mt-2">
                         <div class="w-50">
-                            <label>درجه کاشی</label>
-                            <input type="text" name="count_darageh" value="{{ old('count_darageh' , $editProd->count_darageh ?? '') }}" class="form-control" placeholder="درجه کاشی">
-                            @error('count_darageh') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                            <label>ضخامت کاشی</label>
+                            <input type="text" name="count_meli" value="{{ old('count_meli' , $editProd->count_meli ?? '') }}" class="form-control" placeholder="ضخامت کاشی">
+                            @error('count_meli') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
+                        <div class="w-50">
+                            <label>تعداد برگ در کارتن  </label>
+                            <input type="text" name="count_paper" value="{{ old('count_paper' , $editProd->count_paper ?? '') }}" class="form-control" placeholder="تعداد برگ در کارتن">
+                            @error('count_paper') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex gap-3 form-row-responsive mt-2">
                         <div class="w-50">
                             <label>نوع محصول</label>
                             <select name="no_product" class="form-select">
@@ -160,12 +188,6 @@
                                 <option value="6" {{ old('no_product', $editProd->no_product ?? '') == 6 ? 'selected' : '' }}>پرسلان اسلب</option>
                             </select>
                             @error('no_product') <small class="text-danger d-block">{{ $message }}</small> @enderror
-                        </div>
-
-                        <div class="w-50">
-                            <label>تعداد برگ کاشی</label>
-                            <input type="text" name="count_paper" value="{{ old('count_paper' , $editProd->count_paper ?? '') }}" class="form-control" placeholder="تعداد برگ">
-                            @error('count_paper') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
                     </div>
 
@@ -251,8 +273,7 @@
         toast: true,
         position: 'top-start',
         icon: 'success',
-        title: '{{ session('
-        message ') }}',
+        title: '{{ session('message') }}',
         showConfirmButton: false,
         showCloseButton: true,
         timer: 3000,
