@@ -11,6 +11,7 @@ use App\Models\SubCheck;
 use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CRMController extends Controller
 {
@@ -21,6 +22,8 @@ class CRMController extends Controller
     }
 
     public function addProdPost(Request $req){
+      
+
         $prod = Product::where('id' , $req->prod_id)->first();
         $prod->count_box = $prod->count_box + $req->box;
         // $prod->count_meter = $prod->count_meter + $req->meter;
@@ -73,6 +76,23 @@ class CRMController extends Controller
 
     public function salePost(Request $req){
 
+        $data = $req->all();
+
+        $rule = [
+            'customer' => 'required',  
+        ];
+
+        $msg = [
+            'customer.required' => 'مشتری را انتخاب کنید',
+        ];
+
+        $valid = Validator::make($data, $rule, $msg);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+
+
         function generateVolunteerCode()
         {
             $number = str_pad(mt_rand(0, 99999999), 6, '0', STR_PAD_LEFT);
@@ -94,6 +114,30 @@ class CRMController extends Controller
     }
 
     public function productAddPostCart(Request $req){
+
+        $data = $req->all();
+
+        $rule = [
+            'product' => 'required',  
+            'count_box' => 'required|numeric',  
+            'count_palet' => 'required|numeric',  
+        ];
+
+        $msg = [
+            'product.required' => 'طرح را انتخاب کنید',
+            'count_box.required' => 'تعداد کارتن را وارد کنید',
+            'count_palet.required' => 'تعداد پالت را وارد کنید',
+
+            'count_box.numeric' => 'تعداد کارتن را عدد وارد کنید',
+            'count_palet.numeric' => 'تعداد پالت را عدد وارد کنید',
+        ];
+
+        $valid = Validator::make($data, $rule, $msg);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+
 
         $cart_prod = new Cart_prod();
         $cart_prod->prod_id = $req->product;

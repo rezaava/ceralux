@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- درخواست فروش
+درخواست فروش
 @endsection
 
 @section('onvan')
- درخواست فروش
+درخواست فروش
 @endsection
 
 @section('head')
@@ -15,7 +15,7 @@
         border: none !important;
         color: #fff !important;
         margin: 1rem 0;
-        
+
     }
 
     .form-select {
@@ -40,7 +40,7 @@
         resize: none;
     }
 
-        /* استایل‌های سفارشی برای Select2 */
+    /* استایل‌های سفارشی برای Select2 */
     .select2-container--default .select2-selection--single {
         background-color: #232323 !important;
         border: none !important;
@@ -62,7 +62,7 @@
         height: 50px;
         left: 10px;
         right: auto;
-        top:32px;
+        top: 32px;
     }
 
     /* Dropdown استایل */
@@ -82,6 +82,7 @@
         background-color: #1c2535 !important;
         color: #3BDE77 !important;
     }
+
     /* جستجو input */
     .select2-container--default .select2-search--dropdown .select2-search__field {
         background-color: #1e2839 !important;
@@ -92,8 +93,9 @@
         width: 100% !important;
         margin: 0 !important;
     }
+
     /* Dropdown container */
-    .select2-container--default .select2-results > .select2-results__options {
+    .select2-container--default .select2-results>.select2-results__options {
         background-color: #151A23 !important;
         border: 1px solid #444 !important;
         border-bottom-left-radius: 1rem !important;
@@ -137,25 +139,29 @@
         background: transparent !important;
         scrollbar-color: #3BDE77 transparent;
     }
-    #btn-final{
+
+    #btn-final {
         width: 30%;
     }
-    table{
+
+    table {
         table-layout: fixed;
     }
-    table th{
+
+    table th {
         white-space: nowrap;
     }
 
     @media (max-width: 768px) {
-    table{
-        table-layout: auto;
-    }
+        table {
+            table-layout: auto;
+        }
+
         .form-row-responsive {
             flex-direction: column;
         }
 
-        #btn-final{
+        #btn-final {
             width: 100%;
         }
 
@@ -193,9 +199,10 @@
                             <option value="{{ $cus->id }}">{{ $cus->name }}</option>
                             @endforeach
                         </select>
-                        
-                        
                     </div>
+                    @error('customer')
+                    <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
                     <div class="d-flex gap-3 form-row-responsive mt-3">
                         {{-- <input type="text" name="num_cart"  class="form-control w-50 mb-3" placeholder="شماره تراکنش "> --}}
                         <input type="text" name="phone" id="phone" class="form-control w-50 mb-3" placeholder="شماره موبایل ">
@@ -211,70 +218,82 @@
                         <input type="text" id="no_customer" name="no_customer" class="form-control w-100 mb-3" placeholder="نوع مشتری">
                     </div>
 
-                     <div class="text-center"><button class="btn btn-success w-50 mt-3">ثبت </button></div>
+                    <div class="text-center"><button class="btn btn-success w-50 mt-3">ثبت </button></div>
                 </form>
 
                 @else
-                    <div class="stat-card mt-3">
-                        <div class="row">
+                <div class="stat-card mt-3">
+                    <div class="row">
 
-                            <div class="col-lg-4 col-md-6">
-                                <p class="m-0 p-0">شماره فاکتور  : <span>{{$order->code_cart}}</span></p>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <p class="m-0 p-0">نام مشتری : <span>{{$user->name}}</span></p>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <p class="m-0 p-0">تاریخ  : <span>{{$date}}</span></p>
-                            </div>
-
+                        <div class="col-lg-4 col-md-6">
+                            <p class="m-0 p-0">شماره فاکتور : <span>{{$order->code_cart}}</span></p>
                         </div>
-
-                        <div class="row mt-4">
-
-                            <div class="col-lg-4 col-md-6">
-                                <p class="m-0 p-0">نام فروشنده   : <span> {{Auth::user()->dispaly_name}}</span></p>
-                            </div>
-
-                            <div class="col-lg-6 col-md-6">
-                                <p class="m-0 p-0">آدرس مشتری : <span>{{$user->address}}</span></p>
-                            </div>
-
+                        <div class="col-lg-4 col-md-6">
+                            <p class="m-0 p-0">نام مشتری : <span>{{$user->name}}</span></p>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <p class="m-0 p-0">تاریخ : <span>{{$date}}</span></p>
                         </div>
 
                     </div>
 
-                    <form action="/admin/crm/reqSale/product/add" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="cart_id" value="{{ $order->id }}">
+                    <div class="row mt-4">
 
-                        <div class="d-flex gap-3 form-row-responsive justify-content-start">
-
-                            <select class="form-select select2-farsi w-50" dir="rtl" name="product" id="">
-                                <option value="" selected>محصول را انتخاب کنید</option>
-                                @foreach($prods as $prod)
-                                <option value="{{ $prod->id }}">{{ $prod->name }}</option>
-                                @endforeach
-                            </select>
-
+                        <div class="col-lg-4 col-md-6">
+                            <p class="m-0 p-0">نام فروشنده : <span> {{Auth::user()->dispaly_name}}</span></p>
                         </div>
 
-                        <div class="d-flex gap-3 form-row-responsive mt-3">
-                            <input type="text" name="count_box" class="form-control w-50" placeholder="تعداد کارتن">
-                            {{-- <input type="text" name="count_meter" class="form-control w-50" placeholder="متراژ هر کارتن   "> --}}
-                            <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
-                            {{-- <input type="text" name="count_all" class="form-control w-50" placeholder="  متراژ کل "> --}}
+                        <div class="col-lg-6 col-md-6">
+                            <p class="m-0 p-0">آدرس مشتری : <span>{{$user->address}}</span></p>
                         </div>
 
-                        <div class="text-center"><button class="btn btn-success w-50 mt-3">افزودن کالا</button></div>
-                    </form>
-                
+                    </div>
 
-                    <div class="table-responsive mt-4">
-                        @if($cart_prods)
-                        <table class="table table-dark table-hover mt-3 table-borderless">
-                            <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
-                              <tr>
+                </div>
+
+                <form action="/admin/crm/reqSale/product/add" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="cart_id" value="{{ $order->id }}">
+
+                    <div class="d-flex gap-3 form-row-responsive justify-content-start">
+
+                        <select class="form-select select2-farsi w-50" dir="rtl" name="product" id="">
+                            <option value="" selected>محصول را انتخاب کنید</option>
+                            @foreach($prods as $prod)
+                            <option value="{{ $prod->id }}">{{ $prod->name }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                    @error('product')
+                    <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
+
+                    <div class="d-flex gap-3 form-row-responsive mt-3">
+                        <input type="text" name="count_box" class="form-control w-50" placeholder="تعداد کارتن">
+                        
+                        {{-- <input type="text" name="count_meter" class="form-control w-50" placeholder="متراژ هر کارتن   "> --}}
+                        <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
+                        
+                        {{-- <input type="text" name="count_all" class="form-control w-50" placeholder="  متراژ کل "> --}}
+                    </div>
+                    @error('count_box')
+                        <small class="text-danger d-block">{{ $message }}</small>
+                        @enderror
+
+                        @error('count_palet')
+                        <small class="text-danger d-block">{{ $message }}</small>
+                        @enderror
+
+                    <div class="text-center"><button class="btn btn-success w-50 mt-3">افزودن کالا</button></div>
+                </form>
+
+
+                <div class="table-responsive mt-4">
+                    @if($cart_prods)
+                    <table class="table table-dark table-hover mt-3 table-borderless">
+                        <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
+                            <tr>
                                 <th>ردیف</th>
                                 <th>کد کالا</th>
                                 <th>نام محصول</th>
@@ -282,13 +301,13 @@
                                 <th>متراژ هر کارتن</th>
                                 <th>تعداد پالت</th>
                                 <th> متراژ کل</th>
-                                <th>  قیمت</th>
-                                <th>  قیمت کل</th>
-                              </tr>
-                            </thead>
-                            <tbody class="text-center">
-                                @foreach($cart_prods as $key => $cart_prod)
-                              <tr>
+                                <th> قیمت</th>
+                                <th> قیمت کل</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            @foreach($cart_prods as $key => $cart_prod)
+                            <tr>
                                 <td>{{$key+1}}</td>
                                 <td>{{$cart_prod->prod->code_prod}}</td>
                                 <td>{{$cart_prod->prod->name}}</td>
@@ -298,44 +317,44 @@
                                 <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
                                 <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter))}}</td>
-                              </tr>
-                              @endforeach
-                            </tbody>
-                        </table>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @endif
-                    </div>
+                </div>
 
-                    <div class="stat-card ">
+                <div class="stat-card ">
 
-                        <div class="row">
+                    <div class="row">
 
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
-                                </div>
-
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
                         </div>
 
-                        <div class="row mt-4">
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
-                            </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
                         </div>
 
                     </div>
 
-                    <form action="/admin/crm/reqSale/pay" method="POST">
-                        @csrf
-                        <input type="hidden" name="cart_id" value="{{ $order->id }}">
-                        <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت نهایی فاکتور </button></div>
-                    </form>
+                    <div class="row mt-4">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <form action="/admin/crm/reqSale/pay" method="POST">
+                    @csrf
+                    <input type="hidden" name="cart_id" value="{{ $order->id }}">
+                    <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت نهایی فاکتور </button></div>
+                </form>
                 @endif
             </div>
         </div>
@@ -347,34 +366,34 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script>
-$(document).ready(function() {
-    // تنظیمات Select2 برای فارسی
-    $('.select2-farsi').select2({
-        dir: "rtl", // راست به چپ
-        
-        language: {
-            noResults: function() {
-                return "نتیجه‌ای یافت نشد";
-            },
-            searching: function() {
-                return "در حال جستجو...";
+    $(document).ready(function() {
+        // تنظیمات Select2 برای فارسی
+        $('.select2-farsi').select2({
+            dir: "rtl", // راست به چپ
+
+            language: {
+                noResults: function() {
+                    return "نتیجه‌ای یافت نشد";
+                },
+                searching: function() {
+                    return "در حال جستجو...";
+                }
             }
-        }
+        });
     });
-});
 </script>
 
 <script>
     $('#customerSelect').on('change', function() {
         var customerId = $(this).val();
-        if(customerId) {
+        if (customerId) {
             $.ajax({
                 url: '/get-customer-info/' + customerId,
                 method: 'GET',
                 success: function(data) {
                     // تبدیل عدد no_customer به متن
                     let customerTypeText = '';
-                    switch(data.no_customer) {
+                    switch (data.no_customer) {
                         case '1':
                             customerTypeText = 'متفرقه';
                             break;
@@ -410,21 +429,22 @@ $(document).ready(function() {
 @if (session('message'))
 <script>
     Swal.fire({
-            toast: true,
-            position: 'top-start',
-            icon: 'success',
-            title: '{{ session('message') }}',
-            showConfirmButton: false,
-            showCloseButton: true,
-            timer: 3000,
-            timerProgressBar: true,
-            background: '#ffe6e6',
-            color: '#000',
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
+        toast: true,
+        position: 'top-start',
+        icon: 'success',
+        title: '{{ session('
+        message ') }}',
+        showConfirmButton: false,
+        showCloseButton: true,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#ffe6e6',
+        color: '#000',
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
 </script>
 @endif
 

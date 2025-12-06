@@ -180,7 +180,7 @@
 
                     <div class="d-flex gap-3 form-row-responsive mt-3">
                         <input type="text" name="box" class="form-control w-50" placeholder="تعداد کارتن">
-                        {{-- <input type="text" name="meter" class="form-control w-50" placeholder="متراژ هر کارتن   "> --}}
+                  {{-- <input type="text" name="meter" class="form-control w-50" placeholder="متراژ هر کارتن   "> --}}
                         <input type="text" name="palet" class="form-control w-50" placeholder=" تعداد پالت ">
                         <input type="text" name="all" class="form-control w-50" placeholder="  متراژ کل ">
                     </div>

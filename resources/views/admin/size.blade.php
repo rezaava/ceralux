@@ -60,7 +60,7 @@
         background-color: #258745;
         color: #fff;
         font-size: 1rem;
-        
+
     }
 
     tr:last-child td {
@@ -102,9 +102,23 @@
                     @csrf
 
                     <div class="d-flex justify-content-center m-0 gap-3 form-row-responsive">
-                        <input type="text" name="size_name" class="form-control w-50" placeholder="سایز جدید ">
-                        <input type="text" name="meli_name" class="form-control w-50" placeholder="ضخامت">
+
+                        <div class="w-50">
+                            <input type="text" name="size_name" class="form-control" placeholder="سایز جدید">
+                            @error('size_name')
+                            <small class="text-danger d-block">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="w-50">
+                            <input type="text" name="meli_name" class="form-control" placeholder="ضخامت">
+                            @error('meli_name')
+                            <small class="text-danger d-block">{{ $message }}</small>
+                            @enderror
+                        </div>
+
                     </div>
+
 
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-success w-50 mt-3">ثبت </button>
@@ -119,11 +133,11 @@
                             <th>ضخامت ها</th>
                         </tr>
                         @foreach($sizes as $key => $size)
-                            <tr>
-                                <td>{{$key+1}}</td>
-                                <td>{{$size->name}}</td>
-                                <td>{{$size->meli}}</td>
-                            </tr>
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{$size->name}}</td>
+                            <td>{{$size->meli}}</td>
+                        </tr>
                         @endforeach
                     </table>
                 </div>
