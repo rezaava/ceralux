@@ -183,7 +183,7 @@
                     ثبت
                 </button>
 
-                <button id="closeModal" style="
+                <button id="closeModal" type="button" style="
                 position:absolute;
                 top:10px;
                 left:10px;
