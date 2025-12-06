@@ -81,19 +81,19 @@
                     <div class="d-flex gap-3 form-row-responsive">
                         <div class="w-50">
                             <label>نام طرح</label>
-                            <input type="text" name="title" value="{{ $editProd->name ?? '' }}" class="form-control" placeholder="نام طرح">
+                            <input type="text" name="title" value="{{ old('title' , $editProd->name ?? '') }}" class="form-control" placeholder="نام طرح">
                             @error('title') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
                             <label>کد طرح</label>
-                            <input type="text" name="code_prod" value="{{ $editProd->code_prod ?? '' }}" class="form-control" placeholder="کد طرح">
+                            <input type="text" name="code_prod" value="{{ old('code_prod' , $editProd->code_prod ?? '') }}" class="form-control" placeholder="کد طرح">
                             @error('code_prod') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
                             <label>قیمت طرح</label>
-                            <input type="text" name="price" value="{{ $editProd->price ?? '' }}" class="form-control" placeholder="قیمت طرح">
+                            <input type="text" name="price" value="{{ old('price' , $editProd->price ?? '') }}" class="form-control" placeholder="قیمت طرح">
                             @error('price') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
                     </div>
@@ -102,19 +102,19 @@
                     <div class="d-flex gap-3 form-row-responsive mt-2">
                         <div class="w-50">
                             <label>نام کارخانه</label>
-                            <input type="text" name="name_company" value="{{ $editProd->name_company ?? '' }}" class="form-control" placeholder="نام کارخانه">
+                            <input type="text" name="name_company" value="{{ old('name_company' , $editProd->name_company ?? '') }}" class="form-control" placeholder="نام کارخانه">
                             @error('name_company') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
                             <label>تعداد کارتن</label>
-                            <input type="text" name="count_box" id="count_box" value="{{ $editProd->count_box ?? '' }}" class="form-control" placeholder="تعداد کارتن">
+                            <input type="text" name="count_box" id="count_box" value="{{ old('count_box' , $editProd->count_box ?? '') }}" class="form-control" placeholder="تعداد کارتن">
                             @error('count_box') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
                             <label>متراژ هر کارتن</label>
-                            <input type="text" name="count_meter" id="count_meter" value="{{ $editProd->count_meter ?? '' }}" class="form-control" placeholder="متراژ هر کارتن">
+                            <input type="text" name="count_meter" id="count_meter" value="{{ old('count_meter' , $editProd->count_meter ?? '') }}" class="form-control" placeholder="متراژ هر کارتن">
                             @error('count_meter') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
                     </div>
@@ -123,19 +123,19 @@
                     <div class="d-flex gap-3 form-row-responsive mt-2">
                         <div class="w-50">
                             <label>تعداد پالت</label>
-                            <input type="text" name="count_palet" value="{{ $editProd->count_palet ?? '' }}" class="form-control" placeholder="تعداد پالت">
+                            <input type="text" name="count_palet" value="{{ old('count_palet' , $editProd->count_palet ?? '') }}" class="form-control" placeholder="تعداد پالت">
                             @error('count_palet') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
                             <label>متراژ کل</label>
-                            <input type="text" name="count_all" id="count_all" value="{{ $editProd->count_all ?? '' }}" class="form-control" placeholder="متراژ کل">
+                            <input type="text" name="count_all" id="count_all" value="{{ old('count_all' , $editProd->count_all ?? '') }}" class="form-control" placeholder="متراژ کل">
                             @error('count_all') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
                             <label>تعداد فیس</label>
-                            <input type="text" name="face" value="{{ $editProd->face ?? '' }}" class="form-control" placeholder="تعداد فیس">
+                            <input type="text" name="face" value="{{ old('face' , $editProd->face ?? '') }}" class="form-control" placeholder="تعداد فیس">
                             @error('face') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                     <div class="d-flex gap-3 form-row-responsive mt-2">
                         <div class="w-50">
                             <label>درجه کاشی</label>
-                            <input type="text" name="count_darageh" value="{{ $editProd->count_darageh ?? '' }}" class="form-control" placeholder="درجه کاشی">
+                            <input type="text" name="count_darageh" value="{{ old('count_darageh' , $editProd->count_darageh ?? '') }}" class="form-control" placeholder="درجه کاشی">
                             @error('count_darageh') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
@@ -152,19 +152,19 @@
                             <label>نوع محصول</label>
                             <select name="no_product" class="form-select">
                                 <option value="" disabled selected>لطفا نوع محصول را انتخاب کنید</option>
-                                <option value="1" @if($editProd && $editProd->no_product == 1) selected @endif>سرامیک کف بدنه سفید</option>
-                                <option value="2" @if($editProd && $editProd->no_product == 2) selected @endif>سرامیک کف بدنه قرمز</option>
-                                <option value="3" @if($editProd && $editProd->no_product == 3) selected @endif>کاشی دیوار بدنه سفید</option>
-                                <option value="4" @if($editProd && $editProd->no_product == 4) selected @endif>کاشی دیوار بدنه قرمز</option>
-                                <option value="5" @if($editProd && $editProd->no_product == 5) selected @endif>پرسلان کف</option>
-                                <option value="6" @if($editProd && $editProd->no_product == 6) selected @endif>پرسلان اسلب</option>
+                                <option value="1" {{ old('no_product', $editProd->no_product ?? '') == 1 ? 'selected' : '' }}>سرامیک کف بدنه سفید</option>
+                                <option value="2" {{ old('no_product', $editProd->no_product ?? '') == 2 ? 'selected' : '' }}>سرامیک کف بدنه قرمز</option>
+                                <option value="3" {{ old('no_product', $editProd->no_product ?? '') == 3 ? 'selected' : '' }}>کاشی دیوار بدنه سفید</option>
+                                <option value="4" {{ old('no_product', $editProd->no_product ?? '') == 4 ? 'selected' : '' }}>کاشی دیوار بدنه قرمز</option>
+                                <option value="5" {{ old('no_product', $editProd->no_product ?? '') == 5 ? 'selected' : '' }}>پرسلان کف</option>
+                                <option value="6" {{ old('no_product', $editProd->no_product ?? '') == 6 ? 'selected' : '' }}>پرسلان اسلب</option>
                             </select>
                             @error('no_product') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
                             <label>تعداد برگ کاشی</label>
-                            <input type="text" name="count_paper" value="{{ $editProd->count_paper ?? '' }}" class="form-control" placeholder="تعداد برگ">
+                            <input type="text" name="count_paper" value="{{ old('count_paper' , $editProd->count_paper ?? '') }}" class="form-control" placeholder="تعداد برگ">
                             @error('count_paper') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
                     </div>
@@ -183,7 +183,7 @@
                     <small class="text-danger d-block">{{ $message }}</small>
                     @enderror
 
-                    <textarea name="desc" class="form-control textArea mb-3 mt-4" placeholder="توضیحات درباره محصول...">{{ $editProd->desc ?? '' }}</textarea>
+                    <textarea name="desc" class="form-control textArea mb-3 mt-4" placeholder="توضیحات درباره محصول...">{{ old('desc' , $editProd->desc ?? '') }}</textarea>
 
                     <!-- English -->
                     <div class="card mt-3" style="border-radius: 0.4rem; border-color: #394559">

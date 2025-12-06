@@ -104,14 +104,14 @@
                     <div class="d-flex justify-content-center m-0 gap-3 form-row-responsive">
 
                         <div class="w-50">
-                            <input type="text" name="size_name" class="form-control" placeholder="سایز جدید">
+                            <input type="text" value="{{ old('size_name') }}" name="size_name" class="form-control" placeholder="سایز جدید">
                             @error('size_name')
                             <small class="text-danger d-block">{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div class="w-50">
-                            <input type="text" name="meli_name" class="form-control" placeholder="ضخامت">
+                            <input type="text" value="{{ old('meli_name') }}" name="meli_name" class="form-control" placeholder="ضخامت">
                             @error('meli_name')
                             <small class="text-danger d-block">{{ $message }}</small>
                             @enderror

@@ -96,9 +96,9 @@ class AdminController extends Controller
 
 
             'count_box'     => 'required|numeric',
-            'count_meter'   => 'required|integer',
-            'count_palet'   => 'required|integer',
-            'count_all'     => 'required|integer',
+            'count_meter'   => 'required|numeric',
+            'count_palet'   => 'required|numeric',
+            'count_all'     => 'required|numeric',
 
             'code_prod'     => 'required|string',
 
@@ -146,13 +146,13 @@ class AdminController extends Controller
 
 
             // counts
-            'count_box.integer'     => 'تعداد در جعبه باید عدد باشد.',
+            'count_box.numeric'     => 'تعداد در جعبه باید عدد باشد.',
             'count_box.required'     => 'تعداد جعبه الزامی است',
-            'count_meter.integer'   => 'متراژ  باید عدد باشد.',
+            'count_meter.numeric'   => 'متراژ  باید عدد باشد.',
             'count_meter.required'   => 'متراژ الزامی است.',
-            'count_palet.integer'   => 'تعداد در پالت باید عدد باشد.',
+            'count_palet.numeric'   => 'تعداد در پالت باید عدد باشد.',
             'count_palet.required'   => 'تعداد در پالت الزامی است.',
-            'count_all.integer'     => 'متراژ کل باید عدد باشد.',
+            'count_all.numeric'     => 'متراژ کل باید عدد باشد.',
             'count_all.required'     => 'متراژ کل الزامی است.',
 
             // code

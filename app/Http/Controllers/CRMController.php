@@ -307,6 +307,62 @@ class CRMController extends Controller
 
     public function submitPost(Request $req){
 
+        $data = $req->all();
+
+        $rules = [
+            'check_date'   => 'required',
+            'name_user'    => 'required|string|max:100',
+            'phone_user'   => 'required|digits:11',
+            'name_bank'    => 'required|string',
+            'name_branch'  => 'required|string',
+            'code_branch'  => 'required|numeric',
+            'check_serial' => 'required|string',
+            'check_num'    => 'required|numeric',
+            'check_price'  => 'required|numeric',
+            'name_account' => 'required|string|max:100',
+            'num_account'  => 'required|numeric',
+            'num_invocie'  => 'nullable|string|max:50',
+            'desc'         => 'nullable|string',
+        ];
+
+        $messages = [
+            'check_date.required'   => 'تاریخ چک را وارد کنید',
+        
+            'name_user.required'    => 'نام صاحب چک را وارد کنید',
+        
+            'phone_user.required'   => 'شماره همراه را وارد کنید',
+            'phone_user.digits'     => 'شماره همراه باید 11 رقم باشد',
+        
+            'name_bank.required'    => 'نام بانک را وارد کنید',
+            'name_branch.required'  => 'نام شعبه را وارد کنید',
+        
+            'code_branch.required'  => 'کد شعبه را وارد کنید',
+            'code_branch.numeric'   => 'کد شعبه باید عدد باشد',
+        
+            'check_serial.required' => 'سریال چک را وارد کنید',
+        
+            'check_num.required'    => 'شماره چک را وارد کنید',
+            'check_num.numeric'     => 'شماره چک باید عدد باشد',
+        
+            'check_price.required'  => 'مبلغ چک را وارد کنید',
+            'check_price.numeric'   => 'مبلغ چک باید عدد باشد',
+        
+            'name_account.required' => 'نام صاحب حساب را وارد کنید',
+        
+            'num_account.required'  => 'شماره حساب را وارد کنید',
+            'num_account.numeric'   => 'شماره حساب باید عدد باشد',
+        
+            'num_invocie.max'       => 'شماره فاکتور بیش از حد طولانی است',
+            'desc.max'              => 'توضیحات نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد',
+        ];
+
+        $validator = Validator::make($data, $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+
         if($req->check_id){
             $check =SubCheck::where('id' , $req->check_id)->first();
         }else{

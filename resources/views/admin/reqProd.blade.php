@@ -172,17 +172,18 @@
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center">
                         <select class="form-select select2-farsi w-50" dir="rtl" name="prod_id" id="">
+                            <option value="" selected disabled></option>
                             @foreach($prods as $prod)
-                            <option value="{{ $prod->id }}">{{ $prod->name }}</option>
+                                <option value="{{ $prod->id }}" {{ old('prod_id') == $prod->id ? 'selected' : '' }}> {{ $prod->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="d-flex gap-3 form-row-responsive mt-3">
-                        <input type="text" name="count_box" class="form-control w-50" placeholder="تعداد کارتن">
-                        <input type="text" name="count_meter" class="form-control w-50" placeholder="متراژ هر کارتن   ">
-                        <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
-                        <input type="text" name="count_all" class="form-control w-50" placeholder="  متراژ کل ">
+                        <input type="text" value="{{ old('count_box') }}" name="count_box" class="form-control w-50" placeholder="تعداد کارتن">
+                        <input type="text" value="{{ old('count_meter') }}" name="count_meter" class="form-control w-50" placeholder="متراژ هر کارتن   ">
+                        <input type="text" value="{{ old('count_palet') }}" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
+                        <input type="text" value="{{ old('count_all') }}" name="count_all" class="form-control w-50" placeholder="  متراژ کل ">
                     </div>
 
 
@@ -204,7 +205,7 @@ $(document).ready(function() {
     // تنظیمات Select2 برای فارسی
     $('.select2-farsi').select2({
         dir: "rtl", // راست به چپ
-        placeholder: "جستجو کنید...",
+        placeholder: " لطفا طرح خود را انتخاب کنید...",
         language: {
             noResults: function() {
                 return "نتیجه‌ای یافت نشد";
