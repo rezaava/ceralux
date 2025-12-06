@@ -254,7 +254,7 @@
     .header .user-info {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 6px;
     }
 
     .header .user-avatar {

@@ -135,7 +135,11 @@
         @if($prods->count() > 0)
             @foreach($prods as $prod)
                 <div class="col-md-3 mb-4" data-aos="zoom-in" style="--aos-index:1;">
-                    <div class="product-card" style="background-image: url('https://abadistile.com/wp-content/uploads/2024/06/eleman-frisco-lobby-120240-ll-1536x1536.jpg');">
+                    <div class="product-card" style="@if(!empty($prod->img) && !empty($prod->img->img_url))
+                        background-image: url('{{ asset($prod->img->img_url) }}');
+                        @else
+                            background-image: url('{{ asset('images/imgNot.jpg') }}');
+                        @endif">
                         <div class="product-overlay"></div>
                         <div class="product-content">
                             <a href="/products/info/{{$nameSize->id}}/{{ $prod->id }}" class="btn product-btn">{{__('messages.product_info') }}</a>

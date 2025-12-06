@@ -7,6 +7,7 @@ use App\Models\Carts;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Request as ModelsRequest;
+use App\Models\SubCheck;
 use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
@@ -157,6 +158,7 @@ class CRMController extends Controller
         $customer->name = $req->name;
         $customer->phone = $req->phone;
         $customer->address = $req->address;
+        $customer->no_customer = $req->no_customer;
         $customer->save();
         
         if($req->customer_id){
@@ -173,19 +175,21 @@ class CRMController extends Controller
     }
 
     public function getCustomerInfo($id){
-    $customer = Customer::find($id);
+        $customer = Customer::find($id);
 
-    if ($customer) {
+        if ($customer) {
+            return response()->json([
+                'phone' => $customer->phone ?? '',
+                'address' => $customer->address ?? '',
+                'no_customer' => $customer->no_customer ?? '',
+            ]);
+        }
+
         return response()->json([
-            'phone' => $customer->phone ?? '',
-            'address' => $customer->address ?? '',
+            'phone' => '',
+            'address' => '',
+            'no_customer' => '',
         ]);
-    }
-
-    return response()->json([
-        'phone' => '',
-        'address' => '',
-    ]);
     }
 
     public function listInvocie(){
@@ -193,8 +197,9 @@ class CRMController extends Controller
         foreach($carts as $cart){
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
             $user = Customer::where('id' , $cart->user_id)->first();
+            $cart['date'] = $date;
         }
-        return view('admin.list_invocie' , compact('carts' , 'user' , 'date'));
+        return view('admin.list_invocie' , compact('carts' , 'user'));
     }
 
     public function request(){
@@ -241,4 +246,89 @@ class CRMController extends Controller
         return redirect()->back()->with('message' , ' درخواست با موفقیت ارسال  شد!');
     }
 
+    public function submit($id = null){
+
+        $editCheck = null;
+
+        if($id){
+            $editCheck = SubCheck::where('id' , $id)->first();
+        }
+        return view('admin.submit' , compact('editCheck'));
+    }
+
+    public function submitList(){
+        $checks = SubCheck::get();
+        return view('admin.listCheck' , compact('checks'));
+    }
+
+    public function submitPost(Request $req){
+
+        if($req->check_id){
+            $check =SubCheck::where('id' , $req->check_id)->first();
+        }else{
+            $check = new SubCheck();
+        }
+
+        
+        $check->check_date = $req->check_date;
+        $check->name_user = $req->name_user;
+        $check->phone_user = $req->phone_user;
+        $check->name_bank = $req->name_bank;
+        $check->name_branch = $req->name_branch;
+        $check->code_branch = $req->code_branch;
+        $check->check_serial = $req->check_serial;
+        $check->check_num = $req->check_num;
+        $check->check_price = $req->check_price;
+        $check->name_account = $req->name_account;
+        $check->num_account = $req->num_account;
+        $check-> num_invocie = $req->num_invocie;
+        $check->desc = $req->desc;
+        $check->save();
+        
+        
+        if($req->check_id){
+            return redirect('/admin/financial/submit/show/list')->with('message' , 'چک با موفقیت ویرایش شد!');
+        }else{
+            return redirect('/admin/financial/submit/{id}')->with('message' , 'چک با موفقیت اضافه شد!');
+        }
+    }
+
+    public function received(){
+        return view('admin.received');
+    }
+
+    public function pay(){
+        return view('admin.pay');
+    }
+
+    public function list(){
+        return view('admin.list');
+    }
+
+    public function settingPost(Request  $req){
+        $user = User::where('id' , $req->user_id)->first();
+        $user->dispaly_name = $req->name_dispaly;
+        $user->save();
+        return redirect()->back();
+    }
+
+    public function buy(){
+        return view('admin.buy');
+    }
+
+        public function leave(){
+        return view('admin.leave');
+    }
+
+        public function sample(){
+        return view('admin.sample');
+    }
+
+        public function break(){
+        return view('admin.break');
+    }
+
+        public function lpo(){
+        return view('admin.lpo');
+    }
 }

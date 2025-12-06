@@ -30,36 +30,27 @@
                 </div>
 
                 <div class="row justify-content-start">
-
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="card">
-                            <img class="card-img-top" src="{{ asset($imgs[0]->img_url) }}" alt="">
-                            <div class="card-body text-center">
-                                <p class="p-0 m-0"></p>
-                                <a href="" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i><span
-                                        style="padding-right: 0.6rem">حذف</span></a>
+                    @if(empty($imgs))
+                        <p>عکسی موجود نمیباشد</p>
+                    @else
+                        @foreach($imgs as $img)
+                            <div class="col-lg-3 col-md-6 col-6">
+                                <div class="card">
+                                    <img class="card-img-top" src="{{ asset($img->img_url) }}" alt="">
+                                    <div class="card-body text-center">
+                                        <form action="{{ url('/products/delete-img/'.$img->id) }}" method="POST" class="delete-img-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                                <span style="padding-right: 0.6rem">حذف</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    @foreach($imgs as $img)
-                    <div class="col-lg-3 col-md-6 col-6">
-                        <div class="card">
-                            <img class="card-img-top" src="{{ asset($img->img_url) }}" alt="">
-                            <div class="card-body text-center">
-                                <form action="{{ url('/products/delete-img/'.$img->id) }}" method="POST" class="delete-img-form">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                        <span style="padding-right: 0.6rem">حذف</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-
+                        @endforeach
+                    @endif
                 </div>
 
 
@@ -133,7 +124,7 @@
             <input
                 type="text"
                 name="img_name"
-                placeholder="مکان عکس کاشی (اختیاری)"
+                placeholder="اسم مکان عکس کاشی (اختیاری)"
                 style="
             width: 100%;
             padding: 12px 15px;
@@ -183,7 +174,11 @@
                     ثبت
                 </button>
 
+<<<<<<< HEAD
                 <button id="closeModal" type="button" style="
+=======
+                <button type="button" id="closeModal" style="
+>>>>>>> 16940d2e3201eba85c42fa729d75e468db87ce85
                 position:absolute;
                 top:10px;
                 left:10px;
@@ -303,7 +298,9 @@
                 confirmButtonColor: '#BF092F',
                 cancelButtonColor: '#4E56C0',
                 confirmButtonText: 'بله، حذف شود!',
-                cancelButtonText: 'خیر'
+                cancelButtonText: 'خیر',
+                background: '#181f2a',
+                color: '#ffffff'
             }).then((result) => {
                 if (result.isConfirmed) {
                     form.submit(); // اگر تأیید شد، فرم ارسال می‌شود

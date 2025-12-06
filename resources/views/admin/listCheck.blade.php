@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-لیست فاکتور ها
+لیست چک ها
 @endsection
 
 @section('onvan')
-لیست فاکتور ها
+لیست چک ها
 @endsection
 
 {{-- @section('title-onvan')
@@ -278,39 +278,45 @@
                         <thead>
                             <tr>
                                 <th class="numeric-column">ردیف</th>
-                                <th class="actions-column">شماره فاکتور</th>
-                                <th class="actions-column">نام خریدار</th>
-                                <th class="actions-column">نام فروشنده</th>
-                                <th class="actions-column">تاریخ</th>
+                                <th class="numeric-column">تاریخ چک</th>
+                                <th>نام صادرکننده چک</th>
+                                <th>شماره تماس صادرکننده</th>
+                                <th class="numeric-column">مبلغ چک</th>
                                 <th class="actions-column">عملیات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($carts as $key => $cart)
+                            @foreach($checks as $key => $check)
                             <tr>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$key+1}}</div>
+                                    <div class="description-cell2">{{ $key+1 }}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$cart->code_cart}}</div>
+                                    <div class="description-cell2">{{ $check->check_date }}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$user->name}}</div>
+                                    <div class="description-cell2">{{ $check->name_user }}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">امین پور</div>
+                                    <div class="description-cell2">{{ $check->phone_user }}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$cart->date}}</div>
+                                    <div class="description-cell2">{{ number_format($check->check_price) }}</div>
                                 </td>
+                                {{-- <td class="numeric-column hide-on-large">
+                                    <div class="description-cell2">{{ $check->count_meter }}</div>
+                                </td> --}}
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">
-                                        <a href="/admin/crm/reqSale/{{ $cart->id }}" class="btn btn-sm btn-outline-success m-1">
+                                        <a href="/products/img" class="btn btn-sm btn-outline-success m-1">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
-                                        <a href="" class="btn btn-sm btn-outline-danger m-1">
-                                            <i class="fas fa-trash"></i>
+                                        <a href="/admin/financial/submit/{{ $check->id }}" class="btn btn-sm btn-outline-primary m-1" target="_blank">
+                                            <i class="fas fa-edit"></i>
                                         </a>
+                                        {{-- <a href="/admin/product/list/delete" class="btn btn-sm btn-outline-danger m-1">
+                                            <i class="fas fa-trash"></i>
+                                        </a> --}}
                                     </div>
                                 </td>
                             </tr>

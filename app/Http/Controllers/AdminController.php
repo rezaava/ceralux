@@ -20,6 +20,7 @@ class AdminController extends Controller
     public function sizePost(Request $req){
         $size = new Size();
         $size->name = $req->size_name;
+        $size->meli = $req->meli_name;
         $size->save();
         return redirect()->back();
     }
@@ -69,6 +70,7 @@ class AdminController extends Controller
         $prod->code_prod = $req->code_prod;
         $prod->count_darageh = $req->count_darageh;
         $prod->no_product = $req->no_product;
+        $prod->count_paper = $req->count_paper;
         $prod->name_company = $req->name_company;
         $prod->save();
 

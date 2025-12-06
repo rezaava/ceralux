@@ -77,13 +77,22 @@
                         <input type="text" name="phone" class="form-control w-50" value="{{ $editCus->phone ?? '' }}" placeholder="شماره موبایل">
                     </div>
 
+                    <div class="d-flex gap-3 form-row-responsive justify-content-center" >
+                        <select class="form-select" name="no_customer" id="">
+                            <option value="" selected disabled>لطفا نوع مشتری را انتخاب کنید</option>
+                            <option value="1" @if($editCus->no_customer == 1) selected @endif>متفرقه</option>
+                            <option value="2" @if($editCus->no_customer == 2) selected @endif>مغازه دار</option>
+                            <option value="3" @if($editCus->no_customer == 3) selected @endif>ویزیتور</option>
+                        </select>
+                    </div>
+
                     <div class="d-flex gap-3 form-row-responsive">
                         
                         <textarea name="address" class="form-control textArea" placeholder="آدرس  ...">{{ $editCus->address ?? '' }}</textarea>
                     </div>
 
 
-                    <button class="btn btn-success w-100 mt-3">ثبت درخواست</button>
+                    <button class="btn btn-success w-100 mt-3">ثبت </button>
                 </form>
 
 
