@@ -308,9 +308,9 @@
                                 </td> --}}
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">
-                                        <a href="/products/img" class="btn btn-sm btn-outline-success m-1">
+                                        <span id="" data-bs-toggle="modal" data-bs-target="#modalCheck{{ $check->id }}"  class="btn btn-sm btn-outline-success m-1">
                                             <i class="fa-solid fa-eye"></i>
-                                        </a>
+                                        </span>
                                         <a href="/admin/financial/submit/{{ $check->id }}" class="btn btn-sm btn-outline-primary m-1" target="_blank">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -320,6 +320,77 @@
                                     </div>
                                 </td>
                             </tr>
+
+                            <div class="modal fade" id="modalCheck{{ $check->id }}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-dark">
+                                    
+                                      <!-- Header -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-titl" style="font-weight: 800">مشخصات چک</h4>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                    
+                                      <!-- Body -->
+                                        <div class="modal-body text-start">
+                                            <div class="row">
+                                              <div class="col-6">
+                                                <p><strong>تاریخ چک:</strong> {{ $check->check_date }}</p>
+                                              </div>
+                                              <div class="col-6">
+                                                <p><strong>نام صادرکننده:</strong> {{ $check->name_user }}</p>
+                                              </div>
+                                          
+                                              <div class="col-6">
+                                                <p><strong>شماره تماس:</strong> {{ $check->phone_user }}</p>
+                                              </div>
+                                              <div class="col-6">
+                                                <p><strong>نام بانک:</strong> {{ $check->name_bank }}</p>
+                                              </div>
+                                          
+                                              <div class="col-6">
+                                                <p><strong>شعبه بانک:</strong> {{ $check->name_branch }}</p>
+                                              </div>
+                                              <div class="col-6">
+                                                <p><strong>کد شعبه:</strong> {{ $check->code_branch }}</p>
+                                              </div>
+                                          
+                                              <div class="col-6">
+                                                <p><strong>شماره سریال:</strong> {{ $check->check_serial }}</p>
+                                              </div>
+                                              <div class="col-6">
+                                                <p><strong>شماره صیادی:</strong> {{ $check->check_num }}</p>
+                                              </div>
+                                          
+                                              <div class="col-6">
+                                                <p><strong>مبلغ چک:</strong> {{ number_format($check->check_price) }}</p>
+                                              </div>
+                                              <div class="col-6">
+                                                <p><strong>نام صاحب چک:</strong> {{ $check->name_account }}</p>
+                                              </div>
+                                          
+                                              <div class="col-6">
+                                                <p><strong>شماره حساب چک:</strong> {{ $check->num_account }}</p>
+                                              </div>
+                                              <div class="col-6">
+                                                <p><strong>شماره فاکتور:</strong> {{ $check->num_invocie }}</p>
+                                              </div>
+                                          
+                                              <div class="col-12">
+                                                <p><strong>توضیحات:</strong> {{ $check->desc }}</p>
+                                              </div>
+                                            </div>
+                                        </div>
+
+                                    
+                                      <!-- Footer -->
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -328,6 +399,31 @@
         </div>
     </div>
 </div>
+
+{{-- <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-dark">مشخصات چک</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p></p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div> --}}
+
 @endsection
 
 @section('script')
