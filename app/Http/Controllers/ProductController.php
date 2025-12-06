@@ -55,7 +55,7 @@ class ProductController extends Controller
             $size_prod['height'] = $height;
             $size_prod['size'] = $sizes2;
         }
-        // حذف تکراری‌ها بر اساس width + height
+       
         $size_prods = $size_prods->unique(function ($item) {
             return $item->width . '-' . $item->height;
         })->values();

@@ -355,7 +355,7 @@
 
         <!-- Gallery -->
         <div class="d-flex justify-content-center">
-            <h1 class="p-2 bg-info mt-3">گالری تصاویر</h1>
+            <h1 class="p-3 mt-3 gallery_h">گالری تصاویر</h1>
         </div>
         <div class="row gallery-container" data-aos="fade-up" style="--aos-index:2;">
             @foreach($imgs as $img)

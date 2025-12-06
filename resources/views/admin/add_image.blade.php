@@ -174,11 +174,7 @@
                     ثبت
                 </button>
 
-<<<<<<< HEAD
                 <button id="closeModal" type="button" style="
-=======
-                <button type="button" id="closeModal" style="
->>>>>>> 16940d2e3201eba85c42fa729d75e468db87ce85
                 position:absolute;
                 top:10px;
                 left:10px;

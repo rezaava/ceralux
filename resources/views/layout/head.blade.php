@@ -143,5 +143,13 @@
         .footer-top{
             font-family: yekan !important;
         }
+        .gallery_h{
+           background-color: #2c3341eb;
+           color: #F5CF57;
+           border-radius: 30px;
+           width: 50%;
+           text-align: center;
+           box-shadow: 2px 2px 15px black;
+        }
     </style>
 </head>
