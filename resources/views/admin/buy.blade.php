@@ -173,26 +173,39 @@
                           </div>
                       </div>
                   </div>
-                  <form action="/admin/crm/search/product" method="GET">
+                <form action="/admin/crm/buy/product/add" method="GET">
 
-                     <div class="d-flex gap-3 form-row-responsive justify-content-center">
+                    <div class="d-flex gap-3 form-row-responsive justify-content-center">
                         <select class="form-select select2-farsi w-100" dir="rtl" name="prod_id" id="customerSelect">
                            <option value="" selected>طرح را جستجو کنید</option>
                            @foreach($prods as $prod)
                            <option value="{{ $prod->id }}">{{$prod->code_prod}}--{{ $prod->name }}</option>
                            @endforeach
                         </select>
-                     </div>
-                     <div class="text-center mt-3"><button class="btn btn-success w-50">اضافه کردن</button></div>
-                  </form>
+                    </div>
 
-                  <div class="row">
-                     <div class="col-12">
-                          <div class="card p-0" style="border-radius: 0.4rem;border:none;color:#43E97B;border-right: 3px solid #43E97B;">
-                              <div class="card-body"></div>
-                           </div>
-                     </div>
-                  </div>
+                    <div class="d-flex gap-3 form-row-responsive justify-content-center mt-3">
+                        <input type="hidden" value="{{ $cart->id }}" name="cart_id">
+                        <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
+                        <input type="text" name="count_box" class="form-control w-50" placeholder=" تعداد کارتن در پالت ">
+                        <input type="text" name="count_all" class="form-control w-50" placeholder="متراژ کل" readonly>
+                    </div>
+
+                    <div class="text-center mt-3"><button class="btn btn-success w-50">اضافه کردن</button></div>
+
+                </form>
+                @foreach($cart_prods as $cart_prod)
+                <div class="row">
+                   <div class="col-6">
+                        <div class="card p-0" style="border-radius: 0.4rem;border:none;color:#43E97B;border-right: 3px solid #43E97B;">
+                            <div class="card-body">
+                                <p>نام محصول :   کاشی ماربل</p>
+                                <p>نام محصول :   کاشی ماربل</p>
+                            </div>
+                         </div>
+                   </div>
+                </div>
+                @endforeach
                @endif
             </div>
         </div>

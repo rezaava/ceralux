@@ -417,15 +417,21 @@ class CRMController extends Controller
 
         $cart = null;
         if($id){
-            $cart = Carts::where('id' , $id)->first();
+            $cart = Carts::where('id' , $id)->where('type' , 'buy')->first();
+            $cart_prods = Cart_prod::where('card_id' , $id)->get();
         }
         $prods = Product::get();
-        return view('admin.buy' , compact('prods' , 'cart'));
+        return view('admin.buy' , compact('prods' , 'cart' , 'cart_prods'));
     }
 
-    public function buySearch(Request $req){
-        
-        return view('admin.buy');
+    public function buyaddProd(Request $req){
+        $cart_prod = new Cart_prod();
+        $cart_prod->prod_id = $req->prod_id;
+        $cart_prod->card_id = $req->cart_id;
+        $cart_prod->count_box = $req->count_box;
+        $cart_prod->count_palet = $req->count_palet;
+        $cart_prod->save();
+        return redirect()->back();
     }
 
     public function buyAddToCart(Request $req){
@@ -436,6 +442,7 @@ class CRMController extends Controller
         $cart->date = $req->date_buy;
         $cart->user_id = Auth::user()->id;
         $cart->status = '0';
+        $cart->type = 'buy';
         $cart->save();
 
         return redirect()->route('buy' , $cart->id);
