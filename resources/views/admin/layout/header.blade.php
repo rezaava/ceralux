@@ -134,6 +134,12 @@
             <div class="collapse {{ request()->is('admin/crm*') ? 'show' : '' }}" id="productMenu1"
                 style="border-right: 2px solid #fff;margin-right: 1.6rem">
                 <ul class="nav flex-column ms-3 submenu" style="list-style-type: disc ; padding-right: 1.4rem">
+
+                    <li class="nav-item {{ request()->routeIs('buy') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('buy') ? 'active1' : '' }}"
+                            href="/admin/crm/buy/add/{id}" id="show-list">فاکتور خرید</a>
+                    </li>
+
                     <li class="nav-item {{ request()->routeIs('reqSale') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('reqSale') ? 'active1' : '' }}"
                             href="/admin/crm/reqSale/{id}" id="add-list">فاکتور فروش </a>
@@ -149,11 +155,6 @@
                     <li class="nav-item {{ request()->routeIs('listInvocie') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('listInvocie') ? 'active1' : '' }}"
                             href="/admin/crm/listInvocie" id="show-list">لیست فاکتور ها</a>
-                    </li>
-
-                     <li class="nav-item {{ request()->routeIs('buy') ? 'activeLi' : '' }}">
-                        <a class="nav-link {{ request()->routeIs('buy') ? 'active1' : '' }}"
-                            href="/admin/buy/add" id="show-list">فاکتور خرید</a>
                     </li>
 
                      <li class="nav-item {{ request()->routeIs('lpo') ? 'activeLi' : '' }}">

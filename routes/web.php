@@ -98,7 +98,10 @@ Route::get('/admin/financial/list',[CRMController::class,'list'])->name('listPay
 
 Route::post('/admin/setting/name/add',[CRMController::class,'settingPost']);
 
-Route::get('/admin/buy/add',[CRMController::class,'buy'])->name('buy');
+Route::get('/admin/crm/buy/add/{id}',[CRMController::class,'buy'])->name('buy');
+Route::get('/admin/crm/search/product',[CRMController::class,'buySearch']);
+Route::get('/admin/crm/add/cart/buy',[CRMController::class,'buyAddToCart']);
+
 Route::get('/admin/lpo/add',[CRMController::class,'lpo'])->name('lpo');
 Route::get('/admin/req/leave',[CRMController::class,'reqLeave'])->name('leave');
 Route::get('/admin/req/sample',[CRMController::class,'reqSample'])->name('sample');

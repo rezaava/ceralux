@@ -11,6 +11,7 @@ use App\Models\SubCheck;
 use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
+use Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CRMController extends Controller
@@ -412,8 +413,32 @@ class CRMController extends Controller
         return redirect()->back();
     }
 
-    public function buy(){
+    public function buy($id  = null){
+
+        $cart = null;
+        if($id){
+            $cart = Carts::where('id' , $id)->first();
+        }
+        $prods = Product::get();
+        return view('admin.buy' , compact('prods' , 'cart'));
+    }
+
+    public function buySearch(Request $req){
+        
         return view('admin.buy');
+    }
+
+    public function buyAddToCart(Request $req){
+        
+        $cart = new Carts();
+
+        $cart->num_cart = $req->code_buy;
+        $cart->date = $req->date_buy;
+        $cart->user_id = Auth::user()->id;
+        $cart->status = '0';
+        $cart->save();
+
+        return redirect()->route('buy' , $cart->id);
     }
 
         public function leave(){
