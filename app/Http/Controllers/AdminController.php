@@ -76,9 +76,39 @@ class AdminController extends Controller
     }
 
     public function productPost(Request $req)
-    {
+    {   
+
+        function convertPersianNumber($string)
+        {
+            if ($string === null) return null;
+        
+            $persian = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            $arabic  = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+            $english = ['0','1','2','3','4','5','6','7','8','9'];
+        
+            $string = str_replace($persian, $english, $string);
+            $string = str_replace($arabic,  $english, $string);
+        
+            // تبدیل کاما فارسی اعشاری
+            $string = str_replace(['،', ','], '.', $string);
+        
+            return $string;
+        }
+
 
         Log::info($req);
+
+        $req->merge([
+            'price'        => convertPersianNumber($req->price),
+            'price_buy'    => convertPersianNumber($req->price_buy),
+            'count_box'    => convertPersianNumber($req->count_box),
+            'count_meter'  => convertPersianNumber($req->count_meter),
+            'count_meli'   => convertPersianNumber($req->count_meli),
+            'count_all'    => convertPersianNumber($req->count_all),
+            'count_darageh'=> convertPersianNumber($req->count_darageh),
+            'no_product'   => convertPersianNumber($req->no_product),
+            'count_paper'  => convertPersianNumber($req->count_paper),
+        ]);
 
         $data = $req->all();
 
@@ -86,17 +116,10 @@ class AdminController extends Controller
 
             'title'         => 'required|string|max:255',
 
-
             'price'         => 'required|numeric',
             'price_buy'         => 'required|numeric',
 
             'face'          => 'required|string',
-
-            // 'titleEn'       => 'required|string',
-
-
-            // 'titleAr'       => 'required|string|max:255',
-
 
             'count_box'     => 'required|numeric',
             'count_meter'   => 'required|numeric',
@@ -136,20 +159,6 @@ class AdminController extends Controller
 
             // face
             'face.required'       => 'face الزامی است.',
-
-
-            // 'titleEn.string'    => 'The design name must be a text.',
-            // 'titleEn.required'  => 'The design name is required.',
-
-
-
-
-            // Arabic
-            // 'titleAr.string'   => 'يجب أن يكون اسم النموذج نصاً.',
-            // 'titleAr.required' => 'اسم النموذج مطلوب.',
-
-
-
 
             // counts
             'count_box.numeric'     => 'تعداد در جعبه باید عدد باشد.',

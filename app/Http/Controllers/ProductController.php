@@ -88,20 +88,30 @@ class ProductController extends Controller
         $img->product_id = $prod_id;
         $img->img_name = $req->img_name;
         $img->type = $req->type_img;
-        if ($req->hasFile('img_file')) {
 
-            $file = $req->file('img_file');
+        // if ($req->hasFile('img_file')) {
 
-            $file_name = $img->img_name . time() . '.' . $file->getClientOriginalExtension();
+        //     $file = $req->file('img_file');
 
-            $address = 'files/products';
-            $file->move(public_path($address), $file_name);
+        //     $file_name = $img->img_name . time() . '.' . $file->getClientOriginalExtension();
 
-            $img->img_url = $address . '/' . $file_name;
+        //     $address = 'files/products';
+        //     $file->move(public_path($address), $file_name);
+
+        //     $img->img_url = $address . '/' . $file_name;
+        // }
+
+        if ($req->hasfile('img_file')) {
+
+            $file= $req->file('img_file');
+            $file_name1 = time() . "." . $file->getClientOriginalExtension();
+            $destination_path1 = 'files/img';
+            $file->move($destination_path1, $file_name1);
+            $img->img_url = $destination_path1 . '/' . $file_name1;
         }
 
         $img->save();
-        return back();
+        return redirect()->back();
     }
     public function deleteImg($id)
     {

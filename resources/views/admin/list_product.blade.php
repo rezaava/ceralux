@@ -183,6 +183,33 @@
         padding: 4px 8px !important;
         margin: 1px !important;
     }
+    /* اسکرول جدول DataTable */
+    .table-responsive::-webkit-scrollbar {
+        height: 2px;  /* برای اسکرول افقی */
+        width: 2px;   /* برای اسکرول عمودی */
+    }
+    
+    .table-responsive::-webkit-scrollbar-track {
+        background: #1b2330;  /* سرمه‌ای تیره */
+        border-radius: 10px;
+    }
+    
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #3BDE77; /* همون سبز اکسنت */
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+    
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: #1f6c3b; /* سبز تیره هنگام هاور */
+    }
+    
+    /* برای فایرفاکس */
+    .table-responsive {
+        scrollbar-width: thin;
+        scrollbar-color: #3BDE77 #1b2330;
+    }
+
 
     /* مخفی کردن ستون‌های کم‌اهمیت در صفحه‌های کوچک */
     @media (max-width: 1400px) {
@@ -313,11 +340,11 @@
                                 <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->count_meter }}</div>
                                 </td>
-                                <td class="numeric-column hide-on-large">
-                                    <div class="description-cell2">{{ $prod->count_meli }}</div>
-                                </td>
                                 <td class="numeric-column hide-on-medium">
                                     <div class="description-cell2">{{ $prod->count_all }}</div>
+                                </td>
+                                <td class="numeric-column hide-on-large">
+                                    <div class="description-cell2">{{ $prod->count_meli }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->price }}</div>

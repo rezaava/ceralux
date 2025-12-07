@@ -288,25 +288,28 @@
 </script>
 @endif
 <script>
-    let inputBox = document.querySelector('#count_box')
-    let inputMeter = document.querySelector('#count_meter')
-    let inputAll = document.querySelector('#count_all')
+    let inputBox = document.querySelector('#count_box');
+    let inputMeter = document.querySelector('#count_meter');
+    let inputAll = document.querySelector('#count_all');
+
+    // تبدیل اعداد فارسی/عربی به انگلیسی
+    function toEnglishNumber(str) {
+        return str.replace(/[۰-۹]/g, d => "0123456789"[d.charCodeAt(0) - '۰'.charCodeAt(0)])
+                  .replace(/[٠-٩]/g, d => "0123456789"[d.charCodeAt(0) - '٠'.charCodeAt(0)]);
+    }
 
     function calculateTotal() {
-        let box = parseFloat(inputBox.value) || 0; // تبدیل به عدد
-        let meter = parseFloat(inputMeter.value) || 0; // تبدیل به عدد
+        let box = parseFloat(toEnglishNumber(inputBox.value)) || 0;
+        let meter = parseFloat(toEnglishNumber(inputMeter.value)) || 0;
+
         let all = box * meter;
-
-
-        // قرار دادن نتیجه در فیلد متراژ کل
         inputAll.value = all.toFixed(2);
     }
 
-    // اضافه کردن Event Listener برای تغییرات
     inputBox.addEventListener('input', calculateTotal);
     inputMeter.addEventListener('input', calculateTotal);
 
-    // محاسبه اولیه در صورت وجود مقادیر
     calculateTotal();
 </script>
+
 @endsection
