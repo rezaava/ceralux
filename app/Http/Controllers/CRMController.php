@@ -266,12 +266,14 @@ class CRMController extends Controller
         switch($cart->type){
             case 'buy':
                 $cart->text_type = 'خرید';
+                $date = $cart->date;
                 break;
             default:
                 $cart->text_type = 'فروش';
+                $date = Verta::instance($cart->created_at)->format('Y/m/d');
                 break;
         }
-        $date = Verta::instance($cart->created_at)->format('Y/m/d');
+        
 
         $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
         foreach($cart_prods as $cart_prod){
@@ -509,6 +511,28 @@ class CRMController extends Controller
     }
 
     public function buyAddToCart(Request $req){
+
+        function convertPersianNumber($string)
+        {
+            if ($string === null) return null;
+        
+            $persian = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            $arabic  = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+            $english = ['0','1','2','3','4','5','6','7','8','9'];
+        
+            $string = str_replace($persian, $english, $string);
+            $string = str_replace($arabic,  $english, $string);
+        
+            // تبدیل کاما فارسی اعشاری
+            $string = str_replace(['،', ','], '.', $string);
+        
+            return $string;
+        }
+
+        $req->merge([
+            'date_buy'        => convertPersianNumber($req->date_buy),
+            'code_buy'    => convertPersianNumber($req->code_buy),
+        ]);
 
         $data = $req->all();
 
