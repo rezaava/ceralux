@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- فاکتور خرید 
+ LPO  
 @endsection
 
 @section('onvan')
-   فاکتور خرید
+    ثبت LPO ها
 @endsection
 
 {{-- @section('title-onvan')
