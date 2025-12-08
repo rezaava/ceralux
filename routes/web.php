@@ -104,7 +104,12 @@ Route::get('/admin/crm/buy/product/add',[CRMController::class,'buyaddProd']);
 Route::get('/admin/crm/add/cart/buy',[CRMController::class,'buyAddToCart']);
 Route::post('/admin/crm/cart/final/buy',[CRMController::class,'finalCartBuy']);
 
-Route::get('/admin/lpo/add',[CRMController::class,'lpo'])->name('lpo');
+Route::get('/admin/crm/lpo/add/{id}',[CRMController::class,'lpo'])->name('lpo');
+Route::post('/admin/crm/add/cart/lpo',[CRMController::class,'lpoAddCart']);
+Route::post('/admin/crm/lpo/product/add',[CRMController::class,'lpoAddCartProd']);
+Route::post('/admin/crm/cart/final/lpo',[CRMController::class,'lpoFinal']);
+
+
 Route::get('/admin/req/leave',[CRMController::class,'reqLeave'])->name('leave');
 Route::get('/admin/req/sample',[CRMController::class,'reqSample'])->name('sample');
 Route::get('/admin/req/break',[CRMController::class,'reqbreak'])->name('break');

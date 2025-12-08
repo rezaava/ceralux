@@ -341,8 +341,7 @@
         toast: true,
         position: 'top-start',
         icon: 'success',
-        title: '{{ session('
-        message ') }}',
+        title: '{{ session('message') }}',
         showConfirmButton: false,
         showCloseButton: true,
         timer: 3000,

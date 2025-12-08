@@ -140,6 +140,11 @@
                             href="/admin/crm/buy/add/{id}" id="show-list">فاکتور خرید</a>
                     </li>
 
+                    <li class="nav-item {{ request()->routeIs('lpo') ? 'activeLi' : '' }}">
+                        <a class="nav-link {{ request()->routeIs('lpo') ? 'active1' : '' }}"
+                            href="/admin/crm/lpo/add/{id}" id="show-list">ثبت LPO</a>
+                    </li>
+
                     <li class="nav-item {{ request()->routeIs('reqSale') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('reqSale') ? 'active1' : '' }}"
                             href="/admin/crm/reqSale/{id}" id="add-list">فاکتور فروش </a>
@@ -155,11 +160,6 @@
                     <li class="nav-item {{ request()->routeIs('listInvocie') ? 'activeLi' : '' }}">
                         <a class="nav-link {{ request()->routeIs('listInvocie') ? 'active1' : '' }}"
                             href="/admin/crm/listInvocie" id="show-list">لیست فاکتور ها</a>
-                    </li>
-
-                     <li class="nav-item {{ request()->routeIs('lpo') ? 'activeLi' : '' }}">
-                        <a class="nav-link {{ request()->routeIs('lpo') ? 'active1' : '' }}"
-                            href="/admin/lpo/add" id="show-list">ثبت LPO</a>
                     </li>
 
                     <li class="nav-item {{ request()->routeIs('leave') ? 'activeLi' : '' }}">

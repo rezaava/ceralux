@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cart_prod;
 use App\Models\Carts;
 use App\Models\Customer;
+use App\Models\Lpo;
+use App\Models\Lpo_Prod;
 use App\Models\Product;
 use App\Models\Request as ModelsRequest;
 use App\Models\SubCheck;
@@ -607,7 +609,133 @@ class CRMController extends Controller
         return view('admin.break');
     }
 
-    public function lpo(){
-        return view('admin.lpo');
+    public function lpo($id = null){
+        $lpo = null;
+        $date = null;
+         $meter = 0;
+        $box = 0;
+        $palet = 0;
+        $priceAll = 0;
+        $lpo_prods = null;
+        $prods = null;
+
+        if($id){
+            $lpo = Lpo::where('id' , $id)->first();
+            if($lpo){
+                $date = Verta::instance($lpo->created_at)->format('Y/m/d');
+                $prods = Product::get();
+                $lpo_prods = Lpo_Prod::where('lpo_id' , $lpo->id)->get();
+                foreach($lpo_prods as $lpo_prod){
+                    $prod = Product::where('id' , $lpo_prod->prod_id)->first();
+                    $lpo_prod['prod'] = $prod;
+
+                    $meter = $lpo_prod->count_box * $prod->count_meter + $meter;
+                    $box = $lpo_prod->count_box + $box;
+                    $palet = $lpo_prod->count_palet + $palet;
+                    $priceAll = ($lpo_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+
+
+                }
+            }
+        }
+        // return $date;
+        $customers = Customer::get();
+        return view('admin.lpo' , compact('customers' , 'lpo' , 'date' , 'prods' , 'lpo_prods' , 'priceAll' , 'meter' , 'box' , 'palet'));
+    }
+
+    public function lpoAddCart(Request $req){
+
+        $data = $req->all();
+
+        $rules = [
+            'num_lpo'    => 'required|string',
+            'customer_id'    => 'required',
+        ];
+
+        $messages = [
+            'num_lpo.required'    => '  شماره lpo را وارد کنید',
+            'num_lpo.string'    => '  شماره lpo را درست  وارد کنید',
+
+            'customer_id.required'    => 'مشتری را انتخاب کنید',
+        ];
+
+        $validator = Validator::make($data, $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        
+        $lpo = new Lpo();
+        $lpo->customer_id = $req->customer_id;
+        $lpo->num_lpo = $req->num_lpo;
+        $lpo->status = '0';
+        $lpo->save();
+        return redirect()->route('lpo' , $lpo->id);
+    }
+
+    public function lpoAddCartProd(Request $req){
+
+        $data = $req->all();
+
+        $rules = [
+            'prod_id'   => 'required',
+            'count_palet'    => 'required|numeric',
+            'count_box'  => 'required|numeric',
+        ];
+
+        $messages = [
+            'prod_id.required'   => 'یک محصول را انتخاب کنید',
+
+            'count_palet.required'   => 'تعدا پالت را وارد کنید',
+            'count_palet.numeric'   => 'تعداد پالت باید عدد باشد',
+
+            'count_box.required'   => 'تعداد کارتن را وارد کنید',
+            'count_box.numeric'   => ' تعداد کارتن عدد باشد',
+        
+        ];
+
+        $validator = Validator::make($data, $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        
+        $lpo_prod = new Lpo_Prod();
+        $lpo_prod->lpo_id = $req->lpo_id;
+        $lpo_prod->prod_id = $req->prod_id;
+        $lpo_prod->count_box = $req->count_box;
+        $lpo_prod->count_palet = $req->count_palet;
+        $lpo_prod->count_all = $req->count_all;
+        $lpo_prod->save();
+        return redirect()->route('lpo' , $req->lpo_id);
+    }
+
+    public function lpoFinal(Request $req){
+
+        $meter = 0;
+        $box = 0;
+        $palet = 0;
+        $priceAll = 0;
+
+        $lpo = Lpo::where('id' , $req->lpo_id)->first();
+
+        $lpo_prods = Lpo_Prod::where('lpo_id' , $lpo->id)->get();
+            foreach($lpo_prods as $lpo_prod){
+                $prod = Product::where('id' , $lpo_prod->prod_id)->first();
+                $lpo_prod['prod'] = $prod;
+                $meter = $lpo_prod->count_box * $prod->count_meter + $meter;
+                $box = $lpo_prod->count_box + $box;
+                $palet = $lpo_prod->count_palet + $palet;
+                $priceAll = ($lpo_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+            }
+        
+        $lpo->count_box = $box;
+        $lpo->count_palet= $palet;
+        $lpo->count_all = $meter;
+        $lpo->price = $priceAll;
+        $lpo->status = '1';
+        $lpo->save();
+
+        return redirect('/admin/crm/lpo/add/{id}')->with('message' , ' LPO با موفقیت ثبت شد!');
     }
 }
