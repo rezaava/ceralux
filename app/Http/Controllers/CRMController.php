@@ -104,8 +104,8 @@ class CRMController extends Controller
 
         do {
             $code = generateVolunteerCode();
-        } while (Carts::where('code_cart', $code)->exists());
-        $cart->code_cart = $code;
+        } while (Carts::where('num_cart', $code)->exists());
+        $cart->num_cart = $code;
         $cart->user_id = $req->customer;
         $cart->status = '0';
         $cart->num_cart = $req->num_cart;
@@ -175,6 +175,7 @@ class CRMController extends Controller
         $order->price = $priceAll;
         $order->count_meters = $meter;
         $order->count_boxs = $box;
+        $order->count_palet = $palet;
         $order->save();
         return redirect('/admin/crm/reqSale/{id}')->with('message' , 'فاکتور با موفقیت ثبت شد!');
     }
@@ -238,13 +239,47 @@ class CRMController extends Controller
     }
 
     public function listInvocie(){
+        $user = null;
         $carts = Carts::where('status' , 1)->get();
         foreach($carts as $cart){
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
             $user = Customer::where('id' , $cart->user_id)->first();
             $cart['date'] = $date;
+            $cart['user'] = $user;
+
+            switch($cart->type){
+                case 'buy':
+                    $cart->text_type = 'خرید';
+                    break;
+                default:
+                    $cart->text_type = 'فروش';
+                    break;
+            }
         }
-        return view('admin.list_invocie' , compact('carts' , 'user'));
+        return view('admin.list_invocie' , compact('carts'));
+    }
+
+    public function showInvocie($id){
+
+        $cart = Carts::where('id' , $id)->first();
+
+        switch($cart->type){
+            case 'buy':
+                $cart->text_type = 'خرید';
+                break;
+            default:
+                $cart->text_type = 'فروش';
+                break;
+        }
+        $date = Verta::instance($cart->created_at)->format('Y/m/d');
+
+        $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
+        foreach($cart_prods as $cart_prod){
+                $prod = Product::where('id' , $cart_prod->prod_id)->first();
+                $cart_prod['prod'] = $prod;
+        }
+
+        return view('admin.showImvocie' , compact('cart' , 'cart_prods' , 'date'));
     }
 
     public function request(){
@@ -415,16 +450,55 @@ class CRMController extends Controller
 
     public function buy($id  = null){
 
+        $meter = 0;
+        $box = 0;
+        $palet = 0;
+        $priceAll = 0;
         $cart = null;
+
         if($id){
             $cart = Carts::where('id' , $id)->where('type' , 'buy')->first();
             $cart_prods = Cart_prod::where('card_id' , $id)->get();
+            foreach($cart_prods as $cart_prod){
+                $prod = Product::where('id' , $cart_prod->prod_id)->first();
+                $cart_prod['prod'] = $prod;
+
+                $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+                $box = $cart_prod->count_box + $box;
+                $palet = $cart_prod->count_palet + $palet;
+                $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+            }
         }
         $prods = Product::get();
-        return view('admin.buy' , compact('prods' , 'cart' , 'cart_prods'));
+        return view('admin.buy' , compact('prods' , 'cart' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
 
     public function buyaddProd(Request $req){
+        $data = $req->all();
+
+        $rules = [
+            'prod_id'   => 'required',
+            'count_palet'    => 'required|numeric',
+            'count_box'  => 'required|numeric',
+        ];
+
+        $messages = [
+            'prod_id.required'   => 'یک محصول را انتخاب کنید',
+
+            'count_palet.required'   => 'تعدا پالت را وارد کنید',
+            'count_palet.numeric'   => 'تعداد پالت باید عدد باشد',
+
+            'count_box.required'   => 'تعداد کارتن را وارد کنید',
+            'count_box.numeric'   => ' تعداد کارتن عدد باشد',
+        
+        ];
+
+        $validator = Validator::make($data, $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         $cart_prod = new Cart_prod();
         $cart_prod->prod_id = $req->prod_id;
         $cart_prod->card_id = $req->cart_id;
@@ -435,6 +509,26 @@ class CRMController extends Controller
     }
 
     public function buyAddToCart(Request $req){
+
+        $data = $req->all();
+
+        $rules = [
+            'date_buy'   => 'required',
+            'code_buy'    => 'required|string',
+        ];
+
+        $messages = [
+            'date_buy.required'   => 'تاریخ فاکتور را وارد کنید',
+        
+            'code_buy.required'    => '  شماره فاکتور را وارد کنید',
+            'code_buy.string'    => '  شماره فاکتور را درست  وارد کنید',
+        ];
+
+        $validator = Validator::make($data, $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
         
         $cart = new Carts();
 
@@ -448,19 +542,48 @@ class CRMController extends Controller
         return redirect()->route('buy' , $cart->id);
     }
 
-        public function leave(){
+    public function finalCartBuy(Request $req){
+
+        $meter = 0;
+        $box = 0;
+        $palet = 0;
+        $priceAll = 0;
+
+        $cart = Carts::where('id' , $req->cart_id)->first();
+
+        $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
+            foreach($cart_prods as $cart_prod){
+                $prod = Product::where('id' , $cart_prod->prod_id)->first();
+                $cart_prod['prod'] = $prod;
+
+                $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+                $box = $cart_prod->count_box + $box;
+                $palet = $cart_prod->count_palet + $palet;
+                $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+            }
+        $cart->status = '1';
+        $cart->price = $priceAll;
+        $cart->count_meters = $meter;
+        $cart->count_boxs = $box;
+        $cart->count_palet = $palet;
+        $cart->save();
+
+        return redirect('/admin/crm/buy/add/{id}')->with('message' , 'فاکتور خرید با موفقیت ثبت شد!');
+    }
+
+    public function leave(){
         return view('admin.leave');
     }
 
-        public function sample(){
+    public function sample(){
         return view('admin.sample');
     }
 
-        public function break(){
+    public function break(){
         return view('admin.break');
     }
 
-        public function lpo(){
+    public function lpo(){
         return view('admin.lpo');
     }
 }

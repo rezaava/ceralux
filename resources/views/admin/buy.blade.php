@@ -141,6 +141,40 @@
         background: transparent !important;
         scrollbar-color: #3BDE77 transparent;
     }
+
+    table {
+        table-layout: fixed;
+    }
+
+    table th {
+        white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+        table {
+            table-layout: auto;
+        }
+
+        .form-row-responsive {
+            flex-direction: column;
+        }
+
+        #btn-final {
+            width: 100%;
+        }
+
+        .form-row-responsive .form-control {
+            width: 100% !important;
+        }
+
+        .form-row-responsive .form-select {
+            width: 100% !important;
+        }
+
+        .textArea {
+            width: 100%;
+        }
+    }
 </style>
 @endsection
 
@@ -152,14 +186,20 @@
 
                <div class="d-flex justify-content-between align-items-center">
                   <div class="stat-title" style="font-size: 1.6rem">ثبت فاکتور خرید</div>
-                  <a href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2">تعریف محصول جدید</span></a>
+                  <a target="_blank" href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >تعریف محصول جدید</span></a>
                </div>
                @if(!$cart)
                <form action="/admin/crm/add/cart/buy" method="GET">
                   <div class="d-flex gap-3 form-row-responsive mt-3">
-                     <input type="text" value="" name="date_buy" class="form-control w-50" placeholder=" تاریخ فاکتور خرید">
-                     <input type="text" value="" name="code_buy" class="form-control w-50" placeholder="شماره فاکتور خرید">
+                    <input type="text" value="{{ old('date_buy') }}" name="date_buy" class="form-control w-50" placeholder=" تاریخ فاکتور خرید">
+                    <input type="text" value="{{ old('code_buy') }}" name="code_buy" class="form-control w-50" placeholder="شماره فاکتور خرید">
                   </div>
+                    @error('date_buy')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
+                    @error('code_buy')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
                    <div class="text-center mt-3"><button class="btn btn-success w-50">ثبت</button></div>
                </form>
                @else
@@ -183,6 +223,9 @@
                            @endforeach
                         </select>
                     </div>
+                    @error('prod_id')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center mt-3">
                         <input type="hidden" value="{{ $cart->id }}" name="cart_id">
@@ -190,22 +233,80 @@
                         <input type="text" name="count_box" class="form-control w-50" placeholder=" تعداد کارتن در پالت ">
                         <input type="text" name="count_all" class="form-control w-50" placeholder="متراژ کل" readonly>
                     </div>
+                    @error('count_palet')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
+                    @error('count_box')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
 
                     <div class="text-center mt-3"><button class="btn btn-success w-50">اضافه کردن</button></div>
 
                 </form>
-                @foreach($cart_prods as $cart_prod)
-                <div class="row">
-                   <div class="col-6">
-                        <div class="card p-0" style="border-radius: 0.4rem;border:none;color:#43E97B;border-right: 3px solid #43E97B;">
-                            <div class="card-body">
-                                <p>نام محصول :   کاشی ماربل</p>
-                                <p>نام محصول :   کاشی ماربل</p>
-                            </div>
-                         </div>
-                   </div>
+                <div class="table-responsive mt-4">
+                    <table class="table table-dark table-hover mt-3 table-borderless">
+                            <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>کد کالا</th>
+                                    <th>نام محصول</th>
+                                    <th>تعداد کارتن</th>
+                                    <th>متراژ هر کارتن</th>
+                                    <th>تعداد پالت</th>
+                                    <th> متراژ کل</th>
+                                    <th> قیمت</th>
+                                    <th> قیمت کل</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                @foreach($cart_prods as $key => $cart_prod)
+                                <tr>
+                                    <td>{{$key+1}}</td>
+                                    <td>{{$cart_prod->prod->code_prod}}</td>
+                                    <td>{{$cart_prod->prod->name}}</td>
+                                    <td>{{$cart_prod->count_box}}</td>
+                                    <td>{{$cart_prod->prod->count_meter}}</td>
+                                    <td>{{$cart_prod->count_palet}}</td>
+                                    <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
+                                    <td>{{number_format($cart_prod->prod->price)}}</td>
+                                    <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter))}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                 </div>
-                @endforeach
+
+                <div class="stat-card ">
+
+                    <div class="row">
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <form action="/admin/crm/cart/final/buy" method="POST">
+                    @csrf
+                    <input type="hidden" name="cart_id" value="{{ $cart->id }}">
+                    <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت نهایی فاکتور خرید </button></div>
+                </form>
                @endif
             </div>
         </div>
@@ -233,4 +334,27 @@
         });
     });
 </script>
+
+@if (session('message'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-start',
+        icon: 'success',
+        title: '{{ session('
+        message ') }}',
+        showConfirmButton: false,
+        showCloseButton: true,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#ffe6e6',
+        color: '#000',
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@endif
+
 @endsection

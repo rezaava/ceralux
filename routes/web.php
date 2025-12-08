@@ -69,6 +69,7 @@ Route::get('/admin/crm/reqProd',[CRMController::class,'reqProd'])->name('reqProd
 Route::post('/admin/crm/reqProd/add',[CRMController::class,'requestPost'])->name('reqProd');
 
 Route::get('/admin/crm/listInvocie',[CRMController::class,'listInvocie'])->name('listInvocie');
+Route::get('/admin/crm/show/invoice/{id}',[CRMController::class,'showInvocie']);
 
 Route::get('/admin/crm/reqSale/{id}',[CRMController::class,'reqSale'])->name('reqSale'); 
 Route::post('/admin/crm/reqSale/add',[CRMController::class,'salePost']); 
@@ -101,8 +102,10 @@ Route::post('/admin/setting/name/add',[CRMController::class,'settingPost']);
 Route::get('/admin/crm/buy/add/{id}',[CRMController::class,'buy'])->name('buy');
 Route::get('/admin/crm/buy/product/add',[CRMController::class,'buyaddProd']);
 Route::get('/admin/crm/add/cart/buy',[CRMController::class,'buyAddToCart']);
+Route::post('/admin/crm/cart/final/buy',[CRMController::class,'finalCartBuy']);
 
 Route::get('/admin/lpo/add',[CRMController::class,'lpo'])->name('lpo');
 Route::get('/admin/req/leave',[CRMController::class,'reqLeave'])->name('leave');
 Route::get('/admin/req/sample',[CRMController::class,'reqSample'])->name('sample');
 Route::get('/admin/req/break',[CRMController::class,'reqbreak'])->name('break');
+

@@ -278,6 +278,7 @@
                         <thead>
                             <tr>
                                 <th class="numeric-column">ردیف</th>
+                                <th class="numeric-column">نوع فاکتور</th>
                                 <th class="actions-column">شماره فاکتور</th>
                                 <th class="actions-column">نام خریدار</th>
                                 <th class="actions-column">نام فروشنده</th>
@@ -292,10 +293,13 @@
                                     <div class="description-cell2">{{$key+1}}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$cart->code_cart}}</div>
+                                    <div class="description-cell2">{{$cart->text_type}}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$user->name}}</div>
+                                    <div class="description-cell2">{{$cart->num_cart}}</div>
+                                </td>
+                                <td class="numeric-column">
+                                    <div class="description-cell2">@if($cart->user){{$cart->user->name}}@else نامشخص@endif</div>
                                 </td>
                                 <td class="numeric-column">
                                     <div class="description-cell2">امین پور</div>
@@ -305,7 +309,7 @@
                                 </td>
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">
-                                        <a href="/admin/crm/reqSale/{{ $cart->id }}" class="btn btn-sm btn-outline-success m-1">
+                                        <a href="/admin/crm/show/invoice/{{ $cart->id }}" class="btn btn-sm btn-outline-success m-1">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
                                         <a href="" class="btn btn-sm btn-outline-danger m-1">
