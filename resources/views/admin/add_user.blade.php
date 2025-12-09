@@ -76,6 +76,12 @@
                         <input type="text" name="name" class="form-control w-50" value="{{ old('name' , $editCus->name ?? '') }}"  placeholder="نام و نام خانوادگی ">
                         <input type="text" name="phone" class="form-control w-50" value="{{ old('phone' , $editCus->phone ?? '') }}" placeholder="شماره موبایل">
                     </div>
+                    @error('name')
+                    <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
+                    @error('phone')
+                    <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center" >
                         <select class="form-select" name="no_customer" id="">
@@ -85,11 +91,17 @@
                             <option value="3" {{ old('no_customer', $editCus->no_customer ?? '') == 3 ? 'selected' : '' }}>ویزیتور</option>
                         </select>
                     </div>
+                    @error('no_customer')
+                    <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
 
                     <div class="d-flex gap-3 form-row-responsive">
                         
                         <textarea name="address" class="form-control textArea" placeholder="آدرس  ...">{{ old('address' , $editCus->address ?? '') }}</textarea>
                     </div>
+                    @error('address')
+                    <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
 
 
                     <button class="btn btn-success w-100 mt-3">ثبت </button>

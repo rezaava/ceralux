@@ -152,6 +152,28 @@
         white-space: nowrap;
     }
 
+    .total-section {
+        background-color: rgba(67, 233, 123, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 30px;
+        border-right: 4px solid var(--accent-green);
+    }
+    
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .total-amount {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--accent-green);
+        margin-top: 10px;
+    }
+
     @media (max-width: 768px) {
         table {
             table-layout: auto;
@@ -183,10 +205,10 @@
 @section('main')
 <div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10 col-12">
+        <div class="col-lg-10 col-md-10 col-12">
             <div class="stat-card mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="stat-title" style="font-size: 1.6rem">ثبت فاکتور جدید</div>
+                    <div class="stat-title" style="font-size: 1.6rem">ثبت فاکتور جدید فروش</div>
                     {{-- <a href="" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2">تعریف محصول جدید</span></a> --}}
                 </div>
                 @if(!$order)
@@ -299,6 +321,7 @@
                                 <th>نام محصول</th>
                                 <th>تعداد کارتن</th>
                                 <th>متراژ هر کارتن</th>
+                                <th>تعداد برگ کاشی</th>
                                 <th>تعداد پالت</th>
                                 <th> متراژ کل</th>
                                 <th> قیمت</th>
@@ -312,7 +335,8 @@
                                 <td>{{$cart_prod->prod->code_prod}}</td>
                                 <td>{{$cart_prod->prod->name}}</td>
                                 <td>{{$cart_prod->count_box}}</td>
-                                <td>{{$cart_prod->count_meter}}</td>
+                                <td>{{$cart_prod->prod->count_meter}}</td>
+                                <td>{{$cart_prod->prod->count_paper}}</td>
                                 <td>{{$cart_prod->count_palet}}</td>
                                 <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
@@ -328,16 +352,20 @@
 
                     <div class="row">
 
-                        <div class="col-lg-4 col-md-6 col-12">
+                        <div class="col-lg-3 col-md-6 col-12">
                             <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد برگ های کاشی : <span style="padding-right: 0.5rem">{{$paper}}</span><span style="padding-right: 0.2rem">عدد</span></p>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">عدد</span></p>
                         </div>
 
                     </div>
@@ -348,6 +376,29 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div class="total-section">
+                    <div class="total-row">
+                        <span> جمع جزئی:</span>
+                        <span></span>
+                    </div>
+                    <div class="total-row">
+                        <span>تخفیف :</span>
+                        <span><span>تعداد</span> </span>
+                    </div>
+                    <div class="total-row">
+                        <span>مبلغ کل بدون مالیات بر ارزش افزوده :</span>
+                        <span><span></span>متر</span>
+                    </div>
+                    <div class="total-row">
+                        <span>5% مالیات بر ارزش افزوده:</span>
+                        <span><span></span>متر</span>
+                    </div>
+                    <div class="total-row total-amount">
+                        <span style="font-size: 1.2rem">مبلغ نهایی فاکتور:</span>
+                        <span style="font-size: 1rem"><span></span>تومان</span>
+                    </div>
                 </div>
 
                 <form action="/admin/crm/reqSale/pay" method="POST">
@@ -432,8 +483,7 @@
         toast: true,
         position: 'top-start',
         icon: 'success',
-        title: '{{ session('
-        message ') }}',
+        title: '{{ session('message') }}',
         showConfirmButton: false,
         showCloseButton: true,
         timer: 3000,

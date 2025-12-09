@@ -49,6 +49,7 @@ class CRMController extends Controller
         $meter = 0;
         $box = 0;
         $palet = 0;
+        $paper = 0;
         $priceAll = 0;
         $date = null;
 
@@ -65,6 +66,7 @@ class CRMController extends Controller
                     $meter = $cart_prod->count_box * $prod->count_meter + $meter;
                     $box = $cart_prod->count_box + $box;
                     $palet = $cart_prod->count_palet + $palet;
+                    $paper = $cart_prod->prod->count_paper + $paper;
                     $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
                 }
                 
@@ -74,7 +76,7 @@ class CRMController extends Controller
         //return $prod;
         $prods = Product::get();
         $cuss = Customer::get();
-        return view('admin.reqSale' , compact('prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
+        return view('admin.reqSale' , compact('paper' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
 
     public function salePost(Request $req){
@@ -123,13 +125,13 @@ class CRMController extends Controller
         $rule = [
             'product' => 'required',  
             'count_box' => 'required|numeric',  
-            'count_palet' => 'required|numeric',  
+            'count_palet' => 'nullable|numeric',  
         ];
 
         $msg = [
             'product.required' => 'طرح را انتخاب کنید',
             'count_box.required' => 'تعداد کارتن را وارد کنید',
-            'count_palet.required' => 'تعداد پالت را وارد کنید',
+            // 'count_palet.required' => 'تعداد پالت را وارد کنید',
 
             'count_box.numeric' => 'تعداد کارتن را عدد وارد کنید',
             'count_palet.numeric' => 'تعداد پالت را عدد وارد کنید',
@@ -197,6 +199,34 @@ class CRMController extends Controller
     }
 
     public function addUserPost(Request $req){
+
+        $data = $req->all();
+
+        $rule = [
+            'no_customer' => 'required',  
+            'name' => 'required|string',  
+            'phone' => 'required|numeric',  
+            'address' => 'required',  
+        ];
+
+        $msg = [
+            'no_customer.required' => 'نوع مشتری را انتخاب کنید',
+
+            'address.required' => ' آدرس مشتری را وارد کنید',
+
+            'name.required' => ' اسم مشتری را وارد کنید',
+            'name.string' => ' اسم مشتری را درست وارد  کنید',
+
+            'phone.required' => '   شماره موبایل مشتری  وارد کنید',
+            'phone.numeric' => 'شماره موبایل مشتری به عدد میباشد.',
+        ];
+
+        $valid = Validator::make($data, $rule, $msg);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+
         if($req->customer_id){
             $customer = Customer::where('id' , $req->customer_id)->first();
         }else{

@@ -230,7 +230,7 @@
                     <div class="d-flex gap-3 form-row-responsive justify-content-center mt-3">
                         <input type="hidden" value="{{ $cart->id }}" name="cart_id">
                         <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
-                        <input type="text" name="count_box" class="form-control w-50" placeholder=" تعداد کارتن در پالت ">
+                        <input type="text" name="count_box" class="form-control w-50" placeholder=" تعداد کارتن">
                         <input type="text" name="count_all" class="form-control w-50" placeholder="متراژ کل" readonly>
                     </div>
                     @error('count_palet')

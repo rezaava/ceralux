@@ -186,7 +186,7 @@
 
                <div class="d-flex justify-content-between align-items-center">
                   <div class="stat-title" style="font-size: 1.6rem">ثبت LPO </div>
-                  <a target="_blank" href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >تعریف مشتری جدید</span></a>
+                  <a target="_blank" href="/admin/user/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >تعریف مشتری جدید</span></a>
                </div>
                @if(!$lpo)
                <form action="/admin/crm/add/cart/lpo" method="POST">
