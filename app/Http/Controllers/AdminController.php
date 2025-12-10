@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Role;
 use App\Models\Size;
 use App\Models\size_product;
 use Illuminate\Http\Request;
@@ -256,5 +257,19 @@ class AdminController extends Controller
     public function setting()
     {
         return view('admin.setting');
+    }
+
+    public function addAdmin(){
+        $admin = new Role();
+
+        $admin->name = 'adminSocialMedia';
+        $admin->display_name = 'ادمین تولید محتوا';
+        $admin->save();
+
+        $admin = new Role();
+
+        $admin->name = 'manager';
+        $admin->display_name = 'مدیر';
+        $admin->save();
     }
 }

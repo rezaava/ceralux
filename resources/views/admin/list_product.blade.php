@@ -360,7 +360,7 @@
                                 </td> --}}
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">
-                                        <a href="/products/img/{{ $prod->id }}" class="btn btn-sm btn-outline-success m-1">
+                                        <a href="/admin/product/img/{{ $prod->id }}" class="btn btn-sm btn-outline-success m-1">
                                             <i class="fas fa-images"></i>
                                         </a>
                                         <a href="/admin/product/add/{{ $prod->id }}" class="btn btn-sm btn-outline-primary m-1">
