@@ -205,7 +205,7 @@
 @section('main')
 <div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-10 col-md-10 col-12">
+        <div class="col-lg-12 col-md-12 col-12">
             <div class="stat-card mt-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="stat-title" style="font-size: 1.6rem">ثبت فاکتور جدید فروش</div>
@@ -296,6 +296,8 @@
                         
                         {{-- <input type="text" name="count_meter" class="form-control w-50" placeholder="متراژ هر کارتن   "> --}}
                         <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
+
+                        <input type="text" name="off" class="form-control w-50" placeholder="درصد تخفیف مثلا  5">
                         
                         {{-- <input type="text" name="count_all" class="form-control w-50" placeholder="  متراژ کل "> --}}
                     </div>
@@ -304,6 +306,10 @@
                         @enderror
 
                         @error('count_palet')
+                        <small class="text-danger d-block">{{ $message }}</small>
+                        @enderror
+
+                        @error('off')
                         <small class="text-danger d-block">{{ $message }}</small>
                         @enderror
 
@@ -325,6 +331,7 @@
                                 <th>تعداد پالت</th>
                                 <th> متراژ کل</th>
                                 <th> قیمت</th>
+                                <th> تحفیف</th>
                                 <th> قیمت کل</th>
                             </tr>
                         </thead>
@@ -340,7 +347,8 @@
                                 <td>{{$cart_prod->count_palet}}</td>
                                 <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
-                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter))}}</td>
+                                <td>{{number_format($cart_prod->off)}}%</td>
+                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) )}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -370,34 +378,50 @@
 
                     </div>
 
-                    <div class="row mt-4">
+                    {{-- <div class="row mt-4">
                         <div class="col-lg-4 col-md-6 col-12">
-                            <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
+                            <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem"></span><span style="padding-right: 0.2rem">تومان</span></p>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
 
+                <form action="/admin/crm/reqSale/rentOrOff/add" method="POST">
+                    @csrf
+                    <div class="d-flex gap-3 form-row-responsive mt-3">
+                        <input type="hidden" name="cart_id" value="{{ $order->id }}">
+                        <input type="text" name="price_rent" class="form-control w-50" placeholder="کرایه بار">
+                        <input type="text" name="all_off" class="form-control w-50" placeholder="تخفیف روی کل فاکتور">
+                    </div>
+                    @error('all_off')
+                        <small class="text-danger d-block">{{ $message }}</small>
+                        @enderror
+                        @error('price_rent')
+                        <small class="text-danger d-block">{{ $message }}</small>
+                        @enderror
+                    <div class="text-center"><button class="btn btn-success w-50 mt-3"> اعمال تغییرات</button></div>
+                </form>
+
                 <div class="total-section">
                     <div class="total-row">
-                        <span> جمع جزئی:</span>
-                        <span></span>
+                        <span>  کرایه بار : </span>
+                        <span>{{$order->price_rent ?? 'مبلغ کرایه رو از فرم بالا وارد کنید'}}</span>
                     </div>
                     <div class="total-row">
-                        <span>تخفیف :</span>
-                        <span><span>تعداد</span> </span>
+                        <span>تخفیف کل :</span>
+                        <span><span>{{$order->off}}</span> درصد</span>
                     </div>
                     <div class="total-row">
                         <span>مبلغ کل بدون مالیات بر ارزش افزوده :</span>
-                        <span><span></span>متر</span>
+                        <span><span>{{number_format($priceAll)}}</span></span>
                     </div>
                     <div class="total-row">
                         <span>5% مالیات بر ارزش افزوده:</span>
-                        <span><span></span>متر</span>
+                        <span><span>{{number_format($five)}}</span></span>
                     </div>
                     <div class="total-row total-amount">
                         <span style="font-size: 1.2rem">مبلغ نهایی فاکتور:</span>
-                        <span style="font-size: 1rem"><span></span>تومان</span>
+                        <span style="font-size: 1rem"><span>{{number_format($finalPrice)}}</span></span>
                     </div>
                 </div>
 

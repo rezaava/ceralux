@@ -52,6 +52,10 @@ class CRMController extends Controller
         $paper = 0;
         $priceAll = 0;
         $date = null;
+        $five = 0;
+        $finalPrice = 0;
+        $finalOff = 0;
+        $subtotal = 0;
 
         if($id){
             $order = Carts::find($id);
@@ -68,6 +72,10 @@ class CRMController extends Controller
                     $palet = $cart_prod->count_palet + $palet;
                     $paper = $cart_prod->prod->count_paper + $paper;
                     $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+                    $five = $priceAll * 0.05;
+                    $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
+                    $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
+                    $finalPrice = $subtotal - $finalOff;  
                 }
                 
             }
@@ -76,7 +84,7 @@ class CRMController extends Controller
         //return $prod;
         $prods = Product::get();
         $cuss = Customer::get();
-        return view('admin.reqSale' , compact('paper' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
+        return view('admin.reqSale' , compact('five' , 'finalPrice' , 'paper' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
 
     public function salePost(Request $req){
@@ -126,6 +134,7 @@ class CRMController extends Controller
             'product' => 'required',  
             'count_box' => 'required|numeric',  
             'count_palet' => 'nullable|numeric',  
+            'off' => 'nullable|numeric',  
         ];
 
         $msg = [
@@ -135,6 +144,7 @@ class CRMController extends Controller
 
             'count_box.numeric' => 'تعداد کارتن را عدد وارد کنید',
             'count_palet.numeric' => 'تعداد پالت را عدد وارد کنید',
+            'count_palet.numeric' => 'لطفا تخفیف  را درست وارد کنید',
         ];
 
         $valid = Validator::make($data, $rule, $msg);
@@ -151,8 +161,38 @@ class CRMController extends Controller
         // $cart_prod->count_meter = $req->count_meter;
         // $cart_prod->count_all = $req->count_all;
         $cart_prod->count_palet = $req->count_palet;
+        $cart_prod->off = $req->off;
         $cart_prod->save();
         return redirect()->back()->with('message' , ' محصول با موفقیت اضافه  شد!');
+    }
+
+    public function productAddOffCart(Request $req){
+
+        $data = $req->all();
+
+        $rule = [
+            'price_rent' => 'required|numeric',  
+            'all_off' => 'nullable|numeric',  
+        ];
+
+        $msg = [
+            'price_rent.required' => 'مبلغ کرایه بار را وارد کنید',
+            'price_rent.numeric' => '  مبلغ کرایه بار را عدد وارد کنید',
+            'all_off.numeric' => 'تخفیف کل  را درست وارد کنید',
+        ];
+
+        $valid = Validator::make($data, $rule, $msg);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+
+
+        $cart = Carts::find($req->cart_id);
+        $cart->off = $req->all_off;
+        $cart->price_rent = $req->price_rent;
+        $cart->save();
+        return redirect()->back()->with('message' , ' تغییرات  با موفقیت اعمال  شد!');
     }
 
     public function salePayPost(Request $req){

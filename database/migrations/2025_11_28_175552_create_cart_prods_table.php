@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('count_box');
             $table->string('count_palet');
             $table->string('price');
+            $table->string('off');
             $table->timestamps();
         });
     }

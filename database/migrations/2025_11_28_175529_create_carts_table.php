@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('price');
             $table->string('count_meters');
             $table->string('count_boxs');
+            $table->string('price_rent');
             $table->string('status');
             $table->timestamps();
         });

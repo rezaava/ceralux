@@ -74,6 +74,7 @@ Route::get('/admin/crm/show/invoice/{id}',[CRMController::class,'showInvocie']);
 Route::get('/admin/crm/reqSale/{id}',[CRMController::class,'reqSale'])->name('reqSale'); 
 Route::post('/admin/crm/reqSale/add',[CRMController::class,'salePost']); 
 Route::post('/admin/crm/reqSale/product/add',[CRMController::class,'productAddPostCart']); 
+Route::post('/admin/crm/reqSale/rentOrOff/add',[CRMController::class,'productAddOffCart']); 
 Route::post('/admin/crm/reqSale/pay',[CRMController::class,'salePayPost']); 
 
 Route::get('/get-customer-info/{id}', [CRMController::class, 'getCustomerInfo']);
