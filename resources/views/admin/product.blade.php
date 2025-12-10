@@ -143,11 +143,11 @@
 
 
 
-                        <div class="w-50">
+                        {{-- <div class="w-50">
                             <label>متراژ کل</label>
                             <input type="text" name="count_all" id="count_all" value="{{ old('count_all' , $editProd->count_all ?? '') }}" class="form-control" placeholder="متراژ کل" readonly>
                             @error('count_all') <small class="text-danger d-block">{{ $message }}</small> @enderror
-                        </div>
+                        </div> --}}
 
 
                     </div>

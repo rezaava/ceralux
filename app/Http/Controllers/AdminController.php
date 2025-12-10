@@ -105,7 +105,7 @@ class AdminController extends Controller
             'count_box'    => convertPersianNumber($req->count_box),
             'count_meter'  => convertPersianNumber($req->count_meter),
             'count_meli'   => convertPersianNumber($req->count_meli),
-            'count_all'    => convertPersianNumber($req->count_all),
+            // 'count_all'    => convertPersianNumber($req->count_all),
             'count_darageh'=> convertPersianNumber($req->count_darageh),
             'no_product'   => convertPersianNumber($req->no_product),
             'count_paper'  => convertPersianNumber($req->count_paper),
@@ -125,7 +125,7 @@ class AdminController extends Controller
             'count_box'     => 'required|numeric',
             'count_meter'   => 'required|numeric',
             'count_meli'   => 'required|numeric',
-            'count_all'     => 'required|numeric',
+            // 'count_all'     => 'required|numeric',
 
             'code_prod'     => 'required|string',
 
@@ -168,8 +168,8 @@ class AdminController extends Controller
             'count_meter.required'   => 'متراژ الزامی است.',
             'count_meli.numeric'   => 'تعداد در پالت باید عدد باشد.',
             'count_meli.required'   => 'تعداد در پالت الزامی است.',
-            'count_all.numeric'     => 'متراژ کل باید عدد باشد.',
-            'count_all.required'     => 'متراژ کل الزامی است.',
+            // 'count_all.numeric'     => 'متراژ کل باید عدد باشد.',
+            // 'count_all.required'     => 'متراژ کل الزامی است.',
 
             // code
             'code_prod.string'      => 'کد محصول باید متن باشد.',
@@ -220,7 +220,7 @@ class AdminController extends Controller
         $prod->count_box = $req->count_box;
         $prod->count_meter = $req->count_meter;
         $prod->count_meli = $req->count_meli;
-        $prod->count_all = $req->count_all;
+        // $prod->count_all = $req->count_all;
         $prod->code_prod = $req->code_prod;
         $prod->count_darageh = $req->count_darageh;
         $prod->no_product = $req->no_product;
