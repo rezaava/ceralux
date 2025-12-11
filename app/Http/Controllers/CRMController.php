@@ -56,6 +56,7 @@ class CRMController extends Controller
         $finalPrice = 0;
         $finalOff = 0;
         $subtotal = 0;
+        $lpo_prods = null;
 
         if($id){
             $order = Carts::find($id);
@@ -71,20 +72,27 @@ class CRMController extends Controller
                     $box = $cart_prod->count_box + $box;
                     $palet = $cart_prod->count_palet + $palet;
                     $paper = $cart_prod->prod->count_paper + $paper;
-                    $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+                    $priceAll = $cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) + $priceAll;
                     $five = $priceAll * 0.05;
                     $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
                     $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
                     $finalPrice = $subtotal - $finalOff;  
                 }
+
+                $lpo = Lpo::where('num_lpo' , $order->num_lpo)->first();
+                $lpo_prods = Lpo_Prod::where('lpo_id' , $lpo->id)->get();
+                foreach($lpo_prods as $lpo_prod){
+                    $prod = Product::where('id' , $lpo_prod->prod_id)->first();
+                    $lpo_prod['prod'] = $prod;
+                }
+                
                 
             }
             
         }
-        //return $prod;
         $prods = Product::get();
         $cuss = Customer::get();
-        return view('admin.reqSale' , compact('five' , 'finalPrice' , 'paper' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
+        return view('admin.reqSale' , compact('lpo_prods' , 'five' , 'finalPrice' , 'paper' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
 
     public function salePost(Request $req){
@@ -108,7 +116,7 @@ class CRMController extends Controller
 
         function generateVolunteerCode()
         {
-            $number = str_pad(mt_rand(0, 99999999), 6, '0', STR_PAD_LEFT);
+            $number = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
             return 'Kh' . $number;
         }
 
@@ -119,8 +127,8 @@ class CRMController extends Controller
         } while (Carts::where('num_cart', $code)->exists());
         $cart->num_cart = $code;
         $cart->user_id = $req->customer;
+        $cart->num_lpo = $req->num_lpo;
         $cart->status = '0';
-        $cart->num_cart = $req->num_cart;
         $cart->save();
 
         return redirect()->route('reqSale', $cart->id);
@@ -128,41 +136,42 @@ class CRMController extends Controller
 
     public function productAddPostCart(Request $req){
 
-        $data = $req->all();
+        // $data = $req->all();
 
-        $rule = [
-            'product' => 'required',  
-            'count_box' => 'required|numeric',  
-            'count_palet' => 'nullable|numeric',  
-            'off' => 'nullable|numeric',  
-        ];
+        // $rule = [
+        //     'product' => 'required',  
+        //     'count_box' => 'required|numeric',  
+        //     'count_palet' => 'nullable|numeric',  
+        //     'off' => 'nullable|numeric',  
+        // ];
 
-        $msg = [
-            'product.required' => 'طرح را انتخاب کنید',
-            'count_box.required' => 'تعداد کارتن را وارد کنید',
-            // 'count_palet.required' => 'تعداد پالت را وارد کنید',
+        // $msg = [
+        //     'product.required' => 'طرح را انتخاب کنید',
+        //     'count_box.required' => 'تعداد کارتن را وارد کنید',
+        //     // 'count_palet.required' => 'تعداد پالت را وارد کنید',
 
-            'count_box.numeric' => 'تعداد کارتن را عدد وارد کنید',
-            'count_palet.numeric' => 'تعداد پالت را عدد وارد کنید',
-            'count_palet.numeric' => 'لطفا تخفیف  را درست وارد کنید',
-        ];
+        //     'count_box.numeric' => 'تعداد کارتن را عدد وارد کنید',
+        //     'count_palet.numeric' => 'تعداد پالت را عدد وارد کنید',
+        //     'count_palet.numeric' => 'لطفا تخفیف  را درست وارد کنید',
+        // ];
 
-        $valid = Validator::make($data, $rule, $msg);
+        // $valid = Validator::make($data, $rule, $msg);
 
-        if ($valid->fails()) {
-            return redirect()->back()->withErrors($valid)->withInput();
+        // if ($valid->fails()) {
+        //     return redirect()->back()->withErrors($valid)->withInput();
+        // }
+
+        
+
+        foreach ($req->prod_id as $key => $prod_id) {
+            $cart_prod = new Cart_prod();
+            $cart_prod->prod_id = $prod_id;
+            $cart_prod->card_id = $req->cart_id;
+            $cart_prod->count_box = $req->count_box[$key];
+            $cart_prod->count_palet = $req->count_palet[$key];
+            $cart_prod->off = $req->off[$key] ?? 0;
+            $cart_prod->save();
         }
-
-
-        $cart_prod = new Cart_prod();
-        $cart_prod->prod_id = $req->product;
-        $cart_prod->card_id = $req->cart_id;
-        $cart_prod->count_box = $req->count_box;
-        // $cart_prod->count_meter = $req->count_meter;
-        // $cart_prod->count_all = $req->count_all;
-        $cart_prod->count_palet = $req->count_palet;
-        $cart_prod->off = $req->off;
-        $cart_prod->save();
         return redirect()->back()->with('message' , ' محصول با موفقیت اضافه  شد!');
     }
 

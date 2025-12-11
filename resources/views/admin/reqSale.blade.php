@@ -238,6 +238,7 @@
                             <option value=""></option>
                         </select> --}}
                         <input type="text" id="no_customer" name="no_customer" class="form-control w-100 mb-3" placeholder="نوع مشتری">
+                        <input type="text" class="form-control" placeholder="شماره  LPO را وارد کنید" name="num_lpo">
                     </div>
 
                     <div class="text-center"><button class="btn btn-success w-50 mt-3">ثبت </button></div>
@@ -248,7 +249,7 @@
                     <div class="row">
 
                         <div class="col-lg-4 col-md-6">
-                            <p class="m-0 p-0">شماره فاکتور : <span>{{$order->code_cart}}</span></p>
+                            <p class="m-0 p-0">شماره فاکتور : <span>{{$order->num_cart}}</span></p>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <p class="m-0 p-0">نام مشتری : <span>{{$user->name}}</span></p>
@@ -272,35 +273,41 @@
                     </div>
 
                 </div>
-
+                @if($cart_prods && $cart_prods->count() > 0)
+                @else
                 <form action="/admin/crm/reqSale/product/add" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="cart_id" value="{{ $order->id }}">
 
-                    <div class="d-flex gap-3 form-row-responsive justify-content-start">
-
-                        <select class="form-select select2-farsi w-50" dir="rtl" name="product" id="">
-                            <option value="" selected>محصول را انتخاب کنید</option>
-                            @foreach($prods as $prod)
-                            <option value="{{ $prod->id }}">{{ $prod->name }}</option>
-                            @endforeach
-                        </select>
-
-                    </div>
-                    @error('product')
-                    <small class="text-danger d-block mt-2">{{ $message }}</small>
-                    @enderror
-
+                    @foreach($lpo_prods as $index => $lpo_prod)
                     <div class="d-flex gap-3 form-row-responsive mt-3">
-                        <input type="text" name="count_box" class="form-control w-50" placeholder="تعداد کارتن">
-                        
-                        {{-- <input type="text" name="count_meter" class="form-control w-50" placeholder="متراژ هر کارتن   "> --}}
-                        <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
+                        <input type="hidden" name="prod_id[{{ $index }}]" value="{{ $lpo_prod->prod->id }}">
 
-                        <input type="text" name="off" class="form-control w-50" placeholder="درصد تخفیف مثلا  5">
-                        
-                        {{-- <input type="text" name="count_all" class="form-control w-50" placeholder="  متراژ کل "> --}}
+    
+                        <div class="w-100 w-md-50">
+                            <label class="form-label m-0">نام محصول</label>
+                            <input type="text" value="{{ $lpo_prod->prod->name }}" class="form-control" readonly>
+                        </div>
+
+                        <div class="w-100 w-md-50">
+                            <label class="form-label m-0">تعداد کارتن</label> 
+                            <input type="text" name="count_box[{{ $index }}]" value="{{ $lpo_prod->count_box }}" class="form-control" placeholder="تعداد کارتن">
+                        </div>
+
+  
+                        <div class="w-100 w-md-50">
+                            <label class="form-label m-0">تعداد پالت</label>
+                            <input type="text" name="count_palet[{{ $index }}]" value="{{ $lpo_prod->count_palet }}" class="form-control" placeholder="تعداد پالت">
+                        </div>
+
+
+                        <div class="w-100 w-md-50">
+                            <label class="form-label m-0">درصد تخفیف</label>
+                            <input type="text" name="off[{{ $index }}]" class="form-control" placeholder="درصد تخفیف (مثلاً 5)">
+                        </div>
+
                     </div>
+                    @endforeach
                     @error('count_box')
                         <small class="text-danger d-block">{{ $message }}</small>
                         @enderror
@@ -315,7 +322,7 @@
 
                     <div class="text-center"><button class="btn btn-success w-50 mt-3">افزودن کالا</button></div>
                 </form>
-
+                @endif
 
                 <div class="table-responsive mt-4">
                     @if($cart_prods)
