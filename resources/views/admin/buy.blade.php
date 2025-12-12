@@ -155,18 +155,19 @@
             table-layout: auto;
         }
 
-        .form-row-responsive {
-            flex-direction: column;
-        }
-
         #btn-final {
             width: 100%;
         }
 
-        .form-row-responsive .form-control {
+        .form-row-responsive {
+            flex-direction: column;
+        }
+
+        .form-row-responsive>div {
             width: 100% !important;
         }
 
+        .form-row-responsive .form-control,
         .form-row-responsive .form-select {
             width: 100% !important;
         }
@@ -216,7 +217,7 @@
                 <form action="/admin/crm/buy/product/add" method="GET">
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center">
-                        <select class="form-select select2-farsi w-100" dir="rtl" name="prod_id" id="customerSelect">
+                        <select class="form-select select2-farsi w-100" dir="rtl" name="prod_id" id="productSelect">
                            <option value="" selected>طرح را جستجو کنید</option>
                            @foreach($prods as $prod)
                            <option value="{{ $prod->id }}">{{$prod->code_prod}}--{{ $prod->name }}</option>
@@ -227,11 +228,24 @@
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
                     @enderror
 
-                    <div class="d-flex gap-3 form-row-responsive justify-content-center mt-3">
+                    <div class="d-flex gap-3 form-row-responsive mt-3">
                         <input type="hidden" value="{{ $cart->id }}" name="cart_id">
-                        <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
-                        <input type="text" name="count_box" class="form-control w-50" placeholder=" تعداد کارتن">
-                        <input type="text" name="count_all" class="form-control w-50" placeholder="متراژ کل" readonly>
+
+                        <div class="w-50">
+                            <label for="">تعداد کارتن</label>
+                            <input type="text" name="count_box" id="box" class="form-control" placeholder=" تعداد کارتن">
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">تعداد پالت</label>
+                            <input type="text" name="count_palet" id="palet" class="form-control" placeholder=" تعداد پالت ">
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">متراژ کل</label>
+                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ کل" readonly>
+                        </div>
+
                     </div>
                     @error('count_palet')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
@@ -356,4 +370,50 @@
 </script>
 @endif
 
+<script>
+    $('#productSelect').on('change', function() {
+        let productId = $(this).val();
+        if (productId) {
+            $.ajax({
+                url: '/get-product-info/' + productId,
+                method: 'GET',
+                success: function(data) {
+                    let inputPalet = document.querySelector('#palet')
+                    let inputBox = document.querySelector('#box')
+                    let inputAll = document.querySelector('#all')
+                    let meterInBox = data.count_meter;
+                    let boxInPalet = data.count_box;
+
+                    function totalMeter(){
+                        let box = inputBox.value
+                    
+                        let all = meterInBox * box
+                        inputAll.value = all.toFixed(2)
+                    }
+
+                    function totalPalet(){
+                        let box = inputBox.value
+                    
+                        let all = box / boxInPalet
+                        inputPalet.value = all.toFixed(2)
+                    }
+
+                    inputBox.addEventListener('input', totalMeter);
+                    inputBox.addEventListener('input', totalPalet);
+                    totalMeter();
+                    totalPalet();
+
+                },
+                error: function() {
+                    $('#count_meter').val('');
+                    $('#count_box').val('');
+    
+                }
+            });
+        } else {
+            $('#count_meter').val('');
+            $('#count_box').val('');
+        }
+    });
+</script>
 @endsection

@@ -555,6 +555,22 @@ class CRMController extends Controller
         $prods = Product::get();
         return view('admin.buy' , compact('prods' , 'cart' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
+    public function buyAjax($id){
+
+        $product = Product::find($id);
+
+        if ($product) {
+            return response()->json([
+                'count_meter' => $product->count_meter ?? '',
+                'count_box' => $product->count_box ?? '',
+            ]);
+        }
+
+        return response()->json([
+            'count_meter' => '',
+            'count_box' => '',
+        ]);
+    }
 
     public function buyaddProd(Request $req){
         $data = $req->all();
@@ -585,6 +601,7 @@ class CRMController extends Controller
         $cart_prod = new Cart_prod();
         $cart_prod->prod_id = $req->prod_id;
         $cart_prod->card_id = $req->cart_id;
+        $cart_prod->count_all = $req->count_all;
         $cart_prod->count_box = $req->count_box;
         $cart_prod->count_palet = $req->count_palet;
         $cart_prod->save();

@@ -155,11 +155,11 @@
                     <!-- row 4 -->
                     <div class="d-flex gap-3 form-row-responsive mt-2">
 
-                        <div class="w-50">
+                        {{-- <div class="w-50">
                             <label>تعداد فیس</label>
                             <input type="text" name="face" value="{{ old('face' , $editProd->face ?? '') }}" class="form-control" placeholder="تعداد فیس">
                             @error('face') <small class="text-danger d-block">{{ $message }}</small> @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="w-50">
                             <label>ضخامت کاشی</label>
@@ -177,7 +177,7 @@
 
                     <div class="d-flex gap-3 form-row-responsive mt-2">
                         <div class="w-50">
-                            <label>نوع محصول</label>
+                            <label>نوع طرح</label>
                             <select name="no_product" class="form-select">
                                 <option value="" disabled selected>لطفا نوع محصول را انتخاب کنید</option>
                                 <option value="1" {{ old('no_product', $editProd->no_product ?? '') == 1 ? 'selected' : '' }}>سرامیک کف بدنه سفید</option>
@@ -188,6 +188,17 @@
                                 <option value="6" {{ old('no_product', $editProd->no_product ?? '') == 6 ? 'selected' : '' }}>پرسلان اسلب</option>
                             </select>
                             @error('no_product') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                        </div>
+
+                        <div class="w-50">
+                            <label>واحد ارزی</label>
+                            <select name="no_price" class="form-select">
+                                <option value="" disabled selected>لطفا نوع ارز مورد نظر خود را انتخاب کنید</option>
+                                <option value="1" {{ old('no_price', $editProd->no_price ?? '') == 1 ? 'selected' : '' }}>ریال</option>
+                                <option value="2" {{ old('no_price', $editProd->no_price ?? '') == 2 ? 'selected' : '' }}>درهم</option>
+                                <option value="3" {{ old('no_price', $editProd->no_price ?? '') == 3 ? 'selected' : '' }}>دلار</option>
+                            </select>
+                            @error('no_price') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
                     </div>
 

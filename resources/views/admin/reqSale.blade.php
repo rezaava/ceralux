@@ -435,7 +435,7 @@
                 <form action="/admin/crm/reqSale/pay" method="POST">
                     @csrf
                     <input type="hidden" name="cart_id" value="{{ $order->id }}">
-                    <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت نهایی فاکتور </button></div>
+                    <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت  فاکتور فروش </button></div>
                 </form>
                 @endif
             </div>

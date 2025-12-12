@@ -120,7 +120,7 @@ class AdminController extends Controller
             'price'         => 'required|numeric',
             'price_buy'         => 'required|numeric',
 
-            'face'          => 'required|string',
+            'no_price'          => 'required',
 
             'count_box'     => 'required|numeric',
             'count_meter'   => 'required|numeric',
@@ -158,8 +158,8 @@ class AdminController extends Controller
             'price_buy.numeric'     => 'قیمت خرید باید عدد باشد.',
             'price_buy.required'     => 'قیمت خرید الزامی است.',
 
-            // face
-            'face.required'       => 'face الزامی است.',
+            // 
+            'no_price.required'       => 'نوع ارز را انتخاب کنید  .',
 
             // counts
             'count_box.numeric'     => 'تعداد در جعبه باید عدد باشد.',
@@ -212,7 +212,7 @@ class AdminController extends Controller
         $prod->desc = $req->desc;
         $prod->price = $req->price;
         $prod->price_buy = $req->price_buy;
-        $prod->face = $req->face;
+        $prod->no_price = $req->no_price;
         $prod->name_en = $req->titleEn;
         $prod->desc_en = $req->descEn;
         $prod->name_ar = $req->titleAr;
@@ -220,7 +220,7 @@ class AdminController extends Controller
         $prod->count_box = $req->count_box;
         $prod->count_meter = $req->count_meter;
         $prod->count_meli = $req->count_meli;
-        // $prod->count_all = $req->count_all;
+        $prod->count_palet = $req->count_palet;
         $prod->code_prod = $req->code_prod;
         $prod->count_darageh = $req->count_darageh;
         $prod->no_product = $req->no_product;

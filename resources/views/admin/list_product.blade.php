@@ -308,13 +308,14 @@
                                 <th class="hide-on-mobile">کد محصول</th>
                                 <th>نام محصول</th>
                                 <th class="hide-on-small">نام کارخانه</th>
-                                <th class="numeric-column hide-on-medium">تعداد کارتن</th>
-                                <th class="numeric-column hide-on-large">متراژ کارتن</th>
-                                <th class="numeric-column hide-on-medium">متراژ کل</th>
+                                {{-- <th class="numeric-column hide-on-medium">تعداد کارتن</th> --}}
+                                <th class="numeric-column hide-on-large">متراژ هر کارتن</th>
+                                <th class="numeric-column hide-on-medium">تعداد کارتن در پالت</th>
                                 <th class="numeric-column hide-on-large">ضخامت </th>
+                                <th class="numeric-column hide-on-large">تعداد برگ </th>
                                 <th class="numeric-column hide-on-large">قیمت خرید</th>
                                 <th class="numeric-column hide-on-large">قیمت فروش</th>
-                                <th class="numeric-column hide-on-large">تعداد فیس</th>
+                                {{-- <th class="numeric-column hide-on-large">تعداد فیس</th> --}}
                                 {{-- <th class="hide-on-small">توضیحات</th> --}}
                                 <th class="actions-column">عملیات</th>
                             </tr>
@@ -334,17 +335,20 @@
                                 <td class="hide-on-small">
                                     <div class="description-cell2">{{ $prod->name_company }}</div>
                                 </td>
-                                <td class="numeric-column hide-on-medium">
+                                {{-- <td class="numeric-column hide-on-medium">
                                     <div class="description-cell2">{{ $prod->count_box }}</div>
-                                </td>
+                                </td> --}}
                                 <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->count_meter }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-medium">
-                                    <div class="description-cell2">{{ $prod->count_all }}</div>
+                                    <div class="description-cell2">{{ $prod->count_box }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->count_meli }}</div>
+                                </td>
+                                <td class="numeric-column hide-on-large">
+                                    <div class="description-cell2">{{ $prod->count_paper }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->price }}</div>
@@ -352,9 +356,9 @@
                                 <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->price_buy }}</div>
                                 </td>
-                                <td class="numeric-column hide-on-large">
+                                {{-- <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->face }}</div>
-                                </td>
+                                </td> --}}
                                 {{-- <td class="hide-on-small">
                                     <div class="description-cell">{{ $prod->desc }}</div>
                                 </td> --}}
