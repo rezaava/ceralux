@@ -243,7 +243,7 @@
                         {{-- <input type="text" name="count_palet" id="palet" class="form-control w-50" placeholder=" تعداد پالت "> --}}
                         <input type="text" name="count_all" id="all" class="form-control w-50" placeholder="متراژ کل">
                     </div>
-                    @error('count_palet')
+                    @error('count_all')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
                     @enderror
                     @error('count_box')

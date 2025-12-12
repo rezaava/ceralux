@@ -101,10 +101,12 @@ class CRMController extends Controller
 
         $rule = [
             'customer' => 'required',  
+            'num_lpo' => 'required',  
         ];
 
         $msg = [
             'customer.required' => 'مشتری را انتخاب کنید',
+            'num_lpo.required' => 'شماره LPO را وارد کنید',
         ];
 
         $valid = Validator::make($data, $rule, $msg);
@@ -598,6 +600,12 @@ class CRMController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        $product = Product::where('id' , $req->prod_id)->first();
+        $product-> box = $product->box + $req->count_box;
+        $product->count_palet = ((int) $product->count_palet) + ((int) $req->count_palet);
+        $product->count_all = $product->count_all + $req->count_all;
+        $product->save();
+
         $cart_prod = new Cart_prod();
         $cart_prod->prod_id = $req->prod_id;
         $cart_prod->card_id = $req->cart_id;
@@ -605,7 +613,7 @@ class CRMController extends Controller
         $cart_prod->count_box = $req->count_box;
         $cart_prod->count_palet = $req->count_palet;
         $cart_prod->save();
-        return redirect()->back();
+        return redirect()->back()->with('message' , 'محصول با موفقیت اضافه شد');
     }
 
     public function buyAddToCart(Request $req){
@@ -775,15 +783,15 @@ class CRMController extends Controller
 
         $rules = [
             'prod_id'   => 'required',
-            // 'count_palet'    => 'required|numeric',
+            'count_all'    => 'required|numeric',
             'count_box'  => 'required|numeric',
         ];
 
         $messages = [
             'prod_id.required'   => 'یک محصول را انتخاب کنید',
 
-            'count_palet.required'   => 'تعدا پالت را وارد کنید',
-            'count_palet.numeric'   => 'تعداد پالت باید عدد باشد',
+            'count_all.required'   => 'تعدا پالت را وارد کنید',
+            'count_all.numeric'   => 'تعداد پالت باید عدد باشد',
 
             'count_box.required'   => 'تعداد کارتن را وارد کنید',
             'count_box.numeric'   => ' تعداد کارتن عدد باشد',

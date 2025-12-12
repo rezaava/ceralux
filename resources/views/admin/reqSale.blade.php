@@ -240,7 +240,9 @@
                         <input type="text" id="no_customer" name="no_customer" class="form-control w-100 mb-3" placeholder="نوع مشتری">
                         <input type="text" class="form-control" placeholder="شماره  LPO را وارد کنید" name="num_lpo">
                     </div>
-
+                    @error('num_lpo')
+                    <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
                     <div class="text-center"><button class="btn btn-success w-50 mt-3">ثبت </button></div>
                 </form>
 
