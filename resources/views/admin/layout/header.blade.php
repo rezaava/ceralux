@@ -154,6 +154,12 @@
                             <a class="nav-link {{ request()->routeIs('reqSale') ? 'active1' : '' }}"
                                 href="/admin/crm/reqSale/{id}" id="add-list">فاکتور فروش </a>
                         </li>
+
+                        <li class="nav-item {{ request()->routeIs('reqSalef') ? 'activeLi' : '' }}">
+                            <a class="nav-link {{ request()->routeIs('reqSalef') ? 'active1' : '' }}"
+                                href="/admin/crm/reqSaleF/{id}" id="add-list">فاکتور فروش سریع </a>
+                        </li>
+
                         <li class="nav-item {{ request()->routeIs('reqProd') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('reqProd') ? 'active1' : '' }}"
                                 href="/admin/crm/reqProd" id="show-list">درخواست تولید</a>

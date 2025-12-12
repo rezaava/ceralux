@@ -88,7 +88,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/crm/reqSale/add',[CRMController::class,'salePost']); 
     Route::post('/admin/crm/reqSale/product/add',[CRMController::class,'productAddPostCart']); 
     Route::post('/admin/crm/reqSale/rentOrOff/add',[CRMController::class,'productAddOffCart']); 
-    Route::post('/admin/crm/reqSale/pay',[CRMController::class,'salePayPost']); 
+    Route::post('/admin/crm/reqSale/pay',[CRMController::class,'salePayPost']);
+    
+    Route::get('/admin/crm/reqSaleF/{id}',[CRMController::class,'reqSaleF'])->name('reqSalef'); 
+    Route::post('/admin/crm/reqSaleF/add',[CRMController::class,'salePostF']); 
+    Route::post('/admin/crm/reqSaleF/product/add',[CRMController::class,'productAddPostCartF']); 
+    Route::post('/admin/crm/reqSaleF/rentOrOff/add',[CRMController::class,'productAddOffCartF']); 
+    Route::post('/admin/crm/reqSaleF/pay',[CRMController::class,'salePayPostF']); 
 
     Route::get('/get-customer-info/{id}', [CRMController::class, 'getCustomerInfo']);
 

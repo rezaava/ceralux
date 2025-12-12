@@ -235,6 +235,186 @@ class CRMController extends Controller
         return redirect('/admin/crm/reqSale/{id}')->with('message' , 'فاکتور با موفقیت ثبت شد!');
     }
 
+    public function reqSaleF($id = null){
+
+        $cart_prods = null;
+        $order = null;
+        $user = null;
+        $meter = 0;
+        $box = 0;
+        $palet = 0;
+        $paper = 0;
+        $priceAll = 0;
+        $date = null;
+        $five = 0;
+        $finalPrice = 0;
+        $finalOff = 0;
+        $subtotal = 0;
+
+        if($id){
+            $order = Carts::find($id);
+            if ($order) {
+                $date = Verta::instance($order->created_at)->format('Y/m/d');
+                $user = Customer::where('id' , $order->user_id)->first();
+                $cart_prods = Cart_prod::where('card_id' , $order->id)->get();
+                foreach($cart_prods as $cart_prod){
+                    $prod = Product::where('id' , $cart_prod->prod_id)->first();
+                    $cart_prod['prod'] = $prod;
+                    
+                    $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+                    $box = $cart_prod->count_box + $box;
+                    $palet = $cart_prod->count_palet + $palet;
+                    $paper = $cart_prod->prod->count_paper + $paper;
+                    $priceAll = $cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) + $priceAll;
+                    $five = $priceAll * 0.05;
+                    $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
+                    $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
+                    $finalPrice = $subtotal - $finalOff;  
+                }
+                 
+            }
+            
+        }
+        $prods = Product::get();
+        $cuss = Customer::get();
+        return view('admin.reqSaleF' , compact('five' , 'finalPrice' , 'paper' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
+    }
+
+    public function salePostF(Request $req){
+
+        $data = $req->all();
+
+        $rule = [
+            'customer' => 'required',  
+        ];
+
+        $msg = [
+            'customer.required' => 'مشتری را انتخاب کنید',
+        ];
+
+        $valid = Validator::make($data, $rule, $msg);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+
+
+        function generateVolunteerCode()
+        {
+            $number = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            return 'Kh' . $number;
+        }
+
+        $cart = new Carts();
+
+        do {
+            $code = generateVolunteerCode();
+        } while (Carts::where('num_cart', $code)->exists());
+        $cart->num_cart = $code;
+        $cart->user_id = $req->customer;
+        $cart->status = '0';
+        $cart->save();
+
+        return redirect()->route('reqSalef', $cart->id);
+    }
+
+    public function productAddPostCartF(Request $req){
+
+        $data = $req->all();
+
+        $rule = [
+            'prod_id' => 'required',  
+            'count_box' => 'required|numeric',  
+            'count_palet' => 'nullable|numeric',  
+            'off' => 'nullable|numeric',  
+        ];
+
+        $msg = [
+            'prod_id.required' => 'طرح را انتخاب کنید',
+            'count_box.required' => 'تعداد کارتن را وارد کنید',
+            // 'count_palet.required' => 'تعداد پالت را وارد کنید',
+
+            'count_box.numeric' => 'تعداد کارتن را عدد وارد کنید',
+            'count_palet.numeric' => 'تعداد پالت را عدد وارد کنید',
+            'count_palet.numeric' => 'لطفا تخفیف  را درست وارد کنید',
+        ];
+
+        $valid = Validator::make($data, $rule, $msg);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+
+        
+        $cart_prod = new Cart_prod();
+        $cart_prod->prod_id = $req->prod_id;
+        $cart_prod->card_id = $req->cart_id;
+        $cart_prod->count_box = $req->count_box;
+        $cart_prod->count_palet = $req->count_palet;
+        $cart_prod->off = $req->off;
+        $cart_prod->save();
+        
+        return redirect()->back()->with('message' , ' محصول با موفقیت اضافه  شد!');
+    }
+
+    public function productAddOffCartF(Request $req){
+
+        $data = $req->all();
+
+        $rule = [
+            'price_rent' => 'required|numeric',  
+            'all_off' => 'nullable|numeric',  
+        ];
+
+        $msg = [
+            'price_rent.required' => 'مبلغ کرایه بار را وارد کنید',
+            'price_rent.numeric' => '  مبلغ کرایه بار را عدد وارد کنید',
+            'all_off.numeric' => 'تخفیف کل  را درست وارد کنید',
+        ];
+
+        $valid = Validator::make($data, $rule, $msg);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+
+
+        $cart = Carts::find($req->cart_id);
+        $cart->off = $req->all_off;
+        $cart->price_rent = $req->price_rent;
+        $cart->save();
+        return redirect()->back()->with('message' , ' تغییرات  با موفقیت اعمال  شد!');
+    }
+
+    public function salePayPostF(Request $req){
+
+        $meter = 0;
+        $box = 0;
+        $palet = 0;
+        $priceAll = 0;
+
+        $order = Carts::find($req->cart_id);
+
+        $cart_prods = Cart_prod::where('card_id' , $order->id)->get();
+        foreach($cart_prods as $cart_prod){
+            $prod = Product::where('id' , $cart_prod->prod_id)->first();
+            $cart_prod['prod'] = $prod;
+            
+            $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+            $box = $cart_prod->count_box + $box;
+            $palet = $cart_prod->count_palet + $palet;
+            $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+        }
+
+        $order->status = '1';
+        $order->price = $priceAll;
+        $order->count_meters = $meter;
+        $order->count_boxs = $box;
+        $order->count_palet = $palet;
+        $order->save();
+        return redirect('/admin/crm/reqSaleF/{id}')->with('message' , 'فاکتور با موفقیت ثبت شد!');
+    }
+
     public function listUser(){
         $customers = Customer::get();
         return view('admin.list_user' , compact('customers'));
