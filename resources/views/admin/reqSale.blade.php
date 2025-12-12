@@ -412,7 +412,7 @@
                 <div class="total-section">
                     <div class="total-row">
                         <span>  کرایه بار : </span>
-                        <span>{{$order->price_rent ?? 'مبلغ کرایه رو از فرم بالا وارد کنید'}}</span>
+                        <span>{{number_format($order->price_rent) ?? 'مبلغ کرایه رو از فرم بالا وارد کنید'}}</span>
                     </div>
                     <div class="total-row">
                         <span>تخفیف کل :</span>

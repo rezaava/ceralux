@@ -295,7 +295,7 @@
                     <div class="row">
 
                         <div class="col-lg-4 col-md-6 col-12">
-                            <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
+                            <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{number_format($meter)}}</span><span style="padding-right: 0.2rem">متر</span></p>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-12">
@@ -319,7 +319,7 @@
                 <form action="/admin/crm/cart/final/buy" method="POST">
                     @csrf
                     <input type="hidden" name="cart_id" value="{{ $cart->id }}">
-                    <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت نهایی فاکتور خرید </button></div>
+                    <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت  فاکتور خرید </button></div>
                 </form>
                @endif
             </div>

@@ -775,7 +775,7 @@ class CRMController extends Controller
 
         $rules = [
             'prod_id'   => 'required',
-            'count_palet'    => 'required|numeric',
+            // 'count_palet'    => 'required|numeric',
             'count_box'  => 'required|numeric',
         ];
 
@@ -795,15 +795,21 @@ class CRMController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+        $product = Product::where('id' , $req->prod_id)->first();
+        if($req->count_all > $product->count_all){
+            return redirect()->back()->with('error' , 'مقدار درخواستی بیش‌تر از موجودی انبار است. لطفاً ابتدا موجودی محصول را افزایش دهید.');
+        }else{
+            $lpo_prod = new Lpo_Prod();
+            $lpo_prod->lpo_id = $req->lpo_id;
+            $lpo_prod->prod_id = $req->prod_id;
+            $lpo_prod->count_box = $req->count_box;
+            $lpo_prod->count_palet = $req->count_palet;
+            $lpo_prod->count_all = $req->count_all;
+            $lpo_prod->save();
+            return redirect()->route('lpo' , $req->lpo_id);
+        }
         
-        $lpo_prod = new Lpo_Prod();
-        $lpo_prod->lpo_id = $req->lpo_id;
-        $lpo_prod->prod_id = $req->prod_id;
-        $lpo_prod->count_box = $req->count_box;
-        $lpo_prod->count_palet = $req->count_palet;
-        $lpo_prod->count_all = $req->count_all;
-        $lpo_prod->save();
-        return redirect()->route('lpo' , $req->lpo_id);
+        
     }
 
     public function lpoFinal(Request $req){

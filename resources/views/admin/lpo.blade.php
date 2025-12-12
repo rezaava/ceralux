@@ -225,7 +225,7 @@
                 <form action="/admin/crm/lpo/product/add" method="POST">
                     @csrf
                     <div class="d-flex gap-3 form-row-responsive justify-content-center">
-                        <select class="form-select select2-farsi w-100" dir="rtl" name="prod_id" id="customerSelect">
+                        <select class="form-select select2-farsi w-100" dir="rtl" name="prod_id" id="productSelect">
                            <option value="" selected>طرح را جستجو کنید</option>
                            @foreach($prods as $prod)
                            <option value="{{ $prod->id }}">{{$prod->code_prod}}--{{$prod->name}}</option>
@@ -239,9 +239,9 @@
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center mt-3">
                         <input type="hidden" value="{{ $lpo->id }}" name="lpo_id">
-                        <input type="text" name="count_palet" class="form-control w-50" placeholder=" تعداد پالت ">
-                        <input type="text" name="count_box" class="form-control w-50" placeholder=" تعداد کارتن در پالت ">
-                        <input type="text" name="count_all" class="form-control w-50" placeholder="متراژ کل" readonly>
+                        <input type="text" name="count_box" id="box" class="form-control w-50" placeholder=" تعداد کارتن   ">
+                        {{-- <input type="text" name="count_palet" id="palet" class="form-control w-50" placeholder=" تعداد پالت "> --}}
+                        <input type="text" name="count_all" id="all" class="form-control w-50" placeholder="متراژ کل">
                     </div>
                     @error('count_palet')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
@@ -262,7 +262,7 @@
                                     <th>نام محصول</th>
                                     <th>تعداد کارتن</th>
                                     <th>متراژ هر کارتن</th>
-                                    <th>تعداد پالت</th>
+                                    {{-- <th>تعداد پالت</th> --}}
                                     <th> متراژ کل</th>
                                     <th> قیمت</th>
                                     <th> قیمت کل</th>
@@ -276,7 +276,7 @@
                                     <td>{{$lpo_prod->prod->name}}</td>
                                     <td>{{$lpo_prod->count_box}}</td>
                                     <td>{{$lpo_prod->prod->count_meter}}</td>
-                                    <td>{{$lpo_prod->count_palet}}</td>
+                                    {{-- <td>{{$lpo_prod->count_palet}}</td> --}}
                                     <td>{{$lpo_prod->count_box * $lpo_prod->prod->count_meter}}</td>
                                     <td>{{number_format($lpo_prod->prod->price)}}</td>
                                     <td>{{number_format($lpo_prod->prod->price * ($lpo_prod->count_box * $lpo_prod->prod->count_meter))}}</td>
@@ -299,15 +299,12 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-12">
-                            <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
-                        </div>
-
-                    </div>
-
-                    <div class="row mt-4">
-                        <div class="col-lg-4 col-md-6 col-12">
                             <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
                         </div>
+                        {{-- <div class="col-lg-4 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                        </div> --}}
+
                     </div>
 
                 </div>
@@ -315,7 +312,7 @@
                 <form action="/admin/crm/cart/final/lpo" method="POST">
                     @csrf
                     <input type="hidden" name="lpo_id" value="{{ $lpo->id }}">
-                    <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت نهایی  LPO </button></div>
+                    <div class="d-flex justify-content-end mt-4"><button class="btn btn-success" id="btn-final">ثبت   LPO </button></div>
                 </form>
                @endif
             </div>
@@ -366,4 +363,69 @@
 </script>
 @endif
 
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: "error",
+        title: "خطا...",
+        text: '{{ session('error') }}',
+        footer: '<a href="/admin/crm/buy/add/{id}" target="_blank">افزایش موجودی محصول</a>',
+        showCloseButton: true,
+        confirmButtonText:"متوجه شدم",
+        background: '#232b39',
+        color: '#fff',
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@endif
+
+{{-- <script>
+    $('#productSelect').on('change', function() {
+        let productId = $(this).val();
+        if (productId) {
+            $.ajax({
+                url: '/get-product-info/' + productId,
+                method: 'GET',
+                success: function(data) {
+                    let inputPalet = document.querySelector('#palet')
+                    let inputBox = document.querySelector('#box')
+                    let inputAll = document.querySelector('#all')
+                    let meterInBox = data.count_meter;
+                    let boxInPalet = data.count_box;
+
+                    function totalMeter(){
+                        let box = inputBox.value
+                    
+                        let all = meterInBox * box
+                        inputAll.value = all.toFixed(2)
+                    }
+
+                    function totalPalet(){
+                        let box = inputBox.value
+                    
+                        let all = box / boxInPalet
+                        inputPalet.value = all.toFixed(2)
+                    }
+
+                    inputBox.addEventListener('input', totalMeter);
+                    inputBox.addEventListener('input', totalPalet);
+                    totalMeter();
+                    totalPalet();
+
+                },
+                error: function() {
+                    $('#count_meter').val('');
+                    $('#count_box').val('');
+    
+                }
+            });
+        } else {
+            $('#count_meter').val('');
+            $('#count_box').val('');
+        }
+    });
+</script> --}}
 @endsection

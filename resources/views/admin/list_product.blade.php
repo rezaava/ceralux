@@ -351,10 +351,10 @@
                                     <div class="description-cell2">{{ $prod->count_paper }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-large">
-                                    <div class="description-cell2">{{ $prod->price }}</div>
+                                    <div class="description-cell2">{{ number_format($prod->price) }}</div>
                                 </td>
                                 <td class="numeric-column hide-on-large">
-                                    <div class="description-cell2">{{ $prod->price_buy }}</div>
+                                    <div class="description-cell2">{{ number_format($prod->price_buy) }}</div>
                                 </td>
                                 {{-- <td class="numeric-column hide-on-large">
                                     <div class="description-cell2">{{ $prod->face }}</div>
