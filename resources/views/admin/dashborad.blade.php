@@ -13,6 +13,7 @@
 @endsection
 
 @section('main')
+@if(Auth::user()->hasRole('manager'))
 <div class="row mb-4">
     <div class="col-lg-3 col-md-6 mb-3">
         <div class="stat-card">
@@ -149,6 +150,7 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
 
 @section('script')

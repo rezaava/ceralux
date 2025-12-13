@@ -20,6 +20,8 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/',[SiteController::class,'index'])->name('index');
 
+Route::get('/download/pdf/{id}',[SiteController::class,'pdf']);
+
 Route::prefix('/products')->group(function () {
    Route::get('/info/{size_id}/{name}',[ProductController::class,'productinfo'])->name('productinfo'); 
    Route::get('/{size}',[ProductController::class,'products'])->name('products'); 
@@ -51,6 +53,11 @@ Route::get('/add/admin',[AdminController::class,'addAdmin']);
 
 Route::get('/login/admin',[AuthController::class,'login'])->name('login');
 Route::post('/login/admin',[AuthController::class,'loginPost']);
+
+Route::get('/admin/product/img',[ProductController::class,'showImg'])->name('product-list'); 
+Route::post('/admin/product/add-img',[ProductController::class,'addImg']); 
+
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/logout/admin',[AuthController::class,'logout']);
@@ -64,8 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/product/list',[AdminController::class,'productList'])->name('product-list');
     Route::get('/admin/product/list/delete/{id}',[AdminController::class,'deleteProduct'])->name('product-list');
     Route::post('/admin/product/add',[AdminController::class,'productPost']);
-    Route::get('/admin/product/img/{pro_id}',[ProductController::class,'showImg'])->name('product-list'); 
-    Route::post('/admin/product/add-img/{pro_id}',[ProductController::class,'addImg']); 
+    
     Route::delete('/admin/product/delete-img/{id}', [ProductController::class, 'deleteImg'])->name('products.delete-img');
 
 

@@ -12,299 +12,199 @@
 <style>
     select option {
         background: #1e1e1e !important;
-        /* پس‌زمینه تیره */
         color: #fff !important;
-        /* متن سفید */
     }
 </style>
 @endsection
+
 @section('main')
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-12">
             <div class="stat-card mt-3">
+
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="stat-title" style="font-size: 1.4rem"> عکس های محصول </div>
-                    <p class="btn btn-success" id="img_post"> <i class="fa-solid fa-plus"></i><span class="p-1">عکس
-                            جدید</span></p>
+                    <div class="stat-title" style="font-size:1.4rem">
+                        عکس های محصول
+                    </div>
+                    <button class="btn btn-success" id="img_post">
+                        <i class="fa-solid fa-plus"></i>
+                        <span class="p-1">عکس جدید</span>
+                    </button>
                 </div>
 
-                <div class="row justify-content-start">
-                    @if(empty($imgs))
-                        <p>عکسی موجود نمیباشد</p>
-                    @else
-                        @foreach($imgs as $img)
-                            <div class="col-lg-3 col-md-6 col-6">
-                                <div class="card">
-                                    <img class="card-img-top" src="{{ asset($img->img_url) }}" alt="">
-                                    <div class="card-body text-center">
-                                        <form action="{{ url('/products/delete-img/'.$img->id) }}" method="POST" class="delete-img-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="fa-solid fa-trash-can"></i>
-                                                <span style="padding-right: 0.6rem">حذف</span>
-                                            </button>
-                                        </form>
-                                    </div>
+                <div class="row mt-3">
+                    @forelse($imgs as $img)
+                        <div class="col-lg-3 col-md-6 col-6 mb-3">
+                            <div class="card">
+                                <img src="{{ asset($img->img_url) }}" class="card-img-top">
+                                <div class="card-body text-center">
+                                    <form action="{{ route('products.delete-img',$img->id) }}"
+                                          method="POST"
+                                          class="delete-img-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fa-solid fa-trash"></i> حذف
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-                        @endforeach
-                    @endif
+                        </div>
+                    @empty
+                        <p class="text-center mt-3">عکسی ثبت نشده است</p>
+                    @endforelse
                 </div>
-
 
             </div>
         </div>
     </div>
 </div>
 
-
-
+<!-- ================= MODAL ================= -->
 <div id="overlay" style="
-    position: fixed; top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.6);
-    display:none; justify-content:center; align-items:center;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
     z-index:9999;
 ">
     <div style="
-    background: rgba(24, 31, 42, 0.90);
-    padding: 25px;
-    border-radius: 15px;
-    width: 450px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    
-">
+        background:rgba(24,31,42,.95);
+        padding:25px;
+        border-radius:15px;
+        width:450px;
+        position:relative;
 
-        <h4 class="mb-3 text-center">افزودن عکس جدید</h4>
+        max-height:90vh;
+        overflow-y:auto;
+    ">
 
-        <!-- ناحیه آپلود + پری‌ویو -->
-        <div class="upload-area" id="uploadArea" style="
-    border: 3px dashed rgba(102, 126, 234, 0.5);
-    border-radius: 15px;
-    padding: 40px 20px;
-    cursor: pointer;
-    text-align:center;
-    
-    background: rgba(255, 255, 255, 0.18);   /* ← شفاف لازم است */
-    backdrop-filter: blur(14px);             /* تاری پشت */
-    -webkit-backdrop-filter: blur(14px);
 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15); /* شیشه‌ای واقعی */
-    transition: 0.3s;
-">
+        <button id="closeModal" type="button" style="
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:32px;
+            height:32px;
+            border-radius:50%;
+            border:none;
+            background:rgba(255,255,255,.15);
+            color:white;
+            font-size:20px;
+            cursor:pointer;
+        ">×</button>
 
-            <div style="font-size:40px; color:#667eea;">📁</div>
-            <div style="color:white; margin-top:10px;">برای انتخاب عکس کلیک کنید</div>
-            <input type="file" name="img" id="fileInput2" class="file-input" accept="image/*" style="display:none;">
+        <h4 class="text-center mb-3 text-white">افزودن عکس جدید</h4>
+
+        <!-- upload area -->
+        <div id="uploadArea" style="
+            border:3px dashed rgba(102,126,234,.6);
+            border-radius:15px;
+            padding:40px 20px;
+            cursor:pointer;
+            text-align:center;
+            color:white;
+        ">
+            <div style="font-size:40px">📁</div>
+            <div class="mt-2">برای انتخاب عکس کلیک کنید</div>
         </div>
 
-        <!-- پریویو -->
-        <div class="preview-container" id="previewContainer" style="display:none; margin-top:20px;">
+        <!-- preview -->
+        <div id="previewContainer" style="display:none;margin-top:15px">
             <img id="previewImage" style="
-                max-width:100%; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.15);
-            ">
+    width:100%;
+    border-radius:12px;
+    max-height:50vh;
+    object-fit:contain;
+">
 
-            <!-- <div style="background:#f3f4ff; padding:10px; margin-top:15px; border-radius:10px;">
-                <div id="fileName" style="font-weight:bold;"></div>
-                <div id="fileSize" style="font-size:14px; color:#555;"></div>
-            </div> -->
         </div>
 
-        <form action="/products/add-img/{{ $prod->id }}" method="POST" enctype="multipart/form-data" class="mt-4">
+        <form action="/admin/product/add-img/{{ $prod->id }}"
+              method="POST"
+              enctype="multipart/form-data"
+              class="mt-3">
             @csrf
 
-            <input type="file" id="fileInput" name="img_file" hidden>
+            <input type="file"
+                   name="img"
+                   id="fileInput"
+                   accept="image/*"
+                   hidden>
 
-
-            <!-- ورودی متن -->
-            {{-- <input
-                type="text"
-                name="img_name"
-                placeholder="اسم مکان عکس کاشی (اختیاری)"
-                style="
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.25);
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: #fff;
-            font-size: 14px;
-        "> --}}
-
-            <!-- انتخاب نوع عکس -->
-            {{-- <select
-                name="type_img"
-                style="
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.25);
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: #fff;
-            font-size: 14px;
-        ">
-                <option value="1">عکس روی کارت محصول</option>
-                <option value="2">عکس بنر سمت راست</option>
-                <option value="3">عکس بنر سمت چپ</option>
-                <option value="4">عکس کاشی در حمام</option>
-                <option value="5">عکس کاشی در آشپزخانه</option>
-                <option value="6">عکس کاشی در پذیرایی</option>
-                <option value="7">عکس کاشی در کف</option>
-            </select> --}}
-
-            <!-- دکمه‌ها -->
-            <div class="text-center mt-4">
-                <button
-                    class="btn btn-success"
-                    style="
-                padding: 10px 25px;
-                border-radius: 10px;
-                font-size: 15px;
-            ">
-                    ثبت
-                </button>
-
-                <button id="closeModal" type="button" style="
-                position:absolute;
-                top:10px;
-                left:10px;
-                background: rgba(255,255,255,0.15);
-                border:none;
-                width:32px;
-                height:32px;
-                border-radius:50%;
-                color:white;
-                font-size:20px;
-                cursor:pointer;
-                backdrop-filter: blur(6px);
-                -webkit-backdrop-filter: blur(6px);
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                transition:0.2s;
-            ">×</button>
-
-            </div>
+            <button class="btn btn-success w-100 mt-3">
+                ثبت عکس
+            </button>
         </form>
-
 
     </div>
 </div>
-
-
 @endsection
 
 @section('script')
 <script>
-    // ---------- MODAL ----------
-    let btn = document.querySelector('#img_post');
-    let overlay = document.querySelector('#overlay');
-    let closeModal = document.querySelector('#closeModal');
+    // ===== MODAL =====
+    const btn = document.getElementById('img_post');
+    const overlay = document.getElementById('overlay');
+    const closeModal = document.getElementById('closeModal');
 
-    btn.addEventListener('click', () => {
-        overlay.style.display = 'flex';
-    });
+    btn.onclick = () => overlay.style.display = 'flex';
+    closeModal.onclick = () => overlay.style.display = 'none';
 
-    closeModal.addEventListener('click', () => {
-        overlay.style.display = 'none';
-    });
-
-    overlay.addEventListener('click', (e) => {
+    overlay.onclick = (e) => {
         if (e.target === overlay) overlay.style.display = 'none';
-    });
+    };
 
-    // ---------- PREVIEW SCRIPT ----------
+    // ===== UPLOAD + PREVIEW =====
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
     const previewContainer = document.getElementById('previewContainer');
     const previewImage = document.getElementById('previewImage');
-    const fileName = document.getElementById('fileName');
-    const fileSize = document.getElementById('fileSize');
 
-    uploadArea.addEventListener('click', () => fileInput.click());
+    uploadArea.onclick = () => fileInput.click();
 
-    fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            handleFile(e.target.files[0]);
-        }
-    });
+    fileInput.onchange = function () {
+        if (this.files.length === 0) return;
 
-    function handleFile(file) {
-        if (!file.type.startsWith("image/")) {
-            alert("فقط عکس انتخاب کنید");
+        const file = this.files[0];
+
+        if (!file.type.startsWith('image/')) {
+            alert('فقط عکس مجاز است');
+            this.value = '';
             return;
         }
 
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = e => {
             previewImage.src = e.target.result;
-            previewContainer.style.display = "block";
-            fileName.textContent = file.name;
-            fileSize.textContent = (file.size / 1024).toFixed(1) + " KB";
+            previewContainer.style.display = 'block';
         };
         reader.readAsDataURL(file);
-    }
+    };
 
-
-    const imgHidden = document.getElementById('fileInput2');
-
-    function handleFile(file) {
-        if (!file.type.startsWith("image/")) {
-            alert("فقط عکس انتخاب کنید");
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            previewImage.src = e.target.result;
-            previewContainer.style.display = "block";
-            fileName.textContent = file.name;
-            fileSize.textContent = (file.size / 1024).toFixed(1) + " KB";
-
-            imgHidden.value = e.target.result; // ⬅ این خط مهم است
-        };
-        reader.readAsDataURL(file);
-    }
-</script>
-<script>
-    // گرفتن همه فرم‌های حذف
-    const deleteForms = document.querySelectorAll('.delete-img-form');
-
-    deleteForms.forEach(form => {
+    // ===== DELETE CONFIRM =====
+    document.querySelectorAll('.delete-img-form').forEach(form => {
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // جلوگیری از ارسال فرم قبل از تأیید
+            e.preventDefault();
 
             Swal.fire({
-                title: 'آیا از حذف عکس مطمئن هستید؟',
-                text: "این عملیات قابل بازگشت نیست!",
+                title: 'حذف عکس؟',
+                text: 'این عملیات قابل بازگشت نیست',
                 icon: 'warning',
-                background: '#181f2a' ,
-                color: 'white' ,
+                background: '#181f2a',
+                color: '#fff',
                 showCancelButton: true,
                 confirmButtonColor: '#BF092F',
                 cancelButtonColor: '#4E56C0',
-                confirmButtonText: 'بله، حذف شود!',
-                cancelButtonText: 'خیر',
-                background: '#181f2a',
-                color: '#ffffff'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit(); // اگر تأیید شد، فرم ارسال می‌شود
-                }
-            })
+                confirmButtonText: 'بله حذف شود',
+                cancelButtonText: 'خیر'
+            }).then(result => {
+                if (result.isConfirmed) form.submit();
+            });
         });
     });
 </script>
-
-
 @endsection

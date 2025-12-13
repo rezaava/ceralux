@@ -524,7 +524,7 @@ class CRMController extends Controller
 
     public function showInvocie($id){
 
-        $cart = Carts::where('id' , $id)->first();
+        $cart = Carts::findOrFail($id);
 
         switch($cart->type){
             case 'buy':
