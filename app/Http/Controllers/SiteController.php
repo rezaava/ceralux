@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart_prod;
 use App\Models\Carts;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Size;
 use Hekmatinasser\Verta\Verta;
@@ -54,7 +55,11 @@ class SiteController extends Controller
 
     public function pdf($id){
 
-        $cart = Carts::where('id' , $id)->first();
+        $five = 0;
+        $finalOff= 0;
+        $finalPrice= 0;
+
+        $cart = Carts::findOrFail($id);
 
         switch($cart->type){
             case 'buy':
@@ -66,15 +71,21 @@ class SiteController extends Controller
                 $date = Verta::instance($cart->created_at)->format('Y/m/d');
                 break;
         }
+        $customer = Customer::where('id' , $cart->user_id)->first();
         
 
         $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
         foreach($cart_prods as $cart_prod){
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
                 $cart_prod['prod'] = $prod;
+
+                $five = $cart->price * 0.05;
+                $subtotal = $cart->price + $five + $cart->price_rent; // مجموع قبل از تخفیف
+                $finalOff = $subtotal * ($cart->off / 100);        // محاسبه تخفیف از مجموع
+                $finalPrice = $subtotal - $finalOff; 
         }
-        //return $cart
-        $pdf = PDF::loadView("admin/downloadPdf" , compact('cart' , 'cart_prods' , 'date'));
+
+        $pdf = PDF::loadView("admin/downloadPdf" , compact('cart' , 'cart_prods' , 'date' , 'five' , 'finalPrice' , 'customer'));
         return $pdf->stream("invoice-".$cart->text_type.".pdf");
     }
 }

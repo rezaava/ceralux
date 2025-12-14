@@ -312,6 +312,9 @@
                                         <a href="/admin/crm/show/invoice/{{ $cart->id }}" class="btn btn-sm btn-outline-success m-1">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
+                                        <a href="/download/pdf/{{ $cart->id }}" class="btn btn-sm btn-outline-warning m-1">
+                                            <i class="fa-solid fa-download"></i>
+                                        </a>
                                         <a href="" class="btn btn-sm btn-outline-danger m-1">
                                             <i class="fas fa-trash"></i>
                                         </a>

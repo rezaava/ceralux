@@ -82,7 +82,7 @@
         
         .info-label {
             color: var(--text-secondary);
-            min-width: 150px;
+            min-width: 80px;
         }
         
         .info-value {
@@ -203,16 +203,17 @@
                     <div class="invoice-id"> شماره فاکتور: <span>{{$cart->num_cart}}</span></div>
                     <div class="invoice-title">نوع فاکتور : <span>{{$cart->text_type}}</span></div>
                     <div class="invoice-date">تاریخ فاکتور: <span>{{$date}}</span></div>
+                    <div class="invoice-date mt-1"><span>شماره </span> {{$cart->num_lpo}} : LPO</div>
                 </div>
                 {{-- <div class="text-end">
                     <div class="company-logo mb-3">F</div>
                     <span class="invoice-status status-paid">پرداخت شده</span>
                 </div> --}}
-            </div>
+            </div> 
             
             <!-- اطلاعات فاکتور -->
-            {{-- <div class="row">
-                <div class="col-md-6">
+            <div class="row">
+                {{-- <div class="col-md-6">
                     <div class="info-section">
                         <h5 class="mb-3" style="color: var(--accent-green);">اطلاعات فروشنده</h5>
                         <div class="info-row">
@@ -232,30 +233,26 @@
                             <div class="info-value">۰۲۱-۸۸۸۸۸۸۸۸</div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 
                 <div class="col-md-6">
                     <div class="info-section">
                         <h5 class="mb-3" style="color: var(--accent-green);">اطلاعات مشتری</h5>
                         <div class="info-row">
                             <div class="info-label">نام مشتری:</div>
-                            <div class="info-value">شرکت نوآوران فناوری</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">شناسه ملی:</div>
-                            <div class="info-value">۱۴۰۰۱۱۱۱۱۱۱</div>
+                            <div class="info-value">{{$user->name}}</div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">آدرس:</div>
-                            <div class="info-value">اصفهان، خیابان شهید بهشتی، پلاک ۵۶۷</div>
+                            <div class="info-value">{{$user->address}}</div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">تلفن:</div>
-                            <div class="info-value">۰۳۱-۷۷۷۷۷۷۷۷</div>
+                            <div class="info-value">{{$user->phone}}</div>
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             
             <!-- جدول آیتم‌های فاکتور -->
             <div>
@@ -269,6 +266,7 @@
                             <th>تعداد پالت</th>
                             <th>متراژکل</th>
                             <th>قیمت</th>
+                            <th>تخفیف</th>
                             <th>مبلغ (تومان)</th>
                         </tr>
                     </thead>
@@ -281,7 +279,8 @@
                                 <td>{{ $cart_prod->count_palet }}</td>
                                 <td>{{ $cart_prod->count_box * $cart_prod->prod->count_meter }}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
-                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter))}}</td>
+                                <td>%{{$cart_prod->off}}</td>
+                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) )}}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -292,7 +291,7 @@
             <div class="total-section">
                 <div class="total-row">
                     <span>تعداد کل کارتن:</span>
-                    <span>{{$cart->count_boxs}}</span>
+                    <span>{{$cart->count_boxs}}<span>عدد</span></span>
                 </div>
                 <div class="total-row">
                     <span>تعداد کل پالت :</span>
@@ -302,9 +301,25 @@
                     <span>متراژکل:</span>
                     <span><span>{{$cart->count_meters}} </span>متر</span>
                 </div>
+                <div class="total-row">
+                    <span>کرایه بار:</span>
+                    <span><span>{{number_format($cart->price_rent)}} </span></span>
+                </div>
+                <div class="total-row">
+                    <span>مبلغ کل بدون مالیات بر ارزش افزوده :</span>
+                    <span><span>{{number_format($cart->price)}}</span>متر</span>
+                </div>
+                <div class="total-row">
+                    <span> 5% مالیات ارزش افزوده:</span>
+                    <span><span>{{number_format($five)}}</span>متر</span>
+                </div>
+                <div class="total-row">
+                    <span>تخفیف کل:</span>
+                    <span><span>{{$cart->off}} </span>درصد</span>
+                </div>
                 <div class="total-row total-amount">
                     <span>مبلغ نهایی فاکتور:</span>
-                    <span><span>{{number_format($cart->price)}} </span>تومان</span>
+                    <span><span>{{number_format($finalPrice)}} </span>تومان</span>
                 </div>
             </div>
             
