@@ -234,7 +234,7 @@
                         </div>
                     </div>
                 </div> --}}
-                
+                @if(!($cart->type == 'buy'))
                 <div class="col-md-6">
                     <div class="info-section">
                         <h5 class="mb-3" style="color: var(--accent-green);">اطلاعات مشتری</h5>
@@ -252,6 +252,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
             
             <!-- جدول آیتم‌های فاکتور -->
@@ -267,7 +268,7 @@
                             <th>متراژکل</th>
                             <th>قیمت</th>
                             <th>تخفیف</th>
-                            <th>مبلغ (تومان)</th>
+                            <th>مبلغ ()</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -319,7 +320,7 @@
                 </div>
                 <div class="total-row total-amount">
                     <span>مبلغ نهایی فاکتور:</span>
-                    <span><span>{{number_format($finalPrice)}} </span>تومان</span>
+                    <span><span>{{number_format($finalPrice)}} </span></span>
                 </div>
             </div>
             

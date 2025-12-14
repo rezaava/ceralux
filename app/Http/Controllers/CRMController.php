@@ -78,13 +78,19 @@ class CRMController extends Controller
                     $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
                     $finalPrice = $subtotal - $finalOff;  
                 }
-
+                
                 $lpo = Lpo::where('num_lpo' , $order->num_lpo)->first();
-                $lpo_prods = Lpo_Prod::where('lpo_id' , $lpo->id)->get();
-                foreach($lpo_prods as $lpo_prod){
-                    $prod = Product::where('id' , $lpo_prod->prod_id)->first();
-                    $lpo_prod['prod'] = $prod;
+                if($lpo){
+                    $lpo_prods = Lpo_Prod::where('lpo_id' , $lpo->id)->get();
+                    foreach($lpo_prods as $lpo_prod){
+                        $prod = Product::where('id' , $lpo_prod->prod_id)->first();
+                        $lpo_prod['prod'] = $prod;
+                    }
+                }else{
+                    //return 'salma';
+                    return redirect()->back()->with('error' , 'ابتدا LPO را ثبت کنید، سپس دوباره بازگردید.');
                 }
+
                 
                 
             }

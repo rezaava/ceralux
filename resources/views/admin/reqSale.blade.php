@@ -531,4 +531,23 @@
 </script>
 @endif
 
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: "error",
+        title: "خطا LPO پیدا نشد",
+        text: '{{ session('error') }}',
+        footer: '<a href="/admin/crm/lpo/add/{id}" target="_blank">ثبت LPO</a>',
+        showCloseButton: true,
+        confirmButtonText:"متوجه شدم",
+        background: '#232b39',
+        color: '#fff',
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@endif
+
 @endsection

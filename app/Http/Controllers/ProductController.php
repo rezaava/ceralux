@@ -91,7 +91,7 @@ class ProductController extends Controller
 
             $file= $req->file('img');
             $file_name=time() . "." . $file->getClientOriginalExtension();
-            $destination_path='/files/img';
+            $destination_path='files/img';
             $file->move($destination_path, $file_name);
             $img->img_url=$destination_path. '/' .$file_name;
         }

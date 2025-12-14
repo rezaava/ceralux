@@ -54,8 +54,8 @@ Route::get('/add/admin',[AdminController::class,'addAdmin']);
 Route::get('/login/admin',[AuthController::class,'login'])->name('login');
 Route::post('/login/admin',[AuthController::class,'loginPost']);
 
-Route::get('/admin/product/img',[ProductController::class,'showImg'])->name('product-list'); 
-Route::post('/admin/product/add-img',[ProductController::class,'addImg']); 
+Route::get('/admin/product/img/{id}',[ProductController::class,'showImg'])->name('product-list'); 
+Route::post('/admin/product/add-img/{id}',[ProductController::class,'addImg']); 
 
 
 Route::middleware('auth')->group(function () {
