@@ -9,6 +9,8 @@ use App\Models\Lpo;
 use App\Models\Lpo_Prod;
 use App\Models\Product;
 use App\Models\Request as ModelsRequest;
+use App\Models\Size;
+use App\Models\size_product;
 use App\Models\SubCheck;
 use App\Models\User;
 use Hekmatinasser\Verta\Verta;
@@ -776,7 +778,11 @@ class CRMController extends Controller
             $cart_prods = Cart_prod::where('card_id' , $id)->get();
             foreach($cart_prods as $cart_prod){
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
+                $size_prod = size_product::where('id' , $cart_prod->size_prod_id)->first();
+                $size = Size::where('id' , $size_prod->size_id)->first();
                 $cart_prod['prod'] = $prod;
+                $cart_prod['meter'] = $size_prod;
+                $cart_prod['size'] = $size;
 
                 $meter = $cart_prod->count_box * $prod->count_meter + $meter;
                 $box = $cart_prod->count_box + $box;
@@ -792,15 +798,21 @@ class CRMController extends Controller
         $product = Product::find($id);
 
         if ($product) {
+            $sizes = size_product::where('product_id' , $id)->get();
+            foreach($sizes as $size){
+                $size['name'] = Size::where('id' , $size->size_id)->first()->name;
+            }
             return response()->json([
                 'count_meter' => $product->count_meter ?? '',
                 'count_box' => $product->count_box ?? '',
+                'sizes' => $sizes ?? '',
             ]);
         }
 
         return response()->json([
             'count_meter' => '',
             'count_box' => '',
+            'sizes' => '',
         ]);
     }
 
@@ -840,6 +852,7 @@ class CRMController extends Controller
         $cart_prod->prod_id = $req->prod_id;
         $cart_prod->card_id = $req->cart_id;
         $cart_prod->count_all = $req->count_all;
+        $cart_prod->size_prod_id = $req->size_id;
         $cart_prod->count_box = $req->count_box;
         $cart_prod->count_palet = $req->count_palet;
         $cart_prod->save();

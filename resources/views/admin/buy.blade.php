@@ -182,7 +182,7 @@
 @section('main')
 <div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10 col-12">
+        <div class="col-lg-10 col-md-10 col-12">
             <div class="stat-card mt-3">
 
                <div class="d-flex justify-content-between align-items-center">
@@ -223,6 +223,13 @@
                            <option value="{{ $prod->id }}">{{$prod->code_prod}}--{{ $prod->name }}</option>
                            @endforeach
                         </select>
+
+                        {{-- <select class="form-select select2-farsi w-50" dir="rtl" name="prod_id" id="productSelect">
+                           <option value="" selected>سایز را جستجو کنید</option>
+                           @foreach($prods as $prod)
+                           <option value="{{ $prod->id }}">{{$prod->code_prod}}--{{ $prod->name }}</option>
+                           @endforeach
+                        </select> --}}
                     </div>
                     @error('prod_id')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
@@ -230,6 +237,13 @@
 
                     <div class="d-flex gap-3 form-row-responsive mt-3">
                         <input type="hidden" value="{{ $cart->id }}" name="cart_id">
+
+                        <div class="w-50">
+                            <label for="">سایز کاشی </label>
+                            <select name="size_id" id="sizeSelect" class="form-select m-0">
+                                <option value="" selected disabled>سایز را انتخاب کنید</option>
+                            </select>
+                        </div>
 
                         <div class="w-50">
                             <label for="">تعداد کارتن</label>
@@ -264,6 +278,7 @@
                                     <th>ردیف</th>
                                     <th>کد کالا</th>
                                     <th>نام محصول</th>
+                                    <th> سایز محصول</th>
                                     <th>تعداد کارتن</th>
                                     <th>متراژ هر کارتن</th>
                                     <th>تعداد پالت</th>
@@ -278,8 +293,9 @@
                                     <td>{{$key+1}}</td>
                                     <td>{{$cart_prod->prod->code_prod}}</td>
                                     <td>{{$cart_prod->prod->name}}</td>
+                                    <td>{{$cart_prod->size->name}}</td>
                                     <td>{{$cart_prod->count_box}}</td>
-                                    <td>{{$cart_prod->prod->count_meter}}</td>
+                                    <td>{{$cart_prod->meter->box_meter}}</td>
                                     <td>{{$cart_prod->count_palet}}</td>
                                     <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
                                     <td>{{number_format($cart_prod->prod->price)}}</td>
@@ -402,6 +418,19 @@
                     inputBox.addEventListener('input', totalPalet);
                     totalMeter();
                     totalPalet();
+                    
+                    let sizeSelect = $('#sizeSelect');
+                    sizeSelect.empty(); // خالی کردن قبلی‌ها
+                                
+                    sizeSelect.append('<option value="" selected disabled>سایز را انتخاب کنید</option>');
+                                
+                    if (data.sizes && data.sizes.length > 0) {
+                        data.sizes.forEach(function(size) {
+                            sizeSelect.append(
+                                `<option value="${size.id}">${size.name}</option>`
+                            );
+                        });
+                    }
 
                 },
                 error: function() {
@@ -410,6 +439,7 @@
     
                 }
             });
+                     
         } else {
             $('#count_meter').val('');
             $('#count_box').val('');

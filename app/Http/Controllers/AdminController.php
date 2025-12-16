@@ -69,7 +69,7 @@ class AdminController extends Controller
     {
         $prods = Product::get();
         foreach ($prods as $prod) {
-            $prod['size_prods'] = size_product::where('product_id', $prod->id)->pluck('size_id');
+            $prod['size_prods'] = size_product::where('product_id', $prod->id)->get();
         }
 
 
