@@ -103,7 +103,7 @@ class AdminController extends Controller
             'price'        => convertPersianNumber($req->price),
             'price_buy'    => convertPersianNumber($req->price_buy),
             'count_box'    => convertPersianNumber($req->count_box),
-            'count_meter'  => convertPersianNumber($req->count_meter),
+            //'count_meter'  => convertPersianNumber($req->count_meter),
             'count_meli'   => convertPersianNumber($req->count_meli),
             // 'count_all'    => convertPersianNumber($req->count_all),
             'count_darageh'=> convertPersianNumber($req->count_darageh),
@@ -123,7 +123,7 @@ class AdminController extends Controller
             'no_price'          => 'required',
 
             'count_box'     => 'required|numeric',
-            'count_meter'   => 'required|numeric',
+            //'count_meter'   => 'required|numeric',
             'count_meli'   => 'required|numeric',
             // 'count_all'     => 'required|numeric',
 
@@ -164,8 +164,8 @@ class AdminController extends Controller
             // counts
             'count_box.numeric'     => 'تعداد در جعبه باید عدد باشد.',
             'count_box.required'     => 'تعداد جعبه الزامی است',
-            'count_meter.numeric'   => 'متراژ  باید عدد باشد.',
-            'count_meter.required'   => 'متراژ الزامی است.',
+            // 'count_meter.numeric'   => 'متراژ  باید عدد باشد.',
+            // 'count_meter.required'   => 'متراژ الزامی است.',
             'count_meli.numeric'   => 'تعداد در پالت باید عدد باشد.',
             'count_meli.required'   => 'تعداد در پالت الزامی است.',
             // 'count_all.numeric'     => 'متراژ کل باید عدد باشد.',
@@ -218,7 +218,7 @@ class AdminController extends Controller
         $prod->name_ar = $req->titleAr;
         $prod->desc_ar = $req->descAr;
         $prod->count_box = $req->count_box;
-        $prod->count_meter = $req->count_meter;
+        //$prod->count_meter = $req->count_meter;
         $prod->count_meli = $req->count_meli;
         $prod->count_palet = $req->count_palet;
         $prod->code_prod = $req->code_prod;
@@ -229,8 +229,10 @@ class AdminController extends Controller
         $prod->save();
 
         foreach ($req->sizes as $sizeId) {
+            $size = Size::where('id' , $sizeId)->first();
+            [$width, $height] = explode('x' , $size->name);
             $size_pord = new size_product();
-
+            $size_pord->box_meter = ($width / 100) * ($height /100) * $req->count_paper;
             $size_pord->product_id = $prod->id;
             $size_pord->size_id = $sizeId;
             $size_pord->save();

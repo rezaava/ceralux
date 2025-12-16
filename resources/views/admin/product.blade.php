@@ -114,11 +114,6 @@
                             @error('price') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
-                        <div class="w-50">
-                            <label>درجه کاشی</label>
-                            <input type="text" name="count_darageh" value="{{ old('count_darageh' , $editProd->count_darageh ?? '') }}" class="form-control" placeholder="درجه کاشی">
-                            @error('count_darageh') <small class="text-danger d-block">{{ $message }}</small> @enderror
-                        </div>
                     </div>
 
                     <!-- row 3 -->
@@ -136,10 +131,16 @@
                         </div>
 
                         <div class="w-50">
+                            <label>درجه کاشی</label>
+                            <input type="text" name="count_darageh" value="{{ old('count_darageh' , $editProd->count_darageh ?? '') }}" class="form-control" placeholder="درجه کاشی">
+                            @error('count_darageh') <small class="text-danger d-block">{{ $message }}</small> @enderror
+                        </div>
+
+                        {{-- <div class="w-50">
                             <label>متراژ هر کارتن</label>
                             <input type="text" name="count_meter" id="count_meter" value="{{ old('count_meter' , $editProd->count_meter ?? '') }}" class="form-control" placeholder="متراژ هر کارتن">
                             @error('count_meter') <small class="text-danger d-block">{{ $message }}</small> @enderror
-                        </div>
+                        </div> --}}
 
 
 

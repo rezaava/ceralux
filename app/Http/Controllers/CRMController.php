@@ -1020,8 +1020,8 @@ class CRMController extends Controller
         $messages = [
             'prod_id.required'   => 'یک محصول را انتخاب کنید',
 
-            'count_all.required'   => 'تعدا پالت را وارد کنید',
-            'count_all.numeric'   => 'تعداد پالت باید عدد باشد',
+            'count_all.required'   => 'متراژ کل  را وارد کنید',
+            'count_all.numeric'   => 'متراژکل  باید عدد باشد',
 
             'count_box.required'   => 'تعداد کارتن را وارد کنید',
             'count_box.numeric'   => ' تعداد کارتن عدد باشد',
