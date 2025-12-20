@@ -184,22 +184,7 @@
         margin: 1px !important;
     }
     
-    #overlay{
-        position: fixed;
-        margin: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.605);
-        display: none;
-        justify-content: center;
-        align-items: flex-start; 
-        z-index: 9999;
-        overflow-y: auto;         
-        padding: 2rem 1rem; 
-    }
-    #overlay1{
+    .overlay{
         position: fixed;
         margin: 0;
         top: 0;
@@ -366,7 +351,7 @@
                                     <div class="description-cell2">فاکتور فروش</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$user->dispaly_name ?? 'موارد پیدا نشد'}}</div>
+                                    <div class="description-cell2">{{$cart->user->dispaly_name ?? 'موارد پیدا نشد'}}</div>
                                 </td>
                                 <td class="numeric-column">
                                     <div class="description-cell2">{{$cart->date}}</div>
@@ -384,7 +369,7 @@
                                 </td>
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">
-                                        <span id="req" class="btn btn-sm btn-outline-success m-1">
+                                        <span id="req" class="btn btn-sm btn-outline-success m-1" data-id="{{ $cart->id }}">
                                             <i class="fa-solid fa-eye"></i>
                                         </span>
                                     </div>
@@ -398,180 +383,83 @@
         </div>
     </div>
 
-        {{-- <div class="row justify-content-center">
-        <div class="col-12"> <!-- استفاده از کل عرض -->
-            <div class="stat-card mt-2"> <!-- کاهش margin -->
-                <h2>درخواست تولید ها</h2>
-                <div class="table-responsive mt-3">
-                    <table id="example1" class="table table-striped table-bordered text-center" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th class="numeric-column">ردیف</th>
-                                <th class="actions-column"> نوع درخواست </th>
-                                <th class="actions-column">عنوان در خواست</th>
-                                <th class="actions-column">نام درخواست دهنده </th>
-                                <th class="actions-column">تاریخ</th>
-                                <th class="actions-column">عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($reqs as $key => $req)
-                            <tr>
-                                <td class="numeric-column">
-                                    <div class="description-cell2">{{$key+1}}</div>
-                                </td>
-                                <td class="numeric-column">
-                                    <div class="description-cell2">تولید</div>
-                                </td>
-                                <td class="numeric-column">
-                                    <div class="description-cell2"> تولید کاشی</div>
-                                </td>
-                                <td class="numeric-column">
-                                    <div class="description-cell2">{{$user2->name}}</div>
-                                </td>
-                                <td class="numeric-column">
-                                    <div class="description-cell2">{{$date2}}</div>
-                                </td>
-                                <td class="actions-column" style="white-space: nowrap">
-                                    <div class="d-flex flex-wrap justify-content-center">
-                                        <span id="req1" class="btn btn-sm btn-outline-success m-1">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div id="overlay1">
-    <div id="img_show">
-        <div class="d-flex flex-column justify-content-center">
-            <div class="d-flex align-items-center justify-content-between mb-3 position-relative">
-                <a class="btn btn-danger m-0" id="btn2">
-                    <i class="fa-solid fa-xmark"></i>
-                </a>
-                <h2 class="overlay-title text-center flex-grow-1 m-0">درخواست تولید</h2>
-            </div>
-                
-            <div>
-                <div class="table-responsive mt-4">
-                    <table class="table table-dark table-hover mt-3 table-borderless">
-                        <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
-                          <tr>
-                            <th>ردیف</th>
-                            <th>کد کالا</th>
-                            <th>نام محصول</th>
-                            <th>تعداد کارتن</th>
-                            <th>تعداد پالت</th>
-                            <th> متراژ کل</th>
-                          </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            @foreach($reqs as $key => $req) 
-                          <tr>
-                            <td>{{$key+1}}</td>
-                            <td>{{$req->prod->code_prod}}</td>
-                            <td>{{$req->prod->name}}</td>
-                            <td>{{$req->count_box}}</td>
-                            <td>{{$req->count_palet}}</td>
-                            <td>{{$req->count_meter}}</td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-center align-items-center">
-                <a href="" class="btn btn-success w-50">تایید</a>
-                <a href="" class="btn btn-danger w-50">رد</a>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-<div id="overlay">
-    <div id="img_show">
-        <div class="d-flex flex-column justify-content-center">
-            <div class="d-flex align-items-center justify-content-between mb-3 position-relative">
-                <a class="btn btn-danger m-0" id="btn2">
-                    <i class="fa-solid fa-xmark"></i>
-                </a>
-                <h2 class="overlay-title text-center flex-grow-1 m-0">درخواست فاکتور فروش</h2>
-            </div>
-                
-            <div>
-                <div class="table-responsive mt-4">
-                    <table class="table table-dark table-hover mt-3 table-borderless">
-                        <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
-                          <tr>
-                            <th>ردیف</th>
-                            <th>کد کالا</th>
-                            <th>نام محصول</th>
-                            <th>تعداد کارتن</th>
-                            <th>متراژ در هر کارتن </th>
-                            <th>تعداد پالت</th>
-                            <th> متراژ کل</th>
-                            <th>  قیمت</th>
-                            <th>  قیمت کل</th>
-                          </tr>
-                        </thead>
-                        <tbody class="text-center"> 
-                            @foreach($cart_prods as $key => $cart_prod)
-                          <tr>
-                            <td>{{$key+1}}</td>
-                            <td>{{$cart_prod->prod->code_prod}}</td>
-                            <td>{{$cart_prod->prod->name}}</td>
-                            <td>{{$cart_prod->count_box}}</td>
-                            <td>{{$cart_prod->prod->count_meter}}</td>
-                            <td>{{$cart_prod->count_palet}}</td>
-                            <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
-                            <td>{{number_format($cart_prod->prod->price)}}</td>
-                            <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter))}}</td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                    </table>
+@foreach($carts as $cart)
+    <div class="overlay" id="overlay-{{ $cart->id }}">
+        <div id="img_show">
+            <div class="d-flex flex-column justify-content-center">
+                <div class="d-flex align-items-center justify-content-between mb-3 position-relative">
+                    <a class="btn btn-danger m-0" id="btn2">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
+                    <h2 class="overlay-title text-center flex-grow-1 m-0">درخواست فاکتور فروش</h2>
                 </div>
 
-                <div class="stat-card ">
-
-                    <div class="row">
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
-                            </div>
+                <div>
+                    <div class="table-responsive mt-4">
+                        <table class="table table-dark table-hover mt-3 table-borderless">
+                            <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
+                              <tr>
+                                <th>ردیف</th>
+                                <th>کد کالا</th>
+                                <th>نام محصول</th>
+                                <th>متراژ در هر کارتن </th>
+                                <th>تعداد کارتن</th>
+                                <th>تعداد پالت</th>
+                                <th> متراژ کل</th>
+                                <th>  قیمت</th>
+                                <th>  قیمت کل</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-center"> 
+                                @foreach($cart->cart_prods as $key => $cart_prod)
+                              <tr>
+                                <td>{{$key+1}}</td>
+                                <td>{{$cart_prod->prod->code_prod}}</td>
+                                <td>{{$cart_prod->prod->name}}</td>
+                                <td>{{$cart_prod->count_box}}</td>
+                                <td>{{$cart_prod->prod->count_meter}}</td>
+                                <td>{{$cart_prod->count_palet}}</td>
+                                <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
+                                <td>{{number_format($cart_prod->prod->price)}}</td>
+                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter))}}</td>
+                              </tr>
+                              @endforeach
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div class="row mt-4">
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
+                    <div class="stat-card ">
+
+                        <div class="row">
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$cart->meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$cart->box}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-12">
+                                    <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$cart->palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                                </div>
                         </div>
+
+                        <div class="row mt-4">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">{{number_format($cart->price)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
-
-            <div class="d-flex justify-content-center align-items-center">
-                <a href="" class="btn btn-success w-50">تایید</a>
-                <a href="" class="btn btn-danger w-50">رد</a>
+                <div class="d-flex justify-content-center align-items-center">
+                    <a href="" class="btn btn-success w-50">تایید</a>
+                    <a href="" class="btn btn-danger w-50">رد</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+@endforeach
 @endsection
 
 @section('script')
@@ -665,35 +553,33 @@
 @endif
 
 <script>
-    let btn = document.querySelector('#req');
+    let btns = document.querySelectorAll('#req');
     let overlay = document.querySelector('#overlay');
+    let overlays = document.querySelectorAll('.overlay');
+    let closeButtons = document.querySelectorAll('#btn2');
 
-        btn.addEventListener('click' , function(){
-            let status = true
-            overlay.style.display = 'flex'
+    btns.forEach(function(btn){
+        btn.addEventListener('click' , function(e){
+            const userId = btn.getAttribute('data-id');
+            const overlay = document.getElementById(`overlay-${userId}`);
+            overlay.style.display = 'flex'; 
         })
+    })
 
-        overlay.addEventListener('click' , function(e){
-            if(e.target===overlay){
-                overlay.style.display='none'
+    overlays.forEach(function(overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+                overlay.style.display = 'none';
             }
-        })
-</script>
+        });
+    })
 
-<script>
-    let btn1 = document.querySelector('#req1');
-        let overlay1 = document.querySelector('#overlay1');
-
-        btn1.addEventListener('click' , function(){
-            let status = true
-            overlay1.style.display = 'flex'
-        })
-
-        overlay1.addEventListener('click' , function(e){
-            if(e.target===overlay1){
-                overlay1.style.display='none'
-            }
-        })
+    closeButtons.forEach(function(closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+            const overlay = e.target.closest('.overlay');
+            overlay.style.display = 'none';
+        });
+    });
 </script>
 
 @endsection

@@ -608,18 +608,23 @@ class CRMController extends Controller
     }
 
     public function request(){
-        $meter = 0;
-        $box = 0;
-        $palet = 0;
-        $priceAll = 0;
 
         $carts = Carts::whereNull('type')->where('status' ,'>', 0)->get();
         foreach($carts as $cart){
+            
+            $meter = 0;
+            $box = 0;
+            $palet = 0;
+            $priceAll = 0;
+
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
             $user = User::where('id' , $cart->admin_id)->first();
             $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
             $cart['date'] = $date;
-            foreach($cart_prods as $cart_prod){
+            $cart['user'] = $user;
+            $cart['cart_prods'] = $cart_prods;
+            
+            foreach($cart->cart_prods as $cart_prod){
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
                 $cart_prod['prod'] = $prod;
                 
@@ -628,9 +633,13 @@ class CRMController extends Controller
                 $palet = $cart_prod->count_palet + $palet;
                 $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
             }
+            $cart['meter'] = $meter ;
+            $cart['box'] = $box;
+            $cart['palet'] = $palet;
+            $cart['price'] = $priceAll ;
         }
 
-        return view('admin.request' , compact('carts' , 'cart_prods' , 'user' , 'date' , 'box' , 'priceAll' , 'meter' , 'palet'));
+        return view('admin.request' , compact('carts'));
     }
 
     public function requestPost(Request $req){
@@ -991,6 +1000,29 @@ class CRMController extends Controller
         // return $date;
         $customers = Customer::get();
         return view('admin.lpo' , compact('customers' , 'lpo' , 'date' , 'prods' , 'lpo_prods' , 'priceAll' , 'meter' , 'box' , 'palet'));
+    }
+
+    public function lpoAjax($id){
+
+        $product = Product::find($id);
+
+        if ($product) {
+            $sizes = size_product::where('product_id' , $id)->get();
+            foreach($sizes as $size){
+                $size['name'] = Size::where('id' , $size->size_id)->first()->name;
+            }
+            return response()->json([
+                'count_meter' => $product->count_meter ?? '',
+                'count_box' => $product->count_box ?? '',
+                'sizes' => $sizes ?? '',
+            ]);
+        }
+
+        return response()->json([
+            'count_meter' => '',
+            'count_box' => '',
+            'sizes' => '',
+        ]);
     }
 
     public function lpoAddCart(Request $req){

@@ -127,6 +127,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/crm/cart/final/buy',[CRMController::class,'finalCartBuy']);
 
     Route::get('/admin/crm/lpo/add/{id}',[CRMController::class,'lpo'])->name('lpo');
+        Route::get('/get-product-info/lpo/{id}',[CRMController::class,'lpoAjax']);
     Route::post('/admin/crm/add/cart/lpo',[CRMController::class,'lpoAddCart']);
     Route::post('/admin/crm/lpo/product/add',[CRMController::class,'lpoAddCartProd']);
     Route::post('/admin/crm/cart/final/lpo',[CRMController::class,'lpoFinal']);

@@ -170,10 +170,14 @@
         .form-row-responsive .form-select {
             width: 100% !important;
         }
+        .form-row-responsive>div {
+            width: 100% !important;
+        }
 
         .textArea {
             width: 100%;
         }
+
     }
 </style>
 @endsection
@@ -239,9 +243,32 @@
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center mt-3">
                         <input type="hidden" value="{{ $lpo->id }}" name="lpo_id">
-                        <input type="text" name="count_box" id="box" class="form-control w-50" placeholder=" تعداد کارتن   ">
-                        {{-- <input type="text" name="count_palet" id="palet" class="form-control w-50" placeholder=" تعداد پالت "> --}}
-                        <input type="text" name="count_all" id="all" class="form-control w-50" placeholder="متراژ کل">
+
+                        <div class="w-50">
+                            <label for="">سایز کاشی </label>
+                            <select name="size_id" id="sizeSelect" class="form-select m-0">
+                                <option value="" selected disabled>سایز را انتخاب کنید</option>
+                            </select>
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">متراژکل</label>
+                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ کل">
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">تعداد کارتن</label>
+                            <input type="text" name="count_box" id="box" class="form-control" placeholder=" تعداد کارتن   ">
+                        </div>
+                        {{-- <div class="w-50"> 
+                            <label for="">متراژ هر کارتن</label>
+                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ هر کارتن">
+                        </div> --}}
+                        <div class="w-50">
+                            <label for="">تعداد پالت</label>
+                            <input type="text" name="count_palet" id="palet" class="form-control" placeholder=" تعداد پالت ">
+                        </div>
+
                     </div>
                     @error('count_all')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
@@ -382,12 +409,12 @@
 </script>
 @endif
 
-{{-- <script>
+<script>
     $('#productSelect').on('change', function() {
         let productId = $(this).val();
         if (productId) {
             $.ajax({
-                url: '/get-product-info/' + productId,
+                url: '/get-product-info/lpo/' + productId,
                 method: 'GET',
                 success: function(data) {
                     let inputPalet = document.querySelector('#palet')
@@ -397,23 +424,36 @@
                     let boxInPalet = data.count_box;
 
                     function totalMeter(){
-                        let box = inputBox.value
+                        let all = inputAll.value
                     
-                        let all = meterInBox * box
-                        inputAll.value = all.toFixed(2)
+                        let box = all / meterInBox
+                        inputBox.value = box.toFixed(2)
                     }
 
                     function totalPalet(){
-                        let box = inputBox.value
+                        let all = inputAll.value
                     
-                        let all = box / boxInPalet
-                        inputPalet.value = all.toFixed(2)
+                        let box = all * boxInPalet
+                        inputPalet.value = box.toFixed(2)
                     }
 
-                    inputBox.addEventListener('input', totalMeter);
-                    inputBox.addEventListener('input', totalPalet);
+                    inputAll.addEventListener('input', totalMeter);
+                    inputAll.addEventListener('input', totalPalet);
                     totalMeter();
                     totalPalet();
+
+                    let sizeSelect = $('#sizeSelect');
+                    sizeSelect.empty(); // خالی کردن قبلی‌ها
+                                
+                    sizeSelect.append('<option value="" selected disabled>سایز را انتخاب کنید</option>');
+                                
+                    if (data.sizes && data.sizes.length > 0) {
+                        data.sizes.forEach(function(size) {
+                            sizeSelect.append(
+                                `<option value="${size.id}">${size.name}</option>`
+                            );
+                        });
+                    }
 
                 },
                 error: function() {
@@ -427,5 +467,5 @@
             $('#count_box').val('');
         }
     });
-</script> --}}
+</script>
 @endsection
