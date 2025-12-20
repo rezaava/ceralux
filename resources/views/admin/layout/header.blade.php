@@ -84,7 +84,7 @@
                 </a>
             </li>
             @endif
-            @if (Auth::user()->hasRole('adminSocialMedia') || Auth::user()->hasRole('manager'))
+            @if (Auth::user()->hasRole('adminSocialMedia') || Auth::user()->hasRole('manager') || Auth::user()->hasRole('adminWorker'))
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center {{ request()->is('admin/product*') ? 'active' : '' }}"
                         data-bs-toggle="collapse" href="#productMenu" role="button"
@@ -118,14 +118,15 @@
                     <span class="menu-label">کاتالوگ ها</span>
                 </a>
             </li>
-
+            @endif
+            @if (Auth::user()->hasRole('manager') || Auth::user()->hasRole('adminWorker'))
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('req') ? 'active' : '' }}" href="/admin/request">
                     <i class="fas fa-file-alt"></i>
                     <span class="menu-label">درخواست ها</span>
                 </a>
             </li>
-
+            
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center {{ request()->is('admin/crm*') ? 'active' : '' }}"
                     data-bs-toggle="collapse" href="#productMenu1" role="button"
@@ -194,7 +195,8 @@
 
 
             </li>
-
+            @endif
+            @if(Auth::user()->hasRole('manager'))
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center {{ request()->is('admin/financial*') ? 'active' : '' }}"
                     data-bs-toggle="collapse" href="#productMenu3" role="button"
@@ -233,7 +235,8 @@
 
 
             </li>
-
+            @endif
+            @if(Auth::user()->hasRole('manager') || Auth::user()->hasRole('adminWorker'))
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center {{ request()->is('admin/user*') ? 'active' : '' }}"
                     data-bs-toggle="collapse" href="#productMenu2" role="button"
@@ -259,20 +262,22 @@
                 </div>
 
             </li>
-
+            @endif
+            @if(Auth::user()->hasRole('manager'))
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('setting') ? 'active' : '' }}" href="/admin/setting">
                     <i class="fa-solid fa-sliders"></i>
                     <span class="menu-label">تنظیمات</span>
                 </a>
             </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="/">
                     <i class="fa-solid fa-reply-all"></i>
                     <span class="menu-label">بازگشت به سایت</span>
                 </a>
             </li>
-        @endif
+        
             <li class="nav-item text-center mt-3 mb-3">
                 <a class="btn btn-danger" href="/logout/admin">
                     <i class="fa-solid fa-right-to-bracket"></i>
