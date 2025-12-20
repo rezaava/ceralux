@@ -550,4 +550,22 @@
 </script>
 @endif
 
+@if (session('error2'))
+<script>
+    Swal.fire({
+        icon: "error",
+        title: "خطا LPO تکراری",
+        text: '{{ session('error2') }}',
+        showCloseButton: true,
+        confirmButtonText:"متوجه شدم",
+        background: '#232b39',
+        color: '#fff',
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@endif
+
 @endsection

@@ -228,6 +228,26 @@
         position: relative;
         transition: all 0.3s ease-in-out;
     }
+    .rounded-pill.bg-warning{
+        background-color : #3123239e!important;
+        color: #fffb07;
+        padding: 0.5rem 0.6rem;
+    }
+    .rounded-pill.bg-success{
+        background-color : #3123239e!important;
+        color: #07ff5e;
+        padding: 0.5rem 0.6rem;
+    }
+    .rounded-pill.bg-danger{
+        background-color : #3123239e!important;
+        color: #ff0707;
+        padding: 0.5rem 0.6rem;
+    }
+    .rounded-pill.bg-info{
+        background-color : #3123239e!important;
+        color: #07ffff;
+        padding: 0.5rem 0.6rem;
+    }
 
 
     /* مخفی کردن ستون‌های کم‌اهمیت در صفحه‌های کوچک */
@@ -328,7 +348,8 @@
                                 <th class="actions-column"> نوع درخواست </th>
                                 <th class="actions-column">عنوان در خواست</th>
                                 <th class="actions-column">نام درخواست دهنده </th>
-                                <th class="actions-column">تاریخ</th>
+                                <th class="actions-column">تاریخ ثبت</th>
+                                <th class="actions-column">وضعیت</th>
                                 <th class="actions-column">عملیات</th>
                             </tr>
                         </thead>
@@ -345,10 +366,21 @@
                                     <div class="description-cell2">فاکتور فروش</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$user->name}}</div>
+                                    <div class="description-cell2">{{$user->dispaly_name ?? 'موارد پیدا نشد'}}</div>
                                 </td>
                                 <td class="numeric-column">
-                                    <div class="description-cell2">{{$date}}</div>
+                                    <div class="description-cell2">{{$cart->date}}</div>
+                                </td>
+                                <td class="numeric-column text-center">
+                                    @if($cart->status == 1)
+                                    <p class="text-center badge rounded-pill bg-warning">درحال بررسی</p>
+                                    @elseif ($cart->status == 2)
+                                    <p class="text-center badge rounded-pill bg-success">تایید شد</p>
+                                    @elseif($cart->status == 3)
+                                    <p class="text-center badge rounded-pill bg-danger">رد شد</p>
+                                    @else
+                                    <p class="text-center badge rounded-pill bg-info">سایر موارد</p>
+                                    @endif
                                 </td>
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">
@@ -366,7 +398,7 @@
         </div>
     </div>
 
-        <div class="row justify-content-center">
+        {{-- <div class="row justify-content-center">
         <div class="col-12"> <!-- استفاده از کل عرض -->
             <div class="stat-card mt-2"> <!-- کاهش margin -->
                 <h2>درخواست تولید ها</h2>
@@ -463,7 +495,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <div id="overlay">
     <div id="img_show">

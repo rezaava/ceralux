@@ -339,7 +339,7 @@
                                     <div class="description-cell2">{{ $prod->count_box }}</div>
                                 </td> --}}
                                 <td class="numeric-column hide-on-large">
-                                    {{ $prod->size_prods->pluck('box_meter')->implode('|') }}
+                                    @foreach($prod->size_prods as $size) {{ $size->box_meter }} @endforeach
                                 </td>
                                 <td class="numeric-column hide-on-medium">
                                     <div class="description-cell2">{{ $prod->count_box }}</div>

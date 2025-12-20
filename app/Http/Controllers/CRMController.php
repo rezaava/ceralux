@@ -105,6 +105,13 @@ class CRMController extends Controller
 
     public function salePost(Request $req){
 
+        $carts = Carts::where('status' , 1)->whereNull('type')->where('num_lpo' , $req->num_lpo)->exists();
+
+        if($carts){
+            return redirect()->back()->with('error2' , 'شماره LPO تکرار میباشد و این شماره ثبت شده است.');
+        }
+        
+
         $data = $req->all();
 
         $rule = [
@@ -137,6 +144,7 @@ class CRMController extends Controller
         } while (Carts::where('num_cart', $code)->exists());
         $cart->num_cart = $code;
         $cart->user_id = $req->customer;
+        $cart->admin_id = Auth::user()->id;
         $cart->num_lpo = $req->num_lpo;
         $cart->status = '0';
         $cart->save();
@@ -240,7 +248,7 @@ class CRMController extends Controller
         $order->count_boxs = $box;
         $order->count_palet = $palet;
         $order->save();
-        return redirect('/admin/crm/reqSale/{id}')->with('message' , 'فاکتور با موفقیت ثبت شد!');
+        return redirect('/admin/crm/reqSale/{id}')->with('message' , 'فاکتور فروش با موفقیت برای مدیر ارسال شد!');
     }
 
     public function reqSaleF($id = null){
@@ -605,11 +613,12 @@ class CRMController extends Controller
         $palet = 0;
         $priceAll = 0;
 
-        $carts = Carts::get();
+        $carts = Carts::whereNull('type')->where('status' ,'>', 0)->get();
         foreach($carts as $cart){
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
-            $user = Customer::where('id' , $cart->user_id)->first();
+            $user = User::where('id' , $cart->admin_id)->first();
             $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
+            $cart['date'] = $date;
             foreach($cart_prods as $cart_prod){
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
                 $cart_prod['prod'] = $prod;
@@ -620,14 +629,8 @@ class CRMController extends Controller
                 $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
             }
         }
-        $reqs = ModelsRequest::get();
-        foreach($reqs as $req){
-            $date2 = Verta::instance($req->created_at)->format('Y/m/d');
-            $user2 = Customer::where('id' , $req->user_id)->first();
-            $prod = Product::where('id' , $req->prod_id)->first();
-            $req['prod'] = $prod;
-        }
-        return view('admin.request' , compact('carts' , 'cart_prods' , 'reqs' , 'user' , 'date' , 'user2' , 'date2' , 'box' , 'priceAll' , 'meter' , 'palet'));
+
+        return view('admin.request' , compact('carts' , 'cart_prods' , 'user' , 'date' , 'box' , 'priceAll' , 'meter' , 'palet'));
     }
 
     public function requestPost(Request $req){
