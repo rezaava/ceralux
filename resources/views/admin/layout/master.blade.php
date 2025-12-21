@@ -19,7 +19,10 @@
                     <img src="https://randomuser.me/api/portraits/men/32.jpg" class="user-avatar" alt="User">
                     @if(Auth::user())
                         @if(Auth::user()->dispaly_name)
-                            <span class="user-name">{{Auth::user()->dispaly_name}}</span>
+                            <div class="d-flex justify-content-center align-items-center flex-column">
+                                <span class="user-name">{{Auth::user()->dispaly_name}}</span>
+                                <span style="background-color: rgba(173, 216, 230, 0.248);color:#ccc;border-radius: 1rem ; padding:0 0.5rem;font-size: 0.76rem;margin-top: 0.4rem">{{Auth::user()->roles->first()?->display_name}}</span>
+                            </div>
                         @else
                         <small style="color: lightblue;">در داخل تنظیمات اسم را وارد کنید</small>
                         @endif

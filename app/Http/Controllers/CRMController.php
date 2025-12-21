@@ -16,6 +16,8 @@ use App\Models\User;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
 use Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Facades\Validator;
 
 class CRMController extends Controller
@@ -69,12 +71,17 @@ class CRMController extends Controller
                 foreach($cart_prods as $cart_prod){
                     $prod = Product::where('id' , $cart_prod->prod_id)->first();
                     $cart_prod['prod'] = $prod;
+                    $size = Size::where('id' , $cart_prod->size_prod_id)->first();
+                    $size_prod = size_product::where('size_id' , $cart_prod->size_prod_id)->where('product_id' , $cart_prod->prod_id)->first();
+
+                    $cart_prod['size_prod'] = $size_prod;
+                    $cart_prod['size'] = $size;
                     
-                    $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+                    $meter = $cart_prod->count_all + $meter;
                     $box = $cart_prod->count_box + $box;
                     $palet = $cart_prod->count_palet + $palet;
                     $paper = $cart_prod->prod->count_paper + $paper;
-                    $priceAll = $cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) + $priceAll;
+                    $priceAll = $cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) + $priceAll;
                     $five = $priceAll * 0.05;
                     $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
                     $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
@@ -87,6 +94,11 @@ class CRMController extends Controller
                     foreach($lpo_prods as $lpo_prod){
                         $prod = Product::where('id' , $lpo_prod->prod_id)->first();
                         $lpo_prod['prod'] = $prod;
+                        $size_prod = size_product::where('id' , $lpo_prod->size_prod_id)->first();
+                        $size = Size::where('id' , $size_prod->size_id)->first();
+                        $lpo_prod['size_prod'] = $size_prod;
+                        $lpo_prod['size'] = $size;
+
                     }
                 }else{
                     //return 'salma';
@@ -184,8 +196,10 @@ class CRMController extends Controller
         foreach ($req->prod_id as $key => $prod_id) {
             $cart_prod = new Cart_prod();
             $cart_prod->prod_id = $prod_id;
+            $cart_prod->size_prod_id = $req->size_id[$key];
             $cart_prod->card_id = $req->cart_id;
             $cart_prod->count_box = $req->count_box[$key];
+            $cart_prod->count_all = $req->count_all[$key];
             $cart_prod->count_palet = $req->count_palet[$key];
             $cart_prod->off = $req->off[$key] ?? 0;
             $cart_prod->save();
@@ -199,11 +213,12 @@ class CRMController extends Controller
 
         $rule = [
             'price_rent' => 'required|numeric',  
-            'all_off' => 'nullable|numeric',  
+            'all_off' => 'required|numeric',  
         ];
 
         $msg = [
             'price_rent.required' => 'مبلغ کرایه بار را وارد کنید',
+            'all_off.required' => '  تخفیف کل را وارد کنید یا صفر بزنید',
             'price_rent.numeric' => '  مبلغ کرایه بار را عدد وارد کنید',
             'all_off.numeric' => 'تخفیف کل  را درست وارد کنید',
         ];
@@ -249,187 +264,6 @@ class CRMController extends Controller
         $order->count_palet = $palet;
         $order->save();
         return redirect('/admin/crm/reqSale/{id}')->with('message' , 'فاکتور فروش با موفقیت برای مدیر ارسال شد!');
-    }
-
-    public function reqSaleF($id = null){
-
-        $cart_prods = null;
-        $order = null;
-        $user = null;
-        $meter = 0;
-        $box = 0;
-        $palet = 0;
-        $paper = 0;
-        $priceAll = 0;
-        $date = null;
-        $five = 0;
-        $finalPrice = 0;
-        $finalOff = 0;
-        $subtotal = 0;
-
-        if($id){
-            $order = Carts::find($id);
-            if ($order) {
-                $date = Verta::instance($order->created_at)->format('Y/m/d');
-                $user = Customer::where('id' , $order->user_id)->first();
-                $cart_prods = Cart_prod::where('card_id' , $order->id)->get();
-                foreach($cart_prods as $cart_prod){
-                    $prod = Product::where('id' , $cart_prod->prod_id)->first();
-                    $cart_prod['prod'] = $prod;
-                    
-                    $meter = $cart_prod->count_box * $prod->count_meter + $meter;
-                    $box = $cart_prod->count_box + $box;
-                    $palet = $cart_prod->count_palet + $palet;
-                    $paper = $cart_prod->prod->count_paper + $paper;
-                    $priceAll = $cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) + $priceAll;
-                    $five = $priceAll * 0.05;
-                    $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
-                    $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
-                    $finalPrice = $subtotal - $finalOff;  
-                }
-                 
-            }
-            
-        }
-        $prods = Product::get();
-        $cuss = Customer::get();
-        return view('admin.reqSaleF' , compact('five' , 'finalPrice' , 'paper' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
-    }
-
-    public function salePostF(Request $req){
-
-        $data = $req->all();
-
-        $rule = [
-            'customer' => 'required',  
-        ];
-
-        $msg = [
-            'customer.required' => 'مشتری را انتخاب کنید',
-        ];
-
-        $valid = Validator::make($data, $rule, $msg);
-
-        if ($valid->fails()) {
-            return redirect()->back()->withErrors($valid)->withInput();
-        }
-
-
-        function generateVolunteerCode()
-        {
-            $number = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
-            return 'Kh' . $number;
-        }
-
-        $cart = new Carts();
-
-        do {
-            $code = generateVolunteerCode();
-        } while (Carts::where('num_cart', $code)->exists());
-        $cart->num_cart = $code;
-        $cart->user_id = $req->customer;
-        $cart->status = '0';
-        $cart->save();
-
-        return redirect()->route('reqSalef', $cart->id);
-    }
-
-    public function productAddPostCartF(Request $req){
-
-        $data = $req->all();
-
-        $rule = [
-            'prod_id' => 'required',  
-            'count_box' => 'required|numeric',  
-            'count_palet' => 'nullable|numeric',  
-            'off' => 'nullable|numeric',  
-        ];
-
-        $msg = [
-            'prod_id.required' => 'طرح را انتخاب کنید',
-            'count_box.required' => 'تعداد کارتن را وارد کنید',
-            // 'count_palet.required' => 'تعداد پالت را وارد کنید',
-
-            'count_box.numeric' => 'تعداد کارتن را عدد وارد کنید',
-            'count_palet.numeric' => 'تعداد پالت را عدد وارد کنید',
-            'count_palet.numeric' => 'لطفا تخفیف  را درست وارد کنید',
-        ];
-
-        $valid = Validator::make($data, $rule, $msg);
-
-        if ($valid->fails()) {
-            return redirect()->back()->withErrors($valid)->withInput();
-        }
-
-        
-        $cart_prod = new Cart_prod();
-        $cart_prod->prod_id = $req->prod_id;
-        $cart_prod->card_id = $req->cart_id;
-        $cart_prod->count_box = $req->count_box;
-        $cart_prod->count_palet = $req->count_palet;
-        $cart_prod->off = $req->off;
-        $cart_prod->save();
-        
-        return redirect()->back()->with('message' , ' محصول با موفقیت اضافه  شد!');
-    }
-
-    public function productAddOffCartF(Request $req){
-
-        $data = $req->all();
-
-        $rule = [
-            'price_rent' => 'required|numeric',  
-            'all_off' => 'nullable|numeric',  
-        ];
-
-        $msg = [
-            'price_rent.required' => 'مبلغ کرایه بار را وارد کنید',
-            'price_rent.numeric' => '  مبلغ کرایه بار را عدد وارد کنید',
-            'all_off.numeric' => 'تخفیف کل  را درست وارد کنید',
-        ];
-
-        $valid = Validator::make($data, $rule, $msg);
-
-        if ($valid->fails()) {
-            return redirect()->back()->withErrors($valid)->withInput();
-        }
-
-
-        $cart = Carts::find($req->cart_id);
-        $cart->off = $req->all_off;
-        $cart->price_rent = $req->price_rent;
-        $cart->save();
-        return redirect()->back()->with('message' , ' تغییرات  با موفقیت اعمال  شد!');
-    }
-
-    public function salePayPostF(Request $req){
-
-        $meter = 0;
-        $box = 0;
-        $palet = 0;
-        $priceAll = 0;
-
-        $order = Carts::find($req->cart_id);
-
-        $cart_prods = Cart_prod::where('card_id' , $order->id)->get();
-        foreach($cart_prods as $cart_prod){
-            $prod = Product::where('id' , $cart_prod->prod_id)->first();
-            $cart_prod['prod'] = $prod;
-            
-            $meter = $cart_prod->count_box * $prod->count_meter + $meter;
-            $box = $cart_prod->count_box + $box;
-            $palet = $cart_prod->count_palet + $palet;
-            $priceAll = $cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) + $priceAll;
-        }
-
-
-        $order->status = '1';
-        $order->price = $priceAll;
-        $order->count_meters = $meter;
-        $order->count_boxs = $box;
-        $order->count_palet = $palet;
-        $order->save();
-        return redirect('/admin/crm/reqSaleF/{id}')->with('message' , 'فاکتور با موفقیت ثبت شد!');
     }
 
     public function listUser(){
@@ -642,17 +476,21 @@ class CRMController extends Controller
         return view('admin.request' , compact('carts'));
     }
 
-    public function requestPost(Request $req){
+    public function requestPostYes($id){
 
-        $request = new ModelsRequest();
-        $request->user_id = '2';
-        $request->prod_id = $req->prod_id;
-        $request->count_box = $req->count_box;
-        $request->count_all = $req->count_all;
-        $request->count_meter = $req->count_meter;
-        $request->count_palet = $req->count_palet;
-        $request->save();
-        return redirect()->back()->with('message' , ' درخواست با موفقیت ارسال  شد!');
+        $cart = Carts::where('id' , $id)->first();
+        $cart->status = '2';
+        $cart->date_admin = Carbon::now();
+        $cart->save();
+        return redirect()->back()->with('message' , ' درخواست با موفقیت تایید  شد!');
+    }
+
+    public function requestPostNo($id){
+
+        $cart = Carts::where('id' , $id)->first();
+        $cart->status = '3';
+        $cart->save();
+        return redirect()->back()->with('message' , ' درخواست با موفقیت رد  شد!');
     }
 
     public function submit($id = null){
@@ -971,7 +809,7 @@ class CRMController extends Controller
     public function lpo($id = null){
         $lpo = null;
         $date = null;
-         $meter = 0;
+        $meter = 0;
         $box = 0;
         $palet = 0;
         $priceAll = 0;
@@ -987,11 +825,15 @@ class CRMController extends Controller
                 foreach($lpo_prods as $lpo_prod){
                     $prod = Product::where('id' , $lpo_prod->prod_id)->first();
                     $lpo_prod['prod'] = $prod;
+                    $size_prod = size_product::where('id' , $lpo_prod->size_prod_id)->first();
+                    $size = Size::where('id' , $size_prod->size_id)->first();
+                    $lpo_prod['size_prod'] = $size_prod;
+                    $lpo_prod['size'] = $size;
 
-                    $meter = $lpo_prod->count_box * $prod->count_meter + $meter;
+                    $meter = $lpo_prod->count_all + $meter;
                     $box = $lpo_prod->count_box + $box;
                     $palet = $lpo_prod->count_palet + $palet;
-                    $priceAll = ($lpo_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+                    $priceAll = ($lpo_prod->count_all) * $prod->price + $priceAll;
 
 
                 }
@@ -1012,16 +854,30 @@ class CRMController extends Controller
                 $size['name'] = Size::where('id' , $size->size_id)->first()->name;
             }
             return response()->json([
-                'count_meter' => $product->count_meter ?? '',
-                'count_box' => $product->count_box ?? '',
                 'sizes' => $sizes ?? '',
+            ]);
+        }
+
+        return response()->json([
+            'sizes' => '',
+        ]);
+    }
+
+    public function lpoAjax2($sizeId , $id){
+
+        $size_prod = size_product::where('id'  ,$sizeId)->first();
+        $prod = Product::where('id' , $id)->first();
+
+        if ($size_prod) {
+            return response()->json([
+                'count_meter' => $size_prod->box_meter ?? '',
+                'count_box' => $prod->count_box ?? '',
             ]);
         }
 
         return response()->json([
             'count_meter' => '',
             'count_box' => '',
-            'sizes' => '',
         ]);
     }
 
@@ -1091,6 +947,7 @@ class CRMController extends Controller
             $lpo_prod->count_box = $req->count_box;
             $lpo_prod->count_palet = $req->count_palet;
             $lpo_prod->count_all = $req->count_all;
+            $lpo_prod->size_prod_id = $req->size_id;
             $lpo_prod->save();
             return redirect()->route('lpo' , $req->lpo_id);
         }

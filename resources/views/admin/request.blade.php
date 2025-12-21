@@ -451,11 +451,12 @@
                     </div>
 
                 </div>
-
+                @if(Auth::user()->hasRole('manager'))
                 <div class="d-flex justify-content-center align-items-center">
-                    <a href="" class="btn btn-success w-50">تایید</a>
-                    <a href="" class="btn btn-danger w-50">رد</a>
+                    <a href="/admin/crm/reqProd/yes/add/{{ $cart->id }}" class="btn btn-success w-50">تایید</a>
+                    <a href="/admin/crm/reqProd/no/add/{{ $cart->id }}" class="btn btn-danger w-50">رد</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>

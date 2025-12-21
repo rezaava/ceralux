@@ -185,7 +185,7 @@
 @section('main')
 <div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10 col-12">
+        <div class="col-lg-10 col-md-10 col-12">
             <div class="stat-card mt-3">
 
                <div class="d-flex justify-content-between align-items-center">
@@ -287,9 +287,10 @@
                                     <th>ردیف</th>
                                     <th>کد کالا</th>
                                     <th>نام محصول</th>
+                                    <th>سایز </th>
                                     <th>تعداد کارتن</th>
                                     <th>متراژ هر کارتن</th>
-                                    {{-- <th>تعداد پالت</th> --}}
+                                    <th>تعداد پالت</th>
                                     <th> متراژ کل</th>
                                     <th> قیمت</th>
                                     <th> قیمت کل</th>
@@ -301,12 +302,13 @@
                                     <td>{{$key+1}}</td>
                                     <td>{{$lpo_prod->prod->code_prod}}</td>
                                     <td>{{$lpo_prod->prod->name}}</td>
+                                    <td>{{$lpo_prod->size->name}}</td>
                                     <td>{{$lpo_prod->count_box}}</td>
-                                    <td>{{$lpo_prod->prod->count_meter}}</td>
-                                    {{-- <td>{{$lpo_prod->count_palet}}</td> --}}
-                                    <td>{{$lpo_prod->count_box * $lpo_prod->prod->count_meter}}</td>
+                                    <td>{{$lpo_prod->size_prod->box_meter}}</td>
+                                    <td>{{$lpo_prod->count_palet}}</td>
+                                    <td>{{$lpo_prod->count_all}}</td>
                                     <td>{{number_format($lpo_prod->prod->price)}}</td>
-                                    <td>{{number_format($lpo_prod->prod->price * ($lpo_prod->count_box * $lpo_prod->prod->count_meter))}}</td>
+                                    <td>{{number_format($lpo_prod->prod->price * $lpo_prod->count_all)}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -417,31 +419,6 @@
                 url: '/get-product-info/lpo/' + productId,
                 method: 'GET',
                 success: function(data) {
-                    let inputPalet = document.querySelector('#palet')
-                    let inputBox = document.querySelector('#box')
-                    let inputAll = document.querySelector('#all')
-                    let meterInBox = data.count_meter;
-                    let boxInPalet = data.count_box;
-
-                    function totalMeter(){
-                        let all = inputAll.value
-                    
-                        let box = all / meterInBox
-                        inputBox.value = box.toFixed(2)
-                    }
-
-                    function totalPalet(){
-                        let all = inputAll.value
-                    
-                        let box = all * boxInPalet
-                        inputPalet.value = box.toFixed(2)
-                    }
-
-                    inputAll.addEventListener('input', totalMeter);
-                    inputAll.addEventListener('input', totalPalet);
-                    totalMeter();
-                    totalPalet();
-
                     let sizeSelect = $('#sizeSelect');
                     sizeSelect.empty(); // خالی کردن قبلی‌ها
                                 
@@ -457,6 +434,52 @@
 
                 },
                 error: function() {
+                    $('#sizeSelect').val('');
+    
+                }
+            });
+        } else {
+            $('#sizeSelect').val('');
+
+        }
+    });
+</script>
+
+<script>
+    $('#sizeSelect').on('change', function() {
+        let sizeId = $(this).val();
+        let productId = $('#productSelect').val();
+        if (sizeId) {
+            $.ajax({
+                url: '/get-product-info/lpo/size/' + sizeId + '/' + productId,
+                method: 'GET',
+                success: function(data) {
+                    let inputPalet = document.querySelector('#palet')
+                    let inputBox = document.querySelector('#box')
+                    let inputAll = document.querySelector('#all')
+                    let meterInBox = data.count_meter;
+                    // alert(meterInBox)
+                    let boxInPalet = data.count_box;
+
+                    function totalMeter(){
+                         let all = inputAll.value
+                    
+                        let box = all / meterInBox
+                        inputBox.value = box.toFixed(2)
+                    }
+
+                    function totalPalet(){
+                        let all = inputAll.value
+                    
+                        let palet = inputBox.value / boxInPalet
+                        inputPalet.value = palet.toFixed(2)
+                    }
+
+                    inputAll.addEventListener('input', totalMeter);
+                    inputAll.addEventListener('input', totalPalet);
+
+                },
+                error: function() {
                     $('#count_meter').val('');
                     $('#count_box').val('');
     
@@ -465,6 +488,7 @@
         } else {
             $('#count_meter').val('');
             $('#count_box').val('');
+
         }
     });
 </script>

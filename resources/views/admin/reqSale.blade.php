@@ -292,6 +292,17 @@
                         </div>
 
                         <div class="w-100 w-md-50">
+                            <label class="form-label m-0">سایز محصول</label>
+                            <input type="text" value="{{ $lpo_prod->size->name }}" class="form-control" readonly>
+                            <input type="text" name="size_id[{{ $index }}]" value="{{ $lpo_prod->size->id }}" class="form-control" hidden>
+                        </div>
+
+                        <div class="w-100 w-md-50">
+                            <label class="form-label m-0"> متراژ کل</label>
+                            <input type="text" name="count_all[{{ $index }}]" value="{{ $lpo_prod->count_all }}" class="form-control" >
+                        </div>
+
+                        <div class="w-100 w-md-50">
                             <label class="form-label m-0">تعداد کارتن</label> 
                             <input type="text" name="count_box[{{ $index }}]" value="{{ $lpo_prod->count_box }}" class="form-control" placeholder="تعداد کارتن">
                         </div>
@@ -334,8 +345,9 @@
                                 <th>ردیف</th>
                                 <th>کد کالا</th>
                                 <th>نام محصول</th>
-                                <th>تعداد کارتن</th>
+                                <th>سایز </th>
                                 <th>متراژ هر کارتن</th>
+                                <th>تعداد کارتن</th>
                                 <th>تعداد برگ کاشی</th>
                                 <th>تعداد پالت</th>
                                 <th> متراژ کل</th>
@@ -350,14 +362,15 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$cart_prod->prod->code_prod}}</td>
                                 <td>{{$cart_prod->prod->name}}</td>
+                                <td>{{$cart_prod->size->name}}</td>
+                                <td>{{$cart_prod->size_prod->box_meter}}</td>
                                 <td>{{$cart_prod->count_box}}</td>
-                                <td>{{$cart_prod->prod->count_meter}}</td>
                                 <td>{{$cart_prod->prod->count_paper}}</td>
                                 <td>{{$cart_prod->count_palet}}</td>
-                                <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
+                                <td>{{$cart_prod->count_all}}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
                                 <td>{{number_format($cart_prod->off)}}%</td>
-                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) )}}</td>
+                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) )}}</td>
                             </tr>
                             @endforeach
                         </tbody>
