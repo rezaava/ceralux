@@ -457,6 +457,24 @@ class CRMController extends Controller
             $cart['date'] = $date;
             $cart['user'] = $user;
             $cart['cart_prods'] = $cart_prods;
+
+            if ($cart->date_admin) {
+            
+                $date_admin = Carbon::parse($cart->date_admin);
+                $now = Carbon::now();
+            
+                if ($date_admin->diffInDays($now) <= 10) {
+                    $cart['dayReq'] = verta($date_admin)->formatDifference();
+                } else {
+                    $cart['dayReq'] = verta($date_admin)->format('Y/m/d H:i');
+                }
+            
+            } else {
+            
+                // وقتی هنوز پاسخ داده نشده
+                $cart['dayReq'] = '-';
+            }
+
             
             foreach($cart->cart_prods as $cart_prod){
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
@@ -489,6 +507,7 @@ class CRMController extends Controller
 
         $cart = Carts::where('id' , $id)->first();
         $cart->status = '3';
+        $cart->date_admin = Carbon::now();
         $cart->save();
         return redirect()->back()->with('message' , ' درخواست با موفقیت رد  شد!');
     }

@@ -334,6 +334,7 @@
                                 <th class="actions-column">عنوان در خواست</th>
                                 <th class="actions-column">نام درخواست دهنده </th>
                                 <th class="actions-column">تاریخ ثبت</th>
+                                <th class="actions-column">تاریخ پاسخ</th>
                                 <th class="actions-column">وضعیت</th>
                                 <th class="actions-column">عملیات</th>
                             </tr>
@@ -355,6 +356,9 @@
                                 </td>
                                 <td class="numeric-column">
                                     <div class="description-cell2">{{$cart->date}}</div>
+                                </td>
+                                <td class="numeric-column">
+                                    <div class="description-cell2">{{$cart->dayReq ?? '_'}}</div>
                                 </td>
                                 <td class="numeric-column text-center">
                                     @if($cart->status == 1)
@@ -451,7 +455,7 @@
                     </div>
 
                 </div>
-                @if(Auth::user()->hasRole('manager'))
+                @if(Auth::user()->hasRole('manager') && $cart->status == 1)
                 <div class="d-flex justify-content-center align-items-center">
                     <a href="/admin/crm/reqProd/yes/add/{{ $cart->id }}" class="btn btn-success w-50">تایید</a>
                     <a href="/admin/crm/reqProd/no/add/{{ $cart->id }}" class="btn btn-danger w-50">رد</a>
