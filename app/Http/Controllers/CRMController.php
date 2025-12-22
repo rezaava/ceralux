@@ -653,10 +653,10 @@ class CRMController extends Controller
                 $cart_prod['meter'] = $size_prod;
                 $cart_prod['size'] = $size;
 
-                $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+                $meter = $cart_prod->count_all + $meter;
                 $box = $cart_prod->count_box + $box;
                 $palet = $cart_prod->count_palet + $palet;
-                $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+                $priceAll = ($cart_prod->count_all) * $prod->price + $priceAll;
             }
         }
         $prods = Product::get();
@@ -672,16 +672,30 @@ class CRMController extends Controller
                 $size['name'] = Size::where('id' , $size->size_id)->first()->name;
             }
             return response()->json([
-                'count_meter' => $product->count_meter ?? '',
-                'count_box' => $product->count_box ?? '',
                 'sizes' => $sizes ?? '',
+            ]);
+        }
+
+        return response()->json([
+            'sizes' => '',
+        ]);
+    }
+
+    public function buyAjax2($sizeId , $id){
+
+        $size_prod = size_product::where('id'  ,$sizeId)->first();
+        $prod = Product::where('id' , $id)->first();
+
+        if ($size_prod) {
+            return response()->json([
+                'count_meter' => $size_prod->box_meter ?? '',
+                'count_box' => $prod->count_box ?? '',
             ]);
         }
 
         return response()->json([
             'count_meter' => '',
             'count_box' => '',
-            'sizes' => '',
         ]);
     }
 
@@ -690,12 +704,16 @@ class CRMController extends Controller
 
         $rules = [
             'prod_id'   => 'required',
+            'size_id'   => 'required',
+            'no_price'          => 'required',
             'count_palet'    => 'required|numeric',
             'count_box'  => 'required|numeric',
         ];
 
         $messages = [
             'prod_id.required'   => 'یک محصول را انتخاب کنید',
+            'size_id.required'   => 'سایز محصول  را انتخاب کنید',
+            'no_price.required'       => 'نوع ارز را انتخاب کنید  .',
 
             'count_palet.required'   => 'تعدا پالت را وارد کنید',
             'count_palet.numeric'   => 'تعداد پالت باید عدد باشد',
@@ -716,6 +734,10 @@ class CRMController extends Controller
         $product->count_palet = ((int) $product->count_palet) + ((int) $req->count_palet);
         $product->count_all = $product->count_all + $req->count_all;
         $product->save();
+
+        $cart = Carts::where('id' , $req->cart_id)->first();
+        $cart->no_price = $req->no_price;
+        $cart->save();
 
         $cart_prod = new Cart_prod();
         $cart_prod->prod_id = $req->prod_id;
@@ -776,7 +798,7 @@ class CRMController extends Controller
 
         $cart->num_cart = $req->code_buy;
         $cart->date = $req->date_buy;
-        $cart->user_id = Auth::user()->id;
+        $cart->admin_id = Auth::user()->id;
         $cart->status = '0';
         $cart->type = 'buy';
         $cart->save();

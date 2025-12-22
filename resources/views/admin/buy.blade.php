@@ -26,7 +26,7 @@
         background-color: #232323 !important;
         border: none !important;
         color: #fff;
-        margin: 1rem 0;
+        /* margin: 1rem 0; */
     }
 
     .form-control::placeholder {
@@ -243,30 +243,44 @@
                             <select name="size_id" id="sizeSelect" class="form-select m-0">
                                 <option value="" selected disabled>سایز را انتخاب کنید</option>
                             </select>
+                            @error('size_id')
+                                <small class="text-danger d-block mt-2">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">متراژ کل</label>
+                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ کل" >
                         </div>
 
                         <div class="w-50">
                             <label for="">تعداد کارتن</label>
                             <input type="text" name="count_box" id="box" class="form-control" placeholder=" تعداد کارتن">
+                            @error('count_box')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
                         </div>
 
                         <div class="w-50">
                             <label for="">تعداد پالت</label>
                             <input type="text" name="count_palet" id="palet" class="form-control" placeholder=" تعداد پالت ">
+                            @error('count_palet')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
                         </div>
 
                         <div class="w-50">
-                            <label for="">متراژ کل</label>
-                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ کل" readonly>
+                            <label>واحد ارزی</label>
+                            <select name="no_price" class="form-select">
+                                <option value="" disabled selected> نوع ارز را انتخاب کنید</option>
+                                <option value="1" {{ old('no_price', $editProd->no_price ?? '') == 1 ? 'selected' : '' }}>تومان</option>
+                                <option value="2" {{ old('no_price', $editProd->no_price ?? '') == 2 ? 'selected' : '' }}>درهم</option>
+                                <option value="3" {{ old('no_price', $editProd->no_price ?? '') == 3 ? 'selected' : '' }}>دلار</option>
+                            </select>
+                            @error('no_price') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                     </div>
-                    @error('count_palet')
-                        <small class="text-danger d-block mt-2">{{ $message }}</small>
-                    @enderror
-                    @error('count_box')
-                        <small class="text-danger d-block mt-2">{{ $message }}</small>
-                    @enderror
 
                     <div class="text-center mt-3"><button class="btn btn-success w-50">اضافه کردن</button></div>
 
@@ -297,9 +311,9 @@
                                     <td>{{$cart_prod->count_box}}</td>
                                     <td>{{$cart_prod->meter->box_meter}}</td>
                                     <td>{{$cart_prod->count_palet}}</td>
-                                    <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
+                                    <td>{{$cart_prod->count_all}}</td>
                                     <td>{{number_format($cart_prod->prod->price)}}</td>
-                                    <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter))}}</td>
+                                    <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_all))}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -326,7 +340,14 @@
 
                     <div class="row mt-4">
                         <div class="col-lg-4 col-md-6 col-12">
-                            <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
+                            <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span>
+                                @if($cart->no_price == 1)
+                                <span style="padding-right: 0.2rem">تومان</span></p>
+                                @elseif($cart->no_price == 2)
+                                <span style="padding-right: 0.2rem">درهم</span></p>
+                                @elseif($cart->no_price == 3)
+                                <span style="padding-right: 0.2rem">دلار</span></p>
+                                @endif
                         </div>
                     </div>
 
@@ -394,31 +415,6 @@
                 url: '/get-product-info/' + productId,
                 method: 'GET',
                 success: function(data) {
-                    let inputPalet = document.querySelector('#palet')
-                    let inputBox = document.querySelector('#box')
-                    let inputAll = document.querySelector('#all')
-                    let meterInBox = data.count_meter;
-                    let boxInPalet = data.count_box;
-
-                    function totalMeter(){
-                        let box = inputBox.value
-                    
-                        let all = meterInBox * box
-                        inputAll.value = all.toFixed(2)
-                    }
-
-                    function totalPalet(){
-                        let box = inputBox.value
-                    
-                        let all = box / boxInPalet
-                        inputPalet.value = all.toFixed(2)
-                    }
-
-                    inputBox.addEventListener('input', totalMeter);
-                    inputBox.addEventListener('input', totalPalet);
-                    totalMeter();
-                    totalPalet();
-                    
                     let sizeSelect = $('#sizeSelect');
                     sizeSelect.empty(); // خالی کردن قبلی‌ها
                                 
@@ -434,15 +430,61 @@
 
                 },
                 error: function() {
+                    $('#sizeSelect').val('');
+    
+                }
+            });
+        } else {
+            $('#sizeSelect').val('');
+
+        }
+    });
+</script>
+
+<script>
+    $('#sizeSelect').on('change', function() {
+        let sizeId = $(this).val();
+        let productId = $('#productSelect').val();
+        if (sizeId) {
+            $.ajax({
+                url: '/get-product-info/lpo/size/' + sizeId + '/' + productId,
+                method: 'GET',
+                success: function(data) {
+                    let inputPalet = document.querySelector('#palet')
+                    let inputBox = document.querySelector('#box')
+                    let inputAll = document.querySelector('#all')
+                    let meterInBox = data.count_meter;
+                    // alert(meterInBox)
+                    let boxInPalet = data.count_box;
+
+                    function totalMeter(){
+                         let all = inputAll.value
+                    
+                        let box = all / meterInBox
+                        inputBox.value = box.toFixed(2)
+                    }
+
+                    function totalPalet(){
+                        let all = inputAll.value
+                    
+                        let palet = inputBox.value / boxInPalet
+                        inputPalet.value = palet.toFixed(2)
+                    }
+
+                    inputAll.addEventListener('input', totalMeter);
+                    inputAll.addEventListener('input', totalPalet);
+
+                },
+                error: function() {
                     $('#count_meter').val('');
                     $('#count_box').val('');
     
                 }
             });
-                     
         } else {
             $('#count_meter').val('');
             $('#count_box').val('');
+
         }
     });
 </script>

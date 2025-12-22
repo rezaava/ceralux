@@ -123,6 +123,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/crm/buy/add/{id}',[CRMController::class,'buy'])->name('buy');
     Route::get('/get-product-info/{id}',[CRMController::class,'buyAjax']);
+    Route::get('/get-product-info/{sid}/{id}',[CRMController::class,'buyAjax2']);
     Route::get('/admin/crm/buy/product/add',[CRMController::class,'buyaddProd']);
     Route::get('/admin/crm/add/cart/buy',[CRMController::class,'buyAddToCart']);
     Route::post('/admin/crm/cart/final/buy',[CRMController::class,'finalCartBuy']);

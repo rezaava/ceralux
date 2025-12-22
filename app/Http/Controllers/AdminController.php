@@ -120,7 +120,7 @@ class AdminController extends Controller
             'price'         => 'required|numeric',
             'price_buy'         => 'required|numeric',
 
-            'no_price'          => 'required',
+            // 'no_price'          => 'required',
 
             'count_box'     => 'required|numeric',
             //'count_meter'   => 'required|numeric',
@@ -159,7 +159,7 @@ class AdminController extends Controller
             'price_buy.required'     => 'قیمت خرید الزامی است.',
 
             // 
-            'no_price.required'       => 'نوع ارز را انتخاب کنید  .',
+            // 'no_price.required'       => 'نوع ارز را انتخاب کنید  .',
 
             // counts
             'count_box.numeric'     => 'تعداد در جعبه باید عدد باشد.',

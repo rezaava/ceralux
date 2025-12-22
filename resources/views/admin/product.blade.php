@@ -191,16 +191,6 @@
                             @error('no_product') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
-                        <div class="w-50">
-                            <label>واحد ارزی</label>
-                            <select name="no_price" class="form-select">
-                                <option value="" disabled selected>لطفا نوع ارز مورد نظر خود را انتخاب کنید</option>
-                                <option value="1" {{ old('no_price', $editProd->no_price ?? '') == 1 ? 'selected' : '' }}>ریال</option>
-                                <option value="2" {{ old('no_price', $editProd->no_price ?? '') == 2 ? 'selected' : '' }}>درهم</option>
-                                <option value="3" {{ old('no_price', $editProd->no_price ?? '') == 3 ? 'selected' : '' }}>دلار</option>
-                            </select>
-                            @error('no_price') <small class="text-danger d-block">{{ $message }}</small> @enderror
-                        </div>
                     </div>
 
                     <!-- sizes -->
