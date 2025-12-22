@@ -190,7 +190,11 @@
 
                <div class="d-flex justify-content-between align-items-center">
                   <div class="stat-title" style="font-size: 1.6rem">ثبت LPO </div>
+                  @if(!$lpo)
                   <a target="_blank" href="/admin/user/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >تعریف مشتری جدید</span></a>
+                  @else
+                  <a target="_blank" href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >تعریف محصول جدید</span></a>
+                  @endif
                </div>
                @if(!$lpo)
                <form action="/admin/crm/add/cart/lpo" method="POST">
@@ -257,16 +261,23 @@
                         </div>
 
                         <div class="w-50">
-                            <label for="">تعداد کارتن</label>
-                            <input type="text" name="count_box" id="box" class="form-control" placeholder=" تعداد کارتن   ">
+                            <label for="">تعداد کارتن کل</label>
+                            <input type="text" name="count_box" id="box" class="form-control" placeholder="  کارتن کل">
                         </div>
-                        {{-- <div class="w-50"> 
-                            <label for="">متراژ هر کارتن</label>
-                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ هر کارتن">
-                        </div> --}}
+
                         <div class="w-50">
                             <label for="">تعداد پالت</label>
-                            <input type="text" name="count_palet" id="palet" class="form-control" placeholder=" تعداد پالت ">
+                            <input type="text" name="count_palet" id="palet" class="form-control" placeholder="  پالت ">
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">تعداد کارتن خرد</label>
+                            <input type="text" name="box_num" id="box_num" class="form-control" placeholder="  کارتن خرد">
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">تعداد برگ</label>
+                            <input type="text" name="count_paper" id="paper" class="form-control" placeholder="  برگ ">
                         </div>
 
                     </div>

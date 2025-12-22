@@ -447,7 +447,7 @@
         let productId = $('#productSelect').val();
         if (sizeId) {
             $.ajax({
-                url: '/get-product-info/lpo/size/' + sizeId + '/' + productId,
+                url: '/get-product-info/size/' + sizeId + '/' + productId,
                 method: 'GET',
                 success: function(data) {
                     let inputPalet = document.querySelector('#palet')

@@ -219,16 +219,16 @@
                         </div>
 
                         <div id="collapseOne" class="collapse">
-                            <div class="card-body">
+                            <div class="card-body" dir="ltr">
                                 <div class="d-flex gap-3 form-row-responsive">
                                     <div class="w-50">
-                                        <label class="form-label">نام محصول (انگلیسی)</label>
+                                        <label class="form-label"> Project name (English)</label>
                                         <input type="text" name="titleEn" value="{{ $editProd->name_en ?? '' }}" class="form-control" placeholder="name">
                                         @error('titleEn') <small class="text-danger d-block">{{ $message }}</small> @enderror
                                     </div>
                                 </div>
 
-                                <label class="form-label">توضیحات (انگلیسی)</label>
+                                <label class="form-label">Description (English)</label>
                                 <textarea name="descEn" class="form-control textArea" placeholder="Enter description...">{{ $editProd->desc_en ?? '' }}</textarea>
                             </div>
                         </div>
