@@ -260,28 +260,32 @@
                 <h5 class="mb-3" style="color: var(--accent-green);">آیتم‌های فاکتور</h5>
                 <table class="items-table">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>ردیف</th>
-                            <th>شرح کالا  </th>
+                            <th>شرح طرح  </th>
+                            <th>سایز طرح  </th>
+                            <th> متراژ هر کارتن</th>
                             <th>تعداد کارتن</th>
                             <th>تعداد پالت</th>
                             <th>متراژکل</th>
                             <th>قیمت</th>
                             <th>تخفیف</th>
-                            <th>مبلغ ()</th>
+                            <th>مبلغ</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($cart_prods as $key => $cart_prod)
-                            <tr>
+                            <tr class="text-center">
                                 <td>{{$key+1}}</td>
                                 <td>{{$cart_prod->prod->name}}</td>
+                                <td>{{$cart_prod->size->name}}</td>
+                                <td>{{$cart_prod->size_prod->box_meter}}</td>
                                 <td>{{ $cart_prod->count_box }}</td>
                                 <td>{{ $cart_prod->count_palet }}</td>
-                                <td>{{ $cart_prod->count_box * $cart_prod->prod->count_meter }}</td>
+                                <td>{{ $cart_prod->count_all }}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
                                 <td>%{{$cart_prod->off}}</td>
-                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) )}}</td>
+                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) )}}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -304,15 +308,15 @@
                 </div>
                 <div class="total-row">
                     <span>کرایه بار:</span>
-                    <span><span>{{number_format($cart->price_rent)}} </span></span>
+                    <span><span>{{number_format($cart->price_rent)}} </span>درهم</span>
                 </div>
                 <div class="total-row">
                     <span>مبلغ کل بدون مالیات بر ارزش افزوده :</span>
-                    <span><span>{{number_format($cart->price)}}</span>متر</span>
+                    <span><span>{{number_format($cart->price)}}</span>درهم</span>
                 </div>
                 <div class="total-row">
                     <span> 5% مالیات ارزش افزوده:</span>
-                    <span><span>{{number_format($five)}}</span>متر</span>
+                    <span><span>{{number_format($five)}}</span>درهم</span>
                 </div>
                 <div class="total-row">
                     <span>تخفیف کل:</span>
@@ -320,7 +324,7 @@
                 </div>
                 <div class="total-row total-amount">
                     <span>مبلغ نهایی فاکتور:</span>
-                    <span><span>{{number_format($finalPrice)}} </span></span>
+                    <span><span>{{number_format($finalPrice)}} </span>درهم</span>
                 </div>
             </div>
             
@@ -360,9 +364,15 @@
                     <i class="bi bi-arrow-right me-2"></i> بازگشت به لیست
                 </a>
 
-                <a class="btn-print btn" href="/download/pdf/{{ $cart->id }}">
-                <i class="fa-solid fa-download px-1"></i>دانلود فاکتور
+                @if($cart->status == 2)
+                <a class="btn-print btn" href="/download/pdf/{{ $cart->id }}" target="_blank">
+                <i class="fa-solid fa-download px-1" ></i>نمایش فاکتور
                 </a>
+                {{-- @else
+                <a  class="btn-print btn">
+                <i class="fa-solid fa-download px-1"></i>غیرفعال دانلود فاکتور
+                </a> --}}
+                @endif
                 {{-- <button class="btn-back">
                     <i class="bi bi-download me-2"></i> دانلود PDF
                 </button> --}}

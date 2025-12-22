@@ -251,10 +251,10 @@ class CRMController extends Controller
             $prod = Product::where('id' , $cart_prod->prod_id)->first();
             $cart_prod['prod'] = $prod;
             
-            $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+            $meter = $cart_prod->count_all + $meter;
             $box = $cart_prod->count_box + $box;
             $palet = $cart_prod->count_palet + $palet;
-            $priceAll = $cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) + $priceAll;
+            $priceAll = $cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) + $priceAll;
         }
 
         $order->status = '1';
@@ -354,7 +354,7 @@ class CRMController extends Controller
 
     public function listInvocie(){
         $user = null;
-        $carts = Carts::where('status' , 1)->get();
+        $carts = Carts::whereIn('status' , [2,3])->get();
         foreach($carts as $cart){
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
             $user = Customer::where('id' , $cart->user_id)->first();
@@ -371,74 +371,6 @@ class CRMController extends Controller
             }
         }
         return view('admin.list_invocie' , compact('carts'));
-    }
-
-    public function showInvocie($id){
-        $five = 0;
-        $finalOff= 0;
-        $finalPrice= 0;
-
-        $cart = Carts::findOrFail($id);
-
-        switch($cart->type){
-            case 'buy':
-                $cart->text_type = 'خرید';
-                $date = $cart->date;
-                break;
-            default:
-                $cart->text_type = 'فروش';
-                $date = Verta::instance($cart->created_at)->format('Y/m/d');
-                break;
-        }
-        $user = Customer::where('id' , $cart->user_id)->first();
-        
-
-        $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
-        foreach($cart_prods as $cart_prod){
-                $prod = Product::where('id' , $cart_prod->prod_id)->first();
-                $cart_prod['prod'] = $prod;
-
-                $five = $cart->price * 0.05;
-                $subtotal = $cart->price + $five + $cart->price_rent; // مجموع قبل از تخفیف
-                $finalOff = $subtotal * ($cart->off / 100);        // محاسبه تخفیف از مجموع
-                $finalPrice = $subtotal - $finalOff; 
-        }
-
-        // $cart_prods = null;
-        // $order = null;
-        // $user = null;
-        // $meter = 0;
-        // $box = 0;
-        // $palet = 0;
-        // $paper = 0;
-        // $priceAll = 0;
-        // $date = null;
-        // $five = 0;
-        // $finalPrice = 0;
-        // $finalOff = 0;
-        // $subtotal = 0;
-
-        // if($id){
-        //     $order = Carts::find($id);
-        //     if ($order) {
-        //         $date = Verta::instance($order->created_at)->format('Y/m/d');
-        //         $user = Customer::where('id' , $order->user_id)->first();
-        //         $cart_prods = Cart_prod::where('card_id' , $order->id)->get();
-        //         foreach($cart_prods as $cart_prod){
-        //             $prod = Product::where('id' , $cart_prod->prod_id)->first();
-        //             $cart_prod['prod'] = $prod;
-                    
-        //             $meter = $cart_prod->count_box * $prod->count_meter + $meter;
-        //             $box = $cart_prod->count_box + $box;
-        //             $palet = $cart_prod->count_palet + $palet;
-        //             $paper = $cart_prod->prod->count_paper + $paper;
-        //             $priceAll = $cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) + $priceAll;
-        //             $five = $priceAll * 0.05;اتنن
-        //             $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
-        //             $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
-        //             $finalPrice = $subtotal - $finalOff;  
-
-        return view('admin.showImvocie' , compact('cart' , 'cart_prods' , 'date' , 'five' , 'finalPrice' , 'user'));
     }
 
     public function request(){
@@ -1009,10 +941,10 @@ class CRMController extends Controller
             foreach($lpo_prods as $lpo_prod){
                 $prod = Product::where('id' , $lpo_prod->prod_id)->first();
                 $lpo_prod['prod'] = $prod;
-                $meter = $lpo_prod->count_box * $prod->count_meter + $meter;
+                $meter = $lpo_prod->count_all + $meter;
                 $box = $lpo_prod->count_box + $box;
                 $palet = $lpo_prod->count_palet + $palet;
-                $priceAll = ($lpo_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+                $priceAll = ($lpo_prod->count_all) * $prod->price + $priceAll;
             }
         
         $lpo->count_box = $box;

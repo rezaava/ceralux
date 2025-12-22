@@ -309,11 +309,13 @@
                                 </td>
                                 <td class="actions-column" style="white-space: nowrap">
                                     <div class="d-flex flex-wrap justify-content-center">
+                                        @if($cart->status == 2)
+                                            <a href="/download/pdf/{{ $cart->id }}" class="btn btn-sm btn-outline-warning m-1">
+                                                <i class="fa-solid fa-download"></i>
+                                            </a>
+                                        @endif
                                         <a href="/admin/crm/show/invoice/{{ $cart->id }}" class="btn btn-sm btn-outline-success m-1">
                                             <i class="fa-solid fa-eye"></i>
-                                        </a>
-                                        <a href="/download/pdf/{{ $cart->id }}" class="btn btn-sm btn-outline-warning m-1">
-                                            <i class="fa-solid fa-download"></i>
                                         </a>
                                         <a href="" class="btn btn-sm btn-outline-danger m-1">
                                             <i class="fas fa-trash"></i>

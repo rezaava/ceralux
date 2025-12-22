@@ -3,9 +3,11 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CRMController;
+use App\Http\Controllers\PrintController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ProductController;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,8 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/',[SiteController::class,'index'])->name('index');
 
-Route::get('/download/pdf/{id}',[SiteController::class,'pdf']);
+Route::get('/download/pdf/{id}',[PrintController::class,'pdf']);
+
 
 Route::prefix('/products')->group(function () {
    Route::get('/info/{size_id}/{name}',[ProductController::class,'productinfo'])->name('productinfo'); 
@@ -89,7 +92,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/crm/reqProd/yes/add/{id}',[CRMController::class,'requestPostYes']);
 
     Route::get('/admin/crm/listInvocie',[CRMController::class,'listInvocie'])->name('listInvocie');
-    Route::get('/admin/crm/show/invoice/{id}',[CRMController::class,'showInvocie']);
+    Route::get('/admin/crm/show/invoice/{id}',[PrintController::class,'showInvocie']);
 
     Route::get('/admin/crm/reqSale/{id}',[CRMController::class,'reqSale'])->name('reqSale'); 
     Route::post('/admin/crm/reqSale/add',[CRMController::class,'salePost']); 
