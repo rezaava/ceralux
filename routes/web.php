@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\CRMController;
+use App\Http\Controllers\LpoController;
 use App\Http\Controllers\PrintController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 
 /*
@@ -94,20 +97,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/crm/listInvocie',[CRMController::class,'listInvocie'])->name('listInvocie');
     Route::get('/admin/crm/show/invoice/{id}',[PrintController::class,'showInvocie']);
 
-    Route::get('/admin/crm/reqSale/{id}',[CRMController::class,'reqSale'])->name('reqSale'); 
-    Route::post('/admin/crm/reqSale/add',[CRMController::class,'salePost']); 
-    Route::post('/admin/crm/reqSale/product/add',[CRMController::class,'productAddPostCart']); 
-    Route::post('/admin/crm/reqSale/rentOrOff/add',[CRMController::class,'productAddOffCart']); 
-    Route::post('/admin/crm/reqSale/pay',[CRMController::class,'salePayPost']);
-    
-    Route::get('/admin/crm/reqSaleF/{id}',[CRMController::class,'reqSaleF'])->name('reqSalef'); 
-    Route::post('/admin/crm/reqSaleF/add',[CRMController::class,'salePostF']); 
-    Route::post('/admin/crm/reqSaleF/product/add',[CRMController::class,'productAddPostCartF']); 
-    Route::post('/admin/crm/reqSaleF/rentOrOff/add',[CRMController::class,'productAddOffCartF']); 
-    Route::post('/admin/crm/reqSaleF/pay',[CRMController::class,'salePayPostF']); 
-
-    Route::get('/get-customer-info/{id}', [CRMController::class, 'getCustomerInfo']);
-
     Route::get('/admin/user/list',[CRMController::class,'listUser'])->name('listUser');
     Route::get('/admin/user/add/{id}',[CRMController::class,'addUser'])->name('addUser');
     Route::get('/admin/user/delete/{id}',[CRMController::class,'addUserDelete'])->name('addUser');
@@ -124,19 +113,27 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/admin/setting/name/add',[CRMController::class,'settingPost']);
 
-    Route::get('/admin/crm/buy/add/{id}',[CRMController::class,'buy'])->name('buy');
-    Route::get('/get-product-info/{id}',[CRMController::class,'buyAjax']);
-    Route::get('/get-product-info/size/{sid}/{id}',[CRMController::class,'buyAjax2']);
-    Route::get('/admin/crm/buy/product/add',[CRMController::class,'buyaddProd']);
-    Route::get('/admin/crm/add/cart/buy',[CRMController::class,'buyAddToCart']);
-    Route::post('/admin/crm/cart/final/buy',[CRMController::class,'finalCartBuy']);
+    Route::get('/admin/crm/reqSale/{id}',[SaleController::class,'reqSale'])->name('reqSale'); 
+    Route::post('/admin/crm/reqSale/add',[SaleController::class,'salePost']); 
+    Route::post('/admin/crm/reqSale/product/add',[SaleController::class,'productAddPostCart']); 
+    Route::post('/admin/crm/reqSale/rentOrOff/add',[SaleController::class,'productAddOffCart']); 
+    Route::post('/admin/crm/reqSale/pay',[SaleController::class,'salePayPost']);
+    Route::get('/get-customer-info/{id}', [SaleController::class, 'getCustomerInfo']);
 
-    Route::get('/admin/crm/lpo/add/{id}',[CRMController::class,'lpo'])->name('lpo');
-    Route::get('/get-product-info/lpo/{id}',[CRMController::class,'lpoAjax']);
-    Route::get('/get-product-info/lpo/size/{sid}/{id}',[CRMController::class,'lpoAjax2']);
-    Route::post('/admin/crm/add/cart/lpo',[CRMController::class,'lpoAddCart']);
-    Route::post('/admin/crm/lpo/product/add',[CRMController::class,'lpoAddCartProd']);
-    Route::post('/admin/crm/cart/final/lpo',[CRMController::class,'lpoFinal']);
+    Route::get('/admin/crm/buy/add/{id}',[BuyController::class,'buy'])->name('buy');
+    Route::get('/get-product-info/{id}',[BuyController::class,'buyAjax']);
+    Route::get('/get-product-info/size/{sid}/{id}',[BuyController::class,'buyAjax2']);
+    Route::get('/admin/crm/buy/product/add',[BuyController::class,'buyaddProd']);
+    Route::get('/admin/crm/add/cart/buy',[BuyController::class,'buyAddToCart']);
+    Route::post('/admin/crm/cart/final/buy',[BuyController::class,'finalCartBuy']);
+
+    Route::get('/admin/crm/lpo/add/{id}',[LpoController::class,'lpo'])->name('lpo');
+    Route::get('/get-product-info/lpo/{id}',[LpoController::class,'lpoAjax']);
+    Route::get('/get-product-info/lpo/size/{sid}/{id}/{inputAll}',[LpoController::class,'lpoAjax2']);
+    Route::post('/admin/crm/add/cart/lpo',[LpoController::class,'lpoAddCart']);
+    Route::post('/admin/crm/lpo/product/add',[LpoController::class,'lpoAddCartProd']);
+    Route::post('/admin/crm/lpo/product/img',[LpoController::class,'imgLpo']);
+    Route::post('/admin/crm/cart/final/lpo',[LpoController::class,'lpoFinal']);
 
 
     Route::get('/admin/req/leave',[CRMController::class,'reqLeave'])->name('leave');

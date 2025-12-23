@@ -149,6 +149,8 @@
     table th {
         white-space: nowrap;
     }
+    
+   
 
     @media (max-width: 768px) {
         table {
@@ -179,6 +181,35 @@
         }
 
     }
+
+    .preview-container {
+        margin-top: 30px;
+        display: none;
+      }
+        
+    .preview-image {
+        max-width: 100%;
+        max-height: 400px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        margin-bottom: 20px;
+      }
+    .upload-area {
+        border: 3px dashed #667eea;
+        border-radius: 15px;
+        padding: 60px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+      }
+    .upload-icon {
+        font-size: 48px;
+        color: #667eea;
+        margin-bottom: 20px;
+        text-align: center;
+      }
 </style>
 @endsection
 
@@ -250,14 +281,17 @@
 
                         <div class="w-50">
                             <label for="">سایز کاشی </label>
-                            <select name="size_id" id="sizeSelect" class="form-select m-0">
+                            <select name="size_id" id="sizeSelect" class="form-select m-0"
+                            onchange="calc()">
                                 <option value="" selected disabled>سایز را انتخاب کنید</option>
                             </select>
                         </div>
 
                         <div class="w-50">
                             <label for="">متراژکل</label>
-                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ کل">
+                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ کل"
+                            onkeyup="calc()"
+                            >
                         </div>
 
                         <div class="w-50">
@@ -291,6 +325,34 @@
                     <div class="text-center mt-3"><button class="btn btn-success w-50">اضافه کردن</button></div>
 
                 </form>
+
+                <form action="/admin/crm/lpo/product/img" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="text" hidden name="lpo_id" value="{{ $lpo->id }}">
+
+                    <div style="display: flex;justify-content: center;margin-top: 1rem;">
+                        <div class="upload-area" id="uploadArea">
+
+                            <div >
+                              <div class="upload-icon"><i class="fa-solid fa-upload"></i></div>
+                              <p>آپلود تصویر LPO</p>
+                            </div>
+
+                            <input type="file" id="fileInput" name="img" class="file-input d-none" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div style="display: flex;justify-content: center;align-items: center">
+                    
+                        <div class="preview-container" id="previewContainer">
+                          <img id="previewImage" class="preview-image" alt="Preview">
+                        </div>
+                    
+                    </div>
+                    <div class="text-center mt-4"><button class="btn btn-success">آپلود تصویر LPO</button></div>
+                    
+                </form>
+
                 <div class="table-responsive mt-4">
                     <table class="table table-dark table-hover mt-3 table-borderless">
                             <thead class="text-center" style="border-bottom: 2px solid #3BDE77;">
@@ -455,39 +517,31 @@
         }
     });
 </script>
-
 <script>
-    $('#sizeSelect').on('change', function() {
-        let sizeId = $(this).val();
-        let productId = $('#productSelect').val();
-        if (sizeId) {
+    function calc(){
+        let sizeId = document.getElementById('sizeSelect').value;
+        let productId = document.getElementById('productSelect').value;
+        let inputAll = document.getElementById('all').value;
+        if (sizeId && inputAll) {
+            //alert('s')
             $.ajax({
-                url: '/get-product-info/lpo/size/' + sizeId + '/' + productId,
+                url: '/get-product-info/lpo/size/' + sizeId + '/' + productId + '/' + inputAll,
                 method: 'GET',
                 success: function(data) {
                     let inputPalet = document.querySelector('#palet')
                     let inputBox = document.querySelector('#box')
                     let inputAll = document.querySelector('#all')
-                    let meterInBox = data.count_meter;
-                    // alert(meterInBox)
-                    let boxInPalet = data.count_box;
+                    let inputBox_num = document.querySelector('#box_num')
+                    let inputPaper = document.querySelector('#paper')
 
-                    function totalMeter(){
-                         let all = inputAll.value
+                    inputPaper.value = data.count_paper
+                    inputBox_num.value = Math.floor(data.count_num_box)
+                    inputPalet.value = data.count_palet
+                    inputBox.value = Math.floor(data.count_box)
+           
                     
-                        let box = all / meterInBox
-                        inputBox.value = box.toFixed(2)
-                    }
-
-                    function totalPalet(){
-                        let all = inputAll.value
-                    
-                        let palet = inputBox.value / boxInPalet
-                        inputPalet.value = palet.toFixed(2)
-                    }
-
-                    inputAll.addEventListener('input', totalMeter);
-                    inputAll.addEventListener('input', totalPalet);
+                    // document.getElementById('').value=;hgfgjk
+                    // inputAll.addEventListener('input', totalMeter);
 
                 },
                 error: function() {
@@ -501,6 +555,90 @@
             $('#count_box').val('');
 
         }
+    }
+</script>
+
+
+
+<script>
+    $('#sizeSelect').on('change', function() {
+        
     });
 </script>
+
+<script>
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const previewContainer = document.getElementById('previewContainer');
+    const previewImage = document.getElementById('previewImage');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    // Click to upload
+    uploadArea.addEventListener('click', () => fileInput.click());
+    // Drag and drop
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+    });
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+    });
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFile(files[0]);
+        }
+    });
+    // File input change
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handleFile(e.target.files[0]);
+        }
+    });
+    function handleFile(file) {
+        // Check if file is image
+        if (!file.type.startsWith('image/')) {
+            alert('Please select an image file');
+            return;
+        }
+        // Check file size (10MB)
+        if (file.size > 10 * 1024 * 1024) {
+            alert('File size must be less than 10MB');
+            return;
+        }
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            
+            previewImage.src = e.target.result;
+            previewContainer.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    function uploadImage() {
+        const file = fileInput.files[0];
+        if (!file) return;
+        // Simulate upload
+        const formData = new FormData();
+        formData.append('image', file);
+        // Here you would normally send to server
+        console.log('Uploading:', file.name);
+        alert('Image uploaded successfully! (This is just a demo)');
+    }
+    function clearPreview() {
+        previewContainer.style.display = 'none';
+        fileInput.value = '';
+        previewImage.src = '';
+    }
+</script>
+
 @endsection
