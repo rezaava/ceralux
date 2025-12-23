@@ -46,7 +46,6 @@ class SaleController extends Controller
         $meter = 0;
         $box = 0;
         $palet = 0;
-        $paper = 0;
         $priceAll = 0;
         $date = null;
         $five = 0;
@@ -73,7 +72,6 @@ class SaleController extends Controller
                     $meter = $cart_prod->count_all + $meter;
                     $box = $cart_prod->count_box + $box;
                     $palet = $cart_prod->count_palet + $palet;
-                    $paper = $cart_prod->prod->count_paper + $paper;
                     $priceAll = $cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) + $priceAll;
                     $five = $priceAll * 0.05;
                     $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
@@ -105,7 +103,7 @@ class SaleController extends Controller
         }
         $prods = Product::get();
         $cuss = Customer::get();
-        return view('admin.reqSale' , compact('lpo_prods' , 'five' , 'finalPrice' , 'paper' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
+        return view('admin.reqSale' , compact('lpo_prods' , 'five' , 'finalPrice' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
 
     public function salePost(Request $req){
@@ -166,6 +164,8 @@ class SaleController extends Controller
             $cart_prod->card_id = $req->cart_id;
             $cart_prod->count_box = $req->count_box[$key];
             $cart_prod->count_all = $req->count_all[$key];
+            $cart_prod->count_paper = $req->count_paper[$key];
+            $cart_prod->count_box_num = $req->count_box_num[$key];
             $cart_prod->count_palet = $req->count_palet[$key];
             $cart_prod->off = $req->off[$key] ?? 0;
             $cart_prod->save();

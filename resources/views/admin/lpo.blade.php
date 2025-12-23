@@ -253,11 +253,14 @@
                @else
                   <div class="card p-3" style="border-radius: 0.4rem;border:none;color:lightblue;">
                       <div class="row ">
-                          <div class="col-12 col-md-6">
+                          <div class="col-12 col-md-4">
                               <p class="m-0"><span>شماره </span> {{$lpo->num_lpo}} : LPO</p>
                           </div>
-                          <div class="col-12 col-md-6">
+                          <div class="col-12 col-md-4">
                               <p class="m-0">تاریخ : <span>{{$date}}</span>  </p>
+                          </div>
+                          <div class="col-12 col-md-4">
+                              <p class="m-0">اسم مشتری : <span>{{$customer->name}}</span>  </p>
                           </div>
                       </div>
                   </div>
@@ -361,8 +364,9 @@
                                     <th>کد کالا</th>
                                     <th>نام محصول</th>
                                     <th>سایز </th>
-                                    <th>تعداد کارتن</th>
                                     <th>متراژ هر کارتن</th>
+                                    <th>تعداد کارتن کل</th>
+                                    <th>تعداد کارتن خرد</th>
                                     <th>تعداد پالت</th>
                                     <th> متراژ کل</th>
                                     <th> قیمت</th>
@@ -376,8 +380,9 @@
                                     <td>{{$lpo_prod->prod->code_prod}}</td>
                                     <td>{{$lpo_prod->prod->name}}</td>
                                     <td>{{$lpo_prod->size->name}}</td>
-                                    <td>{{$lpo_prod->count_box}}</td>
                                     <td>{{$lpo_prod->size_prod->box_meter}}</td>
+                                    <td>{{$lpo_prod->count_box}}</td>
+                                    <td>{{$lpo_prod->count_box_num}}</td>
                                     <td>{{$lpo_prod->count_palet}}</td>
                                     <td>{{$lpo_prod->count_all}}</td>
                                     <td>{{number_format($lpo_prod->prod->price)}}</td>

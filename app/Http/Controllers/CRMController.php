@@ -172,11 +172,16 @@ class CRMController extends Controller
             foreach($cart->cart_prods as $cart_prod){
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
                 $cart_prod['prod'] = $prod;
+
+                // $size_prod = size_product::where('id' , $cart->size_prod_id)->first();
+                // $size = Size::where('id' , $size_prod->size_id)->first();
+                // $cart_prod['size_prod'] = $size_prod;
+                // $cart_prod['size'] = $size;
                 
-                $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+                $meter = $cart_prod->count_all + $meter;
                 $box = $cart_prod->count_box + $box;
                 $palet = $cart_prod->count_palet + $palet;
-                $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+                $priceAll = ($cart_prod->count_all) * $prod->price + $priceAll;
             }
             $cart['meter'] = $meter ;
             $cart['box'] = $box;

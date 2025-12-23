@@ -25,6 +25,7 @@ class LpoController extends Controller
         $priceAll = 0;
         $lpo_prods = null;
         $prods = null;
+        $customer = null;
 
         if($id){
             $lpo = Lpo::where('id' , $id)->first();
@@ -32,6 +33,7 @@ class LpoController extends Controller
                 $date = Verta::instance($lpo->created_at)->format('Y/m/d');
                 $prods = Product::get();
                 $lpo_prods = Lpo_Prod::where('lpo_id' , $lpo->id)->get();
+                $customer = Customer::where('id' , $lpo->customer_id)->first();
                 foreach($lpo_prods as $lpo_prod){
                     $prod = Product::where('id' , $lpo_prod->prod_id)->first();
                     $lpo_prod['prod'] = $prod;
@@ -51,7 +53,7 @@ class LpoController extends Controller
         }
         // return $date;
         $customers = Customer::get();
-        return view('admin.lpo' , compact('customers' , 'lpo' , 'date' , 'prods' , 'lpo_prods' , 'priceAll' , 'meter' , 'box' , 'palet'));
+        return view('admin.lpo' , compact('customers' , 'lpo' , 'date' , 'prods' , 'lpo_prods' , 'priceAll' , 'meter' , 'box' , 'palet' , 'customer'));
     }
 
     public function lpoAjax($id){
@@ -192,6 +194,8 @@ class LpoController extends Controller
             $lpo_prod->lpo_id = $req->lpo_id;
             $lpo_prod->prod_id = $req->prod_id;
             $lpo_prod->count_box = $req->count_box;
+            $lpo_prod->count_box_num = $req->box_num;
+            $lpo_prod->count_paper = $req->count_paper;
             $lpo_prod->count_palet = $req->count_palet;
             $lpo_prod->count_all = $req->count_all;
             $lpo_prod->size_prod_id = $req->size_id;

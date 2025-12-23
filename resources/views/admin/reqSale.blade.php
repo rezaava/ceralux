@@ -299,20 +299,28 @@
 
                         <div class="w-100 w-md-50">
                             <label class="form-label m-0"> متراژ کل</label>
-                            <input type="text" name="count_all[{{ $index }}]" value="{{ $lpo_prod->count_all }}" class="form-control" >
+                            <input type="text" name="count_all[{{ $index }}]" value="{{ $lpo_prod->count_all }}" class="form-control" readonly>
                         </div>
 
                         <div class="w-100 w-md-50">
-                            <label class="form-label m-0">تعداد کارتن</label> 
-                            <input type="text" name="count_box[{{ $index }}]" value="{{ $lpo_prod->count_box }}" class="form-control" placeholder="تعداد کارتن">
+                            <label class="form-label m-0">تعداد کارتن کل</label> 
+                            <input type="text" name="count_box[{{ $index }}]" value="{{ $lpo_prod->count_box }}" class="form-control" placeholder="تعداد کارتن" readonly>
                         </div>
 
-  
+                        <div class="w-100 w-md-50">
+                            <label class="form-label m-0">تعداد کارتن خرد</label> 
+                            <input type="text" name="count_box_num[{{ $index }}]" value="{{ $lpo_prod->count_box_num }}" class="form-control" placeholder="تعداد کارتن" readonly>
+                        </div>
+
                         <div class="w-100 w-md-50">
                             <label class="form-label m-0">تعداد پالت</label>
-                            <input type="text" name="count_palet[{{ $index }}]" value="{{ $lpo_prod->count_palet }}" class="form-control" placeholder="تعداد پالت">
+                            <input type="text" name="count_palet[{{ $index }}]" value="{{ $lpo_prod->count_palet }}" class="form-control" placeholder="تعداد پالت" readonly>
                         </div>
 
+                        <div class="w-100 w-md-50">
+                            <label class="form-label m-0">تعداد  برگ</label>
+                            <input type="text" name="count_paper[{{ $index }}]" value="{{ $lpo_prod->count_paper }}" class="form-control" placeholder="تعداد پالت" readonly>
+                        </div>
 
                         <div class="w-100 w-md-50">
                             <label class="form-label m-0">درصد تخفیف</label>
@@ -347,9 +355,10 @@
                                 <th>نام محصول</th>
                                 <th>سایز </th>
                                 <th>متراژ هر کارتن</th>
-                                <th>تعداد کارتن</th>
-                                <th>تعداد برگ کاشی</th>
+                                <th>تعداد کارتن کل</th>
+                                <th>تعداد کارتن خرد</th>
                                 <th>تعداد پالت</th>
+                                <th>تعداد برگ کاشی</th>
                                 <th> متراژ کل</th>
                                 <th> قیمت</th>
                                 <th> تحفیف</th>
@@ -365,8 +374,9 @@
                                 <td>{{$cart_prod->size->name}}</td>
                                 <td>{{$cart_prod->size_prod->box_meter}}</td>
                                 <td>{{$cart_prod->count_box}}</td>
-                                <td>{{$cart_prod->prod->count_paper}}</td>
+                                <td>{{$cart_prod->count_box_num}}</td>
                                 <td>{{$cart_prod->count_palet}}</td>
+                                <td>{{$cart_prod->count_paper}}</td>
                                 <td>{{$cart_prod->count_all}}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
                                 <td>{{number_format($cart_prod->off)}}%</td>
@@ -387,11 +397,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-6 col-12">
-                            <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <p class="m-0 p-0">تعداد برگ های کاشی : <span style="padding-right: 0.5rem">{{$paper}}</span><span style="padding-right: 0.2rem">عدد</span></p>
+                            <p class="m-0 p-0">تعداد کارتن کل : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
                         </div>
 
                         <div class="col-lg-3 col-md-6 col-12">
