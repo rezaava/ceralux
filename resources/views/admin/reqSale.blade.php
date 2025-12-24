@@ -227,9 +227,9 @@
                     @enderror
                     <div class="d-flex gap-3 form-row-responsive mt-3">
                         {{-- <input type="text" name="num_cart"  class="form-control w-50 mb-3" placeholder="شماره تراکنش "> --}}
-                        <input type="text" name="phone" id="phone" class="form-control w-50 mb-3" placeholder="شماره موبایل ">
+                        <input type="text" name="phone" id="phone" class="form-control w-50 mb-3" placeholder="شماره موبایل " readonly>
                         {{-- <input type="text" name="" class="form-control w-50 mb-3" placeholder="تاریخ"> --}}
-                        <input type="text" id="address" name="address" class="form-control w-50 mb-3" placeholder="آدرس">
+                        <input type="text" id="address" name="address" class="form-control w-50 mb-3" placeholder="آدرس" readonly>
                     </div>
 
                     <div class="d-flex gap-3 form-row-responsive">
@@ -237,8 +237,9 @@
                             <option value="" selected>اسم فروشنده</option>
                             <option value=""></option>
                         </select> --}}
-                        <input type="text" id="no_customer" name="no_customer" class="form-control w-100 mb-3" placeholder="نوع مشتری">
-                        <input type="text" class="form-control" placeholder="شماره  LPO را وارد کنید" name="num_lpo">
+                        <input type="text" id="no_customer" name="no_customer" class="form-control w-100 mb-3" placeholder="نوع مشتری" readonly>
+                        {{-- @if() --}}
+                        <input type="text" id="lpo" class="form-control" placeholder="شماره  LPO را وارد کنید" name="num_lpo">
                     </div>
                     @error('num_lpo')
                     <small class="text-danger d-block mt-2">{{ $message }}</small>
@@ -531,6 +532,12 @@
                             break;
                         default:
                             customerTypeText = '';
+                    }
+                    let lpo = $('#lpo');
+                    if(data.no_customer == 1){
+                        lpo.addClass('d-none')
+                    }else{
+                        lpo.removeClass('d-none')
                     }
 
                     $('#phone').val(data.phone);

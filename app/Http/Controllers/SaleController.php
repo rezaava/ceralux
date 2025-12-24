@@ -127,7 +127,7 @@ class SaleController extends Controller
 
         $rule = [
             'customer' => 'required',  
-            'num_lpo' => 'required',  
+            'num_lpo' => 'required_if:no_customer,2,3',  
         ];
 
         $msg = [
