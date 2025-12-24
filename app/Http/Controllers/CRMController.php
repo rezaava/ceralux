@@ -195,8 +195,11 @@ class CRMController extends Controller
         $cart = Carts::where('id' , $id)->first();
         $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
         foreach($cart_prods as $cart_prod){
-
             $product = size_product::where('id' , $cart_prod->size_prod_id)->first();
+
+            if($cart->count_meters > $product->count_all || $cart->count_boxs > $product->count_box || $cart->count_palets > $product->count_paletl){
+                return redirect()->back()->with('error' , ' درخواست مورد نظر  بیشتر از موجودی انبار میباشد!');
+            }
             $product-> count_box = $product->count_box - $cart_prod->count_box;
             $product->count_palet = ((int) $product->count_palet) - ((int) $cart_prod->count_palet);
             $product->count_all = $product->count_all - $cart_prod->count_all;

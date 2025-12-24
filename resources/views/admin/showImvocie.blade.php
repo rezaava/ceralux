@@ -32,7 +32,7 @@
         }
         
         .invoice-container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         
@@ -265,11 +265,12 @@
                             <th>شرح طرح  </th>
                             <th>سایز طرح  </th>
                             <th> متراژ هر کارتن</th>
-                            <th>تعداد کارتن</th>
+                            <th>تعداد کارتن خرد</th>
+                            <th>تعداد کارتن کل</th>
                             <th>تعداد پالت</th>
                             <th>متراژکل</th>
-                            <th>قیمت</th>
                             <th>تخفیف</th>
+                            <th>قیمت</th>
                             <th>مبلغ</th>
                         </tr>
                     </thead>
@@ -280,11 +281,12 @@
                                 <td>{{$cart_prod->prod->name}}</td>
                                 <td>{{$cart_prod->size->name}}</td>
                                 <td>{{$cart_prod->size_prod->box_meter}}</td>
+                                <td>{{ $cart_prod->count_box_num }}</td>
                                 <td>{{ $cart_prod->count_box }}</td>
                                 <td>{{ $cart_prod->count_palet }}</td>
                                 <td>{{ $cart_prod->count_all }}</td>
-                                <td>{{number_format($cart_prod->prod->price)}}</td>
                                 <td>%{{$cart_prod->off}}</td>
+                                <td>{{number_format($cart_prod->prod->price)}}</td>
                                 <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) )}}</td>
                             </tr>
                         @endforeach
@@ -311,17 +313,21 @@
                     <span><span>{{number_format($cart->price_rent)}} </span>درهم</span>
                 </div>
                 <div class="total-row">
-                    <span>مبلغ کل بدون مالیات بر ارزش افزوده :</span>
+                    <span>مبلغ کل     خالص :</span>
                     <span><span>{{number_format($cart->price)}}</span>درهم</span>
                 </div>
+                @if($cart->no_tax == 1)
                 <div class="total-row">
                     <span> 5% مالیات ارزش افزوده:</span>
                     <span><span>{{number_format($five)}}</span>درهم</span>
                 </div>
+                @endif
+                @if($cart->off > 0)
                 <div class="total-row">
                     <span>تخفیف کل:</span>
                     <span><span>{{$cart->off}} </span>درصد</span>
                 </div>
+                @endif
                 <div class="total-row total-amount">
                     <span>مبلغ نهایی فاکتور:</span>
                     <span><span>{{number_format($finalPrice)}} </span>درهم</span>
@@ -365,7 +371,7 @@
                 </a>
 
                 @if($cart->status == 2)
-                <a class="btn-print btn" href="/download/pdf/{{ $cart->id }}" target="_blank">
+                <a class="btn-print btn" href="/download/pdf/{{ $cart->id }}">
                 <i class="fa-solid fa-download px-1" ></i>نمایش فاکتور
                 </a>
                 {{-- @else

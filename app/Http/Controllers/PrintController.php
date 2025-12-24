@@ -46,8 +46,11 @@ class PrintController extends Controller
 
                 $cart_prod['size_prod'] = $size_prod;
                 $cart_prod['size'] = $size;
-
-                $five = $cart->price * 0.05;
+                if($cart->no_tax == 1){
+                    $five = $cart->price * 0.05;
+                }else{
+                    $five = 0;
+                }
                 $subtotal = $cart->price + $five + $cart->price_rent; // مجموع قبل از تخفیف
                 $finalOff = $subtotal * ($cart->off / 100);        // محاسبه تخفیف از مجموع
                 $finalPrice = $subtotal - $finalOff; 
@@ -95,6 +98,7 @@ class PrintController extends Controller
         $five = 0;
         $finalOff= 0;
         $finalPrice= 0;
+        $box_num = 0;
 
         $cart = Carts::findOrFail($id);
 
@@ -116,21 +120,27 @@ class PrintController extends Controller
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
                 $cart_prod['prod'] = $prod;
 
-                $size = Size::where('id' , $cart_prod->size_prod_id)->first();
-                $size_prod = size_product::where('size_id' , $cart_prod->size_prod_id)->where('product_id' , $cart_prod->prod_id)->first();
+                $size_prod = size_product::where('id' , $cart_prod->size_prod_id)->first();
+                $size = Size::where('id' , $size_prod->size_id)->first();
 
                 $cart_prod['size_prod'] = $size_prod;
                 $cart_prod['size'] = $size;
 
-                $five = $cart->price * 0.05;
+                if($cart->no_tax == 1){
+                    $five = $cart->price * 0.05;
+                }else{
+                    $five = 0;
+                }
                 $subtotal = $cart->price + $five + $cart->price_rent; // مجموع قبل از تخفیف
                 $finalOff = $subtotal * ($cart->off / 100);        // محاسبه تخفیف از مجموع
-                $finalPrice = $subtotal - $finalOff; 
+                $finalPrice = $subtotal - $finalOff;
+                $box_num = $cart_prod->count_box_num + $box_num;
         }
+        $cart['box_num'] = $box_num;
 
-        // $pdf = PDF::loadView("admin/downloadPdf" , compact('cart' , 'cart_prods' , 'date' , 'five' , 'finalPrice' , 'customer'));
-        // return $pdf->stream("invoice-".$cart->text_type.".pdf");
+        $pdf = PDF::loadView("admin/downloadPdf" , compact('cart' , 'cart_prods' , 'date' , 'five' , 'finalPrice' , 'customer'));
+        return $pdf->stream("invoice-".$cart->text_type.".pdf");
 
-        return view("admin.downloadPdf" , compact('cart' , 'cart_prods' , 'date' , 'five' , 'finalPrice' , 'customer'));
+        //return view("admin.downloadPdf" , compact('cart' , 'cart_prods' , 'date' , 'five' , 'finalPrice' , 'customer'));
     }
 }

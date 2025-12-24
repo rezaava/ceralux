@@ -421,13 +421,18 @@
                     </div> --}}
 
                 </div>
-
+                @if($order->price_rent < 0)
                 <form action="/admin/crm/reqSale/rentOrOff/add" method="POST">
                     @csrf
                     <div class="d-flex gap-3 form-row-responsive mt-3">
                         <input type="hidden" name="cart_id" value="{{ $order->id }}">
                         <input type="text" name="price_rent" class="form-control w-50" placeholder="کرایه بار">
                         <input type="text" name="all_off" class="form-control w-50" placeholder="تخفیف روی کل فاکتور">
+                        <select name="no_tax" id="" class="form-select w-50">
+                            <option value="" disabled selected>اعمال مالیات 5 درصد</option>
+                            <option value="1">اعمال شود</option>
+                            <option value="2">اعمال نشود</option>
+                        </select>
                     </div>
                     @error('all_off')
                         <small class="text-danger d-block">{{ $message }}</small>
@@ -435,8 +440,12 @@
                         @error('price_rent')
                         <small class="text-danger d-block">{{ $message }}</small>
                         @enderror
+                        @error('no_tax')
+                        <small class="text-danger d-block">{{ $message }}</small>
+                        @enderror
                     <div class="text-center"><button class="btn btn-success w-50 mt-3"> اعمال تغییرات</button></div>
                 </form>
+                @endif
 
                 <div class="total-section">
                     @if($order->price_rent > 0)
@@ -452,13 +461,15 @@
                     </div>
                     @endif
                     <div class="total-row">
-                        <span>مبلغ کل بدون مالیات بر ارزش افزوده :</span>
+                        <span>مبلغ کل خالص:</span>
                         <span>{{number_format($priceAll)}}<span>درهم</span></span>
                     </div>
+                    @if($order->no_tax == 1)
                     <div class="total-row">
                         <span>5% مالیات بر ارزش افزوده:</span>
                         <span>{{number_format($five)}}<span>درهم</span></span>
                     </div>
+                    @endif
                     <div class="total-row total-amount">
                         <span style="font-size: 1.2rem">مبلغ نهایی فاکتور:</span>
                         <span style="font-size: 1rem">{{number_format($finalPrice)}}<span>درهم</span></span>

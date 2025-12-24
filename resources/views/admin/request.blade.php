@@ -568,6 +568,25 @@
 </script>
 @endif
 
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: "error",
+        title: "خطا...",
+        text: '{{ session('error') }}',
+        footer: '<a href="/admin/crm/buy/add/{id}" target="_blank">افزایش موجودی محصول</a>',
+        showCloseButton: true,
+        confirmButtonText:"متوجه شدم",
+        background: '#232b39',
+        color: '#fff',
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@endif
+
 <script>
     let btns = document.querySelectorAll('#req');
     let overlay = document.querySelector('#overlay');

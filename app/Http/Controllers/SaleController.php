@@ -77,7 +77,11 @@ class SaleController extends Controller
                     $paper = $cart_prod->count_paper + $paper;
                     $palet = $cart_prod->count_palet + $palet;
                     $priceAll = $cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) + $priceAll;
-                    $five = $priceAll * 0.05;
+                    if($order->no_tax == 1){
+                        $five = $priceAll * 0.05;
+                    }else{
+                        $five = 0;
+                    }
                     $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
                     $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
                     $finalPrice = $subtotal - $finalOff;  
@@ -185,11 +189,13 @@ class SaleController extends Controller
         $rule = [
             'price_rent' => 'required|numeric',  
             'all_off' => 'required|numeric',  
+            'no_tax' => 'required',  
         ];
 
         $msg = [
             'price_rent.required' => 'مبلغ کرایه بار را وارد کنید',
             'all_off.required' => '  تخفیف کل را وارد کنید یا صفر بزنید',
+            'no_tax.required' => 'نوع مالیات را انتخاب کنید.',
             'price_rent.numeric' => '  مبلغ کرایه بار را عدد وارد کنید',
             'all_off.numeric' => 'تخفیف کل  را درست وارد کنید',
         ];
@@ -204,6 +210,7 @@ class SaleController extends Controller
         $cart = Carts::find($req->cart_id);
         $cart->off = $req->all_off;
         $cart->price_rent = $req->price_rent;
+        $cart->no_tax = $req->no_tax;
         $cart->save();
         return redirect()->back()->with('message' , ' تغییرات  با موفقیت اعمال  شد!');
     }

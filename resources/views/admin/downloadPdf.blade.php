@@ -6,182 +6,189 @@
     <style>
         @font-face {
             font-family: yekan;
-            src: url({{ asset('fonts/YekanBakh-Medium.ttf') }});
+            src: url({{ public_path('fonts/YekanBakh-Medium.ttf') }});
         }
 
         body {
             font-family: yekan;
-            font-size: 12px;
+            font-size: 14px;
             direction: rtl;
             color: #000;
-            margin: 0;
-            padding: 0;
-            background: #eee;
+            border: 2px solid #232323;
+            border-radius: 10px;
         }
 
-        /* ===== نمایش عادی ===== */
-        .page {
-            width: 148mm;
-            min-height: 210mm;
-            margin: 20px auto;
-            background: #fff;
-            padding: 10mm;
-            box-sizing: border-box;
+        .invoice-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
 
-        /* ===== مخصوص چاپ ===== */
-        @media print {
-            body {
-                background: #fff;
-            }
+        .invoice-info p {
+            font-size: 15px;
+        }
 
-            @page {
-                size: A5;
-                margin: 10mm;
-            }
+        .logo-box {
+            text-align: left;
+        }
 
-            .page {
-                margin: 0 auto;
-                padding: 0;
-                width: auto;
-                min-height: auto;
-            }
+        .logo-box img {
+            width: 120px;
+            height: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 11px;
+            margin-top: 15px;
+            font-size: 14px;
         }
 
         th, td {
-            border: 1px solid #000;
-            padding: 4px;
-            white-space: nowrap;
+            border: 1px solid #999;
+            padding: 8px;
             text-align: center;
         }
 
         th {
-            background: #f2f2f2;
-            font-weight: bold;
+            background-color: #f2f2f2;
+            font-size: 14px;
         }
 
-        hr {
-            border: none;
-            border-top: 1px solid #000;
+        .totals {
+            margin-top: 20px;
+            font-size: 15px;
+        }
+
+        .totals p {
             margin: 6px 0;
         }
 
         .final-price {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: bold;
-            margin-top: 8px;
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body>
 
-<div class="page">
-
-    <!-- هدر -->
-    <table style="border:none;">
+<div>
+    <table width="100%" cellspacing="0" cellpadding="0" style="border:none;">
         <tr>
-            <td style="border:none; font-size:16px; font-weight:bold;">
+            <td style="border:none; vertical-align: top; font-size:18px; font-weight:bold; padding-bottom:6px;text-align: right">
                 فاکتور {{ $cart->text_type ?? '-' }}
             </td>
-            <td rowspan="3" style="border:none; text-align:left;">
-                <img src="{{ asset('images/logo.png') }}" style="width:90px">
+            <td rowspan="3" style="border:none; text-align:left; width:120px; vertical-align:top;">
+                <img src="{{ public_path('images/logo.png') }}" style="width:160px;" alt="Logo">
             </td>
         </tr>
         <tr>
-            <td style="border:none;">شماره فاکتور: {{ $cart->num_cart ?? '-' }}</td>
+            <td style="border:none; font-size:15px; padding-bottom:4px;text-align: right">
+                شماره فاکتور: {{ $cart->num_cart ?? '-' }}
+            </td>
         </tr>
         <tr>
-            <td style="border:none;">تاریخ فاکتور: {{ $date ?? '-' }}</td>
+            <td style="border:none; font-size:15px; padding-bottom:4px;text-align: right">
+                تاریخ فاکتور: {{ $date ?? '-' }}
+            </td>
         </tr>
         <tr>
-            <td style="border:none;">شماره LPO: {{ $cart->num_lpo ?? '-' }}</td>
-        </tr>
-    </table>
-
-    <hr>
-
-    <!-- اطلاعات خریدار -->
-    <table style="border:none;">
-        <tr>
-            <td style="border:none;">نام خریدار: {{ $customer->name ?? '-' }}</td>
-            <td style="border:none;">شماره موبایل: {{ $customer->phone ?? '-' }}</td>
-        </tr>
-        <tr>
-            <td colspan="2" style="border:none;">
-                آدرس: {{ $customer->address ?? '-' }}
+            <td style="border:none; font-size:15px; padding-bottom:4px;text-align: right">
+                 شماره LPO : {{ $cart->num_lpo ?? '-' }}
             </td>
         </tr>
     </table>
-
+    
+    
+    
+    
     <hr>
-
-    <!-- جدول محصولات -->
+    <table width="100%" cellspacing="0" cellpadding="0" style="border:none;">
+        <tr>
+            <td style="border:none; vertical-align: top; font-size:16px; font-weight:bold;text-align: right;padding-top: 0">
+                   نام خریدار :  <span style="font-weight: normal ; font-size: 16px;">{{ $customer->name ?? '-' }}</span>
+            </td>
+            <td style="border:none; vertical-align: top; font-size:16px; font-weight:bold;text-align: center;padding-top: 0"> شماره  موبایل خریدار :    <span style="font-weight: normal ; font-size: 16px;">{{ $customer->phone ?? '-' }}</span> </td>
+        </tr>
+        <tr>
+            <td style="border:none; vertical-align: top; font-size:16px; font-weight:bold;text-align: right;padding-top: 6px;">
+                آدرس خریدار : <span style="font-weight: normal ; font-size: 16px;">{{ $customer->address ?? '-' }}</span>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    
+    {{-- جدول اقلام --}}
     <table>
         <thead>
-        <tr>
-            <th>ردیف</th>
-            <th>نام طرح</th>
-            <th>سایز</th>
-            <th>متراژ هر کارتن</th>
-            <th>کارتن</th>
-            <th>پالت</th>
-            <th>متراژ کل</th>
-            <th>قیمت</th>
-            <th>تخفیف</th>
-            <th>مبلغ کل</th>
-        </tr>
+            <tr>
+                <th>ردیف</th>
+                <th>نام طرح</th>
+                <th>  سایز هر طرح </th>
+                <th> متراژ هر کارتن</th>
+                <th>کارتن خرد</th>
+                <th>کارتن کل</th>
+                <th>پالت</th>
+                <th>متراژ کل</th>
+                <th>قیمت</th>
+                <th>تخفیف</th>
+                <th>مبلغ کل</th>
+            </tr>
         </thead>
         <tbody>
-        @forelse($cart_prods as $key => $item)
-            <tr>
-                <td>{{ $key + 1 }}</td>
-                <td>{{ $item->prod->name ?? '-' }}</td>
-                <td>{{ $item->size->name ?? '-' }}</td>
-                <td>{{ $item->size_prod->box_meter ?? 0 }}</td>
-                <td>{{ $item->count_box ?? 0 }}</td>
-                <td>{{ $item->count_palet ?? 0 }}</td>
-                <td>{{ $item->count_all ?? 0 }}</td>
-                <td>{{ number_format($item->prod->price ?? 0) }}</td>
-                <td>%{{ $item->off ?? 0 }}</td>
-                <td>
-                    {{ number_format(
-                        ($item->prod->price ?? 0) * ($item->count_all ?? 0)
-                        - (($item->prod->price ?? 0) * ($item->count_all ?? 0) * ($item->off ?? 0) / 100)
-                    ) }}
-                </td>
-            </tr>
-        @empty
-            <tr>
-                <td colspan="10">محصولی ثبت نشده</td>
-            </tr>
-        @endforelse
-
-        <tr>
-            <td colspan="4">جمع کل فاکتور</td>
-            <td>{{ $cart->count_boxs ?? 0 }}</td>
-            <td>{{ $cart->count_palet ?? 0 }}</td>
-            <td>{{ $cart->count_meters ?? 0 }}</td>
-            <td colspan="2"></td>
-            <td>{{ number_format($cart->price ?? 0) }}</td>
-        </tr>
+            @forelse($cart_prods as $key => $item)
+                @php
+                    $meter = $item->product->count_meter ?? 0;
+                    $price = $item->product->price ?? 0;
+                    $box_num   = $item->count_box_num ?? 0;
+                    $box   = $item->count_box ?? 0;
+                    $totalMeter = $box * $meter;
+                    $totalPrice = $totalMeter * $price;
+                @endphp
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $item->prod->name ?? '-' }}</td>
+                    <td>{{$item->size->name}}</td>
+                    <td>{{$item->size_prod->box_meter}}</td>
+                    <td>{{ $item->count_box_num ?? 0 }}</td>
+                    <td>{{ $item->count_box ?? 0 }}</td>
+                    <td>{{ $item->count_palet ?? 0 }}</td>
+                    <td>{{ $item->count_all }}</td>
+                    <td>{{ number_format($item->prod->price) }}</td>
+                    <td>%{{ $item->off }}</td>
+                    <td>{{ number_format($item->prod->price * ($item->count_all) - ($item->prod->price * ($item->count_all)) * ($item->off/100) ) }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7">محصولی ثبت نشده است</td>
+                </tr>
+            @endforelse
+                <tr>
+                    <td colspan="4">جمع کل فاکتور </td>
+                    <td>{{ $cart->box_num ?? 0 }} عدد</td>
+                    <td>{{ $cart->count_boxs ?? 0 }} عدد</td>
+                    <td>{{ $cart->count_palet ?? 0 }} عدد</td>
+                    <td>{{ $cart->count_meters ?? 0 }} متر</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ number_format($cart->price) ?? 0 }}</td>
+                </tr>
         </tbody>
     </table>
-
-    <!-- جمع نهایی -->
-    <div class="final-price">
-        <p>کرایه بار: {{ number_format($cart->price_rent ?? 0) }}</p>
-        <p>۵٪ مالیات بر ارزش افزوده: {{ number_format($five ?? 0) }}</p>
-        <p>تخفیف کل: %{{ $cart->off ?? 0 }}</p>
-        <p>مبلغ نهایی: {{ number_format($finalPrice ?? 0) }} درهم</p>
+    
+    {{-- جمع کل --}}
+    <div class="totals final-price" style="padding-right: 10px;padding-bottom: 30px;">
+        <p> کرایه بار: {{ number_format($cart->price_rent) ?? 0 }} <span>درهم</span></p>
+        @if($cart->no_tax == 1)
+        <p>5% مالیات بر ارزش افزوده:{{ number_format($five) ?? 0 }} درهم</p>
+        @endif
+        <p> تخفیف کل: % {{ number_format($cart->off) ?? 0 }} </p>
+        <div class="final-price">
+            مبلغ نهایی: {{ number_format($finalPrice ?? 0) }} درهم
+        </div>
     </div>
-
 </div>
 <script>
     window.print();
