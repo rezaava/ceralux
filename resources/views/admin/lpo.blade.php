@@ -406,7 +406,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-12">
-                            <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
+                            <p class="m-0 p-0">قیمت کل : <span style="padding-right: 0.5rem">{{number_format($priceAll)}}</span><span style="padding-right: 0.2rem">درهم</span></p>
                         </div>
                         {{-- <div class="col-lg-4 col-md-6 col-12">
                             <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
@@ -477,6 +477,24 @@
         title: "خطا...",
         text: '{{ session('error') }}',
         footer: '<a href="/admin/crm/buy/add/{id}" target="_blank">افزایش موجودی محصول</a>',
+        showCloseButton: true,
+        confirmButtonText:"متوجه شدم",
+        background: '#232b39',
+        color: '#fff',
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@endif
+
+@if (session('error2'))
+<script>
+    Swal.fire({
+        icon: "error",
+        title: "خطا LPO تکراری",
+        text: '{{ session('error2') }}',
         showCloseButton: true,
         confirmButtonText:"متوجه شدم",
         background: '#232b39',

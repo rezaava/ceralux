@@ -115,7 +115,7 @@ class CRMController extends Controller
 
     public function listInvocie(){
         $user = null;
-        $carts = Carts::whereIn('status' , [2,3])->get();
+        $carts = Carts::whereIn('status' , [1,2,3])->get();
         foreach($carts as $cart){
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
             $user = Customer::where('id' , $cart->user_id)->first();
@@ -141,7 +141,7 @@ class CRMController extends Controller
             
             $meter = 0;
             $box = 0;
-            $palet = 0;
+            $paper = 0;
             $priceAll = 0;
 
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
@@ -173,28 +173,36 @@ class CRMController extends Controller
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
                 $cart_prod['prod'] = $prod;
 
-                // $size_prod = size_product::where('id' , $cart->size_prod_id)->first();
-                // $size = Size::where('id' , $size_prod->size_id)->first();
-                // $cart_prod['size_prod'] = $size_prod;
-                // $cart_prod['size'] = $size;
+                $size_prod = size_product::where('id' , $cart_prod->size_prod_id)->first();
+                $size = Size::where('id' , $size_prod->size_id)->first();
+                $cart_prod['size_prod'] = $size_prod;
+                $cart_prod['size'] = $size;
                 
                 $meter = $cart_prod->count_all + $meter;
-                $box = $cart_prod->count_box + $box;
-                $palet = $cart_prod->count_palet + $palet;
+                $box = $cart_prod->count_box_num + $box;
+                $paper = $cart_prod->count_paper + $paper;
+                //$palet = $cart_prod->count_palet + $palet;
                 $priceAll = ($cart_prod->count_all) * $prod->price + $priceAll;
             }
-            $cart['meter'] = $meter ;
-            $cart['box'] = $box;
-            $cart['palet'] = $palet;
             $cart['price'] = $priceAll ;
         }
 
-        return view('admin.request' , compact('carts'));
+        return view('admin.request' , compact('carts' , 'box' , 'paper'));
     }
 
     public function requestPostYes($id){
 
         $cart = Carts::where('id' , $id)->first();
+        $cart_prods = Cart_prod::where('card_id' , $cart->id)->get();
+        foreach($cart_prods as $cart_prod){
+
+            $product = size_product::where('id' , $cart_prod->size_prod_id)->first();
+            $product-> count_box = $product->count_box - $cart_prod->count_box;
+            $product->count_palet = ((int) $product->count_palet) - ((int) $cart_prod->count_palet);
+            $product->count_all = $product->count_all - $cart_prod->count_all;
+            $product->save();
+
+            }
         $cart->status = '2';
         $cart->date_admin = Carbon::now();
         $cart->save();

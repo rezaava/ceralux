@@ -392,15 +392,23 @@
 
                     <div class="row">
 
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-2 col-md-6 col-12">
                             <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-2 col-md-6 col-12">
                             <p class="m-0 p-0">تعداد کارتن کل : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد کارتن خرد : <span style="padding-right: 0.5rem">{{$box_num}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
+                        </div>
+
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد برگ کاشی : <span style="padding-right: 0.5rem">{{$paper}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
+                        </div>
+
+                        <div class="col-lg-2 col-md-6 col-12">
                             <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">عدد</span></p>
                         </div>
 
@@ -431,25 +439,29 @@
                 </form>
 
                 <div class="total-section">
+                    @if($order->price_rent > 0)
                     <div class="total-row">
                         <span>  کرایه بار : </span>
-                        <span>{{number_format($order->price_rent) ?? 'مبلغ کرایه رو از فرم بالا وارد کنید'}}</span>
+                        <span>{{number_format($order->price_rent) ?? 'مبلغ کرایه رو از فرم بالا وارد کنید'}} <span>درهم</span></span>
                     </div>
+                    @endif
+                    @if($order->off > 0)
                     <div class="total-row">
                         <span>تخفیف کل :</span>
                         <span><span>{{$order->off}}</span> درصد</span>
                     </div>
+                    @endif
                     <div class="total-row">
                         <span>مبلغ کل بدون مالیات بر ارزش افزوده :</span>
-                        <span><span>{{number_format($priceAll)}}</span></span>
+                        <span>{{number_format($priceAll)}}<span>درهم</span></span>
                     </div>
                     <div class="total-row">
                         <span>5% مالیات بر ارزش افزوده:</span>
-                        <span><span>{{number_format($five)}}</span></span>
+                        <span>{{number_format($five)}}<span>درهم</span></span>
                     </div>
                     <div class="total-row total-amount">
                         <span style="font-size: 1.2rem">مبلغ نهایی فاکتور:</span>
-                        <span style="font-size: 1rem"><span>{{number_format($finalPrice)}}</span></span>
+                        <span style="font-size: 1rem">{{number_format($finalPrice)}}<span>درهم</span></span>
                     </div>
                 </div>
 

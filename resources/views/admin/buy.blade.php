@@ -441,7 +441,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     $('#sizeSelect').on('change', function() {
         let sizeId = $(this).val();
         let productId = $('#productSelect').val();
@@ -487,5 +487,5 @@
 
         }
     });
-</script>
+</script> --}}
 @endsection

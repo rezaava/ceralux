@@ -120,23 +120,23 @@ class BuyController extends Controller
         ]);
     }
 
-    public function buyAjax2($sizeId , $id){
+    // public function buyAjax2($sizeId , $id){
 
-        $size_prod = size_product::where('id'  ,$sizeId)->first();
-        $prod = Product::where('id' , $id)->first();
+    //     $size_prod = size_product::where('id'  ,$sizeId)->first();
+    //     $prod = Product::where('id' , $id)->first();
 
-        if ($size_prod) {
-            return response()->json([
-                'count_meter' => $size_prod->box_meter ?? '',
-                'count_box' => $prod->count_box ?? '',
-            ]);
-        }
+    //     if ($size_prod) {
+    //         return response()->json([
+    //             'count_meter' => $size_prod->box_meter ?? '',
+    //             'count_box' => $prod->count_box ?? '',
+    //         ]);
+    //     }
 
-        return response()->json([
-            'count_meter' => '',
-            'count_box' => '',
-        ]);
-    }
+    //     return response()->json([
+    //         'count_meter' => '',
+    //         'count_box' => '',
+    //     ]);
+    // }
 
     public function buyaddProd(Request $req){
         $data = $req->all();
@@ -168,11 +168,11 @@ class BuyController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $product = Product::where('id' , $req->prod_id)->first();
-        $product-> box = $product->box + $req->count_box;
-        $product->count_palet = ((int) $product->count_palet) + ((int) $req->count_palet);
-        $product->count_all = $product->count_all + $req->count_all;
-        $product->save();
+        // $product = Product::where('id' , $req->prod_id)->first();
+        // $product-> box = $product->box + $req->count_box;
+        // $product->count_palet = ((int) $product->count_palet) + ((int) $req->count_palet);
+        // $product->count_all = $product->count_all + $req->count_all;
+        // $product->save();
 
         $cart = Carts::where('id' , $req->cart_id)->first();
         $cart->no_price = $req->no_price;
@@ -203,10 +203,16 @@ class BuyController extends Controller
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
                 $cart_prod['prod'] = $prod;
 
-                $meter = $cart_prod->count_box * $prod->count_meter + $meter;
+                $product = size_product::where('id' , $cart_prod->size_prod_id)->first();
+                $product-> count_box = $product->count_box + $cart_prod->count_box;
+                $product->count_palet = ((int) $product->count_palet) + ((int) $cart_prod->count_palet);
+                $product->count_all = $product->count_all + $cart_prod->count_all;
+                $product->save();
+
+                $meter = $cart_prod->count_all + $meter;
                 $box = $cart_prod->count_box + $box;
                 $palet = $cart_prod->count_palet + $palet;
-                $priceAll = ($cart_prod->count_box * $prod->count_meter) * $prod->price + $priceAll;
+                $priceAll = ($cart_prod->count_all) * $prod->price + $priceAll;
             }
         $cart->status = '1';
         $cart->price = $priceAll;

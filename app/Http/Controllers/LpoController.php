@@ -151,6 +151,11 @@ class LpoController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+
+        $lpos = Lpo::where('status' , 1)->where('num_lpo' , $req->num_lpo)->first();
+        if($lpos){
+             return redirect()->back()->with('error2' , 'شماره LPO تکرار میباشد و این شماره ثبت شده است.');
+        }
         
         $lpo = new Lpo();
         $lpo->customer_id = $req->customer_id;
@@ -186,8 +191,8 @@ class LpoController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-        $product = Product::where('id' , $req->prod_id)->first();
-        if($req->count_all > $product->count_all){
+        $product = size_product::where('id' , $req->size_id)->first();
+        if($req->count_all >= $product->count_all){
             return redirect()->back()->with('error' , 'مقدار درخواستی بیش‌تر از موجودی انبار است. لطفاً ابتدا موجودی محصول را افزایش دهید.');
         }else{
             $lpo_prod = new Lpo_Prod();

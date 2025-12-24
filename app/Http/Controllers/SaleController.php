@@ -45,6 +45,8 @@ class SaleController extends Controller
         $user = null;
         $meter = 0;
         $box = 0;
+        $box_num = 0;
+        $paper = 0 ; 
         $palet = 0;
         $priceAll = 0;
         $date = null;
@@ -63,14 +65,16 @@ class SaleController extends Controller
                 foreach($cart_prods as $cart_prod){
                     $prod = Product::where('id' , $cart_prod->prod_id)->first();
                     $cart_prod['prod'] = $prod;
-                    $size = Size::where('id' , $cart_prod->size_prod_id)->first();
-                    $size_prod = size_product::where('size_id' , $cart_prod->size_prod_id)->where('product_id' , $cart_prod->prod_id)->first();
+                    $size_prod = size_product::where('id' , $cart_prod->size_prod_id)->first();
+                    $size = Size::where('id' , $size_prod->size_id)->first();
 
                     $cart_prod['size_prod'] = $size_prod;
                     $cart_prod['size'] = $size;
                     
                     $meter = $cart_prod->count_all + $meter;
                     $box = $cart_prod->count_box + $box;
+                    $box_num = $cart_prod->count_box_num + $box_num;
+                    $paper = $cart_prod->count_paper + $paper;
                     $palet = $cart_prod->count_palet + $palet;
                     $priceAll = $cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) + $priceAll;
                     $five = $priceAll * 0.05;
@@ -79,7 +83,7 @@ class SaleController extends Controller
                     $finalPrice = $subtotal - $finalOff;  
                 }
                 
-                $lpo = Lpo::where('num_lpo' , $order->num_lpo)->first();
+                $lpo = Lpo::where('status' , 1)->where('num_lpo' , $order->num_lpo)->first();
                 if($lpo){
                     $lpo_prods = Lpo_Prod::where('lpo_id' , $lpo->id)->get();
                     foreach($lpo_prods as $lpo_prod){
@@ -103,7 +107,7 @@ class SaleController extends Controller
         }
         $prods = Product::get();
         $cuss = Customer::get();
-        return view('admin.reqSale' , compact('lpo_prods' , 'five' , 'finalPrice' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
+        return view('admin.reqSale' , compact('paper' , 'box_num' , 'lpo_prods' , 'five' , 'finalPrice' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
 
     public function salePost(Request $req){
@@ -160,7 +164,8 @@ class SaleController extends Controller
         foreach ($req->prod_id as $key => $prod_id) {
             $cart_prod = new Cart_prod();
             $cart_prod->prod_id = $prod_id;
-            $cart_prod->size_prod_id = $req->size_id[$key];
+            $size_prod = size_product::where('size_id' , $req->size_id[$key])->where('product_id' , $prod_id)->first();
+            $cart_prod->size_prod_id = $size_prod->id;
             $cart_prod->card_id = $req->cart_id;
             $cart_prod->count_box = $req->count_box[$key];
             $cart_prod->count_all = $req->count_all[$key];

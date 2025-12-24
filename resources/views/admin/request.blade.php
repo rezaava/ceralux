@@ -405,9 +405,11 @@
                               <tr>
                                 <th>ردیف</th>
                                 <th>کد کالا</th>
-                                <th>نام محصول</th>
+                                <th>نام طرح</th>
+                                <th>سایز طرح</th>
                                 <th>متراژ در هر کارتن </th>
-                                <th>تعداد کارتن</th>
+                                <th>تعداد کارتن کل</th>
+                                <th>تعداد کارتن خرد</th>
                                 <th>تعداد پالت</th>
                                 <th> متراژ کل</th>
                                 <th>  قیمت</th>
@@ -420,12 +422,14 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$cart_prod->prod->code_prod}}</td>
                                 <td>{{$cart_prod->prod->name}}</td>
+                                <td>{{$cart_prod->size->name}}</td>
+                                <td>{{$cart_prod->size_prod->box_meter}}</td>
                                 <td>{{$cart_prod->count_box}}</td>
-                                <td>{{$cart_prod->prod->count_meter}}</td>
+                                <td>{{$cart_prod->count_box_num}}</td>
                                 <td>{{$cart_prod->count_palet}}</td>
-                                <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
+                                <td>{{$cart_prod->count_all}}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
-                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter))}}</td>
+                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_all))}}</td>
                               </tr>
                               @endforeach
                             </tbody>
@@ -435,20 +439,27 @@
                     <div class="stat-card ">
 
                         <div class="row">
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$cart->meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
+                                <div class="col-lg-3 col-md-6 col-12">
+                                    <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$cart->count_meters}}</span><span style="padding-right: 0.2rem">متر</span></p>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$cart->box}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                                <div class="col-lg-3 col-md-6 col-12">
+                                    <p class="m-0 p-0">تعداد کارتن کل : <span style="padding-right: 0.5rem">{{$cart->count_boxs}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$cart->palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                                <div class="col-lg-3 col-md-6 col-12">
+                                    <p class="m-0 p-0">تعداد کارتن خرد : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-12">
+                                    <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$cart->count_palet}}</span><span style="padding-right: 0.2rem">تعداد</span></p>
                                 </div>
                         </div>
 
                         <div class="row mt-4">
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">{{number_format($cart->price)}}</span><span style="padding-right: 0.2rem">تومان</span></p>
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <p class="m-0 p-0">تعداد برگ   : <span style="padding-right: 0.5rem">{{$paper}}</span><span style="padding-right: 0.2rem">عدد</span></p>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <p class="m-0 p-0">قیمت کل  : <span style="padding-right: 0.5rem">{{number_format($cart->price)}}</span><span style="padding-right: 0.2rem">درهم</span></p>
                             </div>
                         </div>
 

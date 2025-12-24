@@ -41,8 +41,8 @@ class PrintController extends Controller
                 $prod = Product::where('id' , $cart_prod->prod_id)->first();
                 $cart_prod['prod'] = $prod;
 
-                $size = Size::where('id' , $cart_prod->size_prod_id)->first();
-                $size_prod = size_product::where('size_id' , $cart_prod->size_prod_id)->where('product_id' , $cart_prod->prod_id)->first();
+                $size_prod = size_product::where('id' , $cart_prod->size_prod_id)->first();
+                $size = Size::where('id' , $size_prod->size_id)->first();
 
                 $cart_prod['size_prod'] = $size_prod;
                 $cart_prod['size'] = $size;
