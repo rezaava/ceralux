@@ -24,8 +24,10 @@ class CRMController extends Controller
 {
     //
     public function addProd(){
-        $prods = Product::get();
-        return view('admin.addProd' , compact('prods'));
+        $size_prod = size_product::pluck('product_id');
+        $prods = Product::whereIn('id' , $size_prod)->get();
+        //return $size_prod;
+        return view('admin.addProd' , compact('size_prod' , 'prods'));
     }
 
     public function addProdPost(Request $req){
@@ -136,7 +138,8 @@ class CRMController extends Controller
 
     public function request(){
 
-        $carts = Carts::whereNull('type')->where('status' ,'>', 0)->get();
+        $carts = Carts::where(function ($q) {$q->whereNull('type')->orWhere('type', 'sale2');})->where('status', '>', 0)->orderBy('id' , 'desc')->get();
+
         foreach($carts as $cart){
             
             $meter = 0;
@@ -197,7 +200,7 @@ class CRMController extends Controller
         foreach($cart_prods as $cart_prod){
             $product = size_product::where('id' , $cart_prod->size_prod_id)->first();
 
-            if($cart->count_meters > $product->count_all || $cart->count_boxs > $product->count_box || $cart->count_palets > $product->count_paletl){
+            if($cart->count_meters > $product->count_all || $cart->count_boxs > $product->count_box || $cart->count_palets > $product->count_palet){
                 return redirect()->back()->with('error' , ' درخواست مورد نظر  بیشتر از موجودی انبار میباشد!');
             }
             $product-> count_box = $product->count_box - $cart_prod->count_box;

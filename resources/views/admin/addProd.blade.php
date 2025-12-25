@@ -1,36 +1,28 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- افزایش موجودی
+ موجودی انبار
 @endsection
 
 @section('onvan')
- افزایش موجودی
+ موجودی انبار
 @endsection
+
+{{-- @section('title-onvan')
+<div class="dashboard-desc">خوش آمدید! امروز <span style="color:var(--accent-green)">۵ اعلان جدید</span> دارید.</div>
+@endsection --}}
 
 @section('head')
 <style>
+    /* فرم‌ها */
     .form-control {
         background-color: #232323 !important;
         border: none !important;
         color: #fff !important;
         margin: 1rem 0;
-        
-    }
-
-    .form-select {
-        background-color: #232323 !important;
-        border: none !important;
-        color: #fff;
-        margin: 1rem 0;
     }
 
     .form-control::placeholder {
-        color: #8ecae6;
-        opacity: 0.5;
-    }
-
-    .form-select::placeholder {
         color: #8ecae6;
         opacity: 0.5;
     }
@@ -40,109 +32,209 @@
         resize: none;
     }
 
-        /* استایل‌های سفارشی برای Select2 */
-    .select2-container--default .select2-selection--single {
-        background-color: #232323 !important;
+
+    table.dataTable thead th {
+        background-color: #151A23;
+        color: #43E97B;
+        font-size: 0.85rem !important; /* کوچک‌تر کردن فونت هدر */
+        text-align: center;
         border: none !important;
-        color: #fff !important;
-        height: 50px;
-        border-radius: 10px;
-        margin-top: 2rem;
+        border-bottom: 1px solid #3BDE77 !important;
+      
+    }
+
+    table.dataTable tbody td {
+        background-color: #262F40;
+        color: #fff;
+        text-align: center;
+        font-size: 0.8rem !important; /* کوچک‌تر کردن فونت محتوا */
+        border: none !important;
+        
+    }
+
+    .stat-card{
+        padding: 15px 15px 15px 15px; /* کاهش padding کارت */
+    }
+
+    .dataTables_info {
+        font-size: 0.9rem !important;
+    }
+
+    /* فیلد جستجو */
+    .dataTables_wrapper .dataTables_filter .form-control {
+        background-color: #232323;
+        color: #fff;
+        border: 1px solid #444;
+        border-radius: 0.5rem;
+        padding: 10px 10px;
         width: 100%;
+        margin-right: 1rem;
     }
 
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        color: #fff !important;
-        line-height: 50px;
-        padding-right: 15px;
-        text-align: right;
+    /* حذف پس‌زمینه پیش‌فرض والد Pagination */
+    .dataTables_wrapper .dataTables_paginate {
+        background: transparent !important;
     }
 
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 50px;
-        left: 10px;
-        right: auto;
-        top:32px;
-    }
-
-    /* Dropdown استایل */
-    .select2-container--default .select2-results__option {
-        background-color: #151A23 !important;
-        color: #fff !important;
-        text-align: right;
-        padding: 10px 15px;
-    }
-
-    .select2-container--default .select2-results__option--highlighted[aria-selected] {
-        background-color: #3BDE77 !important;
-        color: #fff !important;
-    }
-
-    .select2-container--default .select2-results__option[aria-selected=true] {
-        background-color: #1c2535 !important;
-        color: #3BDE77 !important;
-    }
-    /* جستجو input */
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        background-color: #1e2839 !important;
+    /* دکمه‌ها */
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
         border: none !important;
-        color: #fff !important;
-        border-radius: 10px;
-        padding: 10px 15px;
-        width: 100% !important;
-        margin: 0 !important;
+        border-radius: 5px !important;
+        font-size: 0.8rem !important; 
+        margin-top: 1rem;
     }
-    /* Dropdown container */
-    .select2-container--default .select2-results > .select2-results__options {
-        background-color: #151A23 !important;
-        border: 1px solid #444 !important;
-        border-bottom-left-radius: 1rem !important;
-        border-bottom-right-radius: 1rem !important;
+    div.dataTables_wrapper div.dataTables_info{
+        margin-top: 1rem;
     }
 
-    .select2-dropdown {
-        background-color: #151A23 !important;
-        border: 1px solid #444 !important;
-        border-bottom-left-radius: 1rem !important;
-        border-bottom-right-radius: 1rem !important;
+    .dataTables_wrapper .dataTables_length .form-select {
+        background-color: #232323;
+        color: #fff;
+        border: 1px solid #444;
+        border-radius: 0.5rem;
+        padding: 5px 10px;
+        width: 50%;
+        font-size: 0.9rem;
     }
 
-    .select2-container--open .select2-dropdown--below {
-        border-top: 1px solid #444 !important;
+    /* ترتیب تعداد رکورد و جستجو */
+    .dataTables_wrapper .row:first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
     }
 
-
-    .select2-results__options::-webkit-scrollbar {
-        width: 8px;
-        background: transparent !important;
+    .dataTables_wrapper .dataTables_length {
+        order: 1;
+        margin-right: auto;
     }
 
-    .select2-results__options::-webkit-scrollbar-track {
-        background: transparent !important;
-        border-radius: 4px;
+    div.dataTables_wrapper div.dataTables_filter {
+        order: 2;
+        margin-left: 60px;
+        text-align: left;
     }
 
-    .select2-results__options::-webkit-scrollbar-thumb {
-        background: transparent !important;
-        border-radius: 4px;
+    .description-cell2 {
+        max-height: 120px;
+        min-height: 30px;
+        overflow-y: auto;
+        display: block;
+        text-align: center;
+        padding: 4px;
+        line-height: 1.4rem;
+        white-space: nowrap;
+        font-size: 0.9rem;
     }
 
-    .select2-results__options::-webkit-scrollbar-thumb:hover {
-        background: transparent !important;
-    }
+    .description-cell {
+        max-height: 120px;
+        min-height: 30px;
+        overflow-y: auto;
+        width: 180px; /* کاهش عرض */
+        display: block;
+        word-wrap: break-word;
+        text-align: right;
+        padding: 4px;
+        line-height: 1.4rem;
+        font-size: 0.8rem;
 
-    /* برای Firefox */
-    .select2-results__options {
+        /* استایل اسکرول‌بار */
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 4px;
+            margin: 2px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--accent-green)!important;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #1f6c3b;
+            transform: scale(1.1);
+        }
+
         scrollbar-width: thin;
-        background: transparent !important;
-        scrollbar-color: #3BDE77 transparent;
+        scrollbar-color: var(--accent-green) #242D3D;
+    }
+
+    th {
+        white-space: nowrap;
+    }
+
+    .btn-outline-success {
+        color: var(--accent-green);
+        font-size: 0.75rem !important; /* کوچک‌تر کردن دکمه‌ها */
+    }
+
+    .btn-outline-primary, .btn-outline-danger {
+        font-size: 0.75rem !important;
+    }
+
+    .btn {
+        padding: 4px 8px !important;
+        margin: 1px !important;
+    }
+    /* اسکرول جدول DataTable */
+    .table-responsive::-webkit-scrollbar {
+        height: 2px;  /* برای اسکرول افقی */
+        width: 2px;   /* برای اسکرول عمودی */
+    }
+    
+    .table-responsive::-webkit-scrollbar-track {
+        background: #1b2330;  /* سرمه‌ای تیره */
+        border-radius: 10px;
+    }
+    
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #3BDE77; /* همون سبز اکسنت */
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+    
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: #1f6c3b; /* سبز تیره هنگام هاور */
+    }
+    
+    /* برای فایرفاکس */
+    .table-responsive {
+        scrollbar-width: thin;
+        scrollbar-color: #3BDE77 #1b2330;
+    }
+
+
+    /* مخفی کردن ستون‌های کم‌اهمیت در صفحه‌های کوچک */
+    @media (max-width: 1400px) {
+        .hide-on-large { display: none !important; }
+    }
+
+    @media (max-width: 1200px) {
+        .hide-on-medium { display: none !important; }
+        .description-cell { width: 150px; }
+    }
+
+    @media (max-width: 992px) {
+        .hide-on-small { display: none !important; }
+        .description-cell { width: 120px; }
+        table.dataTable thead th { font-size: 0.8rem !important; }
+        table.dataTable tbody td { font-size: 0.75rem !important; }
     }
 
     @media (max-width: 768px) {
+        .hide-on-mobile { display: none !important; }
+        .description-cell { width: 100px; }
+        
         .form-row-responsive {
             flex-direction: column;
         }
-
 
         .form-row-responsive .form-control {
             width: 100% !important;
@@ -151,46 +243,115 @@
         .textArea {
             width: 100%;
         }
+
+        .dataTables_wrapper .row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_length {
+            float: none;
+            margin: 5px 0;
+            order: unset;
+        }
+
+        .dataTables_info {
+            font-size: 0.8rem !important;
+        }
+        
+        /* کاهش بیشتر سایزها در موبایل */
+        table.dataTable thead th { 
+            font-size: 0.75rem !important; 
+            padding: 6px 3px !important;
+        }
+        table.dataTable tbody td { 
+            font-size: 0.7rem !important; 
+            padding: 4px 2px !important;
+        }
+        .btn { 
+            font-size: 0.7rem !important; 
+            padding: 3px 6px !important;
+        }
+    }
+
+    /* بهبود اسکرول برای جدول */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* کاهش عرض ستون‌های عددی */
+    .numeric-column {
+        min-width: 60px !important;
+        max-width: 100px !important;
+    }
+    
+    /* کاهش عرض ستون عملیات */
+    .actions-column {
+        min-width: 120px !important;
+        max-width: 150px !important;
     }
 </style>
 @endsection
 
 @section('main')
-<div class="container py-4">
+<div class="container py-3"> <!-- کاهش padding -->
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10 col-12">
-            <div class="stat-card mt-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="stat-title" style="font-size: 1.6rem">افزودن  موجودی محصول</div>
-                    <a href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2">تعریف محصول جدید</span></a>
+        <div class="col-12"> <!-- استفاده از کل عرض -->
+            <div class="stat-card mt-2"> <!-- کاهش margin -->
+                <div class="table-responsive mt-3">
+                    <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>کد محصول</th>
+                                <th>نام طرح</th>
+                                <th>سایز طرح</th>
+                                <th>متراژ هر کارتن </th>
+                                <th> متراژ کل</th>
+                                <th> تعداد پالت</th>
+                                <th> تعداد کارتن</th>
+                                <th>قیمت خرید</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                <td>
+                                    <div class="description-cell2"></div>
+                                </td>
+                                
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
-
-
-                <form action="/admin/crm/addProd/add" method="POST">
-                    @csrf
-
-
-                    <div class="d-flex gap-3 form-row-responsive justify-content-center">
-                        <select class="form-select select2-farsi w-50" dir="rtl" name="prod_id" id="">
-                            <option value="" selected disabled></option>
-                            @foreach($prods as $prod)
-                            <option value="{{ $prod->id }}" {{ old('prod_id') == $prod->id ? 'selected' : '' }}> {{ $prod->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="d-flex gap-3 form-row-responsive mt-3">
-                        <input type="text" value="{{ old('box') }}" name="box" class="form-control w-50" placeholder="تعداد کارتن">
-                  {{-- <input type="text" name="meter" class="form-control w-50" placeholder="متراژ هر کارتن   "> --}}
-                        <input type="text" value="{{ old('palet') }}" name="palet" class="form-control w-50" placeholder=" تعداد پالت ">
-                        <input type="text" value="{{ old('all') }}" name="all" class="form-control w-50" placeholder="  متراژ کل ">
-                    </div>
-
-
-                    <button class="btn btn-success w-100 mt-3">ثبت</button>
-                </form>
-
-
             </div>
         </div>
     </div>
@@ -198,24 +359,40 @@
 @endsection
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
 <script>
-$(document).ready(function() {
-    // تنظیمات Select2 برای فارسی
-    $('.select2-farsi').select2({
-        dir: "rtl", // راست به چپ
-        placeholder: " لطفا طرح خود را انتخاب کنید...",
-        language: {
-            noResults: function() {
-                return "نتیجه‌ای یافت نشد";
+    $('#example').DataTable({
+        autoWidth: false, // غیرفعال کردن auto-width برای کنترل بهتر
+        scrollX: true, // فعال کردن اسکرول افقی فقط وقتی لازم است
+        scrollCollapse: true,
+        "pagingType": "full_numbers",
+        "language": {
+            "search": "جستجو:",
+            "lengthMenu": "نمایش _MENU_ رکورد",
+            "info": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+            "infoEmpty": "رکوردی موجود نیست",
+            "infoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+            "paginate": {
+                "first": "اول",
+                "last": "آخر",
+                "next": "بعدی",
+                "previous": "قبلی"
             },
-            searching: function() {
-                return "در حال جستجو...";
-            }
-        }
+            "zeroRecords": "رکوردی یافت نشد"
+        },
+        // "columnDefs": [
+        //     { "width": "5%", "targets": 0 }, // ردیف
+        //     { "width": "10%", "targets": 1 }, // کد محصول
+        //     { "width": "12%", "targets": 2 }, // نام محصول
+        //     { "width": "10%", "targets": 3 }, // نام کارخانه
+        //     { "width": "13%", "targets": [4,5,6,7,8,9] }, // ستون‌های عددی
+        //     { "width": "15%", "targets": 10 }, // توضیحات
+        //     { "width": "10%", "targets": 11 } // عملیات
+        // ]
     });
-});
 </script>
 
 @if (session('message'))
@@ -238,4 +415,5 @@ $(document).ready(function() {
         });
 </script>
 @endif
+
 @endsection

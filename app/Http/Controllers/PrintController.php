@@ -11,6 +11,8 @@ use App\Models\size_product;
 use Hekmatinasser\Verta\Verta;
 use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf as PDF;
 use Illuminate\Http\Request;
+use Mccarlosen\LaravelMpdf\LaravelMpdf;
+use Mpdf\Mpdf;
 
 class PrintController extends Controller
 {
@@ -141,6 +143,5 @@ class PrintController extends Controller
         $pdf = PDF::loadView("admin/downloadPdf" , compact('cart' , 'cart_prods' , 'date' , 'five' , 'finalPrice' , 'customer'));
         return $pdf->stream("invoice-".$cart->text_type.".pdf");
 
-        //return view("admin.downloadPdf" , compact('cart' , 'cart_prods' , 'date' , 'five' , 'finalPrice' , 'customer'));
     }
 }

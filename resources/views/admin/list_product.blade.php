@@ -306,7 +306,7 @@
                             <tr>
                                 <th class="numeric-column">ردیف</th>
                                 <th class="hide-on-mobile">کد محصول</th>
-                                <th>نام محصول</th>
+                                <th>نام طرح</th>
                                 <th class="hide-on-small">نام کارخانه</th>
                                 {{-- <th class="numeric-column hide-on-medium">تعداد کارتن</th> --}}
                                 <th class="numeric-column hide-on-large">متراژ هر کارتن</th>

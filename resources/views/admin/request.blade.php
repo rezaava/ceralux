@@ -471,7 +471,14 @@
                     <a href="/admin/crm/reqProd/yes/add/{{ $cart->id }}" class="btn btn-success w-50">تایید</a>
                     <a href="/admin/crm/reqProd/no/add/{{ $cart->id }}" class="btn btn-danger w-50">رد</a>
                 </div>
+                <div class="text-center mt-3">
+                    <span class="btn btn-primary w-50" id="show_btn">ویرایش</span>
+                </div>
                 @endif
+
+                <div>
+                    <form action=""></form>
+                </div>
             </div>
         </div>
     </div>

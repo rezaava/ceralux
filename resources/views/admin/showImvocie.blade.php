@@ -203,7 +203,11 @@
                     <div class="invoice-id"> شماره فاکتور: <span>{{$cart->num_cart}}</span></div>
                     <div class="invoice-title">نوع فاکتور : <span>{{$cart->text_type}}</span></div>
                     <div class="invoice-date">تاریخ فاکتور: <span>{{$date}}</span></div>
+                    @if($cart->num_lpo == 0)
+                    <div class="invoice-date mt-1">متفرقه</div>
+                    @else
                     <div class="invoice-date mt-1"><span>شماره </span> {{$cart->num_lpo}} : LPO</div>
+                    @endif
                 </div>
                 {{-- <div class="text-end">
                     <div class="company-logo mb-3">F</div>

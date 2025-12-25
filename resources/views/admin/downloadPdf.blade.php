@@ -95,9 +95,13 @@
             </td>
         </tr>
         <tr>
+            @if($cart->num_lpo == 0)
+            <td style="border:none; font-size:15px; padding-bottom:4px;text-align: right">متفرقه</td>
+            @else
             <td style="border:none; font-size:15px; padding-bottom:4px;text-align: right">
                  شماره LPO : {{ $cart->num_lpo ?? '-' }}
             </td>
+            @endif
         </tr>
     </table>
     
