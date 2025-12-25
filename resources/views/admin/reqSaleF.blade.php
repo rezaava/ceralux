@@ -14,7 +14,7 @@
         background-color: #232323 !important;
         border: none !important;
         color: #fff !important;
-        margin: 1rem 0;
+        /* margin: 1rem 0; */
 
     }
 
@@ -22,7 +22,7 @@
         background-color: #232323 !important;
         border: none !important;
         color: #fff;
-        margin: 1rem 0;
+        /* margin: 1rem 0; */
     }
 
     .form-control::placeholder {
@@ -270,7 +270,7 @@
                     @csrf
                     <input type="hidden" name="cart_id" value="{{ $order->id }}">
 
-                                        <div class="d-flex gap-3 form-row-responsive justify-content-center">
+                    <div class="d-flex gap-3 form-row-responsive justify-content-center">
                         <select class="form-select select2-farsi w-100" dir="rtl" name="prod_id" id="productSelect">
                            <option value="" selected>طرح را جستجو کنید</option>
                            @foreach($prods as $prod)
@@ -282,39 +282,52 @@
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
                     @enderror
 
-                    <div class="d-flex gap-3 form-row-responsive mt-3">
+                    <div class="d-flex gap-3 form-row-responsive justify-content-center mt-3">
 
                         <div class="w-50">
-                            <label for="">تعداد کارتن</label>
-                            <input type="text" name="count_box" id="box" class="form-control" placeholder=" تعداد کارتن">
+                            <label for="">سایز کاشی </label>
+                            <select name="size_id" id="sizeSelect" class="form-select m-0"
+                            onchange="calc()">
+                                <option value="" selected disabled>سایز را انتخاب کنید</option>
+                            </select>
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">متراژکل</label>
+                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ کل"
+                            onkeyup="calc()"
+                            >
+                        </div>
+
+                        <div class="w-50">
+                            <label for="">تعداد کارتن کل</label>
+                            <input type="text" name="count_box" id="box" class="form-control" placeholder="  کارتن کل">
                         </div>
 
                         <div class="w-50">
                             <label for="">تعداد پالت</label>
-                            <input type="text" name="count_palet" id="palet" class="form-control" placeholder=" تعداد پالت ">
+                            <input type="text" name="count_palet" id="palet" class="form-control" placeholder="  پالت ">
                         </div>
 
                         <div class="w-50">
-                            <label for="">متراژ کل</label>
-                            <input type="text" name="count_all" id="all" class="form-control" placeholder="متراژ کل" readonly>
+                            <label for="">تعداد کارتن خرد</label>
+                            <input type="text" name="box_num" id="box_num" class="form-control" placeholder="  کارتن خرد">
                         </div>
 
                         <div class="w-50">
-                            <label for="">تخفیف</label>
-                            <input type="text" name="off" class="form-control" placeholder=" تخفیف" >
+                            <label for="">تعداد برگ</label>
+                            <input type="text" name="count_paper" id="paper" class="form-control" placeholder="  برگ ">
                         </div>
 
+                        <div class="w-50">
+                            <label for=""> تخفیف</label>
+                            <input type="text" name="prod_off"  class="form-control" placeholder="  تخفیف ">
+                        </div>
                     </div>
-                    @error('count_palet')
-                        <small class="text-danger d-block mt-2">{{ $message }}</small>
-                    @enderror
-                    @error('count_box')
-                        <small class="text-danger d-block mt-2">{{ $message }}</small>
-                    @enderror
-                    @error('off')
-                        <small class="text-danger d-block mt-2">{{ $message }}</small>
-                    @enderror
                     @error('count_all')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
+                    @error('size_id')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
                     @enderror
 
@@ -328,9 +341,11 @@
                             <tr>
                                 <th>ردیف</th>
                                 <th>کد کالا</th>
-                                <th>نام محصول</th>
-                                <th>تعداد کارتن</th>
+                                <th>نام طرح</th>
+                                <th>سایز طرح</th>
                                 <th>متراژ هر کارتن</th>
+                                <th>تعداد کارتن کل</th>
+                                <th>تعداد کارتن خرد</th>
                                 <th>تعداد برگ کاشی</th>
                                 <th>تعداد پالت</th>
                                 <th> متراژ کل</th>
@@ -345,14 +360,16 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$cart_prod->prod->code_prod}}</td>
                                 <td>{{$cart_prod->prod->name}}</td>
+                                <td>{{$cart_prod->size->name}}</td>
+                                <td>{{$cart_prod->size_prod->box_meter}}</td>
                                 <td>{{$cart_prod->count_box}}</td>
-                                <td>{{$cart_prod->prod->count_meter}}</td>
-                                <td>{{$cart_prod->prod->count_paper}}</td>
+                                <td>{{$cart_prod->count_box_num}}</td>
+                                <td>{{$cart_prod->count_paper}}</td>
                                 <td>{{$cart_prod->count_palet}}</td>
-                                <td>{{$cart_prod->count_box * $cart_prod->prod->count_meter}}</td>
+                                <td>{{$cart_prod->count_all}}</td>
                                 <td>{{number_format($cart_prod->prod->price)}}</td>
                                 <td>{{number_format($cart_prod->off)}}%</td>
-                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter) - ($cart_prod->prod->price * ($cart_prod->count_box * $cart_prod->prod->count_meter)) * ($cart_prod->off/100) )}}</td>
+                                <td>{{number_format($cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) )}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -364,19 +381,23 @@
 
                     <div class="row">
 
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-2 col-md-6 col-12">
                             <p class="m-0 p-0">متراژ کل : <span style="padding-right: 0.5rem">{{$meter}}</span><span style="padding-right: 0.2rem">متر</span></p>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <p class="m-0 p-0">تعداد کارتن : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد کارتن کل : <span style="padding-right: 0.5rem">{{$box}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <p class="m-0 p-0">تعداد برگ های کاشی : <span style="padding-right: 0.5rem">{{$paper}}</span><span style="padding-right: 0.2rem">عدد</span></p>
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد کارتن خرد : <span style="padding-right: 0.5rem">{{$box_num}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <p class="m-0 p-0">تعداد برگ کاشی : <span style="padding-right: 0.5rem">{{$paper}}</span><span style="padding-right: 0.2rem">عدد     </span></p>
+                        </div>
+
+                        <div class="col-lg-2 col-md-6 col-12">
                             <p class="m-0 p-0">تعداد پالت ها : <span style="padding-right: 0.5rem">{{$palet}}</span><span style="padding-right: 0.2rem">عدد</span></p>
                         </div>
 
@@ -390,12 +411,18 @@
 
                 </div>
 
-                <form action="/admin/crm/reqSale/rentOrOff/add" method="POST">
+                @if($order->price_rent == 0)
+                <form action="/admin/crm/reqSaleF/rentOrOff/add" method="POST">
                     @csrf
                     <div class="d-flex gap-3 form-row-responsive mt-3">
                         <input type="hidden" name="cart_id" value="{{ $order->id }}">
                         <input type="text" name="price_rent" class="form-control w-50" placeholder="کرایه بار">
                         <input type="text" name="all_off" class="form-control w-50" placeholder="تخفیف روی کل فاکتور">
+                        <select name="no_tax" id="" class="form-select w-50">
+                            <option value="" disabled selected>اعمال مالیات 5 درصد</option>
+                            <option value="1">اعمال شود</option>
+                            <option value="2">اعمال نشود</option>
+                        </select>
                     </div>
                     @error('all_off')
                         <small class="text-danger d-block">{{ $message }}</small>
@@ -403,29 +430,39 @@
                         @error('price_rent')
                         <small class="text-danger d-block">{{ $message }}</small>
                         @enderror
+                        @error('no_tax')
+                        <small class="text-danger d-block">{{ $message }}</small>
+                        @enderror
                     <div class="text-center"><button class="btn btn-success w-50 mt-3"> اعمال تغییرات</button></div>
                 </form>
+                @endif
 
                 <div class="total-section">
+                    @if($order->price_rent > 0)
                     <div class="total-row">
                         <span>  کرایه بار : </span>
-                        <span>{{number_format($order->price_rent) ?? 'مبلغ کرایه رو از فرم بالا وارد کنید'}}</span>
+                        <span>{{number_format($order->price_rent) ?? 'مبلغ کرایه رو از فرم بالا وارد کنید'}} <span>درهم</span></span>
                     </div>
+                    @endif
+                    @if($order->off > 0)
                     <div class="total-row">
                         <span>تخفیف کل :</span>
                         <span><span>{{$order->off}}</span> درصد</span>
                     </div>
+                    @endif
                     <div class="total-row">
-                        <span>مبلغ کل بدون مالیات بر ارزش افزوده :</span>
-                        <span><span>{{number_format($priceAll)}}</span></span>
+                        <span>مبلغ کل     خالص :</span>
+                        <span>{{number_format($priceAll)}} <span>درهم</span></span>
                     </div>
+                    @if($order->no_tax == 1)
                     <div class="total-row">
                         <span>5% مالیات بر ارزش افزوده:</span>
-                        <span><span>{{number_format($five)}}</span></span>
+                        <span>{{number_format($five)}} <span>درهم</span></span>
                     </div>
+                    @endif
                     <div class="total-row total-amount">
                         <span style="font-size: 1.2rem">مبلغ نهایی فاکتور:</span>
-                        <span style="font-size: 1rem"><span>{{number_format($finalPrice)}}</span></span>
+                        <span style="font-size: 1rem">{{number_format($finalPrice)}} <span>درهم</span></span>
                     </div>
                 </div>
 
@@ -530,33 +567,59 @@
         let productId = $(this).val();
         if (productId) {
             $.ajax({
-                url: '/get-product-info/' + productId,
+                url: '/get-product-info/lpo/' + productId,
+                method: 'GET',
+                success: function(data) {
+                    let sizeSelect = $('#sizeSelect');
+                    sizeSelect.empty(); // خالی کردن قبلی‌ها
+                                
+                    sizeSelect.append('<option value="" selected disabled>سایز را انتخاب کنید</option>');
+                                
+                    if (data.sizes && data.sizes.length > 0) {
+                        data.sizes.forEach(function(size) {
+                            sizeSelect.append(
+                                `<option value="${size.id}">${size.name}</option>`
+                            );
+                        });
+                    }
+
+                },
+                error: function() {
+                    $('#sizeSelect').val('');
+    
+                }
+            });
+        } else {
+            $('#sizeSelect').val('');
+
+        }
+    });
+</script>
+<script>
+    function calc(){
+        let sizeId = document.getElementById('sizeSelect').value;
+        let productId = document.getElementById('productSelect').value;
+        let inputAll = document.getElementById('all').value;
+        if (sizeId && inputAll) {
+            //alert('s')
+            $.ajax({
+                url: '/get-product-info/lpo/size/' + sizeId + '/' + productId + '/' + inputAll,
                 method: 'GET',
                 success: function(data) {
                     let inputPalet = document.querySelector('#palet')
                     let inputBox = document.querySelector('#box')
                     let inputAll = document.querySelector('#all')
-                    let meterInBox = data.count_meter;
-                    let boxInPalet = data.count_box;
+                    let inputBox_num = document.querySelector('#box_num')
+                    let inputPaper = document.querySelector('#paper')
 
-                    function totalMeter(){
-                        let box = inputBox.value
+                    inputPaper.value = data.count_paper
+                    inputBox_num.value = Math.floor(data.count_num_box)
+                    inputPalet.value = data.count_palet
+                    inputBox.value = Math.floor(data.count_box)
+           
                     
-                        let all = meterInBox * box
-                        inputAll.value = all.toFixed(2)
-                    }
-
-                    function totalPalet(){
-                        let box = inputBox.value
-                    
-                        let all = box / boxInPalet
-                        inputPalet.value = all.toFixed(2)
-                    }
-
-                    inputBox.addEventListener('input', totalMeter);
-                    inputBox.addEventListener('input', totalPalet);
-                    totalMeter();
-                    totalPalet();
+                    // document.getElementById('').value=;hgfgjk
+                    // inputAll.addEventListener('input', totalMeter);
 
                 },
                 error: function() {
@@ -568,8 +631,9 @@
         } else {
             $('#count_meter').val('');
             $('#count_box').val('');
+
         }
-    });
+    }
 </script>
 
 @if (session('error'))

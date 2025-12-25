@@ -422,7 +422,7 @@
                     </div> --}}
 
                 </div>
-                @if($order->price_rent < 0)
+                @if($order->price_rent == 0)
                 <form action="/admin/crm/reqSale/rentOrOff/add" method="POST">
                     @csrf
                     <div class="d-flex gap-3 form-row-responsive mt-3">

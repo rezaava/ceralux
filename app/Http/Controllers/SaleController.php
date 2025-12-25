@@ -114,9 +114,68 @@ class SaleController extends Controller
         return view('admin.reqSale' , compact('paper' , 'box_num' , 'lpo_prods' , 'five' , 'finalPrice' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
 
+        public function reqSaleF($id = null){
+
+        $cart_prods = null;
+        $order = null;
+        $user = null;
+        $meter = 0;
+        $box = 0;
+        $box_num = 0;
+        $paper = 0; 
+        $palet = 0;
+        $priceAll = 0;
+        $date = null;
+        $five = 0;
+        $finalPrice = 0;
+        $finalOff = 0;
+        $subtotal = 0;
+        $lpo_prods = null;
+
+        if($id){
+            $order = Carts::find($id);
+            if ($order) {
+                $date = Verta::instance($order->created_at)->format('Y/m/d');
+                $user = Customer::where('id' , $order->user_id)->first();
+                $cart_prods = Cart_prod::where('card_id' , $order->id)->get();
+                foreach($cart_prods as $cart_prod){
+                    $prod = Product::where('id' , $cart_prod->prod_id)->first();
+                    $cart_prod['prod'] = $prod;
+                    $size_prod = size_product::where('id' , $cart_prod->size_prod_id)->first();
+                    $size = Size::where('id' , $size_prod->size_id)->first();
+
+                    $cart_prod['size_prod'] = $size_prod;
+                    $cart_prod['size'] = $size;
+                    
+                    $meter = $cart_prod->count_all + $meter;
+                    $box = $cart_prod->count_box + $box;
+                    $box_num = $cart_prod->count_box_num + $box_num;
+                    $paper = $cart_prod->count_paper + $paper;
+                    $palet = $cart_prod->count_palet + $palet;
+                    $priceAll = $cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) + $priceAll;
+                    if($order->no_tax == 1){
+                        $five = $priceAll * 0.05;
+                    }else{
+                        $five = 0;
+                    }
+                    $subtotal = $priceAll + $five + $order->price_rent; // مجموع قبل از تخفیف
+                    $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
+                    $finalPrice = $subtotal - $finalOff;  
+                }   
+            }
+            
+        }
+        $prods = Product::get();
+        $cuss = Customer::get();
+        return view('admin.reqSaleF' , compact('paper' , 'box_num' , 'lpo_prods' , 'five' , 'finalPrice' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
+    }
+
+    
+
     public function salePost(Request $req){
 
-        $carts = Carts::where('status' , 1)->whereNull('type')->where('num_lpo' , $req->num_lpo)->exists();
+        if($req->num_lpo){
+            $carts = Carts::where('status' , 1)->whereNull('type')->where('num_lpo' , $req->num_lpo)->exists();
 
         if($carts){
             return redirect()->back()->with('error2' , 'شماره LPO تکرار میباشد و این شماره ثبت شده است.');
@@ -161,10 +220,145 @@ class SaleController extends Controller
         $cart->save();
 
         return redirect()->route('reqSale', $cart->id);
+        }else{
+
+            $data = $req->all();
+
+            $rule = [
+                'customer' => 'required',  
+            ];
+
+            $msg = [
+                'customer.required' => 'مشتری را انتخاب کنید',
+            ];
+
+            $valid = Validator::make($data, $rule, $msg);
+
+            if ($valid->fails()) {
+                return redirect()->back()->withErrors($valid)->withInput();
+            }
+
+            function generateVolunteerCode()
+            {
+                $number = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+                return 'Kh' . $number;
+            }
+
+            $cart = new Carts();
+
+            do {
+                $code = generateVolunteerCode();
+            } while (Carts::where('num_cart', $code)->exists());
+            $cart->num_cart = $code;
+            $cart->user_id = $req->customer;
+            $cart->admin_id = Auth::user()->id;
+            $cart->type = 'sale2';
+            $cart->status = '0';
+            $cart->save();
+        }
+        return redirect()->route('reqSaleF', $cart->id);
+    }
+
+    public function productAddPostCartF(Request $req){
+
+        $data = $req->all();
+        $rule = [
+            'count_all' => 'required|numeric',  
+            'size_id' => 'required',  
+        ];
+        $msg = [
+            'size_id.required' => 'سایز طرح را انتخاب کنید',
+            'count_all.required' => ' متراژ کل را وارد کنید',
+            'count_all.numeric' => 'متراژ کل عدد میباشد',
+        ];
+        $valid = Validator::make($data, $rule, $msg);
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+        
+        $product = size_product::where('id' , $req->size_id)->first();
+        if($req->count_all >= $product->count_all){
+            return redirect()->back()->with('error' , 'مقدار درخواستی بیش‌تر از موجودی انبار است. لطفاً ابتدا موجودی محصول را افزایش دهید.');
+        }else{
+            $cart_prod = new Cart_prod();
+            $cart_prod->prod_id = $req->prod_id;
+            $cart_prod->card_id = $req->cart_id;
+            $cart_prod->count_box = $req->count_box;
+            $cart_prod->count_all = $req->count_all;
+            $cart_prod->count_palet = $req->count_palet;
+            $cart_prod->count_paper = $req->count_paper;
+            $cart_prod->count_box_num = $req->box_num;
+            $cart_prod->off = $req->prod_off;
+            $cart_prod->size_prod_id = $req->size_id;
+            $cart_prod->save();
+            return redirect()->back()->with('message' , ' محصول با موفقیت اضافه  شد!');
+        }
+        
+    }
+
+    public function productAddOffCartF(Request $req){
+
+        $data = $req->all();
+
+        $rule = [
+            'price_rent' => 'required|numeric',  
+            'all_off' => 'required|numeric',  
+            'no_tax' => 'required',  
+        ];
+
+        $msg = [
+            'price_rent.required' => 'مبلغ کرایه بار را وارد کنید',
+            'all_off.required' => '  تخفیف کل را وارد کنید یا صفر بزنید',
+            'no_tax.required' => 'نوع مالیات را انتخاب کنید.',
+            'price_rent.numeric' => '  مبلغ کرایه بار را عدد وارد کنید',
+            'all_off.numeric' => 'تخفیف کل  را درست وارد کنید',
+        ];
+
+        $valid = Validator::make($data, $rule, $msg);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        }
+
+
+        $cart = Carts::find($req->cart_id);
+        $cart->off = $req->all_off;
+        $cart->price_rent = $req->price_rent;
+        $cart->no_tax = $req->no_tax;
+        $cart->save();
+        return redirect()->back()->with('message' , ' تغییرات  با موفقیت اعمال  شد!');
+    }
+
+    public function salePayPostF(Request $req){
+
+        $meter = 0;
+        $box = 0;
+        $palet = 0;
+        $priceAll = 0;
+
+        $order = Carts::find($req->cart_id);
+
+        $cart_prods = Cart_prod::where('card_id' , $order->id)->get();
+        foreach($cart_prods as $cart_prod){
+            $prod = Product::where('id' , $cart_prod->prod_id)->first();
+            $cart_prod['prod'] = $prod;
+            
+            $meter = $cart_prod->count_all + $meter;
+            $box = $cart_prod->count_box + $box;
+            $palet = $cart_prod->count_palet + $palet;
+            $priceAll = $cart_prod->prod->price * ($cart_prod->count_all) - ($cart_prod->prod->price * ($cart_prod->count_all)) * ($cart_prod->off/100) + $priceAll;
+        }
+
+        $order->status = '1';
+        $order->price = $priceAll;
+        $order->count_meters = $meter;
+        $order->count_boxs = $box;
+        $order->count_palet = $palet;
+        $order->save();
+        return redirect('/admin/crm/reqSale/{id}')->with('message' , 'فاکتور فروش با موفقیت برای مدیر ارسال شد!');
     }
 
     public function productAddPostCart(Request $req){
-
         foreach ($req->prod_id as $key => $prod_id) {
             $cart_prod = new Cart_prod();
             $cart_prod->prod_id = $prod_id;

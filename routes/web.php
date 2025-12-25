@@ -120,6 +120,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/crm/reqSale/pay',[SaleController::class,'salePayPost']);
     Route::get('/get-customer-info/{id}', [SaleController::class, 'getCustomerInfo']);
 
+    Route::get('/admin/crm/reqSaleF/{id}',[SaleController::class,'reqSaleF'])->name('reqSaleF'); 
+    Route::post('/admin/crm/reqSaleF/add',[SaleController::class,'salePost']); 
+    Route::post('/admin/crm/reqSaleF/product/add',[SaleController::class,'productAddPostCartF']); 
+    Route::post('/admin/crm/reqSaleF/rentOrOff/add',[SaleController::class,'productAddOffCartF']); 
+    Route::post('/admin/crm/reqSaleF/pay',[SaleController::class,'salePayPostF']);
+
     Route::get('/admin/crm/buy/add/{id}',[BuyController::class,'buy'])->name('buy');
     Route::get('/get-product-info/{id}',[BuyController::class,'buyAjax']);
     Route::get('/get-product-info/size/{sid}/{id}',[BuyController::class,'buyAjax2']);
