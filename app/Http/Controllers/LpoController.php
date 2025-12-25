@@ -205,7 +205,7 @@ class LpoController extends Controller
             $lpo_prod->count_all = $req->count_all;
             $lpo_prod->size_prod_id = $req->size_id;
             $lpo_prod->save();
-            return redirect()->route('lpo' , $req->lpo_id);
+            return redirect()->back()->with('message' , ' محصول با موفقیت اضافه  شد!');
         }
         
         
