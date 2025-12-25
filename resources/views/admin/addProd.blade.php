@@ -313,41 +313,50 @@
                                 <th> تعداد پالت</th>
                                 <th> تعداد کارتن</th>
                                 <th>قیمت خرید</th>
+                                <th>قیمت فروش</th>
                             </tr>
                         </thead>
                         <tbody>
                             
+                            @foreach($size_prods as $key=>$size_prod)
+                            @foreach($size_prod->prod as $pro)
                             <tr>
-                                
                                 <td>
-                                    <div class="description-cell2"></div>
+                                    <div class="description-cell2" style="font-family: yekan">{{$key+1}}</div>
                                 </td>
                                 <td>
-                                    <div class="description-cell2"></div>
+                                    <div class="description-cell2">{{$pro->code_prod}}</div>
                                 </td>
                                 <td>
-                                    <div class="description-cell2"></div>
+                                    <div class="description-cell2">{{$pro->name}}</div>
                                 </td>
                                 <td>
-                                    <div class="description-cell2"></div>
+                                    <div class="description-cell2">{{$size_prod->size->name}}</div>
                                 </td>
                                 <td>
-                                    <div class="description-cell2"></div>
+                                    <div class="description-cell2">{{$size_prod->box_meter}}</div>
+                                </td>
+
+                                <td>
+                                    <div class="description-cell2">{{$size_prod->count_all ?? 'موجودی ندارد'}}</div>
                                 </td>
                                 <td>
-                                    <div class="description-cell2"></div>
+                                    <div class="description-cell2">{{$size_prod->count_palet ?? 'موجودی ندارد'}}</div>
                                 </td>
                                 <td>
-                                    <div class="description-cell2"></div>
+                                    <div class="description-cell2">{{$size_prod->count_box ?? 'موجودی ندارد'}}</div>
+                                </td>
+
+                                <td>
+                                    <div class="description-cell2">{{$pro->price_buy}}</div>
                                 </td>
                                 <td>
-                                    <div class="description-cell2"></div>
-                                </td>
-                                <td>
-                                    <div class="description-cell2"></div>
+                                    <div class="description-cell2">{{$pro->price}}</div>
                                 </td>
                                 
                             </tr>
+                            @endforeach
+                            @endforeach
 
                         </tbody>
                     </table>

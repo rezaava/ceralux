@@ -24,10 +24,15 @@ class CRMController extends Controller
 {
     //
     public function addProd(){
-        $size_prod = size_product::pluck('product_id');
-        $prods = Product::whereIn('id' , $size_prod)->get();
+        $size_prods = size_product::get();
+        foreach($size_prods as $size_prod){
+            $prod = Product::where('id'  , $size_prod->product_id)->get();
+            $size = Size::where('id' , $size_prod->size_id)->first();
+            $size_prod['prod'] = $prod;
+            $size_prod['size'] = $size;
+        }
         //return $size_prod;
-        return view('admin.addProd' , compact('size_prod' , 'prods'));
+        return view('admin.addProd' , compact('size_prods'));
     }
 
     public function addProdPost(Request $req){
