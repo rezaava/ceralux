@@ -3,6 +3,9 @@
 <head>
     @include('admin.layout.head')
     @yield('head')
+    <style>
+
+    </style>
 </head>
 <body>
    @include('admin.layout.header')
@@ -16,12 +19,29 @@
                     @yield('title-onvan')
                 </div>
                 <div class="user-info">
+                    <div class="dropdown lang-dropdown">
+                        <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown">{{strtoupper(app()->getLocale()) }}</button>
+                        <ul class="dropdown-menu text-center">
+                            <li><a class="dropdown-item" href="{{ route('lang.switch', 'fa') }}">فارسی</a></li>
+                            <li><a class="dropdown-item" href="{{ route('lang.switch', 'en') }}">English</a></li>
+                            <li><a class="dropdown-item" href="{{ route('lang.switch', 'ar') }}">عربي</a></li>
+                        </ul>
+                    </div>
+
                     <img src="https://randomuser.me/api/portraits/men/32.jpg" class="user-avatar" alt="User">
                     @if(Auth::user())
                         @if(Auth::user()->dispaly_name)
                             <div class="d-flex justify-content-center align-items-center flex-column">
                                 <span class="user-name">{{Auth::user()->dispaly_name}}</span>
-                                <span style="background-color: rgba(173, 216, 230, 0.248);color:#ccc;border-radius: 1rem ; padding:0 0.5rem;font-size: 0.76rem;margin-top: 0.4rem">{{Auth::user()->roles->first()?->display_name}}</span>
+                                <span style="background-color: rgba(173, 216, 230, 0.248);color:#ccc;border-radius: 1rem ; padding:0 0.5rem;font-size: 0.76rem;margin-top: 0.5rem">
+                                    @if(app()->getLocale() == 'fa')
+                                        {{Auth::user()->roles->first()?->display_name_fa}}
+                                    @elseif(app()->getLocale() == 'en')
+                                        {{Auth::user()->roles->first()?->display_name_en}}
+                                    @elseif(app()->getLocale() == 'ar')
+                                        {{Auth::user()->roles->first()?->display_name_ar}}
+                                    @endif
+                                </span>
                             </div>
                         @else
                         <small style="color: lightblue;">در داخل تنظیمات اسم را وارد کنید</small>

@@ -210,5 +210,9 @@ return [
         '60×60' => ['width' => '70px', 'height' => '70px'],
         '30×30' => ['width' => '35px', 'height' => '35px']
     ],
-    'search_agents' => 'Search Agent...'
+    'search_agents' => 'Search Agent...',
+
+    'name_invocie' => ' Factor Plus',
+    'dashboard' => ' Dashboard',
+    'manager' => ' Manager',
 ];

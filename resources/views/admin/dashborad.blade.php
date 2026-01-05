@@ -5,7 +5,7 @@
 @endsection
 
 @section('onvan')
-داشبورد
+{{__('messages.dashboard') }}
 @endsection
 
 @section('title-onvan')

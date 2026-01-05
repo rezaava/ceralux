@@ -64,7 +64,7 @@
     <div class="sidebar-header">
         <div class="sidebar-logo">
             <i class="fas fa-file-invoice-dollar"></i>
-            <span class="sidebar-title">فاکتور پلاس </span>
+            <span class="sidebar-title">{{__('messages.name_invocie') }}</span>
         </div>
         <button class="close-offcanvas d-md-none" id="closeOffcanvasBtn"><i class="fas fa-times"></i></button>
     </div>

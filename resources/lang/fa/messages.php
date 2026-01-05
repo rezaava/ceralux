@@ -210,5 +210,9 @@ return [
         '60×60' => ['width' => '70px', 'height' => '70px'],
         '30×30' => ['width' => '35px', 'height' => '35px']
     ],
-    'search_agents' => 'جستجوی نمایندگی...'
+    'search_agents' => 'جستجوی نمایندگی...',
+
+    'name_invocie' => 'فاکتور پلاس',
+    'dashboard' => ' داشبورد',
+    'manager' => ' مدیر',
 ];

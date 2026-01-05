@@ -35,8 +35,7 @@
                     __('messages.search') }}</a>
                     <a href="/login/admin" class="btn search"><i class="fa-solid fa-right-to-bracket"></i> {{__('messages.login') }}</a>
                 <div class="dropdown lang-dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">{{
-                        strtoupper(app()->getLocale()) }}</button>
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown">{{strtoupper(app()->getLocale()) }}</button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('lang.switch', 'fa') }}">فارسی</a></li>
                         <li><a class="dropdown-item" href="{{ route('lang.switch', 'en') }}">English</a></li>
