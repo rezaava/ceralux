@@ -353,15 +353,15 @@ class CRMController extends Controller
 
     
 
-    public function leave(){
+    public function reqLeave(){
         return view('admin.leave');
     }
 
-    public function sample(){
+    public function reqSample(){
         return view('admin.sample');
     }
 
-    public function break(){
+    public function reqbreak(){
         return view('admin.break');
     }
 

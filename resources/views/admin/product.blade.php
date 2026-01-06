@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-محصولات
+{{__('messages.products')}} 
 @endsection
 
 @section('onvan')
-محصولات
+{{__('messages.products')}} 
 @endsection
 
 @section('head')

@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-لیست فاکتور ها
+    {{__('messages.invoice_list')}}
 @endsection
 
 @section('onvan')
-لیست فاکتور ها
+    {{__('messages.invoice_list')}}
 @endsection
 
 {{-- @section('title-onvan')

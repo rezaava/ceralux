@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-درخواست فروش
+{{__('messages.sales_invoice')}} 
 @endsection
 
 @section('onvan')
-درخواست فروش
+{{__('messages.sales_invoice')}} 
 @endsection
 
 @section('head')

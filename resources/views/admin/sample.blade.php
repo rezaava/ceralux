@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- ثبت نمونه
+{{__('messages.sample_request')}}
 @endsection
 
 @section('onvan')
- ثبت  نمونه
+{{__('messages.sample_request')}}
 @endsection
 
 {{-- @section('title-onvan')

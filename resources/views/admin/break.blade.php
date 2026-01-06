@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- ثبت شکستگی
+{{__('messages.breakage')}} 
 @endsection
 
 @section('onvan')
- ثبت شکستگی ها 
+ {{__('messages.breakage')}}
 @endsection
 
 {{-- @section('title-onvan')

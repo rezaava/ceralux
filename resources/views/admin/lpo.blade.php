@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- LPO  
+ {{__('messages.lpo')}}   
 @endsection
 
 @section('onvan')
-    ثبت LPO ها
+     {{__('messages.lpo')}}  
 @endsection
 
 {{-- @section('title-onvan')

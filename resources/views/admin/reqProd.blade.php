@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- درخواست تولید
+ {{__('messages.req_prod')}} 
 @endsection
 
 @section('onvan')
- درخواست تولید
+  {{__('messages.req_prod')}}
 @endsection
 
 @section('head')

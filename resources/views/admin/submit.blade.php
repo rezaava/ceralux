@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- ثبت چک
+ {{__('messages.register_cheque')}}
 @endsection
 
 @section('onvan')
- ثبت چک ها
+ {{__('messages.register_cheque')}}  
 @endsection
 
 {{-- @section('title-onvan')

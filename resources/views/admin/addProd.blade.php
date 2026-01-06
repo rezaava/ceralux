@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- موجودی انبار
+    {{__('messages.inventory')}}
 @endsection
 
 @section('onvan')
- موجودی انبار
+    {{__('messages.inventory')}}
 @endsection
 
 {{-- @section('title-onvan')

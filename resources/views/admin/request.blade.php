@@ -1,16 +1,16 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-درخواست ها  
+ {{__('messages.req')}}    
 @endsection
 
 @section('onvan')
-  درخواست ها
+    {{__('messages.req')}} 
 @endsection
 
-@section('title-onvan')
+{{-- @section('title-onvan')
 <div class="dashboard-desc">خوش آمدید! امروز <span style="color:var(--accent-green)">۵ درخواست جدید</span> دارید.</div>
-@endsection
+@endsection --}}
 
 @section('head')
 <style>

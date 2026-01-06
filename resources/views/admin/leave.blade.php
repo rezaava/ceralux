@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-درخواست خروج
+{{__('messages.stock_out')}} 
 @endsection
 
 @section('onvan')
-درخواست خروج از انبار
+{{__('messages.stock_out')}} 
 @endsection
 
 {{-- @section('title-onvan')

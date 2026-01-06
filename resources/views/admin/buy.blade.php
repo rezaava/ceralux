@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- فاکتور خرید 
+   {{__('messages.purchase_invoice')}}  
 @endsection
 
 @section('onvan')
-   فاکتور خرید
+     {{__('messages.purchase_invoice')}} 
 @endsection
 
 {{-- @section('title-onvan')

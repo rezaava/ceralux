@@ -1,16 +1,16 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-کاتالوگ ها
+ {{__('messages.catalogs')}} 
 @endsection
 
 @section('onvan')
-کاتالوگ ها
+  {{__('messages.catalogs')}} 
 @endsection
 
-@section('title-onvan')
+{{-- @section('title-onvan')
 <div class="dashboard-desc">خوش آمدید! امروز <span style="color:var(--accent-green)">۵ اعلان جدید</span> دارید.</div>
-@endsection
+@endsection --}}
 
 @section('main')
 
