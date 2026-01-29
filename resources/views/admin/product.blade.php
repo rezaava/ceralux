@@ -62,7 +62,7 @@
 
 
 @section('title-onvan')
-<div class="dashboard-desc">خوش آمدید! امروز <span style="color:var(--accent-green)">۵ اعلان جدید</span> دارید.</div>
+<div class="dashboard-desc"> {{__('messages.today')}}<span style="color:var(--accent-green)">۵ {{ __('messages.nof') }}  </span>{{__('messages.today2')}}</div>
 @endsection
 
 
@@ -71,7 +71,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-12">
             <div class="stat-card mt-3">
-                <div class="stat-title" style="font-size: 1.6rem">افزودن محصول جدید</div>
+                <div class="stat-title" style="font-size: 1.6rem">{{__('messages.product_new')}}</div>
 
                 <form action="/admin/product/add" method="POST">
                     @csrf
@@ -80,20 +80,20 @@
                     <!-- row 1 -->
                     <div class="d-flex gap-3 form-row-responsive">
                         <div class="w-50">
-                            <label>نام طرح</label>
-                            <input type="text" name="title" value="{{ old('title' , $editProd->name ?? '') }}" class="form-control" placeholder="نام طرح">
+                            <label>{{__('messages.name_prod')}}</label>
+                            <input type="text" name="title" value="{{ old('title' , $editProd->name ?? '') }}" class="form-control" placeholder="{{__('messages.name_prod')}} ">
                             @error('title') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
-                            <label>کد طرح</label>
-                            <input type="text" name="code_prod" value="{{ old('code_prod' , $editProd->code_prod ?? '') }}" class="form-control" placeholder="کد طرح">
+                            <label> {{__('messages.code_prod')}}</label>
+                            <input type="text" name="code_prod" value="{{ old('code_prod' , $editProd->code_prod ?? '') }}" class="form-control" placeholder="{{__('messages.code_prod')}} ">
                             @error('code_prod') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
-                            <label>نام کارخانه</label>
-                            <input type="text" name="name_company" value="{{ old('name_company' , $editProd->name_company ?? '') }}" class="form-control" placeholder="نام کارخانه">
+                            <label> {{__('messages.name_company')}}</label>
+                            <input type="text" name="name_company" value="{{ old('name_company' , $editProd->name_company ?? '') }}" class="form-control" placeholder="{{__('messages.name_company')}} ">
                             @error('name_company') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
@@ -103,14 +103,14 @@
                     <div class="d-flex gap-3 form-row-responsive mt-2">
 
                         <div class="w-50">
-                            <label>قیمت خرید طرح</label>
-                            <input type="text" name="price_buy" value="{{ old('price_buy' , $editProd->price_buy ?? '') }}" class="form-control" placeholder="قیمت خرید طرح">
+                            <label>{{__('messages.buy_prod')}}</label>
+                            <input type="text" name="price_buy" value="{{ old('price_buy' , $editProd->price_buy ?? '') }}" class="form-control" placeholder="{{__('messages.sale_prod')}}">
                             @error('price_buy') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
-                            <label>قیمت فروش طرح</label>
-                            <input type="text" name="price" value="{{ old('price' , $editProd->price ?? '') }}" class="form-control" placeholder="قیمت فروش طرح">
+                            <label>{{__('messages.sale_prod')}}</label>
+                            <input type="text" name="price" value="{{ old('price' , $editProd->price ?? '') }}" class="form-control" placeholder="{{__('messages.sale_prod')}}">
                             @error('price') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
@@ -125,14 +125,14 @@
                         </div> --}}
 
                         <div class="w-50">
-                            <label>تعداد کارتن در پالت</label>
-                            <input type="text" name="count_box" id="count_box" value="{{ old('count_box' , $editProd->count_box ?? '') }}" class="form-control" placeholder="تعداد کارتن در پالت">
+                            <label>{{__('messages.count_prod')}}</label>
+                            <input type="text" name="count_box" id="count_box" value="{{ old('count_box' , $editProd->count_box ?? '') }}" class="form-control" placeholder="{{__('messages.count_prod')}}">
                             @error('count_box') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
-                            <label>درجه کاشی</label>
-                            <input type="text" name="count_darageh" value="{{ old('count_darageh' , $editProd->count_darageh ?? '') }}" class="form-control" placeholder="درجه کاشی">
+                            <label> {{__('messages.deg')}}</label>
+                            <input type="text" name="count_darageh" value="{{ old('count_darageh' , $editProd->count_darageh ?? '') }}" class="form-control" placeholder="{{__('messages.deg')}} ">
                             @error('count_darageh') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
@@ -163,14 +163,14 @@
                         </div> --}}
 
                         <div class="w-50">
-                            <label>ضخامت کاشی</label>
-                            <input type="text" name="count_meli" value="{{ old('count_meli' , $editProd->count_meli ?? '') }}" class="form-control" placeholder="ضخامت کاشی">
+                            <label>{{ __('messages.meli') }}</label>
+                            <input type="text" name="count_meli" value="{{ old('count_meli' , $editProd->count_meli ?? '') }}" class="form-control" placeholder="{{ __('messages.meli') }}">
                             @error('count_meli') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="w-50">
-                            <label>تعداد برگ در کارتن  </label>
-                            <input type="text" name="count_paper" value="{{ old('count_paper' , $editProd->count_paper ?? '') }}" class="form-control" placeholder="تعداد برگ در کارتن">
+                            <label>{{__('messages.box_paper')}}</label>
+                            <input type="text" name="count_paper" value="{{ old('count_paper' , $editProd->count_paper ?? '') }}" class="form-control" placeholder="{{ __('messages.box_paper') }}">
                             @error('count_paper') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>
 
@@ -178,7 +178,7 @@
 
                     <div class="d-flex gap-3 form-row-responsive mt-2">
                         <div class="w-50">
-                            <label>نوع طرح</label>
+                            <label>{{__('messages.no_prod')}}</label>
                             <select name="no_product" class="form-select">
                                 <option value="" disabled selected>لطفا نوع محصول را انتخاب کنید</option>
                                 <option value="1" {{ old('no_product', $editProd->no_product ?? '') == 1 ? 'selected' : '' }}>سرامیک کف بدنه سفید</option>
@@ -194,7 +194,7 @@
                     </div>
 
                     <!-- sizes -->
-                    <label class="mb-2 mt-3" style="font-size: 1.1rem">لطفا سایز مورد نظر را انتخاب کنید.</label>
+                    <label class="mb-2 mt-3" style="font-size: 1.1rem">{{__('messages.no_size')}}</label>
                     <div class="d-flex gap-3 flex-wrap">
                         @foreach ($sizes as $size)
                         <div class="d-flex align-items-center mb-2">
@@ -207,7 +207,7 @@
                     <small class="text-danger d-block">{{ $message }}</small>
                     @enderror
 
-                    <textarea name="desc" class="form-control textArea mb-3 mt-4" placeholder="توضیحات درباره محصول...">{{ old('desc' , $editProd->desc ?? '') }}</textarea>
+                    <textarea name="desc" class="form-control textArea mb-3 mt-4" placeholder="  {{ __('messages.desc') }}...">{{ old('desc' , $editProd->desc ?? '') }}</textarea>
 
                     <!-- English -->
                     <div class="card mt-3" style="border-radius: 0.4rem; border-color: #394559">
@@ -259,7 +259,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-success w-100 mt-3">ثبت محصول</button>
+                    <button class="btn btn-success w-100 mt-3">{{__('messages.submit_prod')}}</button>
                 </form>
             </div>
         </div>

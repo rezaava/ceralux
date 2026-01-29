@@ -110,7 +110,7 @@
     .sidebar .sidebar-header {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: right;
         padding: 24px 20px 12px 12px;
     }
 

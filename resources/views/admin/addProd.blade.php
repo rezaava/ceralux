@@ -304,16 +304,16 @@
                     <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
                         <thead>
                             <tr>
-                                <th>ردیف</th>
-                                <th>کد محصول</th>
-                                <th>نام طرح</th>
-                                <th>سایز طرح</th>
-                                <th>متراژ هر کارتن </th>
-                                <th> متراژ کل</th>
-                                <th> تعداد پالت</th>
-                                <th> تعداد کارتن</th>
-                                <th>قیمت خرید</th>
-                                <th>قیمت فروش</th>
+                                <th>{{__('messages.row')}}</th>
+                                <th>{{__('messages.code_prod')}}</th>
+                                <th>{{__('messages.name_prod')}}</th>
+                                <th>{{__('messages.size_prod')}}</th>
+                                <th>{{__('messages.box_meter')}}</th>
+                                <th>{{__('messages.count_all')}}</th>
+                                <th>{{__('messages.count_palet')}}</th>
+                                <th>{{__('messages.count_box')}}</th>
+                                <th>{{__('messages.buy_prod')}}</th>
+                                <th>{{__('messages.sale_prod')}}</th>
                             </tr>
                         </thead>
                         <tbody>

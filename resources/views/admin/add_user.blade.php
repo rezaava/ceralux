@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-  افزودن مشتری
+{{ __('messages.add_customer') }}
 @endsection
 
 @section('onvan')
-  مشتری جدید
+{{ __('messages.add_customer_list') }}
 @endsection
 
 @section('head')
@@ -63,7 +63,7 @@
         <div class="col-lg-8 col-md-10 col-12">
             <div class="stat-card mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="stat-title" style="font-size: 1.6rem">افزودن مشتری</div>
+                    <div class="stat-title" style="font-size: 1.6rem">{{ __('messages.add_customer') }}</div>
                     {{-- <a href="" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2">تعریف محصول جدید</span></a> --}}
                 </div>
 
@@ -73,8 +73,8 @@
                     <input type="hidden" name="customer_id" value="{{ $editCus->id ?? '' }}">
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center" >
-                        <input type="text" name="name" class="form-control w-50" value="{{ old('name' , $editCus->name ?? '') }}"  placeholder="نام و نام خانوادگی ">
-                        <input type="text" name="phone" class="form-control w-50" value="{{ old('phone' , $editCus->phone ?? '') }}" placeholder="شماره موبایل">
+                        <input type="text" name="name" class="form-control w-50" value="{{ old('name' , $editCus->name ?? '') }}"  placeholder="{{__('messages.name_family')}}">
+                        <input type="text" name="phone" class="form-control w-50" value="{{ old('phone' , $editCus->phone ?? '') }}" placeholder="{{__('messages.phone')}}">
                     </div>
                     @error('name')
                     <small class="text-danger d-block mt-2">{{ $message }}</small>
@@ -85,10 +85,10 @@
 
                     <div class="d-flex gap-3 form-row-responsive justify-content-center" >
                         <select class="form-select" name="no_customer" id="">
-                            <option value="" selected disabled>لطفا نوع مشتری را انتخاب کنید</option>
-                            <option value="1" {{ old('no_customer', $editCus->no_customer ?? '') == 1 ? 'selected' : '' }}>متفرقه</option>
-                            <option value="2" {{ old('no_customer', $editCus->no_customer ?? '') == 2 ? 'selected' : '' }}>مغازه دار</option>
-                            <option value="3" {{ old('no_customer', $editCus->no_customer ?? '') == 3 ? 'selected' : '' }}>ویزیتور</option>
+                            <option value="" selected disabled>{{__('messages.no_customer')}}</option>
+                            <option value="1" {{ old('no_customer', $editCus->no_customer ?? '') == 1 ? 'selected' : '' }}>{{__('messages.customer_1')}}</option>
+                            <option value="2" {{ old('no_customer', $editCus->no_customer ?? '') == 2 ? 'selected' : '' }}>{{__('messages.customer_2')}}</option>
+                            <option value="3" {{ old('no_customer', $editCus->no_customer ?? '') == 3 ? 'selected' : '' }}>{{__('messages.customer_3')}}</option>
                         </select>
                     </div>
                     @error('no_customer')
@@ -97,7 +97,7 @@
 
                     <div class="d-flex gap-3 form-row-responsive">
                         
-                        <textarea name="address" class="form-control textArea" placeholder="آدرس  ...">{{ old('address' , $editCus->address ?? '') }}</textarea>
+                        <textarea name="address" class="form-control textArea" placeholder="{{__('messages.address')}}  ...">{{ old('address' , $editCus->address ?? '') }}</textarea>
                     </div>
                     @error('address')
                     <small class="text-danger d-block mt-2">{{ $message }}</small>

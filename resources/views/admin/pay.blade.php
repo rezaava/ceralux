@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- پرداختی
+{{ __('messages.payments') }}
 @endsection
 
 @section('onvan')
- پرداختی ها
+{{ __('messages.payments') }}
 @endsection
 
 {{-- @section('title-onvan')

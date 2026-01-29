@@ -145,7 +145,13 @@
                             <a href="/products/info/{{$nameSize->id}}/{{ $prod->id }}" class="btn product-btn">{{__('messages.product_info') }}</a>
                         </div>
                     </div>
+                    @if(app()->getLocale() == 'fa')
                     <p class="product-name" id="pname">{{ $prod->name }} </p>
+                    @elseif(app()->getLocale() == 'en')
+                    <p class="product-name" id="pname">{{ $prod->name_en }} </p>
+                    @elseif(app()->getLocale() == 'ar')
+                    <p class="product-name" id="pname">{{ $prod->name_ar }} </p>
+                    @endif
                 </div>
             @endforeach
         @else

@@ -220,11 +220,11 @@
             <div class="stat-card mt-3">
 
                <div class="d-flex justify-content-between align-items-center">
-                  <div class="stat-title" style="font-size: 1.6rem">ثبت LPO </div>
+                  <div class="stat-title" style="font-size: 1.6rem">{{__('messages.lpo')}}</div>
                   @if(!$lpo)
-                  <a target="_blank" href="/admin/user/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >تعریف مشتری جدید</span></a>
+                  <a target="_blank" href="/admin/user/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >{{__('messages.new_customer')}}</span></a>
                   @else
-                  <a target="_blank" href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >تعریف محصول جدید</span></a>
+                  <a target="_blank" href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >{{__('messages.add_invocie_buy')}}</span></a>
                   @endif
                </div>
                @if(!$lpo)
@@ -232,7 +232,7 @@
                 @csrf
                     <div class="d-flex gap-3 form-row-responsive justify-content-center">
                         <select class="form-select select2-farsi w-100" dir="rtl" name="customer_id" id="customerSelect">
-                           <option value="" selected>مشتری را جستجو کنید</option>
+                           <option value="" selected>{{__('messages.search')}}</option>
                            @foreach($customers as $customer)
                            <option value="{{ $customer->id }}">{{$customer->name}}</option>
                            @endforeach
@@ -243,12 +243,12 @@
                     @enderror
 
                   <div class="d-flex gap-3 form-row-responsive mt-3">
-                    <input type="text" value="{{ old('num_lpo') }}" name="num_lpo" class="form-control w-50" placeholder="شماره LPO ">
+                    <input type="text" value="{{ old('num_lpo') }}" name="num_lpo" class="form-control w-50" placeholder="{{__('messages.num_lpo')}}">
                   </div>
                     @error('num_lpo')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
                     @enderror
-                   <div class="text-center mt-3"><button class="btn btn-success w-50">ثبت</button></div>
+                   <div class="text-center mt-3"><button class="btn btn-success w-50">{{__('messages.submit')}}</button></div>
                </form>
                @else
                   <div class="card p-3" style="border-radius: 0.4rem;border:none;color:lightblue;">

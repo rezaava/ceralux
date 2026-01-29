@@ -236,10 +236,77 @@ return [
     'accounts' => 'Accounts',  
     'customers' => ' Customers ',  
     'customer_list' => 'Customer List',  
-    'add_customer' => 'Add Customer',  
+    'add_customer' => 'Add Customer',
+     'add_customer_list' => 'Add new customer',    
     'settings' => ' Settings ',  
     'back_web' => 'Back to Website',  
     'logout' => ' Logout ',  
     'sales_invoice' => ' Sales Invoice  ',  
     'purchase_invoice' => ' Purchase Invoice  ',
+
+    'loginToPanel' => 'Login to the panel',
+    'pleaseAccount' => 'Please enter your account information',
+    'user' => 'Username',
+    'pass' => 'Password',
+    'auth' => 'Entering the system',
+    'copyRight' => '© 2025 Admin panel . All rights reserved',
+
+    'desc' => 'Description',
+    'gallery' => 'Photo Gallery',
+
+    'code_prod' => 'Design code',
+    'row' => 'Row',
+    'name_prod' => 'Design name',
+    'name_company' => 'Factory name',
+    'meter_prod' => 'Size of each carton',
+    'count_prod' => 'Number of cartons pallets',
+    'meli' => 'Thickness',
+    'paper_prod' => 'Number of leaves',
+    'buy_prod' => 'Buy price',
+    'sale_prod' => 'Sales price',
+    'operation' => 'Operation',
+
+    'deg' => ' Tile grade',
+    'box_paper' => 'Number of sheets per carton',
+    'no_prod' => 'Design type ',
+    'no_size' => 'Please select the desired size.',
+    'desc' => 'Description of the plan',    
+    'submit_prod' => 'Product registration',
+
+    'size_prod' => 'Design size',
+    'box_meter' => 'Area of ​​each carton',
+
+    'count_palet' => 'Number of pallets',
+    'count_box' => 'Number of cartons',
+    'count_all' => 'Total area',
+
+    'address' => 'Address',
+    'name_family' => 'First and last name',
+    'phone' => 'Mobile number ',
+    'no_customer' => 'Please select customer type.',
+    'customer_1' => 'Miscellaneous',
+    'customer_2' => 'Shopkeeper ',
+    'customer_3' => 'Visitor',
+
+    'today' => ' Welcome! Today',
+    'nof' => 'New announcement  ',
+    'today2' => ' You have.',
+
+    'newSize' => 'Add new size',
+    'addSize' => 'size',
+    'submit' => 'submit',
+
+    'new_invocie' => 'Register a new invoice',
+    'date_invocie_buy' => 'Purchase invoice date',
+    'num_invocie_buy' => 'Purchase invoice number',
+    'add_invocie_buy' => 'New product definition',
+
+    'new_customer' => 'Defining a new customer',
+    'num_lpo' => 'LPO number',
+    'search_customer' => 'Search for a customer',
+
+    'select_customer' => 'Select the customer.',
+    'new_invocie_sale' => 'Register a new sales invoice',
+    'num_lpo_select' => 'Enter the LPO number.',
+
 ];

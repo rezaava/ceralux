@@ -1,16 +1,16 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- تنظیمات
+ {{ __('messages.settings') }}
 @endsection
 
 @section('onvan')
- تنظیمات
+ {{ __('messages.settings') }}
 @endsection
 
-@section('title-onvan')
+{{-- @section('title-onvan')
 <div class="dashboard-desc">خوش آمدید! امروز <span style="color:var(--accent-green)">۵ اعلان جدید</span> دارید.</div>
-@endsection
+@endsection --}}
 
 @section('head')
 <style>
@@ -51,7 +51,7 @@
         <div class="col-lg-8 col-md-10 col-12">
             <div class="stat-card mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="stat-title" style="font-size: 1.6rem">تنظیمات</div>
+                    <div class="stat-title" style="font-size: 1.6rem">{{ __('messages.settings') }}</div>
                 </div>
 
                 <form action="/admin/setting/name/add" method="POST">

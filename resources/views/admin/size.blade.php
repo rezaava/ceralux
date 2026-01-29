@@ -90,7 +90,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-12">
             <div class="stat-card mt-3">
-                <div class="stat-title" style="font-size: 1.6rem">افزودن سایز جدید</div>
+                <div class="stat-title" style="font-size: 1.6rem">{{__('messages.newSize')}}</div>
 
 
                 <form action="/admin/size/add" method="POST">
@@ -99,14 +99,14 @@
                     <div class="d-flex justify-content-center m-0 gap-3 form-row-responsive">
 
                         <div class="w-50">
-                            <input type="text" value="{{ old('size_name') }}" name="size_name" class="form-control" placeholder="سایز جدید">
+                            <input type="text" value="{{ old('size_name') }}" name="size_name" class="form-control" placeholder="{{ __('messages.addSize') }} ">
                             @error('size_name')
                             <small class="text-danger d-block">{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div class="w-50">
-                            <input type="text" value="{{ old('meli_name') }}" name="meli_name" class="form-control" placeholder="ضخامت">
+                            <input type="text" value="{{ old('meli_name') }}" name="meli_name" class="form-control" placeholder="{{ __('messages.meli') }}">
                             @error('meli_name')
                             <small class="text-danger d-block">{{ $message }}</small>
                             @enderror
@@ -116,16 +116,16 @@
 
 
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-success w-50 mt-3">ثبت </button>
+                        <button class="btn btn-success w-50 mt-3">{{ __('messages.submit') }} </button>
                     </div>
 
                 </form>
                 <div class="table-wrapper">
                     <table class="">
                         <tr>
-                            <th>ردیف </th>
-                            <th>سایز ها</th>
-                            <th>ضخامت ها</th>
+                            <th>{{ __('messages.row') }} </th>
+                            <th>{{ __('messages.addSize') }} </th>
+                            <th> {{ __('messages.meli') }}</th>
                         </tr>
                         @foreach($sizes as $key => $size)
                         <tr>

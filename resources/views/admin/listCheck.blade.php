@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-لیست چک ها
+{{ __('messages.cheque_list') }}
 @endsection
 
 @section('onvan')
-لیست چک ها
+{{ __('messages.cheque_list') }}
 @endsection
 
 {{-- @section('title-onvan')

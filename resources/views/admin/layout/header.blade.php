@@ -284,6 +284,7 @@
                     <span class="menu-label mx-2">{{__('messages.logout')}}</span>
                 </a>
             </li>
+            <li><p style="font-size: 0.6rem ; text-align: center ; color: var(--text-secondary)">{{__('messages.copyRight')}} <a href="https://mana-group.ir/" target="__blank">گروه مانا</a></p></li>
         </ul>
 </div>
 

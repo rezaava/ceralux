@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="footer-bottom text-center py-3" style="font-family: yekan;">
-            <p>{{ __('messages.footer_rights') }}</p>
+            <p>{{ __('messages.footer_rights') }} <a href="https://mana-group.ir/" target="__blank">گروه مانا</a></p>
         </div>
     </footer>
 

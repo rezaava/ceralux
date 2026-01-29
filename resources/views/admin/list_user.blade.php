@@ -1,16 +1,16 @@
 @extends('admin.layout.master')
 
 @section('title-site')
-لیست مشتریان
+{{__('messages.customer_list')}}
 @endsection
 
 @section('onvan')
-لیست مشتریان
+{{__('messages.customer_list')}}
 @endsection
 
-@section('title-onvan')
+{{-- @section('title-onvan')
 <div class="dashboard-desc">خوش آمدید! امروز <span style="color:var(--accent-green)">۵ اعلان جدید</span> دارید.</div>
-@endsection
+@endsection --}}
 
 @section('head')
 <style>
@@ -277,11 +277,11 @@
                     <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="numeric-column">ردیف</th>
-                                <th class="actions-column">نام و نام خانوادگی</th>
-                                <th class="actions-column">شماره موبایل</th>
-                                <th class="actions-column">آدرس</th>
-                                <th class="actions-column">عملیات</th>
+                                <th class="numeric-column">{{__('messages.row')}}</th>
+                                <th class="actions-column">{{__('messages.name_family')}}</th>
+                                <th class="actions-column">{{__('messages.phone')}}</th>
+                                <th class="actions-column">{{__('messages.address')}}</th>
+                                <th class="actions-column">{{__('messages.operation')}}</th>
                             </tr>
                         </thead>
                         <tbody>

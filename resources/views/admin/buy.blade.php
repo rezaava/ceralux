@@ -186,14 +186,14 @@
             <div class="stat-card mt-3">
 
                <div class="d-flex justify-content-between align-items-center">
-                  <div class="stat-title" style="font-size: 1.6rem">ثبت فاکتور خرید</div>
-                  <a target="_blank" href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >تعریف محصول جدید</span></a>
+                  <div class="stat-title" style="font-size: 1.6rem">{{__('messages.new_invocie')}}</div>
+                  <a target="_blank" href="/admin/product/add/{id}" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2" >{{__('messages.add_invocie_buy')}}</span></a>
                </div>
                @if(!$cart)
                <form action="/admin/crm/add/cart/buy" method="GET">
                   <div class="d-flex gap-3 form-row-responsive mt-3">
-                    <input type="text" value="{{ old('date_buy') }}" name="date_buy" class="form-control w-50" placeholder=" تاریخ فاکتور خرید">
-                    <input type="text" value="{{ old('code_buy') }}" name="code_buy" class="form-control w-50" placeholder="شماره فاکتور خرید">
+                    <input type="text" value="{{ old('date_buy') }}" name="date_buy" class="form-control w-50" placeholder="{{__('messages.date_invocie_buy')}}">
+                    <input type="text" value="{{ old('code_buy') }}" name="code_buy" class="form-control w-50" placeholder="{{__('messages.num_invocie_buy')}}">
                   </div>
                     @error('date_buy')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
@@ -201,7 +201,7 @@
                     @error('code_buy')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>
                     @enderror
-                   <div class="text-center mt-3"><button class="btn btn-success w-50">ثبت</button></div>
+                   <div class="text-center mt-3"><button class="btn btn-success w-50">{{__('messages.submit')}}</button></div>
                </form>
                @else
                   <div class="card p-3" style="border-radius: 0.4rem;border:none;color:lightblue;">

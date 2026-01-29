@@ -9,7 +9,7 @@
 @endsection
 
 @section('title-onvan')
-<div class="dashboard-desc">خوش آمدید! امروز <span style="color:var(--accent-green)">۵ اعلان جدید</span> دارید.</div>
+<div class="dashboard-desc"> {{__('messages.today')}}<span style="color:var(--accent-green)">۵ {{ __('messages.nof') }}  </span>{{__('messages.today2')}}</div>
 @endsection
 
 @section('main')

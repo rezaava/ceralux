@@ -1,11 +1,11 @@
 @extends('admin.layout.master')
 
 @section('title-site')
- صورتحساب ها
+{{__('messages.accounts')}}
 @endsection
 
 @section('onvan')
- صورتحساب ها
+{{__('messages.accounts')}}
 @endsection
 
 {{-- @section('title-onvan')

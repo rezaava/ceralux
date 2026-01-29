@@ -355,7 +355,7 @@
 
         <!-- Gallery -->
         <div class="d-flex justify-content-center">
-            <h1 class="p-3 mt-3 gallery_h">گالری تصاویر</h1>
+            <h1 class="p-3 mt-3 gallery_h">{{__('messages.gallery')}}</h1>
         </div>
         <div class="row gallery-container" data-aos="fade-up" style="--aos-index:2;">
             @foreach($imgs as $img)
@@ -372,7 +372,13 @@
         <div class="row justify-content-center">
             <div class="mb-5 mt-3 p-4 title-info" style="box-shadow: 1px 1px 5px;">
                 <div class="d-flex justify-content-between align-items-center">
+                    @if(app()->getLocale() == 'fa')
                     <p class="m-0 p-0" style="font-size: 1.6rem;">{{ $product->name }}</p>
+                    @elseif(app()->getLocale() == 'en')
+                    <p class="m-0 p-0" style="font-size: 1.6rem;">{{ $product->name_en }}</p>
+                    @elseif(app()->getLocale() == 'ar')
+                    <p class="m-0 p-0" style="font-size: 1.6rem;">{{ $product->name_ar }}</p>
+                    @endif
                     <div>
                         <p class="m-0 p-0" style="font-size: 0.7rem;"> {{__('messages.name_price')}} </p>
                         <p class="m-0 p-0" style="font-size: 1.3rem;">{{ number_format($product->price) }}</p>
@@ -392,10 +398,16 @@
                 <div class="row justify-content-center">
             <div class="mb-5 mt-3 p-4 title-info" style="box-shadow: 1px 1px 5px;">
                 <div class="d-flex justify-content-end align-items-center">
-                    <p class="m-0 p-0" style="font-size: 1.6rem;">: توضیحات</p>
+                    <p class="m-0 p-0" style="font-size: 1.6rem;">: {{ __('messages.desc') }}</p>
                 </div>
                 <div class="d-flex justify-content-center align-items-center mt-2">
+                    @if(app()->getLocale() == 'fa')
                     <p class="m-0 p-0" style="font-size: 1.1rem;">{{$product->desc}}</p>
+                    @elseif(app()->getLocale() == 'en')
+                    <p class="m-0 p-0" style="font-size: 1.1rem;">{{$product->desc_en}}</p>
+                    @elseif(app()->getLocale() == 'ar')
+                    <p class="m-0 p-0" style="font-size: 1.1rem;">{{$product->desc_ar}}</p>
+                    @endif
                 </div>
             </div>
         </div>

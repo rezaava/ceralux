@@ -304,20 +304,20 @@
                     <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="numeric-column">ردیف</th>
-                                <th class="hide-on-mobile">کد محصول</th>
-                                <th>نام طرح</th>
-                                <th class="hide-on-small">نام کارخانه</th>
+                                <th class="numeric-column">{{ __('messages.row') }}</th>
+                                <th class="hide-on-mobile">{{ __('messages.code_prod') }}</th>
+                                <th>{{ __('messages.name_prod') }}</th>
+                                <th class="hide-on-small">{{ __('messages.name_company') }}</th>
                                 {{-- <th class="numeric-column hide-on-medium">تعداد کارتن</th> --}}
-                                <th class="numeric-column hide-on-large">متراژ هر کارتن</th>
-                                <th class="numeric-column hide-on-medium">تعداد کارتن در پالت</th>
-                                <th class="numeric-column hide-on-large">ضخامت </th>
-                                <th class="numeric-column hide-on-large">تعداد برگ </th>
-                                <th class="numeric-column hide-on-large">قیمت خرید</th>
-                                <th class="numeric-column hide-on-large">قیمت فروش</th>
+                                <th class="numeric-column hide-on-large">{{ __('messages.meter_prod') }}</th>
+                                <th class="numeric-column hide-on-medium">{{ __('messages.count_prod') }}</th>
+                                <th class="numeric-column hide-on-large">{{ __('messages.meli') }}</th>
+                                <th class="numeric-column hide-on-large">{{ __('messages.paper_prod') }}</th>
+                                <th class="numeric-column hide-on-large">{{ __('messages.sale_prod') }}</th>
+                                <th class="numeric-column hide-on-large">{{ __('messages.buy_prod') }}</th>
                                 {{-- <th class="numeric-column hide-on-large">تعداد فیس</th> --}}
                                 {{-- <th class="hide-on-small">توضیحات</th> --}}
-                                <th class="actions-column">عملیات</th>
+                                <th class="actions-column">{{__('messages.operation')}}</th>
                             </tr>
                         </thead>
                         <tbody>

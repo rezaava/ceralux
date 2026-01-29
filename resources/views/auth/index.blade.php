@@ -285,8 +285,8 @@
     <div class="container d-flex justify-content-center align-items-center">
         <div class="glass-container">
             <div class="login-header">
-                <h1>ورود به پنل</h1>
-                <p>لطفا اطلاعات حساب خود را وارد کنید</p>
+                <h1>{{__('messages.loginToPanel')}}</h1>
+                <p>{{__('messages.pleaseAccount')}}</p>
             </div>
             
             <form id="loginForm" method="POST" action="">
@@ -295,7 +295,7 @@
                     <div class="input-container">
                         <i class="fas fa-user"></i>
                         <input type="text" class="form-control" id="username" name="username" placeholder="نام کاربری" required>
-                        <label for="username" class="form-label">نام کاربری</label>
+                        <label for="username" class="form-label">{{__('messages.user')}}</label>
                     </div>
                 </div>
                 
@@ -303,12 +303,12 @@
                     <div class="input-container">
                         <i class="fas fa-lock"></i>
                         <input type="password" class="form-control" id="password" name="password" placeholder="رمز عبور" required>
-                        <label for="password" class="form-label">رمز عبور</label>
+                        <label for="password" class="form-label">{{__('messages.pass')}}</label>
                     </div>
                 </div>
                 
                 <button type="submit" class="btn btn-login">
-                    <i class="fas fa-sign-in-alt me-2"></i> ورود به سیستم
+                    <i class="fas fa-sign-in-alt me-2"></i>{{__('messages.auth')}}
                 </button>
                 
                 <!-- <div class="additional-options">
@@ -322,7 +322,7 @@
             
             <div class="footer-text">
                 <!-- <p>حساب کاربری ندارید؟ <a href="#">ثبت‌نام کنید</a></p> -->
-                <p class="mt-2">© 2025 پنل مدیریت. تمامی حقوق محفوظ است.</p>
+                <p class="mt-2">{{__('messages.copyRight')}} <a href="https://mana-group.ir/" target="__blank">گروه مانا</a></p>
             </div>
         </div>
     </div>

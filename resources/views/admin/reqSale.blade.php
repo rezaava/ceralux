@@ -208,7 +208,7 @@
         <div class="col-lg-12 col-md-12 col-12">
             <div class="stat-card mt-3">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="stat-title" style="font-size: 1.6rem">ثبت فاکتور جدید فروش</div>
+                    <div class="stat-title" style="font-size: 1.6rem">{{__('messages.new_invocie_sale')}}</div>
                     {{-- <a href="" class="btn btn-success "><i class="fa-solid fa-plus"></i><span class="p-2">تعریف محصول جدید</span></a> --}}
                 </div>
                 @if(!$order)
@@ -216,7 +216,7 @@
                     @csrf
                     <div class="d-flex gap-3 form-row-responsive mt-3">
                         <select class="form-select select2-farsi w-50" dir="rtl" name="customer" id="customerSelect">
-                            <option value="" selected>مشتری را انتخاب کنید</option>
+                            <option value="" selected>{{__('messages.select_customer')}}</option>
                             @foreach($cuss as $cus)
                             <option value="{{ $cus->id }}">{{ $cus->name }}</option>
                             @endforeach
@@ -227,9 +227,9 @@
                     @enderror
                     <div class="d-flex gap-3 form-row-responsive mt-3">
                         {{-- <input type="text" name="num_cart"  class="form-control w-50 mb-3" placeholder="شماره تراکنش "> --}}
-                        <input type="text" name="phone" id="phone" class="form-control w-50 mb-3" placeholder="شماره موبایل " readonly>
+                        <input type="text" name="phone" id="phone" class="form-control w-50 mb-3" placeholder="{{__('messages.phone')}}" readonly>
                         {{-- <input type="text" name="" class="form-control w-50 mb-3" placeholder="تاریخ"> --}}
-                        <input type="text" id="address" name="address" class="form-control w-50 mb-3" placeholder="آدرس" readonly>
+                        <input type="text" id="address" name="address" class="form-control w-50 mb-3" placeholder="{{__('messages.address')}}" readonly>
                     </div>
 
                     <div class="d-flex gap-3 form-row-responsive">
@@ -237,14 +237,14 @@
                             <option value="" selected>اسم فروشنده</option>
                             <option value=""></option>
                         </select> --}}
-                        <input type="text" id="no_customer" name="no_customer" class="form-control w-100 mb-3" placeholder="نوع مشتری" readonly>
+                        <input type="text" id="no_customer" name="no_customer" class="form-control w-100 mb-3" placeholder="{{__('messages.no_customer')}}" readonly>
                         {{-- @if() --}}
-                        <input type="text" id="lpo" class="form-control" placeholder="شماره  LPO را وارد کنید" name="num_lpo">
+                        <input type="text" id="lpo" class="form-control" placeholder="{{__('messages.num_lpo_select')}}" name="num_lpo">
                     </div>
                     @error('num_lpo')
                     <small class="text-danger d-block mt-2">{{ $message }}</small>
                     @enderror
-                    <div class="text-center"><button class="btn btn-success w-50 mt-3">ثبت </button></div>
+                    <div class="text-center"><button class="btn btn-success w-50 mt-3">{{__('messages.submit')}} </button></div>
                 </form>
 
                 @else
