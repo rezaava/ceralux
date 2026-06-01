@@ -490,9 +490,9 @@
 @endsection
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-<script>
+<script src="https://lib.arvancloud.ir/jquery/3.6.0/jquery.min.js"></script>
+{{-- <script src="https://lib.arvancloud.ir/select2/4.1.0-rc.0/js/i18n/af.min.js"></script> --}}
+{{-- <script>
     $(document).ready(function() {
         // تنظیمات Select2 برای فارسی
         $('.select2-farsi').select2({
@@ -508,7 +508,7 @@
             }
         });
     });
-</script>
+</script> --}}
 
 <script>
     $('#customerSelect').on('change', function() {
@@ -584,8 +584,8 @@
 <script>
     Swal.fire({
         icon: "error",
-        title: "خطا LPO پیدا نشد",
-        text: '{{ session('error') }}',
+        title: "<span style='color: #fff;'>خطا LPO پیدا نشد  </span>",
+        html: '<span style="color: #fff;">{{ session('error') }}</span>',
         footer: '<a href="/admin/crm/lpo/add/{id}" target="_blank">ثبت LPO</a>',
         showCloseButton: true,
         confirmButtonText:"متوجه شدم",
@@ -603,8 +603,8 @@
 <script>
     Swal.fire({
         icon: "error",
-        title: "خطا LPO تکراری",
-        text: '{{ session('error2') }}',
+        title: "<span style='color: #fff;'>خطا LPO تکراری</span>",
+        html: '<span style="color: #fff;">{{ session('error2') }}</span>',
         showCloseButton: true,
         confirmButtonText:"متوجه شدم",
         background: '#232b39',

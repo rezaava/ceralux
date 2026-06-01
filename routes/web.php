@@ -113,7 +113,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/admin/setting/name/add',[CRMController::class,'settingPost']);
 
-    Route::get('/admin/crm/reqSale/{id}',[SaleController::class,'reqSale'])->name('reqSale'); 
+    Route::get('/admin/crm/reqSale/{id?}',[SaleController::class,'reqSale'])->name('reqSale'); 
     Route::post('/admin/crm/reqSale/add',[SaleController::class,'salePost']); 
     Route::post('/admin/crm/reqSale/product/add',[SaleController::class,'productAddPostCart']); 
     Route::post('/admin/crm/reqSale/rentOrOff/add',[SaleController::class,'productAddOffCart']); 
@@ -133,7 +133,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/crm/add/cart/buy',[BuyController::class,'buyAddToCart']);
     Route::post('/admin/crm/cart/final/buy',[BuyController::class,'finalCartBuy']);
 
-    Route::get('/admin/crm/lpo/add/{id}',[LpoController::class,'lpo'])->name('lpo');
+    Route::get('/admin/crm/lpo/add/{id?}',[LpoController::class,'lpo'])->name('lpo');
     Route::get('/get-product-info/lpo/{id}',[LpoController::class,'lpoAjax']);
     Route::get('/get-product-info/lpo/size/{sid}/{id}/{inputAll}',[LpoController::class,'lpoAjax2']);
     Route::post('/admin/crm/add/cart/lpo',[LpoController::class,'lpoAddCart']);

@@ -471,9 +471,9 @@
                     <a href="/admin/crm/reqProd/yes/add/{{ $cart->id }}" class="btn btn-success w-50">تایید</a>
                     <a href="/admin/crm/reqProd/no/add/{{ $cart->id }}" class="btn btn-danger w-50">رد</a>
                 </div>
-                <div class="text-center mt-3">
+                {{-- <div class="text-center mt-3">
                     <span class="btn btn-primary w-50" id="show_btn">ویرایش</span>
-                </div>
+                </div> --}}
                 @endif
 
                 <div>
@@ -486,8 +486,8 @@
 @endsection
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://lib.arvancloud.ir/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
 <script>

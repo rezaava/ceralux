@@ -3,9 +3,9 @@
 @section('title', __('messages.products'))
 
 @section('head')
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+<script src="https://lib.arvancloud.ir/aos/3.0.0-beta.6/aos.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="https://lib.arvancloud.ir/aos/3.0.0-beta.6/aos.css" rel="stylesheet">
+{{-- <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script> --}}
 <style>
     .product-card {
         height: 300px;

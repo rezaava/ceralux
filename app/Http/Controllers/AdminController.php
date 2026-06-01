@@ -140,8 +140,8 @@ class AdminController extends Controller
             'sizes.*' => 'exists:sizes,id',
         ];
 
-
-        $msg = [
+        if(app()->getLocale() == 'fa'){
+            $msg = [
 
             // title
             'title.required'    => 'نام طرح محصول الزامی است.',
@@ -190,6 +190,84 @@ class AdminController extends Controller
             'sizes.required' => 'حداقل یک سایز باید انتخاب شود.',
             'sizes.min' => 'حداقل یک سایز باید انتخاب شود.',
         ];
+        }elseif(app()->getLocale() == 'en'){
+            $msg = [
+
+    'title.required' => 'The product design name is required.',
+    'title.string'   => 'The product design name must be a string.',
+    'title.max'      => 'The product design name may not be greater than 255 characters.',
+
+    'price.numeric'  => 'The selling price must be a number.',
+    'price.required' => 'The selling price is required.',
+
+    'price_buy.numeric'  => 'The purchase price must be a number.',
+    'price_buy.required' => 'The purchase price is required.',
+
+    'count_box.numeric'  => 'The box count must be a number.',
+    'count_box.required' => 'The box count is required.',
+
+    'count_meli.numeric'  => 'The pallet count must be a number.',
+    'count_meli.required' => 'The pallet count is required.',
+
+    'code_prod.string'   => 'The product code must be a string.',
+    'code_prod.required' => 'The product code is required.',
+
+    'count_darageh.integer' => 'The grade must be a number.',
+    'count_darageh.required'=> 'The grade is required.',
+
+    'no_product.integer' => 'The product type must be a number.',
+    'no_product.required'=> 'The product type is required.',
+
+    'count_paper.integer' => 'The paper count must be a number.',
+    'count_paper.required'=> 'The paper count is required.',
+
+    'name_company.string'   => 'The company name must be a string.',
+    'name_company.required' => 'The company name is required.',
+
+    'sizes.required' => 'At least one size must be selected.',
+    'sizes.min'      => 'At least one size must be selected.',
+];
+
+        }elseif(app()->getLocale() == 'ar'){
+            $msg = [
+
+    'title.required' => 'اسم تصميم المنتج مطلوب.',
+    'title.string'   => 'اسم التصميم يجب أن يكون نصًا.',
+    'title.max'      => 'اسم التصميم يجب ألا يزيد عن 255 حرفًا.',
+
+    'price.numeric'  => 'سعر البيع يجب أن يكون رقمًا.',
+    'price.required' => 'سعر البيع مطلوب.',
+
+    'price_buy.numeric'  => 'سعر الشراء يجب أن يكون رقمًا.',
+    'price_buy.required' => 'سعر الشراء مطلوب.',
+
+    'count_box.numeric'  => 'العدد في الصندوق يجب أن يكون رقمًا.',
+    'count_box.required' => 'عدد الصناديق مطلوب.',
+
+    'count_meli.numeric'  => 'العدد في الطبالي يجب أن يكون رقمًا.',
+    'count_meli.required' => 'عدد الطبالي مطلوب.',
+
+    'code_prod.string'   => 'كود المنتج يجب أن يكون نصًا.',
+    'code_prod.required' => 'كود المنتج مطلوب.',
+
+    'count_darageh.integer' => 'الدرجة يجب أن تكون رقمًا.',
+    'count_darageh.required'=> 'الدرجة مطلوبة.',
+
+    'no_product.integer' => 'نوع المنتج يجب أن يكون رقمًا.',
+    'no_product.required'=> 'نوع المنتج مطلوب.',
+
+    'count_paper.integer' => 'عدد الأوراق يجب أن يكون رقمًا.',
+    'count_paper.required'=> 'عدد الأوراق مطلوب.',
+
+    'name_company.string'   => 'اسم الشركة يجب أن يكون نصًا.',
+    'name_company.required' => 'اسم الشركة مطلوب.',
+
+    'sizes.required' => 'يجب اختيار مقاس واحد على الأقل.',
+    'sizes.min'      => 'يجب اختيار مقاس واحد على الأقل.',
+];
+
+        }
+        
 
 
         $valid = Validator::make($data, $rule, $msg);
@@ -212,7 +290,7 @@ class AdminController extends Controller
         $prod->desc = $req->desc;
         $prod->price = $req->price;
         $prod->price_buy = $req->price_buy;
-        $prod->no_price = $req->no_price;
+        // $prod->no_price = $req->no_price;
         $prod->name_en = $req->titleEn;
         $prod->desc_en = $req->descEn;
         $prod->name_ar = $req->titleAr;
@@ -227,6 +305,10 @@ class AdminController extends Controller
         $prod->count_paper = $req->count_paper;
         $prod->name_company = $req->name_company;
         $prod->save();
+
+        if ($req->prod_id) {
+            size_product::where('product_id', $prod->id)->delete();
+        }
 
         foreach ($req->sizes as $sizeId) {
             $size = Size::where('id' , $sizeId)->first();

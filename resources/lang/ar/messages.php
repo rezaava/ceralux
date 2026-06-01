@@ -309,4 +309,29 @@ return [
     'select_customer' => 'اختر العميل.',
     'new_invocie_sale' => 'تسجيل فاتورة مبيعات جديدة',
     'num_lpo_select' => 'رقم LPO يدخل',
+
+    'new_image' => 'صورة جديدة',
+    'product_images' => 'صور المنتج',
+    'product_images_list' => 'قائمة صور المنتج',
+    'add_new_image' => 'إضافة صورة جديدة',
+    'delete' => 'حذف',
+    'save_image' => 'حفظ الصورة',
+    'click_to_select_image' => 'اضغط لاختيار صورة',
+
+    'product_type_1' => 'سيراميك أرضية جسم أبيض',
+    'product_type_2' => 'سيراميك أرضية جسم أحمر',
+    'product_type_3' => 'بلاط جدران جسم أبيض',
+    'product_type_4' => 'بلاط جدران جسم أحمر',
+    'product_type_5' => 'بورسلان أرضيات',
+    'product_type_6' => 'بورسلان سلاب',
+
+    'select_product_type' => 'يرجى اختيار نوع المنتج',
+
+    'delete_image_title' => 'حذف الصورة؟',
+    'delete_image_text' => 'لا يمكن التراجع عن هذا الإجراء',
+    'confirm_delete' => 'نعم، احذف',
+    'cancel' => 'لا',
+
+
+
 ];

@@ -52,7 +52,7 @@ class LpoController extends Controller
             }
         }
         // return $date;
-        $customers = Customer::get();
+        $customers = Customer::whereIn('no_customer' , [2,3])->get();
         return view('admin.lpo' , compact('customers' , 'lpo' , 'date' , 'prods' , 'lpo_prods' , 'priceAll' , 'meter' , 'box' , 'palet' , 'customer'));
     }
 

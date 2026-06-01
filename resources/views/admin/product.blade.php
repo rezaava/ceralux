@@ -180,13 +180,13 @@
                         <div class="w-50">
                             <label>{{__('messages.no_prod')}}</label>
                             <select name="no_product" class="form-select">
-                                <option value="" disabled selected>لطفا نوع محصول را انتخاب کنید</option>
-                                <option value="1" {{ old('no_product', $editProd->no_product ?? '') == 1 ? 'selected' : '' }}>سرامیک کف بدنه سفید</option>
-                                <option value="2" {{ old('no_product', $editProd->no_product ?? '') == 2 ? 'selected' : '' }}>سرامیک کف بدنه قرمز</option>
-                                <option value="3" {{ old('no_product', $editProd->no_product ?? '') == 3 ? 'selected' : '' }}>کاشی دیوار بدنه سفید</option>
-                                <option value="4" {{ old('no_product', $editProd->no_product ?? '') == 4 ? 'selected' : '' }}>کاشی دیوار بدنه قرمز</option>
-                                <option value="5" {{ old('no_product', $editProd->no_product ?? '') == 5 ? 'selected' : '' }}>پرسلان کف</option>
-                                <option value="6" {{ old('no_product', $editProd->no_product ?? '') == 6 ? 'selected' : '' }}>پرسلان اسلب</option>
+                                <option value="" disabled selected>{{__('messages.select_product_type')}}</option>
+                                <option value="1" {{ old('no_product', $editProd->no_product ?? '') == 1 ? 'selected' : '' }}>{{ __('messages.product_type_1') }}</option>
+                                <option value="2" {{ old('no_product', $editProd->no_product ?? '') == 2 ? 'selected' : '' }}>{{ __('messages.product_type_2') }}</option>
+                                <option value="3" {{ old('no_product', $editProd->no_product ?? '') == 3 ? 'selected' : '' }}>{{ __('messages.product_type_3') }}</option>
+                                <option value="4" {{ old('no_product', $editProd->no_product ?? '') == 4 ? 'selected' : '' }}>{{ __('messages.product_type_4') }}</option>
+                                <option value="5" {{ old('no_product', $editProd->no_product ?? '') == 5 ? 'selected' : '' }}>{{ __('messages.product_type_5') }}</option>
+                                <option value="6" {{ old('no_product', $editProd->no_product ?? '') == 6 ? 'selected' : '' }}>{{ __('messages.product_type_6') }}</option>
                             </select>
                             @error('no_product') <small class="text-danger d-block">{{ $message }}</small> @enderror
                         </div>

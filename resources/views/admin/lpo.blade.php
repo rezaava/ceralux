@@ -216,7 +216,7 @@
 @section('main')
 <div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-10 col-md-10 col-12">
+        <div class="col-lg-12 col-md-12 col-12">
             <div class="stat-card mt-3">
 
                <div class="d-flex justify-content-between align-items-center">
@@ -429,8 +429,9 @@
 @endsection
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script src="https://lib.arvancloud.ir/jquery/3.6.0/jquery.min.js"></script>
+{{-- <script src="https://lib.arvancloud.ir/select2/4.1.0-rc.0/js/i18n/af.min.js"></script> --}}
 <script>
     $(document).ready(function() {
         // تنظیمات Select2 برای فارسی

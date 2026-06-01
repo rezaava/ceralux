@@ -2,16 +2,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title> @yield('title-site')</title>
 <!-- Bootstrap 5 RTL CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+<link rel="stylesheet" href="{{ asset('boot/bootstrap.rtl.min.css') }}">
 
-<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link href="{{ asset('DataTables/datatables.min.css') }}" rel="stylesheet">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+<link href="https://lib.arvancloud.ir/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet">
 
 <!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://lib.arvancloud.ir/font-awesome/6.3.0/css/all.css">
 
-<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<link href="https://lib.arvancloud.ir/sweetalert2/9.17.4/sweetalert2.min.css" rel="stylesheet">
 <style>
 
     @font-face {
@@ -168,7 +168,7 @@
         gap: 16px;
         white-space: nowrap;
     }
-
+    
     .sidebar .nav-link:hover {
         background: var(--card-bg);
         color: var(--text-main);
@@ -184,7 +184,7 @@
 
     .sidebar .nav-link.active1{
         color: var(--accent-green);
-        list-style-type: d
+        list-style-type: disc
         
     }
 

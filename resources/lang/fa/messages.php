@@ -309,4 +309,28 @@ return [
     'select_customer' => 'مشتری را انتخاب کنید',
     'new_invocie_sale' => 'ثبت فاکتور جدید فروش',
     'num_lpo_select' => 'شماره lpo را وارد کنید',
+
+    'new_image' => 'عکس جدید',
+    'product_images' => 'عکس‌های محصول',
+    'product_images_list' => 'لیست عکس‌های محصول',
+    'add_new_image' => 'افزودن عکس جدید',
+    'delete' => 'حذف',
+    'save_image' => 'ثبت عکس',
+    'click_to_select_image' => 'برای انتخاب عکس کلیک کنید',
+
+    'product_type_1' => 'سرامیک کف بدنه سفید',
+    'product_type_2' => 'سرامیک کف بدنه قرمز',
+    'product_type_3' => 'کاشی دیوار بدنه سفید',
+    'product_type_4' => 'کاشی دیوار بدنه قرمز',
+    'product_type_5' => 'پرسلان کف',
+    'product_type_6' => 'پرسلان اسلب',
+
+    'select_product_type' => 'لطفا نوع محصول را انتخاب کنید',
+
+    'delete_image_title' => 'حذف عکس؟',
+    'delete_image_text' => 'این عملیات قابل بازگشت نیست',
+    'confirm_delete' => 'بله، حذف شود',
+    'cancel' => 'خیر',
+
+
 ];

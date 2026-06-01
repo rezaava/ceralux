@@ -55,10 +55,9 @@ class SaleController extends Controller
         $finalOff = 0;
         $subtotal = 0;
         $lpo_prods = null;
-
         if($id){
             $order = Carts::find($id);
-            if ($order) {
+             if ($order) {
                 $date = Verta::instance($order->created_at)->format('Y/m/d');
                 $user = Customer::where('id' , $order->user_id)->first();
                 $cart_prods = Cart_prod::where('card_id' , $order->id)->get();
@@ -99,14 +98,13 @@ class SaleController extends Controller
                         $lpo_prod['size'] = $size;
 
                     }
-                }else{
-                    //return 'salma';
-                    return redirect()->back()->with('error' , 'ابتدا LPO را ثبت کنید، سپس دوباره بازگردید.');
                 }
 
                 
                 
-            }
+            }else{
+                return redirect()->back()->with('error' , 'ابتدا LPO را ثبت کنید، سپس دوباره بازگردید.');
+            }  
             
         }
         $prods = Product::get();
@@ -162,27 +160,22 @@ class SaleController extends Controller
                     $finalOff = $subtotal * ($order->off / 100);        // محاسبه تخفیف از مجموع
                     $finalPrice = $subtotal - $finalOff;  
                 }   
-            }
+            }  
             
         }
+   
         $prods = Product::get();
         $cuss = Customer::get();
         return view('admin.reqSaleF' , compact('paper' , 'box_num' , 'lpo_prods' , 'five' , 'finalPrice' , 'prods' , 'cuss' , 'order' , 'user' , 'date' , 'cart_prods' , 'meter' , 'box' , 'palet' , 'priceAll'));
     }
 
-    
-
     public function salePost(Request $req){
-
-        if($req->num_lpo){
-            $carts = Carts::where('status' , 1)->whereNull('type')->where('num_lpo' , $req->num_lpo)->exists();
-
-        if($carts){
-            return redirect()->back()->with('error2' , 'شماره LPO تکرار میباشد و این شماره ثبت شده است.');
+        function generateVolunteerCode()
+        {
+            $number = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            return 'Kh' . $number;
         }
-        
-
-        $data = $req->all();
+                $data = $req->all();
 
         $rule = [
             'customer' => 'required',  
@@ -199,14 +192,17 @@ class SaleController extends Controller
         if ($valid->fails()) {
             return redirect()->back()->withErrors($valid)->withInput();
         }
+        $customer = Customer::where('id' , $req->customer)->first();
+        if($req->num_lpo){
 
+            $carts = Carts::whereIn('status' , [1,2,3])->whereNull('type')->where('num_lpo' , $req->num_lpo)->first();
 
-        function generateVolunteerCode()
-        {
-            $number = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
-            return 'Kh' . $number;
+        if($carts){
+            return redirect()->back()->with('error2' , 'شماره LPO تکرار میباشد و این شماره ثبت شده است.')->withInput();
         }
 
+       $olp_old=Lpo::where('num_lpo',$req->num_lpo)->first();
+       if($olp_old){
         $cart = new Carts();
 
         do {
@@ -220,7 +216,11 @@ class SaleController extends Controller
         $cart->save();
 
         return redirect()->route('reqSale', $cart->id);
-        }else{
+       }else{
+                    return redirect()->back()->with('error' , 'ابتدا LPO را ثبت کنید، سپس دوباره بازگردید.');
+
+       }
+        }elseif(!$req->num_lpo && $customer->no_customer == 1){
 
             $data = $req->all();
 
@@ -238,11 +238,11 @@ class SaleController extends Controller
                 return redirect()->back()->withErrors($valid)->withInput();
             }
 
-            function generateVolunteerCode()
-            {
-                $number = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
-                return 'Kh' . $number;
-            }
+            // function generateVolunteerCode()
+            // {
+            //     $number = str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            //     return 'Kh' . $number;
+            // }
 
             $cart = new Carts();
 
@@ -435,6 +435,6 @@ class SaleController extends Controller
         $order->count_boxs = $box;
         $order->count_palet = $palet;
         $order->save();
-        return redirect('/admin/crm/reqSale/{id}')->with('message' , 'فاکتور فروش با موفقیت برای مدیر ارسال شد!');
+        return redirect('/admin/crm/reqSale')->with('message' , 'فاکتور فروش با موفقیت برای مدیر ارسال شد!');
     }
 }

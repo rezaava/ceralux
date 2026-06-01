@@ -20,7 +20,7 @@ class ProductController extends Controller
 
         $prods =  Product::whereIn('id', $size_prods)->get();
         foreach($prods as $prod){
-            $img = Product_Image::where('product_id' , $prod->id)->where('type' , 1)->first();
+            $img = Product_Image::where('product_id' , $prod->id)->first();
             $prod['img'] = $img;
         }
 
@@ -66,13 +66,13 @@ class ProductController extends Controller
 
         $sizes = Size::get();
 
-        $imgs = Product_Image::where('product_id', $id)->whereBetween('type', [4, 9])->get();
+        $imgs = Product_Image::where('product_id', $id)->get();
         $imgLeft = Product_Image::where('product_id', $id)->where('type' , 3)->first();
         $imgRight = Product_Image::where('product_id', $id)->where('type' , 2)->first();
         $size = Size::where('id', $size_id)->first();
         
         $product = Product::findOrFail($id); // اگر محصول پیدا نشد 404 می‌دهد
-        return view('products.info', compact('product', 'size_prods', 'imgs', 'size', 'sizes' , 'imgLeft' , 'imgRight'));
+        return view('products.info', compact('product', 'size_prods', 'imgs', 'size', 'sizes'));
     }
 
     public function showImg($id)

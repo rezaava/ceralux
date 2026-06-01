@@ -28,7 +28,7 @@
                         </ul>
                     </div>
 
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="user-avatar" alt="User">
+                    <img  class="user-avatar" alt="User">
                     @if(Auth::user())
                         @if(Auth::user()->dispaly_name)
                             <div class="d-flex justify-content-center align-items-center flex-column">
@@ -55,9 +55,9 @@
         </div>
 
     <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('boot/bootstrap.bundle.min.js') }}"></script>
     {{-- cdn sweet alert 2 --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://lib.arvancloud.ir/sweetalert2/9.17.4/sweetalert2.all.min.js"></script>
     <!-- Custom JS -->
     @yield('script')
     <script>

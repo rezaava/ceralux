@@ -27,11 +27,11 @@
     </footer>
 
     {{-- همه اسکریپت‌ها سر جای خودشون --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="{{ asset('boot/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://lib.arvancloud.ir/vanilla-tilt/1.8.0/vanilla-tilt.babel.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://unpkg.com/headroom.js@0.12.0/dist/headroom.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script> --}}
     <script>
         const navbar = document.querySelector('.navbar');
         const headroom = new Headroom(navbar);

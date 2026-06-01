@@ -5,7 +5,15 @@
 @endsection
 
 @section('onvan')
-لیست عکس های محصول {{ $prod->name }}
+ {{ __('messages.product_images_list') }}   
+    @if(app()->getLocale() == 'fa')
+        {{ $prod->name }}
+    @elseif(app()->getLocale() == 'en')
+        {{ $prod->name_en ? $prod->name_en : 'Not available in English' }}
+    @elseif(app()->getLocale() == 'ar')
+        {{ $prod->name_ar ? $prod->name_ar : 'غير متوفر باللغة العربية' }}
+    @endif
+
 @endsection
 
 @section('head')
@@ -25,11 +33,11 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="stat-title" style="font-size:1.4rem">
-                        عکس های محصول
+                          {{ __('messages.product_images') }}
                     </div>
                     <button class="btn btn-success" id="img_post">
                         <i class="fa-solid fa-plus"></i>
-                        <span class="p-1">عکس جدید</span>
+                        <span class="p-1">{{ __('messages.new_image') }}</span>
                     </button>
                 </div>
 
@@ -45,7 +53,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fa-solid fa-trash"></i> حذف
+                                            <i class="fa-solid fa-trash"></i> {{ __('messages.delete') }}
                                         </button>
                                     </form>
                                 </div>
@@ -97,7 +105,7 @@
             cursor:pointer;
         ">×</button>
 
-        <h4 class="text-center mb-3 text-white">افزودن عکس جدید</h4>
+        <h4 class="text-center mb-3 text-white">{{__('messages.add_new_image')}}</h4>
 
         <!-- upload area -->
         <div id="uploadArea" style="
@@ -109,7 +117,7 @@
             color:white;
         ">
             <div style="font-size:40px">📁</div>
-            <div class="mt-2">برای انتخاب عکس کلیک کنید</div>
+            <div class="mt-2"> {{__('messages.click_to_select_image')}}   </div>
         </div>
 
         <!-- preview -->
@@ -136,7 +144,7 @@
                    hidden>
 
             <button class="btn btn-success w-100 mt-3">
-                ثبت عکس
+                 {{ __('messages.save_image') }}
             </button>
         </form>
 
@@ -191,19 +199,21 @@
             e.preventDefault();
 
             Swal.fire({
-                title: 'حذف عکس؟',
-                text: 'این عملیات قابل بازگشت نیست',
-                icon: 'warning',
-                background: '#181f2a',
-                color: '#fff',
-                showCancelButton: true,
-                confirmButtonColor: '#BF092F',
-                cancelButtonColor: '#4E56C0',
-                confirmButtonText: 'بله حذف شود',
-                cancelButtonText: 'خیر'
-            }).then(result => {
-                if (result.isConfirmed) form.submit();
-            });
+    title: "{{ __('messages.delete_image_title') }}",
+    text: "{{ __('messages.delete_image_text') }}",
+    icon: 'warning',
+    background: '#181f2a',
+    color: '#fff',
+    showCancelButton: true,
+    confirmButtonColor: '#BF092F',
+    cancelButtonColor: '#4E56C0',
+    confirmButtonText: "{{ __('messages.confirm_delete') }}",
+    cancelButtonText: "{{ __('messages.cancel') }}"
+}).then((result) => {
+    if (result.isConfirmed) {
+        form.submit();
+    }
+});
         });
     });
 </script>

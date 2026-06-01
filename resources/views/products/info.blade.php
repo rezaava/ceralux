@@ -312,19 +312,19 @@
             <h1 class="text-center mb-5 title-header"> {{$product->name_en}}</h1>
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="overlay-container clickable-img gallery-item mb-4 slide-in-right">
-                    @if($imgLeft == null)
+                    @if(!isset($imgs[0]))
                     <img src="{{ asset('images/imgNot.jpg') }}" alt="">
                     @else
-                    <img src="{{ asset($imgLeft->img_url) }}" alt="">
+                    <img src="{{ asset($imgs[0]->img_url) }}" alt="">
                     @endif
                 </div>
             </div>
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="overlay-container clickable-img gallery-item mb-4 slide-in-left">
-                    @if($imgRight == null)
+                    @if(!isset($imgs[1]))
                         <img src="{{ asset('images/imgNot.jpg') }}" alt="">
                     @else
-                    <img src="{{ asset($imgRight->img_url) }}" alt="">
+                        <img src="{{ asset($imgs[1]->img_url) }}" alt="">
                     @endif
                 </div>
             </div>

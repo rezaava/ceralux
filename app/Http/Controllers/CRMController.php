@@ -142,15 +142,14 @@ class CRMController extends Controller
     }
 
     public function request(){
+        $meter = 0;
+        $box = 0;
+        $paper = 0;
+        $priceAll = 0;
 
         $carts = Carts::where(function ($q) {$q->whereNull('type')->orWhere('type', 'sale2');})->where('status', '>', 0)->orderBy('id' , 'desc')->get();
 
         foreach($carts as $cart){
-            
-            $meter = 0;
-            $box = 0;
-            $paper = 0;
-            $priceAll = 0;
 
             $date = Verta::instance($cart->created_at)->format('Y/m/d');
             $user = User::where('id' , $cart->admin_id)->first();

@@ -309,4 +309,30 @@ return [
     'new_invocie_sale' => 'Register a new sales invoice',
     'num_lpo_select' => 'Enter the LPO number.',
 
+    'new_image' => 'New Image',
+    'product_images' => 'Product Images',
+    'product_images_list' => 'Product Images List',
+    'add_new_image' => 'Add New Image',
+    'delete' => 'Delete',
+    'save_image' => 'Save Image',
+    'click_to_select_image' => 'Click to select an image',
+
+    'product_type_1' => 'White Body Floor Ceramic',
+    'product_type_2' => 'Red Body Floor Ceramic',
+    'product_type_3' => 'White Body Wall Tile',
+    'product_type_4' => 'Red Body Wall Tile',
+    'product_type_5' => 'Porcelain Floor',
+    'product_type_6' => 'Porcelain Slab',
+
+    'select_product_type' => 'Please select product type',
+
+
+    'delete_image_title' => 'Delete image?',
+    'delete_image_text' => 'This action cannot be undone',
+    'confirm_delete' => 'Yes, delete it',
+    'cancel' => 'No',
+
+
+
+
 ];

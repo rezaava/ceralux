@@ -115,7 +115,7 @@
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('catalog') ? 'active' : '' }}" href="/admin/catalog">
                     <i class="fas fa-file-alt"></i>
-                    <span class="menu-label">{{__('messages.catalogs')}}</span>
+                    <span class="menu-label">{{__('messages.catalogs')}} <span style="font-size: 0.7rem;">(بزودی)</span></span>
                 </a>
             </li>
             @endif
@@ -148,12 +148,12 @@
 
                         <li class="nav-item {{ request()->routeIs('lpo') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('lpo') ? 'active1' : '' }}"
-                                href="/admin/crm/lpo/add/{id}" id="show-list">{{__('messages.lpo')}}</a>
+                                href="/admin/crm/lpo/add" id="show-list">{{__('messages.lpo')}}</a>
                         </li>
 
                         <li class="nav-item {{ request()->routeIs('reqSale') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('reqSale') ? 'active1' : '' }}"
-                                href="/admin/crm/reqSale/{id}" id="add-list">{{__('messages.sales_invoice')}}</a>
+                                href="/admin/crm/reqSale" id="add-list">{{__('messages.sales_invoice')}}</a>
                         </li>
 
                         {{-- <li class="nav-item {{ request()->routeIs('reqSalef') ? 'activeLi' : '' }}">
@@ -163,7 +163,7 @@
 
                         <li class="nav-item {{ request()->routeIs('reqProd') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('reqProd') ? 'active1' : '' }}"
-                                href="/admin/crm/reqProd" id="show-list">{{__('messages.req_prod')}}</a>
+                                href="/admin/crm/reqProd" id="show-list">{{__('messages.req_prod')}} <span style="font-size: 0.5rem;">(بزودی)</span></a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('addProd') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('addProd') ? 'active1' : '' }}"
@@ -176,17 +176,17 @@
 
                         <li class="nav-item {{ request()->routeIs('leave') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('leave') ? 'active1' : '' }}"
-                                href="/admin/req/leave" id="show-list">{{__('messages.stock_out')}}</a>
+                                href="/admin/req/leave" id="show-list">{{__('messages.stock_out')}} <span style="font-size: 0.5rem;">(بزودی)</span></a>
                         </li>
 
                         <li class="nav-item {{ request()->routeIs('sample') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('sample') ? 'active1' : '' }}"
-                                href="/admin/req/sample" id="show-list">{{__('messages.sample_request')}}</a>
+                                href="/admin/req/sample" id="show-list">{{__('messages.sample_request')}} <span style="font-size: 0.5rem;">(بزودی)</span></a>
                         </li>
 
                         <li class="nav-item {{ request()->routeIs('break') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('break') ? 'active1' : '' }}"
-                                href="/admin/req/break" id="show-list">{{__('messages.breakage')}} </a>
+                                href="/admin/req/break" id="show-list">{{__('messages.breakage')}} <span style="font-size: 0.5rem;">(بزودی)</span></a>
                         </li>
 
 
@@ -220,15 +220,15 @@
                         </li>
                         <li class="nav-item {{ request()->routeIs('received') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('received') ? 'active1' : '' }}"
-                                href="/admin/financial/received" id="show-list">{{__('messages.receipts')}}</a>
+                                href="/admin/financial/received" id="show-list">{{__('messages.receipts')}} <span style="font-size: 0.7rem;">(بزودی)</span></a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('pay') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('pay') ? 'active1' : '' }}"
-                                href="/admin/financial/pay" id="show-list">{{__('messages.payments')}}</a>
+                                href="/admin/financial/pay" id="show-list">{{__('messages.payments')}} <span style="font-size: 0.7rem;">(بزودی)</span></a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('listPay') ? 'activeLi' : '' }}">
                             <a class="nav-link {{ request()->routeIs('listPay') ? 'active1' : '' }}"
-                                href="/admin/financial/list" id="show-list">{{__('messages.accounts')}}</a>
+                                href="/admin/financial/list" id="show-list">{{__('messages.accounts')}} <span style="font-size: 0.7rem;">(بزودی)</span></a>
                         </li>
                     </ul>
                 </div>
